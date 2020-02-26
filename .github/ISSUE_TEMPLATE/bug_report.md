@@ -30,6 +30,4 @@ assignees: ''
 
 **CJM Version (using`/cjm version`):** 
 
-**Server Type (Spigot/Paperspigot/etc):** 
-
-**Server Version (using `/ver`):**
+**Server Version (using `/cjm version`):**
