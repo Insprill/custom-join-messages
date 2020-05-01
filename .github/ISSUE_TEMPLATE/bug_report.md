@@ -28,6 +28,4 @@ assignees: ''
 
 ---
 
-**CJM Version (using`/cjm version`):** 
-
-**Server Version (using `/cjm version`):**
+**Output of "/cjm version" (yes, everything)** 
