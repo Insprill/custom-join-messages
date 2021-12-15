@@ -1,0 +1,38 @@
+# Toggles whether action bar messages should be sent.
+Enabled: false
+
+Public:
+  First-Join:
+    1:
+      Permission: cjm.default
+      Radius: -1
+      Max-Players: -1
+      Messages:
+        1:
+          Message: "&a%name% &7has joined the server for the first time!"
+  Join:
+    1:
+      Permission: cjm.default
+      Messages:
+        1:
+          Message: "&a%name% &7has joined!"
+  Quit:
+    1:
+      Permission: cjm.default
+      Messages:
+        1:
+          Message: "&a%name% &7has left!"
+
+Private:
+  First-Join:
+    1:
+      Permission: cjm.default
+      Messages:
+        1:
+          Message: "&7Welcome to our server!"
+  Join:
+    1:
+      Permission: cjm.default
+      Messages:
+        1:
+          Message: "&7Welcome back!"

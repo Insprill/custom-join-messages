@@ -1,0 +1,58 @@
+# Toggles whether titles should be sent.
+Enabled: false
+
+Public:
+  First-Join:
+    1:
+      Permission: cjm.default
+      Radius: -1
+      Max-Players: -1
+      Messages:
+        1:
+         Title: "&a%name% &7has joined the server for the first time!"
+         SubTitle: ""
+         Fade-In: 10
+         Stay: 80
+         Fade-Out: 10
+  Join:
+    1:
+      Permission: cjm.default
+      Messages:
+        1:
+          Title: "&a%name% &7has joined the server!"
+          SubTitle: ""
+          Fade-In: 10
+          Stay: 80
+          Fade-Out: 10
+  Quit:
+    1:
+      Permission: cjm.default
+      Messages:
+        1:
+          Title: "&a%name% &7has left!"
+          SubTitle: ""
+          Fade-In: 10
+          Stay: 80
+          Fade-Out: 10
+
+Private:
+  First-Join:
+    1:
+      Permission: cjm.default
+      Messages:
+        1:
+          Title: "&7Welcome!"
+          SubTitle: ""
+          Fade-In: 10
+          Stay: 80
+          Fade-Out: 10
+  Join:
+    1:
+      Permission: cjm.default
+      Messages:
+        1:
+          Title: "&7Welcome back!"
+          SubTitle: ""
+          Fade-In: 10
+          Stay: 80
+          Fade-Out: 10

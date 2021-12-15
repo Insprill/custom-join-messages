@@ -1,0 +1,5 @@
+* text=auto eol=lf
+# Force Batch files to CRLF
+*.bat eol=crlf -text
+
+*.java          text diff=java

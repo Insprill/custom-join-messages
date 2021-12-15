@@ -1,0 +1,43 @@
+##########################################
+#                                        #
+#          Custom Join Messages          #
+#              by Insprill               #
+#                                        #
+##########################################
+#
+language: en-us
+#
+# Settings for hooks into other plugins. These settings only apply after a restart.
+Addons:
+  # Settings for AuthMe (https://www.spigotmc.org/resources/6269/).
+  AuthMe:
+    # Whether we should use AuthMe's login event to send join messages over
+    # the regular Join event. Enable this to only send join message
+    # once a player successfully logs in.
+    Use-Login-Event: true
+
+
+  # Settings for Vanish plugin hooks.
+  Vanish:
+    # Settings for sending custom vanish/ unvanish messages. If you enable
+    # this, disable fake messages in Super/PremiumVanishes config.
+    Fake-Messages:
+      # Whether we should use our own messages.
+      Enabled: true
+      # Whether we should send a quit message when a player vanishes.
+      Vanish: true
+      # Whether we should send a join message when a player unvanishes.
+      Unvanish: true
+
+  # Settings for Jail plugins
+  Jail:
+    # If false, no messages will be sent for players who are in Jail.
+    Send-Messages-For-Jailed-Players: false
+
+# If true, messages will be sent when players change worlds instead
+# of only when they join the server. This also only sends messages to players who are in the same world.
+# The Overworld, Nether, and End all count as the same world.
+World-Based: false
+
+# DO NOT TOUCH!!!
+version: "3.0.0"

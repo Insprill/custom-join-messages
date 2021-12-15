@@ -1,0 +1,39 @@
+*.iml
+*.ipr
+*.iws
+
+# IntelliJ
+.idea/
+out/
+target/
+run/
+
+# Gradle
+build/
+.gradle
+
+# Eclipse
+.classpath
+.project
+.settings
+eclipse
+
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# VM crash logs
+hs_err_pid*
+
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Local test server
+server/

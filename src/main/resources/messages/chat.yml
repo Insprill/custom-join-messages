@@ -1,0 +1,38 @@
+# Toggles whether chat messages should be sent.
+Enabled: true
+
+Public:
+  First-Join:
+    1:
+      Permission: cjm.default
+      Radius: -1
+      Max-Players: -1
+      Messages:
+        1:
+          - '{"text":"&a%name% &7has joined the server for the first time!","clickEvent":{"action":"open_url","value":"https://namemc.com/profile/%name%"},"hoverEvent":{"action":"show_text","value":"&8(&a#%uniquejoins%&8)"}}'
+  Join:
+    1:
+      Permission: cjm.default
+      Messages:
+        1:
+          - "&a%name% &7has joined!"
+  Quit:
+    1:
+      Permission: cjm.default
+      Messages:
+        1:
+          - "&a%name% &7has left!"
+
+Private:
+  First-Join:
+    1:
+      Permission: cjm.default
+      Messages:
+        1:
+          - "&7Welcome to our server!"
+  Join:
+    1:
+      Permission: cjm.default
+      Messages:
+        1:
+          - "&7Welcome back!"

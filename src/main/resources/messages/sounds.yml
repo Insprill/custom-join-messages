@@ -1,0 +1,33 @@
+# Toggles whether sounds should be played.
+Enabled: false
+
+Public:
+  First-Join:
+    1:
+      Permission: cjm.default
+      Radius: -1
+      Max-Players: -1
+      Volume: 10.0
+      Pitch: 1.0
+      Global: true
+      Sounds:
+        1:
+          Sound: "ENTITY_PLAYER_LEVELUP"
+  Join:
+    1:
+      Permission: cjm.default
+      Volume: 10.0
+      Pitch: 1.0
+      Global: true
+      Sounds:
+        1:
+          Sound: "ENTITY_EXPERIENCE_ORB_PICKUP"
+  Quit:
+    1:
+      Permission: cjm.default
+      Volume: 10.0
+      Pitch: 1.0
+      Global: true
+      Sounds:
+        1:
+          Sound: "ENTITY_GENERIC_SMALL_FALL"

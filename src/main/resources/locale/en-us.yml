@@ -1,0 +1,16 @@
+prefix: "&8[&2Custom Join Messages&8]"
+commands:
+  unknown-command: "%p% &cUnknown command! Type \"/%label% help\" for help."
+  player-only: "%p% &cThat command can only be used by a player!"
+  no-permission: "%p% &cYou don't have permission to do that!"
+  invalid-usage: "%p% &cInvalid usage! Please refer to \"/cjm help\" for help."
+  preview:
+    invalid-player: "%p% &4%player% &cis not online!"
+    invalid-message-type: "%p% &4%type% &cis not a valid message type!"
+    invalid-visibility: "%p% &4%visibility% &cis not a valid visibility!"
+    invalid-action: "%p% &4%action% &cis not a valid action!"
+    invalid-message: "%p% &cA message with ID &4%id% &cdoesn't exist!"
+  reload: "%p% &aPlugin reloaded."
+  plinfo:
+    success: "%p% &a%link%"
+    fail: "%p% &cFailed to create paste! Error: %error%"
