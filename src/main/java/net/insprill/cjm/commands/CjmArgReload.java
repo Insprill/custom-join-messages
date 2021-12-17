@@ -34,6 +34,7 @@ public class CjmArgReload implements ICommandArgument {
         YamlFile.CONFIG.reload();
         WorldChangeEvent.getWorldLogConfig().reload();
         MessageSender.getInstance().getMessageTypes().values().forEach(m -> m.getConfig().reload());
+        MessageSender.getInstance().InitPermissions();
         Lang.send(sender, "commands.reload");
     }
 

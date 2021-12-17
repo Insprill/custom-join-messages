@@ -8,12 +8,15 @@ import net.insprill.cjm.handlers.VanishHandler;
 import net.insprill.cjm.messages.types.MessageType;
 import net.insprill.xenlib.XenLib;
 import net.insprill.xenlib.XenMath;
+import net.insprill.xenlib.XenUtils;
 import net.insprill.xenlib.files.YamlFile;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.bukkit.permissions.PermissionDefault;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -56,6 +59,34 @@ public class MessageSender implements Listener {
                     .forEach(message -> messageTypes.put(((MessageType) message).getName(), (MessageType) message));
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+        InitPermissions();
+    }
+
+    private final List<String> permissions = new ArrayList<>();
+
+    /**
+     * Registers all message permissions.
+     */
+    public void InitPermissions() {
+        for (String permission : permissions) {
+            Bukkit.getPluginManager().removePermission(permission);
+        }
+        permissions.clear();
+        for (MessageType msg : messageTypes.values()) {
+            if (!msg.getConfig().getBoolean("Enabled"))
+                continue;
+            for (MessageAction action : MessageAction.values()) {
+                for (MessageVisibility visibility : MessageVisibility.values()) {
+                    String path = visibility.getConfigSection() + "." + action.getConfigSection();
+                    for (String key : msg.getConfig().getKeys(path)) {
+                        String permission = msg.getConfig().getString(path + "." + key + ".Permission");
+                        permissions.add(permission);
+                        XenUtils.registerPermission(permission, PermissionDefault.FALSE);
+                    }
+                }
+            }
         }
     }
 
