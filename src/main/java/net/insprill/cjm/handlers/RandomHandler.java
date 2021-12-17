@@ -1,6 +1,7 @@
 package net.insprill.cjm.handlers;
 
 import lombok.Getter;
+import net.insprill.cjm.CJM;
 import net.insprill.xenlib.files.YamlFile;
 
 import java.util.Random;
@@ -18,6 +19,10 @@ public class RandomHandler {
      * @return A random config key under the parent key provided.
      */
     public static String getRandomKey(YamlFile config, String path) {
+        if (config.getConfigSection(path) == null) {
+            CJM.getInstance().getLogger().severe("\"" + path + "\" in messages/" + config.getFile().getName() + " has no keys. Perhaps the messages indentation is wrong?");
+            return null;
+        }
         int amount = config.getConfigSection(path).getKeys(false).size();
         int selectedMessage = RandomHandler.getRandom().nextInt(amount) + 1;
         return path + "." + selectedMessage;

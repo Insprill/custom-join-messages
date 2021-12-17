@@ -107,6 +107,8 @@ public class MessageSender implements Listener {
                 }
 
                 String randomKey = RandomHandler.getRandomKey(msg.getConfig(), messagePath + "." + msg.getKey());
+                if (randomKey == null)
+                    continue;
 
                 msg.handle(player, players, path, randomKey);
             }
