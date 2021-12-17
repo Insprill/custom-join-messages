@@ -79,6 +79,9 @@ public class MessageSender implements Listener {
                 continue;
 
             for (MessageType msg : messageTypes.values()) {
+                if (!msg.getConfig().getBoolean("Enabled"))
+                    continue;
+
                 String path = visibility.getConfigSection() + "." + action.getConfigSection();
 
                 // Get the highest priority message the player has access to.
