@@ -1,6 +1,7 @@
 package net.insprill.cjm.messages.types;
 
 import net.insprill.cjm.CJM;
+import net.insprill.cjm.messages.MessageVisibility;
 import net.insprill.xenlib.XenUtils;
 import net.insprill.xenlib.files.YamlFile;
 import org.bukkit.Sound;
@@ -29,7 +30,7 @@ public class SoundMessage implements MessageType {
     }
 
     @Override
-    public void handle(Player primaryPlayer, List<Player> players, String rootPath, String chosenPath) {
+    public void handle(Player primaryPlayer, List<Player> players, String rootPath, String chosenPath, MessageVisibility visibility) {
         boolean global = config.getBoolean(rootPath + ".Global");
 
         String soundString = config.getString(chosenPath + ".Sound");

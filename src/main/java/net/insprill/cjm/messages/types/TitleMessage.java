@@ -1,5 +1,6 @@
 package net.insprill.cjm.messages.types;
 
+import net.insprill.cjm.messages.MessageVisibility;
 import net.insprill.cjm.utils.ChatUtils;
 import net.insprill.xenlib.MinecraftVersion;
 import net.insprill.xenlib.files.YamlFile;
@@ -28,7 +29,7 @@ public class TitleMessage implements MessageType {
     }
 
     @Override
-    public void handle(Player primaryPlayer, List<Player> players, String rootPath, String chosenPath) {
+    public void handle(Player primaryPlayer, List<Player> players, String rootPath, String chosenPath, MessageVisibility visibility) {
         String title = config.getString(chosenPath + ".Title");
         String subTitle = config.getString(chosenPath + ".SubTitle");
         int fadeIn = config.getInt(chosenPath + ".Fade-In");

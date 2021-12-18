@@ -1,5 +1,6 @@
 package net.insprill.cjm.messages.types;
 
+import net.insprill.cjm.messages.MessageVisibility;
 import net.insprill.xenlib.files.YamlFile;
 import org.bukkit.entity.Player;
 
@@ -29,7 +30,8 @@ public interface MessageType {
      * @param players       Everyone who should receive the message.
      * @param rootPath      Root path of the chosen message.
      * @param chosenPath    Full path to the chosen message.
+     * @param visibility    The visibility of the message.
      */
-    void handle(Player primaryPlayer, List<Player> players, String rootPath, String chosenPath);
+    void handle(Player primaryPlayer, List<Player> players, String rootPath, String chosenPath, MessageVisibility visibility);
 
 }

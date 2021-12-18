@@ -144,7 +144,7 @@ public class MessageSender implements Listener {
                 if (randomKey == null)
                     continue;
 
-                msg.handle(player, players, path, randomKey);
+                msg.handle(player, players, path, randomKey, visibility);
             }
         }
     }

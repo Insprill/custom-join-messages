@@ -1,5 +1,6 @@
 package net.insprill.cjm.messages.types;
 
+import net.insprill.cjm.messages.MessageVisibility;
 import net.insprill.cjm.utils.CenteredMessages;
 import net.insprill.cjm.utils.ChatUtils;
 import net.insprill.xenlib.files.YamlFile;
@@ -29,7 +30,7 @@ public class ChatMessage implements MessageType {
     }
 
     @Override
-    public void handle(Player primaryPlayer, List<Player> players, String rootPath, String chosenPath) {
+    public void handle(Player primaryPlayer, List<Player> players, String rootPath, String chosenPath, MessageVisibility visibility) {
         List<String> messages = config.getStringList(chosenPath);
         messages = ChatUtils.setPlaceholders(primaryPlayer, messages);
         messages = CenteredMessages.centerMessages(messages);
@@ -39,6 +40,9 @@ public class ChatMessage implements MessageType {
                     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "minecraft:tellraw " + player.getName() + " " + msg);
                 } else {
                     player.sendMessage(msg);
+                    if (visibility == MessageVisibility.PUBLIC) {
+                        Bukkit.getConsoleSender().sendMessage(msg);
+                    }
                 }
             }
         }

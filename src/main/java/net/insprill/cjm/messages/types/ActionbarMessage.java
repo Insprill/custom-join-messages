@@ -1,5 +1,6 @@
 package net.insprill.cjm.messages.types;
 
+import net.insprill.cjm.messages.MessageVisibility;
 import net.insprill.cjm.utils.ChatUtils;
 import net.insprill.xenlib.MinecraftVersion;
 import net.insprill.xenlib.files.YamlFile;
@@ -9,7 +10,6 @@ import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
@@ -65,7 +65,7 @@ public class ActionbarMessage implements MessageType {
     }
 
     @Override
-    public void handle(Player primaryPlayer, List<Player> players, String rootPath, String chosenPath) {
+    public void handle(Player primaryPlayer, List<Player> players, String rootPath, String chosenPath, MessageVisibility visibility) {
         String msg = config.getString(chosenPath + ".Message");
         msg = ChatUtils.setPlaceholders(primaryPlayer, msg);
         for (Player p : players) {
