@@ -1,5 +1,6 @@
 package net.insprill.cjm;
 
+import lombok.Getter;
 import net.insprill.cjm.hooks.AuthMeHook;
 import net.insprill.cjm.hooks.CMIHook;
 import net.insprill.cjm.hooks.SuperVanishHook;
@@ -21,16 +22,17 @@ public final class CJM extends JavaPlugin {
 
     private static final int BSTATS_PLUGIN_ID = 6346;
 
+    @Getter
     private static CJM instance;
-    public static CJM getInstance() {
-        return instance;
-    }
+
+    @Getter
+    Metrics metrics;
 
     @Override
     public void onEnable() {
         instance = this;
 
-        Metrics metrics = new Metrics(this, BSTATS_PLUGIN_ID);
+        metrics = new Metrics(this, BSTATS_PLUGIN_ID);
         metrics.addCustomChart(new SimplePie("worldBasedMessages", () -> {
             return YamlFile.CONFIG.getBoolean("World-Based") + "";
         }));

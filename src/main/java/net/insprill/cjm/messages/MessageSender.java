@@ -2,6 +2,7 @@ package net.insprill.cjm.messages;
 
 import com.google.common.reflect.ClassPath;
 import lombok.Getter;
+import net.insprill.cjm.CJM;
 import net.insprill.cjm.handlers.PlayerHandler;
 import net.insprill.cjm.handlers.RandomHandler;
 import net.insprill.cjm.handlers.VanishHandler;
@@ -10,6 +11,7 @@ import net.insprill.xenlib.XenLib;
 import net.insprill.xenlib.XenMath;
 import net.insprill.xenlib.XenUtils;
 import net.insprill.xenlib.files.YamlFile;
+import org.bstats.charts.SimplePie;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -56,7 +58,13 @@ public class MessageSender implements Listener {
                         return null;
                     })
                     .filter(Objects::nonNull)
-                    .forEach(message -> messageTypes.put(((MessageType) message).getName(), (MessageType) message));
+                    .forEach(message -> {
+                        MessageType messageType = (MessageType) message;
+                        messageTypes.put(messageType.getName(), messageType);
+                        CJM.getInstance().getMetrics().addCustomChart(new SimplePie("message_type_" + messageType.getName(), () -> {
+                            return messageType.getConfig().getBoolean("Enabled") + "";
+                        }));
+                    });
         } catch (IOException e) {
             e.printStackTrace();
         }
