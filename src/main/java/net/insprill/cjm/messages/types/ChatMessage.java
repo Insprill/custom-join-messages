@@ -34,16 +34,17 @@ public class ChatMessage implements MessageType {
         List<String> messages = config.getStringList(chosenPath);
         messages = ChatUtils.setPlaceholders(primaryPlayer, messages);
         messages = CenteredMessages.centerMessages(messages);
-        for (Player player : players) {
-            for (String msg : messages) {
-                if (msg.contains("{\"text\":")) {
+        for (String msg : messages) {
+            boolean isJson = msg.contains("{\"text\":");
+            for (Player player : players) {
+                if (isJson) {
                     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "minecraft:tellraw " + player.getName() + " " + msg);
                 } else {
                     player.sendMessage(msg);
-                    if (visibility == MessageVisibility.PUBLIC) {
-                        Bukkit.getConsoleSender().sendMessage(msg);
-                    }
                 }
+            }
+            if (visibility == MessageVisibility.PUBLIC && !isJson) {
+                Bukkit.getConsoleSender().sendMessage(msg);
             }
         }
     }
