@@ -25,7 +25,7 @@ dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.18.1-R0.1-SNAPSHOT'
     compileOnly('com.github.MilkBowl:VaultAPI:1.7') { transitive = false }
     compileOnly('com.github.MyzelYam:SuperVanish:6.1.8') { transitive = false }
-    implementation 'net.insprill:XenLib:bc86e5e61f'
+    implementation 'net.insprill:XenLib:d20105a17c'
     implementation 'org.bstats:bstats-bukkit:2.2.1'
 }
 
@@ -57,3 +57,17 @@ java {
         toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
     }
 }
+
+// DON'T COMMIT
+task copyJars() {
+    doLast {
+        def servers = ["1.8.8", "1.12.2", "1.18.1"]
+        for (def server : servers) {
+            copy {
+                from(shadowJar)
+                into("server/" + server + "/plugins")
+            }
+        }
+    }
+}
+shadowJar.finalizedBy(copyJars)
