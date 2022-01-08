@@ -57,17 +57,3 @@ java {
         toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
     }
 }
-
-// DON'T COMMIT
-task copyJars() {
-    doLast {
-        def servers = ["1.8.8", "1.12.2", "1.18.1"]
-        for (def server : servers) {
-            copy {
-                from(shadowJar)
-                into("server/" + server + "/plugins")
-            }
-        }
-    }
-}
-shadowJar.finalizedBy(copyJars)
