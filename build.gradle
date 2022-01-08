@@ -1,7 +1,7 @@
 plugins {
     id 'java'
-    id "io.freefair.lombok" version "6.2.0"
-    id 'com.github.johnrengelman.shadow' version '7.1.0'
+    id "io.freefair.lombok" version "6.3.0"
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 group 'net.insprill'
@@ -19,21 +19,21 @@ repositories {
 dependencies {
     compileOnly fileTree(include: ['*.jar'], dir: 'libs')
     compileOnly 'fr.xephi:authme:5.6.0-SNAPSHOT'
-    compileOnly 'me.clip:placeholderapi:2.10.10'
+    compileOnly 'me.clip:placeholderapi:2.11.1'
     compileOnly 'net.essentialsx:EssentialsX:2.19.0'
     compileOnly 'org.jetbrains:annotations:23.0.0'
     compileOnly 'org.spigotmc:spigot-api:1.18.1-R0.1-SNAPSHOT'
     compileOnly('com.github.MilkBowl:VaultAPI:1.7') { transitive = false }
     compileOnly('com.github.MyzelYam:SuperVanish:6.1.8') { transitive = false }
-    implementation 'net.insprill:XenLib:57607e2bca'
+    implementation 'net.insprill:XenLib:bc86e5e61f'
     implementation 'org.bstats:bstats-bukkit:2.2.1'
 }
 
 shadowJar {
     archiveClassifier.set('')
 
-    relocate("net.insprill.xenlib", "net.insprill.cjm.libs.xenlib")
-    relocate("org.bstats", "net.insprill.cjm.libs.bstats")
+    relocate("net.insprill.xenlib", "net.insprill.cjm.libs.net.insprill.xenlib")
+    relocate("org.bstats", "net.insprill.cjm.libs.org.bstats")
 
     minimize()
 }
