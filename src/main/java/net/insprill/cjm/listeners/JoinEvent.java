@@ -3,6 +3,7 @@ package net.insprill.cjm.listeners;
 import net.insprill.cjm.handlers.PlayerHandler;
 import net.insprill.cjm.messages.MessageAction;
 import net.insprill.cjm.messages.MessageSender;
+import net.insprill.xenlib.XenScheduler;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -13,8 +14,10 @@ public class JoinEvent implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerJoin(PlayerJoinEvent e) {
         e.setJoinMessage("");
-        PlayerHandler.setStatus(e.getPlayer().getUniqueId(), PlayerHandler.Status.LOGGED_IN);
-        MessageSender.getInstance().sendMessages(e.getPlayer(), e.getPlayer().hasPlayedBefore() ? MessageAction.JOIN : MessageAction.FIRST_JOIN, true);
+        XenScheduler.runTaskLater(() -> {
+            PlayerHandler.setStatus(e.getPlayer().getUniqueId(), PlayerHandler.Status.LOGGED_IN);
+            MessageSender.getInstance().sendMessages(e.getPlayer(), e.getPlayer().hasPlayedBefore() ? MessageAction.JOIN : MessageAction.FIRST_JOIN, true);
+        }, 10L);
     }
 
 }
