@@ -25,7 +25,7 @@ dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.18.1-R0.1-SNAPSHOT'
     compileOnly('com.github.MilkBowl:VaultAPI:1.7') { transitive = false }
     compileOnly('com.github.MyzelYam:SuperVanish:6.1.8') { transitive = false }
-    implementation 'net.insprill:XenLib:d20105a17c'
+    implementation 'net.insprill:XenLib:a2fddc1c0f'
     implementation 'org.bstats:bstats-bukkit:2.2.1'
 }
 
