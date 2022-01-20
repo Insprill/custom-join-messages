@@ -1,9 +1,9 @@
 package net.insprill.cjm.messages.types;
 
-import net.insprill.cjm.CJM;
 import net.insprill.cjm.messages.MessageVisibility;
 import net.insprill.xenlib.XenUtils;
 import net.insprill.xenlib.files.YamlFile;
+import net.insprill.xenlib.logging.Logger;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
@@ -35,7 +35,7 @@ public class SoundMessage implements MessageType {
 
         String soundString = config.getString(chosenPath + ".Sound");
         if (!XenUtils.isValidEnum(Sound.class, soundString)) {
-            CJM.getInstance().getLogger().severe("Sound " + soundString + " doesn't exist!");
+            Logger.severe("Sound " + soundString + " doesn't exist!");
             return;
         }
 

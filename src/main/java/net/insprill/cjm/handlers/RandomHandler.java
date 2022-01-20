@@ -1,8 +1,8 @@
 package net.insprill.cjm.handlers;
 
 import lombok.Getter;
-import net.insprill.cjm.CJM;
 import net.insprill.xenlib.files.YamlFile;
+import net.insprill.xenlib.logging.Logger;
 
 import java.util.Random;
 
@@ -20,7 +20,7 @@ public class RandomHandler {
      */
     public static String getRandomKey(YamlFile config, String path) {
         if (config.getConfigSection(path) == null) {
-            CJM.getInstance().getLogger().severe("\"" + path + "\" in messages/" + config.getFile().getName() + " has no keys. Perhaps the messages indentation is wrong?");
+            Logger.severe("\"" + path + "\" in messages/" + config.getFile().getName() + " has no keys. Perhaps the messages indentation is wrong?");
             return null;
         }
         int amount = config.getConfigSection(path).getKeys(false).size();
