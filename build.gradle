@@ -7,6 +7,10 @@ plugins {
 group 'net.insprill'
 version '17.0.0-SNAPSHOT'
 
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+compileJava.options.encoding = 'UTF-8'
+
 repositories {
     mavenCentral()
     maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
@@ -32,8 +36,9 @@ dependencies {
 shadowJar {
     archiveClassifier.set('')
 
-    relocate("net.insprill.xenlib", "net.insprill.cjm.libs.net.insprill.xenlib")
-    relocate("org.bstats", "net.insprill.cjm.libs.org.bstats")
+    var libPackage = "net.insprill.cjm.libs"
+    relocate("net.insprill.xenlib", "${libPackage}.net.insprill.xenlib")
+    relocate("org.bstats", "${libPackage}.org.bstats")
 
     minimize()
 }
@@ -44,16 +49,5 @@ processResources {
     filteringCharset 'UTF-8'
     filesMatching('plugin.yml') {
         expand props
-    }
-}
-
-def targetJavaVersion = 8
-java {
-    compileJava.options.encoding = 'UTF-8'
-    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
-    sourceCompatibility = javaVersion
-    targetCompatibility = javaVersion
-    if (JavaVersion.current() < javaVersion) {
-        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
     }
 }
