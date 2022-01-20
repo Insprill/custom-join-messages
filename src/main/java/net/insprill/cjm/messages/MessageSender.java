@@ -139,6 +139,10 @@ public class MessageSender implements Listener {
                 if (maxPlayers > 0 && Bukkit.getOnlinePlayers().size() > maxPlayers)
                     continue;
 
+                int minPlayers = msg.getConfig().getInt(messagePath + ".Min-Players");
+                if (minPlayers > 0 && Bukkit.getOnlinePlayers().size() < minPlayers)
+                    return;
+
                 double radius = msg.getConfig().getDouble(messagePath + ".Radius");
                 List<Player> players = (visibility == MessageVisibility.PUBLIC)
                         ? PlayerHandler.getNearbyPlayers(player, radius, YamlFile.CONFIG.getBoolean("World-Based"))
