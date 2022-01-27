@@ -1,0 +1,6 @@
+dist: focal
+
+language: java
+jdk: openjdk17
+
+script: ./gradlew shadowJar --stacktrace --warning-mode all
