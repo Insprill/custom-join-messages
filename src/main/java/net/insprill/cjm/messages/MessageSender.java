@@ -79,7 +79,7 @@ public class MessageSender implements Listener {
      */
     public void InitPermissions() {
         for (String permission : permissions) {
-            Bukkit.getPluginManager().removePermission(permission);
+            XenUtils.unregisterPermission(permission);
         }
         permissions.clear();
         for (MessageType msg : messageTypes.values()) {
