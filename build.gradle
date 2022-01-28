@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id "io.freefair.lombok" version "6.3.0"
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'maven-publish'
 }
 
 group 'net.insprill'
@@ -29,7 +30,7 @@ dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.18.1-R0.1-SNAPSHOT'
     compileOnly('com.github.MilkBowl:VaultAPI:1.7') { transitive = false }
     compileOnly('com.github.MyzelYam:SuperVanish:6.1.8') { transitive = false }
-    implementation 'net.insprill:XenLib:b415675c1e'
+    implementation 'net.insprill:XenLib:445748f6aa'
     implementation 'org.bstats:bstats-bukkit:2.2.1'
 }
 
@@ -49,5 +50,13 @@ processResources {
     filteringCharset 'UTF-8'
     filesMatching('plugin.yml') {
         expand props
+    }
+}
+
+publishing {
+    publications {
+        XenLib(MavenPublication) {
+            from components.java
+        }
     }
 }
