@@ -3,7 +3,7 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![GNU License][license-shield]][license-url]
-[![Discord](https://img.shields.io/discord/626995215558901771?label=Discord&style=for-the-badge)](https://discord.gg/SH7VyYtuC2)
+[![Discord](https://img.shields.io/discord/626995215558901771?color=%235663F7&label=Discord&style=for-the-badge)](https://discord.gg/SH7VyYtuC2)
 
 
 
