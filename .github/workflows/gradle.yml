@@ -14,7 +14,7 @@ jobs:
           distribution: 'adopt'
           cache: 'gradle'
       - name: Validate Gradle wrapper
-        uses: gradle/wrapper-validation-action@main
+        uses: gradle/wrapper-validation-action@master
       - name: Build with Gradle
         uses: gradle/gradle-build-action@main
         with:
