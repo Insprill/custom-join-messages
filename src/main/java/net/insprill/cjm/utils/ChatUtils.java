@@ -1,6 +1,7 @@
 package net.insprill.cjm.utils;
 
 import me.clip.placeholderapi.PlaceholderAPI;
+import net.insprill.xenlib.ColourUtils;
 import net.milkbowl.vault.chat.Chat;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
@@ -32,7 +33,7 @@ public class ChatUtils {
         msg = StringUtils.replace(msg, "%suffix%", suffix);
 
         if (Dependency.PAPI.isEnabled()) {
-            msg = PlaceholderAPI.setPlaceholders(player, msg);
+            msg = ColourUtils.format(PlaceholderAPI.setPlaceholders(player, msg));
         }
 
         return msg;
