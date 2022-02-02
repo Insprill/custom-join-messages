@@ -1,10 +1,12 @@
 CJM 17.0.0
 - Reformatted configuration files.
 - Added support for world-based messages.
-- Added option to not send messages for jailed players.
+- Added option to not send messages for jailed players (Only supports EssentilsX jails).
 - Added sound messages.
 - Added support for ActionBar messages on 1.8.x.
-- Added support for '&#000000' style HEX colour codes.
+- Added support for '#000000', &#000000', and '<#000000>' style HEX colour codes.
+- Added 'Min-Players' config option.
+- Added 'Max-Players' config option.
 - Added locale file.
 - Fixed HEX colour codes not working on 1.17/1.18.
 - Removed "cjm joindate" command.
