@@ -6,8 +6,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up JDK 17
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Set up JDK
         uses: actions/setup-java@v2
         with:
           java-version: '17'
@@ -19,7 +20,8 @@ jobs:
         uses: gradle/gradle-build-action@main
         with:
           arguments: shadowJar
-      - uses: actions/upload-artifact@v2
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
         with:
-          name: Package
+          name: Compiled JARs
           path: build/libs
