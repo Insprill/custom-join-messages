@@ -46,7 +46,7 @@ public class TitleMessage implements MessageType {
 
     @SuppressWarnings("deprecation")
     private void sendTitle(Player player, String title, String subTitle, int fadeIn, int stay, int fadeOut) {
-        if (MinecraftVersion.isAtLeast(MinecraftVersion.v1_9_R1)) {
+        if (MinecraftVersion.isAtLeast(MinecraftVersion.v1_9_0)) {
             player.sendTitle(title, subTitle, fadeIn, stay, fadeOut);
         } else {
             player.sendTitle(title, subTitle);

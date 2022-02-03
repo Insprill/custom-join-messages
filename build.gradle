@@ -30,12 +30,13 @@ dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.18.1-R0.1-SNAPSHOT'
     compileOnly('com.github.MilkBowl:VaultAPI:1.7') { transitive = false }
     compileOnly('com.github.MyzelYam:SuperVanish:6.1.8') { transitive = false }
-    implementation 'net.insprill:XenLib:cbcdcde813'
+    implementation 'net.insprill:XenLib:a6257bb430'
     implementation 'org.bstats:bstats-bukkit:2.2.1'
 }
 
 shadowJar {
     archiveClassifier.set('')
+    archiveVersion.set('')
 
     var libPackage = "net.insprill.cjm.libs"
     relocate("net.insprill.xenlib", "${libPackage}.net.insprill.xenlib")
@@ -64,3 +65,17 @@ publishing {
 static def getGitRevision() {
     return 'git rev-parse --verify --short HEAD'.execute().text.trim()
 }
+
+//TODO: DON'T COMMIT
+task copyJars() {
+    doLast {
+        def servers = ["1.8.8", "1.12.2", "1.18.1"]
+        for (def server : servers) {
+            copy {
+                from(shadowJar)
+                into("server/" + server + "/plugins")
+            }
+        }
+    }
+}
+shadowJar.finalizedBy(copyJars)

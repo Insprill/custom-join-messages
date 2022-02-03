@@ -27,7 +27,7 @@ public class ActionbarMessage implements MessageType {
     private static Field fieldPlayerConnection = null;
 
     static {
-        if (!MinecraftVersion.isAtLeast(MinecraftVersion.v1_9_R1)) {
+        if (MinecraftVersion.isOlderThan(MinecraftVersion.v1_9_0)) {
             String nmsVersion = "v1_8_R3";
             String nmsPackage = "net.minecraft.server." + nmsVersion;
             try {
@@ -80,7 +80,7 @@ public class ActionbarMessage implements MessageType {
      * @param message Message to send (unformatted).
      */
     public void sendActionBar(Player player, String message) {
-        if (MinecraftVersion.isAtLeast(MinecraftVersion.v1_9_R1)) {
+        if (MinecraftVersion.isAtLeast(MinecraftVersion.v1_9_0)) {
             player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(message));
         } else {
             try {
