@@ -30,8 +30,8 @@ dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.18.1-R0.1-SNAPSHOT'
     compileOnly('com.github.MilkBowl:VaultAPI:1.7') { transitive = false }
     compileOnly('com.github.MyzelYam:SuperVanish:6.1.8') { transitive = false }
-    implementation 'net.insprill:XenLib:a6257bb430'
-    implementation 'org.bstats:bstats-bukkit:2.2.1'
+    implementation 'net.insprill:XenLib:89a5c5a407'
+    implementation 'org.bstats:bstats-bukkit:3.0.0'
 }
 
 shadowJar {
