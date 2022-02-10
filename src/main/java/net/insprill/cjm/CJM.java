@@ -1,10 +1,7 @@
 package net.insprill.cjm;
 
 import lombok.Getter;
-import net.insprill.cjm.hooks.AuthMeHook;
-import net.insprill.cjm.hooks.CMIHook;
-import net.insprill.cjm.hooks.SuperVanishHook;
-import net.insprill.cjm.hooks.VanishNoPacketHook;
+import net.insprill.cjm.hooks.*;
 import net.insprill.cjm.listeners.JoinEvent;
 import net.insprill.cjm.listeners.QuitEvent;
 import net.insprill.cjm.listeners.WorldChangeEvent;
@@ -56,6 +53,8 @@ public final class CJM extends JavaPlugin {
                 Bukkit.getPluginManager().registerEvents(new SuperVanishHook(), this);
             if (Dependency.VANISH_NO_PACKET.isEnabled())
                 Bukkit.getPluginManager().registerEvents(new VanishNoPacketHook(), this);
+            if (Dependency.ESSENTIALS.isEnabled())
+                Bukkit.getPluginManager().registerEvents(new EssentialsHook(), this);
         }
 
         new Command("cjm", "net.insprill.cjm.commands");
