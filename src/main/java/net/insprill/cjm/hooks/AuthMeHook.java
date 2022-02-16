@@ -20,6 +20,7 @@ public class AuthMeHook implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onJoin(PlayerJoinEvent e) {
+        e.setJoinMessage("");
         if (AuthMeApi.getInstance().isUnrestricted(e.getPlayer())) {
             sendMessage(e.getPlayer());
         }
