@@ -38,6 +38,9 @@ Addons:
 # of only when they join the server. This also only sends messages to players who are in the same world.
 # The Overworld, Nether, and End all count as the same world.
 World-Based: false
+World-Blacklist-As-Whitelist: false
+World-Blacklist:
+  - BlacklistedWorld
 
 # DO NOT TOUCH!!!
 version: "3.0.0"

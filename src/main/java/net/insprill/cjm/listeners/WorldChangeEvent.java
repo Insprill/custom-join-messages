@@ -38,9 +38,15 @@ public class WorldChangeEvent implements Listener {
             worldLogConfig.save();
         }
 
+        List<String> blacklist = YamlFile.CONFIG.getStringList("World-Blacklist");
+        boolean whitelist = YamlFile.CONFIG.getBoolean("World-Blacklist-As-Whitelist");
         if (!fromName.equals(toName)) {
-            MessageSender.getInstance().sendMessages(e.getPlayer(), MessageAction.QUIT, true);
-            XenScheduler.runTaskLater(() -> MessageSender.getInstance().sendMessages(e.getPlayer(), hasJoinedWorldBefore ? MessageAction.JOIN : MessageAction.FIRST_JOIN, true), 10L);
+            if (whitelist ^ !blacklist.contains(fromName)) {
+                MessageSender.getInstance().sendMessages(e.getPlayer(), MessageAction.QUIT, true);
+            }
+            if (whitelist ^ !blacklist.contains(toName)) {
+                XenScheduler.runTaskLater(() -> MessageSender.getInstance().sendMessages(e.getPlayer(), hasJoinedWorldBefore ? MessageAction.JOIN : MessageAction.FIRST_JOIN, true), 10L);
+            }
         }
     }
 
