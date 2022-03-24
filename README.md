@@ -28,6 +28,7 @@
 
 
 
+
 <!-- TABLE OF CONTENTS -->
 
 ## Table of Contents
@@ -56,13 +57,24 @@ Vault prefixes/ suffixes, and AuthMe! It also has a few extra features like bein
 
 
 
+<!-- DOWNLOAD -->
+
+## Download
+### Releases
+Releases of CJM can be downloaded from SpigotMC [here](https://www.spigotmc.org/resources/71608/).
+
+### Snapshots
+Snapshot builds can be downloaded via GitHub Actions [here](https://github.com/Insprill/Custom-Join-Messages/actions/workflows/gradle.yml).
+
+
+
+
 <!-- ROADMAP -->
 
 ## Roadmap
 
 See the [open issues](https://github.com/Insprill/Custom-Join-Messages/issues) for a list of proposed features (
 and known issues).
-
 
 
 
