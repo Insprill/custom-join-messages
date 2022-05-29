@@ -14,12 +14,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.beans.Visibility;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class CjmArgPreview implements ICommandArgument {
@@ -107,8 +102,9 @@ public class CjmArgPreview implements ICommandArgument {
                 return Arrays.stream(MessageVisibility.values()).map(Enum::name).collect(Collectors.toList());
             case 5:
                 return Arrays.stream(MessageAction.values()).map(Enum::name).collect(Collectors.toList());
+            default:
+                return null;
         }
-        return null;
     }
 
 }

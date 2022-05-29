@@ -84,8 +84,8 @@ public class ActionbarMessage implements MessageType {
             player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(message));
         } else {
             try {
-                Object chatComponentText = classChatComponentText.getConstructor(new Class[]{ String.class }).newInstance(message);
-                Object chatPacket = classPacketPlayOutChat.getConstructor(new Class[]{ classIChatBaseComponent, Byte.TYPE }).newInstance(chatComponentText, (byte) 2);
+                Object chatComponentText = classChatComponentText.getConstructor(String.class).newInstance(message);
+                Object chatPacket = classPacketPlayOutChat.getConstructor(classIChatBaseComponent, Byte.TYPE).newInstance(chatComponentText, (byte) 2);
                 Object craftPlayer = classCraftPlayer.cast(player);
                 Object entityPlayer = methodGetHandle.invoke(craftPlayer);
                 Object playerConnection = fieldPlayerConnection.get(entityPlayer);

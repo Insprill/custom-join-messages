@@ -1,5 +1,6 @@
 package net.insprill.cjm.utils;
 
+import lombok.experimental.UtilityClass;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.insprill.xenlib.ColourUtils;
 import net.milkbowl.vault.chat.Chat;
@@ -9,6 +10,7 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
+@UtilityClass
 public class ChatUtils {
 
     /**
@@ -18,7 +20,7 @@ public class ChatUtils {
      * @param msg    String to insert placeholders on.
      * @return String with placeholder set.
      */
-    public static String setPlaceholders(Player player, String msg) {
+    public String setPlaceholders(Player player, String msg) {
         String prefix = "";
         String suffix = "";
         if (Dependency.VAULT.isEnabled() && Dependency.VAULT.getClazz() != null) {
@@ -46,10 +48,8 @@ public class ChatUtils {
      * @param strings Strings to insert placeholders on.
      * @return String with placeholder set.
      */
-    public static List<String> setPlaceholders(Player player, List<String> strings) {
-        for (int i = 0; i < strings.size(); i++) {
-            strings.set(i, setPlaceholders(player, strings.get(i)));
-        }
+    public List<String> setPlaceholders(Player player, List<String> strings) {
+        strings.replaceAll(msg -> setPlaceholders(player, msg));
         return strings;
     }
 

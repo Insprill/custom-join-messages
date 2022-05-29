@@ -1,6 +1,7 @@
 package net.insprill.cjm.handlers;
 
 import de.myzelyam.api.vanish.VanishAPI;
+import lombok.experimental.UtilityClass;
 import net.insprill.cjm.hooks.CMIHook;
 import net.insprill.cjm.messages.MessageAction;
 import net.insprill.cjm.messages.MessageSender;
@@ -10,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.metadata.MetadataValue;
 import org.kitteh.vanish.VanishPlugin;
 
+@UtilityClass
 public class VanishHandler {
 
     /**
@@ -18,7 +20,7 @@ public class VanishHandler {
      * @param player Player to check.
      * @return True if the Player is vanished, false otherwise.
      */
-    public static boolean isVanished(Player player) {
+    public boolean isVanished(Player player) {
         if (Dependency.SUPER_VANISH.isEnabled() || Dependency.PREMIUM_VANISH.isEnabled())
             return VanishAPI.isInvisible(player);
         if (Dependency.VANISH_NO_PACKET.isEnabled())
@@ -37,7 +39,7 @@ public class VanishHandler {
      * @param player      Player who vanished/ unvanished.
      * @param isVanishing Whether the player is going into vanish mode.
      */
-    public static void handleVanishToggle(Player player, boolean isVanishing) {
+    public void handleVanishToggle(Player player, boolean isVanishing) {
         String path = "Addons.Vanish.Fake-Messages";
         if (!YamlFile.CONFIG.getBoolean(path + ".Enabled", true))
             return;

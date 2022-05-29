@@ -18,12 +18,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.permissions.PermissionDefault;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class MessageSender implements Listener {
 
@@ -62,7 +57,7 @@ public class MessageSender implements Listener {
                         MessageType messageType = (MessageType) message;
                         messageTypes.put(messageType.getName(), messageType);
                         CJM.getInstance().getMetrics().addCustomChart(new SimplePie("message_type_" + messageType.getName(), () -> {
-                            return messageType.getConfig().getBoolean("Enabled") + "";
+                            return messageType.isEnabled() + "";
                         }));
                     });
         } catch (IOException e) {
@@ -83,7 +78,7 @@ public class MessageSender implements Listener {
         }
         permissions.clear();
         for (MessageType msg : messageTypes.values()) {
-            if (!msg.getConfig().getBoolean("Enabled"))
+            if (!msg.isEnabled())
                 continue;
             for (MessageAction action : MessageAction.values()) {
                 for (MessageVisibility visibility : MessageVisibility.values()) {
@@ -118,7 +113,7 @@ public class MessageSender implements Listener {
                 continue;
 
             for (MessageType msg : messageTypes.values()) {
-                if (!msg.getConfig().getBoolean("Enabled"))
+                if (!msg.isEnabled())
                     continue;
 
                 String path = visibility.getConfigSection() + "." + action.getConfigSection();

@@ -6,7 +6,7 @@ import java.util.List;
 
 public class CenteredMessages {
 
-    private final static int CENTER_PX = 154;
+    private static final int CENTER_PX = 154;
 
     /**
      * Centers a message in the middle of the chat box if it contains "<center>".

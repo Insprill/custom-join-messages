@@ -19,6 +19,13 @@ public interface MessageType {
     YamlFile getConfig();
 
     /**
+     * @return Whether this MessageType is enabled.
+     */
+    default boolean isEnabled() {
+        return getConfig().getBoolean("Enabled");
+    }
+
+    /**
      * @return The primary key that all messages are under.
      */
     String getKey();
