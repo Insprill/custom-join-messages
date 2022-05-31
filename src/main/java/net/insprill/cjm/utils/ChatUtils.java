@@ -46,11 +46,9 @@ public class ChatUtils {
      *
      * @param player  Player to set placeholders for.
      * @param strings Strings to insert placeholders on.
-     * @return String with placeholder set.
      */
-    public List<String> setPlaceholders(Player player, List<String> strings) {
+    public void setPlaceholders(Player player, List<String> strings) {
         strings.replaceAll(msg -> setPlaceholders(player, msg));
-        return strings;
     }
 
 }

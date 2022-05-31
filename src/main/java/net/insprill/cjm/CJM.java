@@ -23,16 +23,14 @@ public final class CJM extends JavaPlugin {
     private static CJM instance;
 
     @Getter
-    Metrics metrics;
+    private Metrics metrics;
 
     @Override
     public void onEnable() {
         instance = this;
 
         metrics = new Metrics(this, BSTATS_PLUGIN_ID);
-        metrics.addCustomChart(new SimplePie("worldBasedMessages", () -> {
-            return YamlFile.CONFIG.getBoolean("World-Based") + "";
-        }));
+        metrics.addCustomChart(new SimplePie("worldBasedMessages", () -> YamlFile.CONFIG.getBoolean("World-Based") + ""));
 
         new XenLib(this);
 
@@ -59,7 +57,6 @@ public final class CJM extends JavaPlugin {
 
         new Command("cjm", "net.insprill.cjm.commands");
         new MessageSender();
-
     }
 
     @Override
