@@ -1,5 +1,5 @@
-Actionbar Config
-==================
+Title Config
+============
 
 Example
 --------------
