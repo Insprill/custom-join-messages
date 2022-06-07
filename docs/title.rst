@@ -19,11 +19,11 @@ Parameters
 ------------------------
 
 Title
-^^^^^^^
+^^^^^
 The title to send.
 
 SubTitle
-^^^^^^^
+^^^^^^^^
 The sub-title to send.
 
 Fade-In
@@ -31,9 +31,9 @@ Fade-In
 How long it takes the title to fade in, in ticks.
 
 Stay
-^^^^^^^
+^^^^
 How long the title will shown, in ticks.
 
 Fade-Out
-^^^^^^^
+^^^^^^^^
 How long it takes the title to fade out, in ticks.

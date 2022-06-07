@@ -2,7 +2,7 @@ Chat Config
 ===========
 
 Example
---------------
+-------
 
 .. code-block:: yaml
 

@@ -1,8 +1,8 @@
 Actionbar Config
-==================
+================
 
 Example
---------------
+-------
 
 .. code-block:: yaml
 
@@ -12,7 +12,7 @@ Example
 
 
 Parameters
-------------------------
+----------
 
 Message
 ^^^^^^^

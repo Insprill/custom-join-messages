@@ -44,7 +44,7 @@ The indexes don't `need` to be sequential, but they must be unique per-action.
 
 
 Global Parameters
-^^^^^^^^^^
+^^^^^^^^^^^^^^^^^
 Parameters are used to further configure when and to who the message is displayed.
 
 * **Permission**: The permission needed for this message to be displayed.

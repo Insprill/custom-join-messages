@@ -2,7 +2,7 @@ Sound Config
 ============
 
 Example
---------------
+-------
 
 .. code-block:: yaml
 
@@ -14,7 +14,7 @@ Example
 
 
 Parameters
-------------------------
+----------
 
 Sound
 ^^^^^
