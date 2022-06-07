@@ -3,7 +3,6 @@ package net.insprill.cjm.handlers;
 import net.insprill.cjm.hooks.CMIHook;
 import net.insprill.cjm.hooks.EssentialsHook;
 import net.insprill.cjm.utils.Dependency;
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
@@ -55,9 +54,10 @@ public class PlayerHandler {
             if (!sameWorldOnly) {
                 return new ArrayList<>(Bukkit.getOnlinePlayers());
             }
-            String playerWorld = StringUtils.substringBefore(player.getWorld().getName(), "_");
+            String worldName = player.getWorld().getName();
+            String playerWorld = worldName.substring(worldName.indexOf('_'));
             return Bukkit.getOnlinePlayers().stream()
-                    .filter(p -> playerWorld.equals(StringUtils.substringBefore(p.getWorld().getName(), "_")))
+                    .filter(p -> playerWorld.equals(worldName))
                     .collect(Collectors.toList());
         }
         return player.getNearbyEntities(radius, radius, radius).parallelStream()

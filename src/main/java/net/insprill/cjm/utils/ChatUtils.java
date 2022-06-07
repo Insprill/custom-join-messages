@@ -4,7 +4,6 @@ import lombok.experimental.UtilityClass;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.insprill.xenlib.ColourUtils;
 import net.milkbowl.vault.chat.Chat;
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -28,11 +27,12 @@ public class ChatUtils {
             prefix = chat.getPlayerPrefix(player);
             suffix = chat.getPlayerSuffix(player);
         }
-        msg = StringUtils.replace(msg, "%displayname%", (player.getCustomName() != null) ? player.getCustomName() : player.getDisplayName());
-        msg = StringUtils.replace(msg, "%name%", player.getName());
-        msg = StringUtils.replace(msg, "%uniquejoins%", "" + Bukkit.getOfflinePlayers().length);
-        msg = StringUtils.replace(msg, "%prefix%", prefix);
-        msg = StringUtils.replace(msg, "%suffix%", suffix);
+
+        msg = msg.replace("%displayname%", (player.getCustomName() != null) ? player.getCustomName() : player.getDisplayName());
+        msg = msg.replace("%name%", player.getName());
+        msg = msg.replace("%uniquejoins%", "" + Bukkit.getOfflinePlayers().length);
+        msg = msg.replace("%prefix%", prefix);
+        msg = msg.replace("%suffix%", suffix);
 
         if (Dependency.PAPI.isEnabled()) {
             msg = ColourUtils.format(PlaceholderAPI.setPlaceholders(player, msg));
