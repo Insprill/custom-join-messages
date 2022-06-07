@@ -17,3 +17,4 @@ Custom Join Messages documentation!
    sound.rst
    title.rst
    placeholders.rst
+   colours.rst
