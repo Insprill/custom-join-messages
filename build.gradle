@@ -22,6 +22,7 @@ repositories {
 
 dependencies {
     compileOnly fileTree(include: ['*.jar'], dir: 'libs')
+    compileOnly 'eu.locklogin:LockLogin-API:1.13.16'
     compileOnly 'fr.xephi:authme:5.6.0-SNAPSHOT'
     compileOnly 'me.clip:placeholderapi:2.11.1'
     compileOnly 'net.essentialsx:EssentialsX:2.19.4'
@@ -49,7 +50,7 @@ processResources {
     def props = [version: version]
     inputs.properties props
     filteringCharset 'UTF-8'
-    filesMatching('plugin.yml') {
+    filesMatching(['plugin.yml', 'module.yml']) {
         expand props
     }
 }

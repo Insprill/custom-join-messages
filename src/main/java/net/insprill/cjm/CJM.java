@@ -1,5 +1,6 @@
 package net.insprill.cjm;
 
+import eu.locklogin.api.module.PluginModule;
 import lombok.Getter;
 import net.insprill.cjm.hooks.*;
 import net.insprill.cjm.listeners.JoinEvent;
@@ -52,11 +53,30 @@ public final class CJM extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new QuitEvent(), this);
         Bukkit.getPluginManager().registerEvents(new WorldChangeEvent(), this);
 
-        if (Dependency.AUTH_ME.isEnabled() && YamlFile.CONFIG.getBoolean("Addons.AuthMe.Use-Login-Event")) {
-            Bukkit.getPluginManager().registerEvents(new AuthMeHook(), this);
-        } else {
+        boolean security = false;
+        if (YamlFile.CONFIG.getBoolean("Addons.AuthMe.Use-Login-Event")) {
+            if (Dependency.AUTH_ME.isEnabled()) {
+                security = true;
+                Bukkit.getPluginManager().registerEvents(new AuthMeHook(), this);
+            } else if (Dependency.LOCK_LOGIN.isEnabled()) {
+                security = true;
+                new PluginModule() {
+                    @Override
+                    public void enable() {
+                        getPlugin().registerListener(new LockLoginHook());
+                    }
+
+                    @Override
+                    public void disable() {
+                    }
+                };
+            }
+        }
+
+        if (!security) {
             Bukkit.getPluginManager().registerEvents(new JoinEvent(), this);
         }
+
         if (YamlFile.CONFIG.getBoolean("Addons.Vanish.Fake-Messages.Enabled")) {
             if (Dependency.CMI.isEnabled())
                 Bukkit.getPluginManager().registerEvents(new CMIHook(), this);
