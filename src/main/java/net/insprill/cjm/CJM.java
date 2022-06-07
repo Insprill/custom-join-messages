@@ -10,14 +10,18 @@ import net.insprill.cjm.utils.Dependency;
 import net.insprill.xenlib.XenLib;
 import net.insprill.xenlib.commands.Command;
 import net.insprill.xenlib.files.YamlFile;
+import net.insprill.xenlib.files.YamlFolder;
 import org.bstats.bukkit.Metrics;
 import org.bstats.charts.SimplePie;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+
 public final class CJM extends JavaPlugin {
 
     private static final int BSTATS_PLUGIN_ID = 6346;
+    private static final String CONFIG_MAJOR_VERSION = "3";
 
     @Getter
     private static CJM instance;
@@ -33,6 +37,15 @@ public final class CJM extends JavaPlugin {
         metrics.addCustomChart(new SimplePie("worldBasedMessages", () -> YamlFile.CONFIG.getBoolean("World-Based") + ""));
 
         XenLib.init(this);
+
+        String version = YamlFile.CONFIG.getString("version");
+        if (!version.split("\\.")[0].equals(CONFIG_MAJOR_VERSION)) {
+            String newFolderName = getDataFolder().getName() + "-old";
+            getDataFolder().renameTo(new File(getDataFolder().getParentFile(), getDataFolder().getName() + "-old"));
+            YamlFile.CONFIG.reload();
+            YamlFolder.LOCALE.reload();
+            getLogger().warning("Your CJM config is outdated. It has been renamed to '" + newFolderName + "' and a new one has been generated.");
+        }
 
         Dependency.initClasses();
 
