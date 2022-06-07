@@ -1,5 +1,5 @@
 CJM 17.0.0
-- Reformatted configuration files.
+- Reformatted configuration files. Your old config will be renamed and a new one will be generated.
 - Added support for world-based messages.
 - Added option to not send messages for jailed players (Only supports EssentilsX jails).
 - Added support for EssentialsX's /vanish command.
@@ -8,6 +8,6 @@ CJM 17.0.0
 - Added support for '#000000', &#000000', and '<#000000>' style HEX colour codes.
 - Added 'Min-Players' config option.
 - Added 'Max-Players' config option.
-- Added locale file.
+- Added locale support.
 - Fixed HEX colour codes not working on 1.17/1.18.
 - Removed "cjm joindate" command.
