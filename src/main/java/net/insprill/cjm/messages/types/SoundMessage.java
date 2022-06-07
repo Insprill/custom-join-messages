@@ -31,7 +31,7 @@ public class SoundMessage implements MessageType {
 
     @Override
     public void handle(Player primaryPlayer, List<Player> players, String rootPath, String chosenPath, MessageVisibility visibility) {
-        boolean global = config.getBoolean(rootPath + ".Global");
+        boolean global = config.getBoolean(chosenPath + ".Global");
 
         String soundString = config.getString(chosenPath + ".Sound");
         if (!XenUtils.isValidEnum(Sound.class, soundString)) {
@@ -42,9 +42,9 @@ public class SoundMessage implements MessageType {
         Sound sound = Sound.valueOf(soundString);
         for (Player player : players) {
             if (global) {
-                primaryPlayer.getLocation().getWorld().playSound(primaryPlayer.getLocation(), sound, (float) config.getDouble(rootPath + ".Volume"), (float) config.getDouble(rootPath + ".Pitch"));
+                primaryPlayer.getLocation().getWorld().playSound(primaryPlayer.getLocation(), sound, (float) config.getDouble(chosenPath + ".Volume"), (float) config.getDouble(chosenPath + ".Pitch"));
             } else {
-                player.playSound(player.getLocation(), sound, (float) config.getDouble(rootPath + ".Volume"), (float) config.getDouble(rootPath + ".Pitch"));
+                player.playSound(player.getLocation(), sound, (float) config.getDouble(chosenPath + ".Volume"), (float) config.getDouble(chosenPath + ".Pitch"));
             }
         }
     }
