@@ -12,7 +12,7 @@ import java.util.List;
 
 public class SoundMessage implements MessageType {
 
-    private final YamlFile config = new YamlFile("messages" + File.separator + "sounds.yml", false);
+    private final YamlFile config = new YamlFile("messages" + File.separator + "sound.yml", false);
 
     @Override
     public YamlFile getConfig() {
