@@ -35,5 +35,7 @@ hs_err_pid*
 .AppleDouble
 .LSOverride
 
+docs/_build/
+
 # Local test server
 server/
