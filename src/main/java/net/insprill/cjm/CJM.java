@@ -32,7 +32,7 @@ public final class CJM extends JavaPlugin {
         metrics = new Metrics(this, BSTATS_PLUGIN_ID);
         metrics.addCustomChart(new SimplePie("worldBasedMessages", () -> YamlFile.CONFIG.getBoolean("World-Based") + ""));
 
-        new XenLib(this);
+        XenLib.init(this);
 
         Dependency.initClasses();
 
