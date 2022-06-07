@@ -20,7 +20,7 @@ public class WorldChangeEvent implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerChangeWorld(PlayerTeleportEvent e) {
-        if (!YamlFile.CONFIG.getBoolean("World-Based"))
+        if (!YamlFile.CONFIG.getBoolean("World-Based-Messages.Enabled"))
             return;
 
         String fromFullName = e.getFrom().getWorld().getName();
