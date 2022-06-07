@@ -16,3 +16,4 @@ Custom Join Messages documentation!
    chat.rst
    sound.rst
    title.rst
+   placeholders.rst
