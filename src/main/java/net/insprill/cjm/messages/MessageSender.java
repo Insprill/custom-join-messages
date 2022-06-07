@@ -140,10 +140,10 @@ public class MessageSender implements Listener {
 
                 double radius = msg.getConfig().getDouble(messagePath + ".Radius");
                 List<Player> players = (visibility == MessageVisibility.PUBLIC)
-                        ? PlayerHandler.getNearbyPlayers(player, radius, YamlFile.CONFIG.getBoolean("World-Based"))
+                        ? PlayerHandler.getNearbyPlayers(player, radius, YamlFile.CONFIG.getBoolean("World-Based-Messages.Enabled"))
                         : Collections.singletonList(player);
 
-                if (action == MessageAction.QUIT && YamlFile.CONFIG.getBoolean("World-Based")) {
+                if (action == MessageAction.QUIT && YamlFile.CONFIG.getBoolean("World-Based-Messages.Enabled")) {
                     players.remove(player);
                 }
 
