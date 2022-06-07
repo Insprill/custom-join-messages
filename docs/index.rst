@@ -11,3 +11,8 @@ Custom Join Messages documentation!
    :caption: Contents:
 
    config.rst
+   messages.rst
+   actionbar.rst
+   chat.rst
+   sound.rst
+   title.rst

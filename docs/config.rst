@@ -1,5 +1,5 @@
-The Config
-==========
+The Plugin Config
+=================
 
 * language:
    * **Default**: ``en``
