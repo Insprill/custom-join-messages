@@ -1,7 +1,11 @@
 package net.insprill.cjm;
 
 import lombok.Getter;
-import net.insprill.cjm.hooks.*;
+import net.insprill.cjm.hooks.AuthMeHook;
+import net.insprill.cjm.hooks.CMIHook;
+import net.insprill.cjm.hooks.EssentialsHook;
+import net.insprill.cjm.hooks.SuperVanishHook;
+import net.insprill.cjm.hooks.VanishNoPacketHook;
 import net.insprill.cjm.listeners.JoinEvent;
 import net.insprill.cjm.listeners.QuitEvent;
 import net.insprill.cjm.listeners.WorldChangeEvent;

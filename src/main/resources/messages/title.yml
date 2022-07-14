@@ -9,11 +9,11 @@ Public:
       Max-Players: -1
       Messages:
         1:
-         Title: "&a%name% &7has joined the server for the first time!"
-         SubTitle: ""
-         Fade-In: 10
-         Stay: 80
-         Fade-Out: 10
+          Title: "&a%name% &7has joined the server for the first time!"
+          SubTitle: ""
+          Fade-In: 10
+          Stay: 80
+          Fade-Out: 10
   Join:
     1:
       Permission: cjm.default
