@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id "io.freefair.lombok" version "6.5.0.3"
     id 'com.github.johnrengelman.shadow' version '7.1.2'
-    id 'com.rikonardo.papermake' version '1.0.3'
+    id 'com.rikonardo.papermake' version '1.0.4'
 }
 
 group 'net.insprill'
