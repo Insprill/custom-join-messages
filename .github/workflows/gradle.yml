@@ -8,18 +8,25 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
           java-version: '18'
           distribution: 'temurin'
-          cache: 'gradle'
-      - name: Validate Gradle wrapper
+
+      - name: Validate Gradle Wrapper
         uses: gradle/wrapper-validation-action@master
-      - name: Build with Gradle
-        uses: gradle/gradle-build-action@main
-        with:
-          arguments: build
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: Build
+        run: ./gradlew build -x test
+
+      - name: Run Tests
+        run: ./gradlew test
+
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
