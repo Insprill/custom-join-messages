@@ -11,15 +11,15 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
-          distribution: 'adopt'
+          java-version: '18'
+          distribution: 'temurin'
           cache: 'gradle'
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@master
       - name: Build with Gradle
         uses: gradle/gradle-build-action@main
         with:
-          arguments: shadowJar
+          arguments: build
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
