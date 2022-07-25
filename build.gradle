@@ -58,18 +58,3 @@ processResources {
 static def getGitRevision() {
     return 'git rev-parse --verify --short HEAD'.execute().text.trim()
 }
-
-task copyJars() {
-    if (new File("server").exists()) {
-        doLast {
-            def servers = ["1.8.8", "1.12.2", "1.18.2"]
-            for (def server : servers) {
-                copy {
-                    from(shadowJar)
-                    into("server/" + server + "/plugins")
-                }
-            }
-        }
-    }
-}
-shadowJar.finalizedBy(copyJars)
