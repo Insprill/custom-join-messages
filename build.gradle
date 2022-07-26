@@ -60,17 +60,21 @@ static def getGitRevision() {
 }
 
 task downloadExtraDependencies() {
-    List<String> dependencies = List.of(
-            "https://github.com/Zrips/CMI-API/releases/download/8.7.8.2/CMIAPI8.7.8.2.jar",
-            "https://mediafiles.forgecdn.net/files/3661/454/VanishNoPacket.jar",
+    Map<String, String> dependencies = Map.of(
+            "CMI-API.jar", "https://github.com/Zrips/CMI-API/releases/download/8.7.8.2/CMIAPI8.7.8.2.jar",
+            "VanishNoPacket.jar", "https://mediafiles.forgecdn.net/files/3661/454/VanishNoPacket.jar",
     )
     def libsDir = new File('libs')
     libsDir.mkdirs()
-    for (final def url in dependencies) {
-        def file = new File(libsDir, url.substring(url.lastIndexOf('/')))
-        if (file.exists())
+    for (final def entry in dependencies.entrySet()) {
+        def file = new File(libsDir, entry.getKey())
+        if (file.exists()) {
+            println("${entry.getKey()} already exists, not overwriting")
             continue
-        new URL(url).withInputStream { i -> file.withOutputStream { it << i } }
+        }
+        println("Downloading ${entry.getKey()} from ${entry.getValue()}")
+        new URL(entry.getValue()).withInputStream { i -> file.withOutputStream { it << i } }
+        println("Successfully downloaded ${entry.getKey()} to ${file.getPath()}")
     }
 }
 build.dependsOn downloadExtraDependencies
