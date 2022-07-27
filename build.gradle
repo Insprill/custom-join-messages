@@ -68,10 +68,8 @@ task downloadExtraDependencies() {
     libsDir.mkdirs()
     for (final def entry in dependencies.entrySet()) {
         def file = new File(libsDir, entry.getKey())
-        if (file.exists()) {
-            println("${entry.getKey()} already exists, not overwriting")
+        if (file.exists())
             continue
-        }
         println("Downloading ${entry.getKey()} from ${entry.getValue()}")
         new URL(entry.getValue()).withInputStream { i -> file.withOutputStream { it << i } }
         println("Successfully downloaded ${entry.getKey()} to ${file.getPath()}")
