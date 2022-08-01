@@ -36,6 +36,10 @@ dependencies {
     implementation 'org.bstats:bstats-bukkit:3.0.0'
 }
 
+jar {
+    enabled = false
+}
+
 shadowJar {
     archiveClassifier.set('')
 
