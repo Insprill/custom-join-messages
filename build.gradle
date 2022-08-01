@@ -1,3 +1,5 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
+
 plugins {
     id 'java'
     id "io.freefair.lombok" version "6.5.0.3"
@@ -36,15 +38,16 @@ dependencies {
 
 shadowJar {
     archiveClassifier.set('')
-    archiveVersion.set('')
-
-    var libPackage = "net.insprill.cjm.libs"
-    relocate("net.insprill.xenlib", "${libPackage}.net.insprill.xenlib")
-    relocate("org.bstats", "${libPackage}.org.bstats")
 
     minimize()
 }
 build.dependsOn shadowJar
+
+task relocateShadowJar(type: ConfigureShadowRelocation) {
+    target = tasks.shadowJar
+    prefix = "net.insprill.cjm.libs"
+}
+shadowJar.dependsOn relocateShadowJar
 
 processResources {
     def props = [version: version]
