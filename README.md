@@ -1,4 +1,5 @@
 [![bStats Servers][bstats-servers-shield]][bstats-servers-url]
+[![Rating][spigot-rating-shield]][spigot-rating-url]
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
@@ -142,6 +143,8 @@ For support, please join the [Discord Server](https://discord.gg/SH7VyYtuC2). On
 
 [bstats-servers-shield]: https://img.shields.io/bstats/servers/6346.svg?style=for-the-badge
 [bstats-servers-url]: https://bstats.org/plugin/bukkit/Custom%20Join%20Messages/6346
+[spigot-rating-shield]: https://img.shields.io/spiget/rating/71608.svg?style=for-the-badge
+[spigot-rating-url]: https://www.spigotmc.org/resources/71608
 [contributors-shield]: https://img.shields.io/github/contributors/Insprill/Custom-Join-Messages.svg?style=for-the-badge
 [contributors-url]: https://github.com/Insprill/Custom-Join-Messages/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/Insprill/Custom-Join-Messages.svg?style=for-the-badge
