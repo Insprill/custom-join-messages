@@ -8,7 +8,7 @@ plugins {
 }
 
 group 'net.insprill'
-version '17.0.0-SNAPSHOT-' + getGitRevision()
+version this.getFullVersion()
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
@@ -58,8 +58,13 @@ processResources {
     }
 }
 
-static def getGitRevision() {
-    return 'git rev-parse --verify --short HEAD'.execute().text.trim()
+def getFullVersion() {
+    var version = project.property("version")
+    if (version.contains('-SNAPSHOT')) {
+        return version + '+rev.' + 'git rev-parse --verify --short HEAD'.execute().text.trim()
+    } else {
+        return version
+    }
 }
 
 task downloadExtraDependencies() {
