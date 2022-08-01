@@ -44,7 +44,7 @@ shadowJar {
 
     minimize()
 }
-tasks.build.dependsOn tasks.shadowJar
+build.dependsOn shadowJar
 
 processResources {
     def props = [version: version]
