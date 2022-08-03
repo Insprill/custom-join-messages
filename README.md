@@ -94,6 +94,9 @@ contributions you make are **greatly appreciated**.
 4. Push to the Branch (`git push origin feature/AwesomeFeature`)
 5. Open a Pull Request
 
+
+
+
 <!-- BUILDING -->
 
 ## Building
@@ -104,13 +107,15 @@ contributions you make are **greatly appreciated**.
 4. Double click `package` and wait for it to finish.
 5. The freshly compiled jar will be in the `build/libs` folder.
 
+
+
+
 <!-- LICENSE -->
 
 ## License
 
 Distributed under the GNU General Public License v3.0.  
 See [LICENSE](https://github.com/Insprill/Custom-Join-Messages/blob/master/LICENSE) for more information.
-
 
 
 
@@ -125,7 +130,6 @@ For support, please join the [Discord Server](https://discord.gg/SH7VyYtuC2). On
 
 
 
-
 <!-- CONTACT -->
 
 ## Contact
@@ -133,7 +137,6 @@ For support, please join the [Discord Server](https://discord.gg/SH7VyYtuC2). On
 [@Twitter](https://twitter.com/InsprillO_O)  
 [@SpigotMC](https://www.spigotmc.org/members/724062/)  
 [@Discord](https://discord.gg/SH7VyYtuC2)
-
 
 
 
