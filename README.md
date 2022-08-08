@@ -101,11 +101,9 @@ contributions you make are **greatly appreciated**.
 
 ## Building
 
-1. Install [IntelliJ Community Edition](https://www.jetbrains.com/idea/download/).
-2. Go to `File` -> `New` -> `Project from Version Control` and enter this URL: `https://github.com/Insprill/Custom-Join-Messages.git`.
-3. Go to `View` -> `Tool Windows` -> `Gradle` to open the Gradle tool window, then in the window that opened, navigate to `Custom-Join-Messages` -> `Tasks` -> `shadow`.
-4. Double click `package` and wait for it to finish.
-5. The freshly compiled jar will be in the `build/libs` folder.
+To compile Custom Join Messages, you will need JDK 8 or higher and an internet connection.  
+Clone this repo, then run `./gradlew` build from your terminal.  
+You can find the compiled jar in the `build/libs` directory.  
 
 
 
