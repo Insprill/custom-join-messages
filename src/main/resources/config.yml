@@ -39,6 +39,11 @@ Addons:
 # The Overworld, Nether, and End all count as the same world.
 World-Based-Messages:
   Enabled: false
+  Groups:
+    1:
+      - world
+      - world_nether
+      - world_the_end
   Blacklist-As-Whitelist: false
   Blacklist:
     - BlacklistedWorld

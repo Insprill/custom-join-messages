@@ -5,6 +5,7 @@ import net.insprill.cjm.messages.MessageAction;
 import net.insprill.cjm.messages.MessageSender;
 import net.insprill.xenlib.XenScheduler;
 import net.insprill.xenlib.files.YamlFile;
+import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -23,24 +24,30 @@ public class WorldChangeEvent implements Listener {
         if (!YamlFile.CONFIG.getBoolean("World-Based-Messages.Enabled"))
             return;
 
-        String fromFullName = e.getFrom().getWorld().getName();
-        String toFullName = e.getTo().getWorld().getName();
+        Location from = e.getFrom();
+        Location to = e.getTo();
 
-        String fromName = (fromFullName.indexOf('_') == -1) ? fromFullName : fromFullName.substring(0, fromFullName.indexOf('_'));
-        String toName = (toFullName.indexOf('_') == -1) ? toFullName : toFullName.substring(0, toFullName.indexOf('_'));
+        if (to == null || to.getWorld() == null || from.getWorld() == null)
+            return;
+        if (to.getWorld().equals(from.getWorld()))
+            return;
 
-        List<String> players = worldLogConfig.getStringList(toName);
+        String fromName = from.getWorld().getName();
+        String toName = to.getWorld().getName();
+
+        List<String> toPlayers = worldLogConfig.getStringList(toName);
         String uuid = e.getPlayer().getUniqueId().toString();
-        boolean hasJoinedWorldBefore = players.contains(uuid);
+        boolean hasJoinedWorldBefore = toPlayers.contains(uuid);
         if (!hasJoinedWorldBefore) {
-            players.add(uuid);
-            worldLogConfig.set(toName, players);
+            toPlayers.add(uuid);
+            worldLogConfig.set(fromName, toPlayers);
+            worldLogConfig.set(toName, toPlayers);
             worldLogConfig.save();
         }
 
         List<String> blacklist = YamlFile.CONFIG.getStringList("World-Blacklist");
         boolean whitelist = YamlFile.CONFIG.getBoolean("World-Blacklist-As-Whitelist");
-        if (!fromName.equals(toName)) {
+        if (isDifferentGroup(toName, fromName)) {
             if (whitelist ^ !blacklist.contains(fromName)) {
                 MessageSender.getInstance().sendMessages(e.getPlayer(), MessageAction.QUIT, true);
             }
@@ -48,6 +55,16 @@ public class WorldChangeEvent implements Listener {
                 XenScheduler.runTaskLater(() -> MessageSender.getInstance().sendMessages(e.getPlayer(), hasJoinedWorldBefore ? MessageAction.JOIN : MessageAction.FIRST_JOIN, true), 10L);
             }
         }
+    }
+
+    private boolean isDifferentGroup(String toName, String fromName) {
+        for (String key : YamlFile.CONFIG.getKeys("World-Based-Messages.Groups")) {
+            List<String> group = YamlFile.CONFIG.getStringList("World-Based-Messages.Groups." + key);
+            if (group.contains(toName) && group.contains(fromName)) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }
