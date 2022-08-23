@@ -2,7 +2,7 @@ package net.insprill.cjm.messages;
 
 import com.google.common.reflect.ClassPath;
 import lombok.Getter;
-import net.insprill.cjm.CJM;
+import net.insprill.cjm.CustomJoinMessages;
 import net.insprill.cjm.handlers.PlayerHandler;
 import net.insprill.cjm.handlers.RandomHandler;
 import net.insprill.cjm.handlers.VanishHandler;
@@ -37,7 +37,7 @@ public class MessageSender implements Listener {
     private final Map<String, MessageType> messageTypes = new HashMap<>();
 
     @SuppressWarnings("UnstableApiUsage")
-    public MessageSender() {
+    public MessageSender(CustomJoinMessages plugin) {
         if (instance == null)
             instance = this;
 
@@ -61,7 +61,7 @@ public class MessageSender implements Listener {
                     .forEach(message -> {
                         MessageType messageType = (MessageType) message;
                         messageTypes.put(messageType.getName(), messageType);
-                        CJM.getInstance().getMetrics().addCustomChart(new SimplePie("message_type_" + messageType.getName(), () -> {
+                        plugin.getMetrics().addCustomChart(new SimplePie("message_type_" + messageType.getName(), () -> {
                             return messageType.isEnabled() + "";
                         }));
                     });
