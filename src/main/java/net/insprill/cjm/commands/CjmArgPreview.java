@@ -1,9 +1,10 @@
 package net.insprill.cjm.commands;
 
 import com.google.common.collect.ImmutableMap;
-import net.insprill.cjm.handlers.RandomHandler;
+import lombok.val;
+import net.insprill.cjm.CustomJoinMessages;
+import net.insprill.cjm.message.MessageSender;
 import net.insprill.cjm.messages.MessageAction;
-import net.insprill.cjm.messages.MessageSender;
 import net.insprill.cjm.messages.MessageVisibility;
 import net.insprill.cjm.messages.types.MessageType;
 import net.insprill.xenlib.XenUtils;
@@ -67,7 +68,9 @@ public class CjmArgPreview implements ICommandArgument {
             return;
         }
 
-        MessageType messageType = MessageSender.getInstance().getMessageTypes().get(args[2]);
+        MessageSender messageSender = CustomJoinMessages.getPlugin(CustomJoinMessages.class).messageSender;
+
+        MessageType messageType = messageSender.getTypeMap().get(args[2]);
         if (messageType == null) {
             Lang.send(sender, "commands.preview.invalid-message-type", "%type%;" + args[2]);
             return;
@@ -91,7 +94,7 @@ public class CjmArgPreview implements ICommandArgument {
             return;
         }
 
-        String randomKey = RandomHandler.getRandomKey(messageType.getConfig(), path + "." + messageType.getKey());
+        String randomKey = messageSender.getRandomKey(messageType.getConfig(), path + "." + messageType.getKey());
         messageType.handle(target, Collections.singletonList((Player) sender), path, randomKey, MessageVisibility.PRIVATE);
     }
 
@@ -101,7 +104,7 @@ public class CjmArgPreview implements ICommandArgument {
             case 2:
                 return Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList());
             case 3:
-                return new ArrayList<>(MessageSender.getInstance().getMessageTypes().keySet());
+                return new ArrayList<>(CustomJoinMessages.getPlugin(CustomJoinMessages.class).messageSender.getTypeMap().keySet());
             case 4:
                 return Arrays.stream(MessageVisibility.values()).map(Enum::name).collect(Collectors.toList());
             case 5:

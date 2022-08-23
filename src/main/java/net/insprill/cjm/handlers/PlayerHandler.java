@@ -1,11 +1,7 @@
 package net.insprill.cjm.handlers;
 
-import net.insprill.cjm.hooks.CMIHook;
-import net.insprill.cjm.hooks.EssentialsHook;
-import net.insprill.cjm.utils.Dependency;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -33,16 +29,6 @@ public class PlayerHandler {
     }
 
     /**
-     * Checks if a player is logged in or not.
-     *
-     * @param uuid UUID of player to check.
-     * @return True if the player has been marked as logged in, false otherwise.
-     */
-    public static boolean isPlayerLoggedIn(UUID uuid) {
-        return loggedInPlayers.contains(uuid);
-    }
-
-    /**
      * Gets a list of all players within a specified radius.
      *
      * @param player Source player.
@@ -54,44 +40,14 @@ public class PlayerHandler {
             if (!sameWorldOnly) {
                 return new ArrayList<>(Bukkit.getOnlinePlayers());
             }
-            String worldName = player.getWorld().getName();
-            String playerWorld = worldName.substring(worldName.indexOf('_'));
-            return Bukkit.getOnlinePlayers().stream()
-                    .filter(p -> playerWorld.equals(worldName))
+            return player.getWorld().getPlayers().stream()
+                    .filter(p -> p != player)
                     .collect(Collectors.toList());
         }
         return player.getNearbyEntities(radius, radius, radius).parallelStream()
                 .filter(Player.class::isInstance)
                 .map(Player.class::cast)
                 .collect(Collectors.toList());
-    }
-
-    /**
-     * Checks if a player has a permission.
-     *
-     * @param player     Player to check.
-     * @param permission Permission to check.
-     * @return True if the player has the permission, or the permission is null/empty. False otherwise.
-     */
-    public static boolean hasPermission(Player player, @Nullable String permission) {
-        if (permission == null || permission.isEmpty())
-            return true;
-        return player.hasPermission(permission);
-    }
-
-    /**
-     * Checks if a player is jailed.
-     *
-     * @param player Player to check.
-     * @return True if the player is in Jail, false otherwise.
-     */
-    public static boolean isJailed(Player player) {
-        if (Dependency.CMI.isEnabled()) {
-            return CMIHook.isJailed(player);
-        } else if (Dependency.ESSENTIALS.isEnabled()) {
-            return EssentialsHook.isJailed(player);
-        }
-        return false;
     }
 
     public enum Status {

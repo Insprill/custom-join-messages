@@ -1,7 +1,7 @@
 package net.insprill.cjm.commands;
 
+import net.insprill.cjm.CustomJoinMessages;
 import net.insprill.cjm.listeners.WorldChangeEvent;
-import net.insprill.cjm.messages.MessageSender;
 import net.insprill.xenlib.commands.ICommandArgument;
 import net.insprill.xenlib.files.YamlFile;
 import net.insprill.xenlib.files.YamlFolder;
@@ -33,8 +33,8 @@ public class CjmArgReload implements ICommandArgument {
         YamlFolder.LOCALE.reload();
         YamlFile.CONFIG.reload();
         WorldChangeEvent.getWorldLogConfig().reload();
-        MessageSender.getInstance().getMessageTypes().values().forEach(m -> m.getConfig().reload());
-        MessageSender.getInstance().InitPermissions();
+        CustomJoinMessages.getPlugin(CustomJoinMessages.class).messageSender.getTypeMap().values().forEach(m -> m.getConfig().reload());
+//        MessageSender.getInstance().InitPermissions();
         Lang.send(sender, "commands.reload");
     }
 

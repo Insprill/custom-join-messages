@@ -1,8 +1,8 @@
 package net.insprill.cjm.listeners;
 
 import lombok.Getter;
+import net.insprill.cjm.CustomJoinMessages;
 import net.insprill.cjm.messages.MessageAction;
-import net.insprill.cjm.messages.MessageSender;
 import net.insprill.xenlib.XenScheduler;
 import net.insprill.xenlib.files.YamlFile;
 import org.bukkit.Location;
@@ -18,6 +18,12 @@ public class WorldChangeEvent implements Listener {
 
     @Getter
     private static final YamlFile worldLogConfig = new YamlFile("data" + File.separator + "worlds.yml");
+
+    private final CustomJoinMessages plugin;
+
+    public WorldChangeEvent(CustomJoinMessages plugin) {
+        this.plugin = plugin;
+    }
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerChangeWorld(PlayerTeleportEvent e) {
@@ -49,10 +55,10 @@ public class WorldChangeEvent implements Listener {
         boolean whitelist = YamlFile.CONFIG.getBoolean("World-Blacklist-As-Whitelist");
         if (isDifferentGroup(toName, fromName)) {
             if (whitelist ^ !blacklist.contains(fromName)) {
-                MessageSender.getInstance().sendMessages(e.getPlayer(), MessageAction.QUIT, true);
+                plugin.getMessageSender().sendMessages(e.getPlayer(), MessageAction.QUIT, true);
             }
             if (whitelist ^ !blacklist.contains(toName)) {
-                XenScheduler.runTaskLater(() -> MessageSender.getInstance().sendMessages(e.getPlayer(), hasJoinedWorldBefore ? MessageAction.JOIN : MessageAction.FIRST_JOIN, true), 10L);
+                XenScheduler.runTaskLater(() -> plugin.getMessageSender().sendMessages(e.getPlayer(), hasJoinedWorldBefore ? MessageAction.JOIN : MessageAction.FIRST_JOIN, true), 10L);
             }
         }
     }
