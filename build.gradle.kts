@@ -36,6 +36,11 @@ dependencies {
     implementation("org.bstats:bstats-bukkit:3.0.0")
 }
 
+val extraDependencies = mapOf(
+    Pair("CMI-API.jar", "https://github.com/Zrips/CMI-API/releases/download/8.7.8.2/CMIAPI8.7.8.2.jar"),
+    Pair("VanishNoPacket.jar", "https://mediafiles.forgecdn.net/files/3661/454/VanishNoPacket.jar"),
+)
+
 tasks {
 
     withType<KotlinCompile> {
@@ -65,13 +70,9 @@ tasks {
     }
 
     val extraDeps = register("downloadExtraDependencies") {
-        val dependencies = mapOf(
-            Pair("CMI-API.jar", "https://github.com/Zrips/CMI-API/releases/download/8.7.8.2/CMIAPI8.7.8.2.jar"),
-            Pair("VanishNoPacket.jar", "https://mediafiles.forgecdn.net/files/3661/454/VanishNoPacket.jar"),
-        )
         val libsDir = File("libs")
         libsDir.mkdirs()
-        for (entry in dependencies) {
+        for (entry in extraDependencies) {
             val file = File(libsDir, entry.key)
             if (file.exists())
                 continue
