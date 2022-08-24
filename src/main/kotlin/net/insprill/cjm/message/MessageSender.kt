@@ -1,7 +1,6 @@
 package net.insprill.cjm.message
 
 import net.insprill.cjm.CustomJoinMessages
-import net.insprill.cjm.handlers.PlayerHandler
 import net.insprill.cjm.messages.MessageAction
 import net.insprill.cjm.messages.MessageVisibility
 import net.insprill.cjm.messages.types.MessageType
@@ -12,7 +11,7 @@ import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import kotlin.random.Random.Default.nextInt
 
-class MessageSender(private val plugin: CustomJoinMessages, private val messageTypes: List<MessageType>) {
+class MessageSender(private val plugin: CustomJoinMessages, messageTypes: List<MessageType>) {
 
     val typeMap = messageTypes.associateBy { t -> t.name }
 
@@ -65,11 +64,7 @@ class MessageSender(private val plugin: CustomJoinMessages, private val messageT
                 val radius = msg.config.getDouble("$messagePath.Radius")
                 val players: List<Player>
                 if (visibility == MessageVisibility.PUBLIC) {
-                    players = PlayerHandler.getNearbyPlayers(
-                        player,
-                        radius,
-                        YamlFile.CONFIG.getBoolean("World-Based-Messages.Enabled")
-                    )
+                    players = ArrayList(getNearbyPlayers(player, radius, YamlFile.CONFIG.getBoolean("World-Based-Messages.Enabled")))
                     if (action == MessageAction.QUIT && YamlFile.CONFIG.getBoolean("World-Based-Messages.Enabled")) {
                         players.remove(player)
                     }
@@ -90,6 +85,18 @@ class MessageSender(private val plugin: CustomJoinMessages, private val messageT
         val amount = config.getConfigSection(path)!!.getKeys(false).size
         val selectedMessage = nextInt(amount) + 1
         return "$path.$selectedMessage"
+    }
+
+    private fun getNearbyPlayers(player: Player, radius: Double, sameWorldOnly: Boolean): List<Player> {
+        return if (radius < 1) {
+            if (!sameWorldOnly) {
+                ArrayList(Bukkit.getOnlinePlayers())
+            } else {
+                player.world.players
+            }
+        } else {
+            player.getNearbyEntities(radius, radius, radius).filterIsInstance<Player>()
+        }
     }
 
 }
