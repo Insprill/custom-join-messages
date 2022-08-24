@@ -25,13 +25,12 @@ class CustomJoinMessages : JavaPlugin() {
 
     private val BSTATS_PLUGIN_ID = 6346
 
-    lateinit var metrics: Metrics
     lateinit var messageSender: MessageSender
 
     lateinit var hookManager: HookManager
 
     override fun onEnable() {
-        metrics = Metrics(this, BSTATS_PLUGIN_ID)
+        val metrics = Metrics(this, BSTATS_PLUGIN_ID)
         metrics.addCustomChart(SimplePie("worldBasedMessages") {
             YamlFile.CONFIG.getBoolean("World-Based-Messages.Enabled").toString()
         })
@@ -41,12 +40,17 @@ class CustomJoinMessages : JavaPlugin() {
         val pluginHooks = getPluginHooks()
         hookManager = HookManager(pluginHooks)
 
-        Dependency.initClasses()
-
         registerListeners()
 
         Command("cjm", "net.insprill.cjm.commands")
-        messageSender = MessageSender(this, ActionbarMessage(), ChatMessage(), SoundMessage(), TitleMessage())
+
+        val messageTypes = listOf(ActionbarMessage(), ChatMessage(), SoundMessage(), TitleMessage())
+
+        for (msg in messageTypes) {
+            metrics.addCustomChart(SimplePie("message_type_" + msg.name) { msg.isEnabled.toString() })
+        }
+
+        messageSender = MessageSender(this, messageTypes)
     }
 
     private fun getPluginHooks(): List<PluginHook> {

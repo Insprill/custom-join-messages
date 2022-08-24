@@ -12,7 +12,7 @@ import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import kotlin.random.Random.Default.nextInt
 
-class MessageSender(private val plugin: CustomJoinMessages, vararg messageTypes: MessageType) {
+class MessageSender(private val plugin: CustomJoinMessages, private val messageTypes: List<MessageType>) {
 
     val typeMap = messageTypes.associateBy { t -> t.name }
 
