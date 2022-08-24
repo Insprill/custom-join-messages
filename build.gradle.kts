@@ -80,7 +80,7 @@ tasks {
             if (file.exists())
                 continue
             println("Downloading ${entry.key} from ${entry.value}")
-            URL(entry.value).openStream().use { s -> file.outputStream().use { it.write(s.readAllBytes()) } }
+            URL(entry.value).openStream().use { s -> file.outputStream().use { it.write(s.readBytes()) } }
             println("Successfully downloaded ${entry.key} to ${file.path}")
         }
     }
