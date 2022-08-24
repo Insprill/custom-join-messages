@@ -48,6 +48,7 @@ class CustomJoinMessages : JavaPlugin() {
         }
 
         messageSender = MessageSender(this, messageTypes)
+        messageSender.setupPermissions()
     }
 
     private fun getPluginHooks(): List<PluginHook> {

@@ -3,15 +3,40 @@ package net.insprill.cjm.message
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.messages.types.MessageType
 import net.insprill.xenlib.XenMath
+import net.insprill.xenlib.XenUtils
 import net.insprill.xenlib.files.YamlFile
 import net.insprill.xenlib.logging.Logger
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
+import org.bukkit.permissions.PermissionDefault
 import kotlin.random.Random.Default.nextInt
+
 
 class MessageSender(private val plugin: CustomJoinMessages, messageTypes: List<MessageType>) {
 
     val typeMap = messageTypes.associateBy { t -> t.name }
+
+    private val registeredPermissions: MutableList<String> = ArrayList()
+
+    fun setupPermissions() {
+        for (permission in registeredPermissions) {
+            XenUtils.unregisterPermission(permission)
+        }
+        registeredPermissions.clear()
+        for (msg in typeMap.values) {
+            if (!msg.isEnabled) continue
+            for (action in MessageAction.values()) {
+                for (visibility in MessageVisibility.values()) {
+                    val path = visibility.configSection + "." + action.configSection
+                    for (key in msg.config.getKeys(path)) {
+                        val permission = msg.config.getString("$path.$key.Permission") ?: continue
+                        XenUtils.registerPermission(permission, PermissionDefault.FALSE)
+                        registeredPermissions.add(permission)
+                    }
+                }
+            }
+        }
+    }
 
     /**
      * Handles sending messages for a player.
