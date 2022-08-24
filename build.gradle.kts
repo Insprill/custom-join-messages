@@ -42,8 +42,11 @@ val extraDependencies = mapOf(
 
 tasks {
 
+    java { //todo: Remove once switched to Kotlin
+        toolchain.languageVersion.set(JavaLanguageVersion.of(8))
+    }
+
     withType<KotlinCompile> {
-        kotlinOptions.languageVersion = "1.8"
         kotlinOptions.jvmTarget = "1.8"
     }
 
