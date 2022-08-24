@@ -23,14 +23,12 @@ import java.util.*
 
 class CustomJoinMessages : JavaPlugin() {
 
-    private val BSTATS_PLUGIN_ID = 6346
-
     lateinit var messageSender: MessageSender
 
     lateinit var hookManager: HookManager
 
     override fun onEnable() {
-        val metrics = Metrics(this, BSTATS_PLUGIN_ID)
+        val metrics = Metrics(this, 6346) // todo: can the id be a gradle property?
         metrics.addCustomChart(SimplePie("worldBasedMessages") {
             YamlFile.CONFIG.getBoolean("World-Based-Messages.Enabled").toString()
         })
