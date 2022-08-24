@@ -3,9 +3,9 @@ package net.insprill.cjm
 import net.insprill.cjm.compatibility.Dependency
 import net.insprill.cjm.compatibility.hook.HookManager
 import net.insprill.cjm.compatibility.hook.PluginHook
-import net.insprill.cjm.listeners.JoinEvent
-import net.insprill.cjm.listeners.QuitEvent
-import net.insprill.cjm.listeners.WorldChangeEvent
+import net.insprill.cjm.listener.JoinEvent
+import net.insprill.cjm.listener.QuitEvent
+import net.insprill.cjm.listener.WorldChangeEvent
 import net.insprill.cjm.message.MessageSender
 import net.insprill.cjm.messages.types.ActionbarMessage
 import net.insprill.cjm.messages.types.ChatMessage
