@@ -1,7 +1,6 @@
 package net.insprill.cjm.commands;
 
 import com.google.common.collect.ImmutableMap;
-import lombok.val;
 import net.insprill.cjm.CustomJoinMessages;
 import net.insprill.cjm.message.MessageSender;
 import net.insprill.cjm.messages.MessageAction;

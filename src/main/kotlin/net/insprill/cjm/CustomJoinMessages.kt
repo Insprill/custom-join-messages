@@ -1,13 +1,7 @@
 package net.insprill.cjm
 
-import net.insprill.cjm.compatibility.Auth
-import net.insprill.cjm.compatibility.Jail
-import net.insprill.cjm.compatibility.Vanish
-import net.insprill.cjm.compatibility.hook.AuthMeHook
-import net.insprill.cjm.compatibility.hook.CmiHook
-import net.insprill.cjm.compatibility.hook.EssentialsHook
-import net.insprill.cjm.compatibility.hook.SuperVanishHook
-import net.insprill.cjm.compatibility.hook.VanishNoPacketHook
+import net.insprill.cjm.compatibility.hook.HookManager
+import net.insprill.cjm.compatibility.hook.PluginHook
 import net.insprill.cjm.listeners.JoinEvent
 import net.insprill.cjm.listeners.QuitEvent
 import net.insprill.cjm.listeners.WorldChangeEvent
@@ -23,8 +17,9 @@ import net.insprill.xenlib.files.YamlFile
 import org.bstats.bukkit.Metrics
 import org.bstats.charts.SimplePie
 import org.bukkit.Bukkit
-import org.bukkit.event.HandlerList
+import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
+import java.util.*
 
 class CustomJoinMessages : JavaPlugin() {
 
@@ -32,21 +27,19 @@ class CustomJoinMessages : JavaPlugin() {
 
     lateinit var metrics: Metrics
     lateinit var messageSender: MessageSender
-    lateinit var auth: Auth
-    lateinit var jail: Jail
-    lateinit var vanish: Vanish
-    lateinit var cmiHook: CmiHook
+
+    lateinit var hookManager: HookManager
 
     override fun onEnable() {
         metrics = Metrics(this, BSTATS_PLUGIN_ID)
         metrics.addCustomChart(SimplePie("worldBasedMessages") {
             YamlFile.CONFIG.getBoolean("World-Based-Messages.Enabled").toString()
         })
-        auth = Auth()
-        jail = Jail()
-        vanish = Vanish(this)
 
         XenLib.init(this)
+
+        val pluginHooks = getPluginHooks()
+        hookManager = HookManager(pluginHooks)
 
         Dependency.initClasses()
 
@@ -56,28 +49,28 @@ class CustomJoinMessages : JavaPlugin() {
         messageSender = MessageSender(this, ActionbarMessage(), ChatMessage(), SoundMessage(), TitleMessage())
     }
 
-    override fun onDisable() {
-        HandlerList.unregisterAll(this)
+    private fun getPluginHooks(): List<PluginHook> {
+        val hooks = ArrayList<PluginHook>()
+        for (dependency in Dependency.values()) {
+            val hook = dependency.pluginHookClass.getConstructor(javaClass).newInstance(this)
+            hooks.add(hook)
+        }
+        return Collections.unmodifiableList(hooks)
     }
 
     private fun registerListeners() {
-        Bukkit.getPluginManager().registerEvents(QuitEvent(this), this)
-        Bukkit.getPluginManager().registerEvents(WorldChangeEvent(this), this)
-        if (Dependency.AUTH_ME.isEnabled && YamlFile.CONFIG.getBoolean("Addons.AuthMe.Use-Login-Event")) {
-            Bukkit.getPluginManager().registerEvents(AuthMeHook(this), this)
-        } else {
+        if (hookManager.authHooks.isEmpty()) {
             Bukkit.getPluginManager().registerEvents(JoinEvent(this), this)
         }
-        if (YamlFile.CONFIG.getBoolean("Addons.Vanish.Fake-Messages.Enabled")) {
-            if (Dependency.CMI.isEnabled) {
-                cmiHook = CmiHook(this)
-                Bukkit.getPluginManager().registerEvents(cmiHook, this)
+        Bukkit.getPluginManager().registerEvents(QuitEvent(this), this)
+        Bukkit.getPluginManager().registerEvents(WorldChangeEvent(this), this)
+        hookManager.vanishHooks
+            .filterIsInstance<Listener>()
+            .forEach {
+                if (YamlFile.CONFIG.getBoolean("Addons.Vanish.Fake-Messages.Enabled")) {
+                    Bukkit.getPluginManager().registerEvents(it, this)
+                }
             }
-            if (Dependency.SUPER_VANISH.isEnabled) Bukkit.getPluginManager().registerEvents(SuperVanishHook(this), this)
-            if (Dependency.VANISH_NO_PACKET.isEnabled) Bukkit.getPluginManager()
-                .registerEvents(VanishNoPacketHook(this), this)
-            if (Dependency.ESSENTIALS.isEnabled) Bukkit.getPluginManager().registerEvents(EssentialsHook(this), this)
-        }
     }
 
 }

@@ -24,11 +24,11 @@ class MessageSender(private val plugin: CustomJoinMessages, vararg messageTypes:
      * @param vanishCheck Whether to check if the player is vanished before sending messages.
      */
     fun sendMessages(player: Player, action: MessageAction, vanishCheck: Boolean) {
-        if (action == MessageAction.QUIT && !plugin.auth.isLoggedIn(player))
+        if (action == MessageAction.QUIT && !plugin.hookManager.isLoggedIn(player))
             return
-        if (vanishCheck && plugin.vanish.isVanished(player))
+        if (vanishCheck && plugin.hookManager.isVanished(player))
             return
-        if (!YamlFile.CONFIG.getBoolean("Addons.Jail.Send-Messages-For-Jailed-Players") && plugin.jail.isJailed(player))
+        if (!YamlFile.CONFIG.getBoolean("Addons.Jail.Send-Messages-For-Jailed-Players") && plugin.hookManager.isJailed(player))
             return
         for (visibility in MessageVisibility.values()) {
             if (visibility == MessageVisibility.PRIVATE && action == MessageAction.QUIT)
@@ -41,7 +41,7 @@ class MessageSender(private val plugin: CustomJoinMessages, vararg messageTypes:
 
                 // Get the highest priority message the player has access to.
                 val hp = msg.config.getKeys(path).stream()
-                    .filter { `val`: String? -> XenMath.isInteger(`val`) }
+                    .filter { key: String? -> XenMath.isInteger(key) }
                     .filter { num: String ->
                         val perm = msg.config.getString("$path.$num.Permission")
                         perm != null && player.hasPermission(perm)
