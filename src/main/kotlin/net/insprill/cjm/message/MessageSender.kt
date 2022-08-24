@@ -1,8 +1,6 @@
 package net.insprill.cjm.message
 
 import net.insprill.cjm.CustomJoinMessages
-import net.insprill.cjm.messages.MessageAction
-import net.insprill.cjm.messages.MessageVisibility
 import net.insprill.cjm.messages.types.MessageType
 import net.insprill.xenlib.XenMath
 import net.insprill.xenlib.files.YamlFile

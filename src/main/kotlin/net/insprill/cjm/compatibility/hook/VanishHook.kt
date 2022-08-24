@@ -1,7 +1,7 @@
 package net.insprill.cjm.compatibility.hook
 
 import net.insprill.cjm.CustomJoinMessages
-import net.insprill.cjm.messages.MessageAction
+import net.insprill.cjm.message.MessageAction
 import net.insprill.xenlib.files.YamlFile
 import org.bukkit.entity.Player
 

@@ -1,6 +1,6 @@
 package net.insprill.cjm.messages.types;
 
-import net.insprill.cjm.messages.MessageVisibility;
+import net.insprill.cjm.message.MessageVisibility;
 import net.insprill.cjm.utils.ChatUtils;
 import net.insprill.xenlib.MinecraftVersion;
 import net.insprill.xenlib.files.YamlFile;

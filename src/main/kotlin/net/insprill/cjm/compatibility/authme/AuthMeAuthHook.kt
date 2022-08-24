@@ -4,7 +4,7 @@ import fr.xephi.authme.api.v3.AuthMeApi
 import fr.xephi.authme.events.LoginEvent
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.compatibility.hook.AuthHook
-import net.insprill.cjm.messages.MessageAction
+import net.insprill.cjm.message.MessageAction
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority

@@ -2,7 +2,7 @@ package net.insprill.cjm.listeners;
 
 import lombok.Getter;
 import net.insprill.cjm.CustomJoinMessages;
-import net.insprill.cjm.messages.MessageAction;
+import net.insprill.cjm.message.MessageAction;
 import net.insprill.xenlib.XenScheduler;
 import net.insprill.xenlib.files.YamlFile;
 import org.bukkit.Location;

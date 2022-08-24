@@ -2,9 +2,9 @@ package net.insprill.cjm.commands;
 
 import com.google.common.collect.ImmutableMap;
 import net.insprill.cjm.CustomJoinMessages;
+import net.insprill.cjm.message.MessageAction;
 import net.insprill.cjm.message.MessageSender;
-import net.insprill.cjm.messages.MessageAction;
-import net.insprill.cjm.messages.MessageVisibility;
+import net.insprill.cjm.message.MessageVisibility;
 import net.insprill.cjm.messages.types.MessageType;
 import net.insprill.xenlib.XenUtils;
 import net.insprill.xenlib.commands.ICommandArgument;
