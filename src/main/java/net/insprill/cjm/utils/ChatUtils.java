@@ -2,6 +2,7 @@ package net.insprill.cjm.utils;
 
 import lombok.experimental.UtilityClass;
 import me.clip.placeholderapi.PlaceholderAPI;
+import net.insprill.cjm.compatibility.Dependency;
 import net.insprill.xenlib.ColourUtils;
 import net.milkbowl.vault.chat.Chat;
 import org.bukkit.Bukkit;

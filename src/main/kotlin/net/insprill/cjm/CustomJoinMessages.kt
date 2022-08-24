@@ -1,5 +1,6 @@
 package net.insprill.cjm
 
+import net.insprill.cjm.compatibility.Dependency
 import net.insprill.cjm.compatibility.hook.HookManager
 import net.insprill.cjm.compatibility.hook.PluginHook
 import net.insprill.cjm.listeners.JoinEvent
@@ -10,7 +11,6 @@ import net.insprill.cjm.messages.types.ActionbarMessage
 import net.insprill.cjm.messages.types.ChatMessage
 import net.insprill.cjm.messages.types.SoundMessage
 import net.insprill.cjm.messages.types.TitleMessage
-import net.insprill.cjm.utils.Dependency
 import net.insprill.xenlib.XenLib
 import net.insprill.xenlib.commands.Command
 import net.insprill.xenlib.files.YamlFile
@@ -56,7 +56,7 @@ class CustomJoinMessages : JavaPlugin() {
     private fun getPluginHooks(): List<PluginHook> {
         val hooks = ArrayList<PluginHook>()
         for (dependency in Dependency.values()) {
-            val hook = dependency.pluginHookClass.getConstructor(javaClass).newInstance(this)
+            val hook = dependency.pluginHookClass?.getConstructor(javaClass)?.newInstance(this) ?: continue
             hooks.add(hook)
         }
         return Collections.unmodifiableList(hooks)
