@@ -30,6 +30,7 @@ class TitleMessage : MessageType {
         if (MinecraftVersion.isAtLeast(MinecraftVersion.v1_9_0)) {
             player.sendTitle(title, subTitle, fadeIn, stay, fadeOut)
         } else {
+            @Suppress("DEPRECATION")
             player.sendTitle(title, subTitle)
         }
     }
