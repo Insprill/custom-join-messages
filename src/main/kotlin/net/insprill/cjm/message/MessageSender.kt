@@ -25,7 +25,7 @@ class MessageSender(private val plugin: CustomJoinMessages, messageTypes: List<M
             return
         if (vanishCheck && plugin.hookManager.isVanished(player))
             return
-        if (!YamlFile.CONFIG.getBoolean("Addons.Jail.Send-Messages-For-Jailed-Players") && plugin.hookManager.isJailed(player))
+        if (!YamlFile.CONFIG.getBoolean("Addons.Jail.Ignore-Jailed-Players") && plugin.hookManager.isJailed(player))
             return
         for (visibility in MessageVisibility.values()) {
             if (visibility == MessageVisibility.PRIVATE && action == MessageAction.QUIT)

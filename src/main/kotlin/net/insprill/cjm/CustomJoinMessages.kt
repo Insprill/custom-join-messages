@@ -24,7 +24,6 @@ import java.util.*
 class CustomJoinMessages : JavaPlugin() {
 
     lateinit var messageSender: MessageSender
-
     lateinit var hookManager: HookManager
 
     override fun onEnable() {
@@ -63,18 +62,25 @@ class CustomJoinMessages : JavaPlugin() {
     }
 
     private fun registerListeners() {
-        if (hookManager.authHooks.isEmpty()) {
+        var registeredAuthListener = false
+        for (listener in hookManager.authHooks) {
+            if (!YamlFile.CONFIG.getBoolean("Addons.Auth.Wait-For-Login"))
+                continue
+            Bukkit.getPluginManager().registerEvents(listener, this)
+            registeredAuthListener = true
+        }
+        if (!registeredAuthListener) {
             Bukkit.getPluginManager().registerEvents(JoinEvent(this), this)
         }
+
         Bukkit.getPluginManager().registerEvents(QuitEvent(this), this)
         Bukkit.getPluginManager().registerEvents(WorldChangeEvent(this), this)
-        hookManager.vanishHooks
-            .filterIsInstance<Listener>()
-            .forEach {
-                if (YamlFile.CONFIG.getBoolean("Addons.Vanish.Fake-Messages.Enabled")) {
-                    Bukkit.getPluginManager().registerEvents(it, this)
-                }
-            }
+
+        for (listener in hookManager.vanishHooks.filterIsInstance<Listener>()) {
+            if (!YamlFile.CONFIG.getBoolean("Addons.Vanish.Fake-Messages.Enabled"))
+                continue
+            Bukkit.getPluginManager().registerEvents(listener, this)
+        }
     }
 
 }
