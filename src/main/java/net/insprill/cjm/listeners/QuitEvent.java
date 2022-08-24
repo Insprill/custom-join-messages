@@ -20,7 +20,6 @@ public class QuitEvent implements Listener {
     public void onPlayerQuit(PlayerQuitEvent e) {
         e.setQuitMessage("");
         plugin.getMessageSender().sendMessages(e.getPlayer(), MessageAction.QUIT, true);
-        PlayerHandler.setStatus(e.getPlayer().getUniqueId(), PlayerHandler.Status.LOGGED_OUT);
     }
 
 }

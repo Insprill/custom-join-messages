@@ -12,22 +12,6 @@ import java.util.stream.Collectors;
 
 public class PlayerHandler {
 
-    private static final Set<UUID> loggedInPlayers = new HashSet<>();
-
-    /**
-     * Marks a player as logged in.
-     *
-     * @param uuid   UUID of the Player to set status for.
-     * @param status Status to set.
-     */
-    public static void setStatus(UUID uuid, Status status) {
-        if (status == Status.LOGGED_IN) {
-            loggedInPlayers.add(uuid);
-        } else if (status == Status.LOGGED_OUT) {
-            loggedInPlayers.remove(uuid);
-        }
-    }
-
     /**
      * Gets a list of all players within a specified radius.
      *
@@ -48,11 +32,6 @@ public class PlayerHandler {
                 .filter(Player.class::isInstance)
                 .map(Player.class::cast)
                 .collect(Collectors.toList());
-    }
-
-    public enum Status {
-        LOGGED_IN,
-        LOGGED_OUT
     }
 
 }

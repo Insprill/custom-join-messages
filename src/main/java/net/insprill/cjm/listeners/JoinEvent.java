@@ -21,7 +21,6 @@ public class JoinEvent implements Listener {
     public void onPlayerJoin(PlayerJoinEvent e) {
         e.setJoinMessage("");
         XenScheduler.runTaskLater(() -> {
-            PlayerHandler.setStatus(e.getPlayer().getUniqueId(), PlayerHandler.Status.LOGGED_IN);
             plugin.getMessageSender().sendMessages(e.getPlayer(), e.getPlayer().hasPlayedBefore() ? MessageAction.JOIN : MessageAction.FIRST_JOIN, true);
         }, 10L);
     }
