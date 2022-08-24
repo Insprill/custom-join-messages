@@ -1,7 +1,7 @@
 package net.insprill.cjm.messages.types;
 
 import net.insprill.cjm.message.MessageVisibility;
-import net.insprill.cjm.utils.ChatUtils;
+import net.insprill.cjm.placeholder.Placeholders;
 import net.insprill.xenlib.MinecraftVersion;
 import net.insprill.xenlib.files.YamlFile;
 import net.md_5.bungee.api.ChatMessageType;
@@ -67,7 +67,7 @@ public class ActionbarMessage implements MessageType {
     @Override
     public void handle(Player primaryPlayer, List<Player> players, String rootPath, String chosenPath, MessageVisibility visibility) {
         String msg = config.getString(chosenPath + ".Message");
-        msg = ChatUtils.setPlaceholders(primaryPlayer, msg);
+        msg = Placeholders.Companion.fillPlaceholders(primaryPlayer, msg);
         for (Player p : players) {
             sendActionBar(p, msg);
         }

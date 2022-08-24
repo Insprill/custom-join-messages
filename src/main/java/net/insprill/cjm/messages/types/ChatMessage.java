@@ -1,7 +1,7 @@
 package net.insprill.cjm.messages.types;
 
 import net.insprill.cjm.message.MessageVisibility;
-import net.insprill.cjm.utils.ChatUtils;
+import net.insprill.cjm.placeholder.Placeholders;
 import net.insprill.xenlib.CenteredMessages;
 import net.insprill.xenlib.files.YamlFile;
 import org.bukkit.Bukkit;
@@ -34,7 +34,7 @@ public class ChatMessage implements MessageType {
     @Override
     public void handle(Player primaryPlayer, List<Player> players, String rootPath, String chosenPath, MessageVisibility visibility) {
         List<String> messages = config.getStringList(chosenPath);
-        ChatUtils.setPlaceholders(primaryPlayer, messages);
+        Placeholders.Companion.fillPlaceholders(primaryPlayer, messages);
         messages.replaceAll(s -> (s.startsWith(CENTER_PREFIX))
                 ? CenteredMessages.centerMessage(s.substring(CENTER_PREFIX.length()))
                 : s);

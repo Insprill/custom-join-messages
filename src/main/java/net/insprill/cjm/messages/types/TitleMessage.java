@@ -1,7 +1,7 @@
 package net.insprill.cjm.messages.types;
 
 import net.insprill.cjm.message.MessageVisibility;
-import net.insprill.cjm.utils.ChatUtils;
+import net.insprill.cjm.placeholder.Placeholders;
 import net.insprill.xenlib.MinecraftVersion;
 import net.insprill.xenlib.files.YamlFile;
 import org.bukkit.entity.Player;
@@ -36,8 +36,8 @@ public class TitleMessage implements MessageType {
         int stay = config.getInt(chosenPath + ".Stay");
         int fadeOut = config.getInt(chosenPath + ".Fade-Out");
 
-        title = ChatUtils.setPlaceholders(primaryPlayer, title);
-        subTitle = ChatUtils.setPlaceholders(primaryPlayer, subTitle);
+        title = Placeholders.Companion.fillPlaceholders(primaryPlayer, title);
+        subTitle = Placeholders.Companion.fillPlaceholders(primaryPlayer, subTitle);
 
         for (Player p : players) {
             sendTitle(p, title, subTitle, fadeIn, stay, fadeOut);
