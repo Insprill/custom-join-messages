@@ -6,7 +6,7 @@ import net.insprill.cjm.compatibility.essentials.EssentialsHook
 import net.insprill.cjm.compatibility.hook.PluginHook
 import net.insprill.cjm.compatibility.supervanish.SuperVanishHook
 import net.insprill.cjm.compatibility.vanishnopacket.VanishNoPacketHook
-import net.milkbowl.vault.chat.Chat
+import net.insprill.cjm.util.ServiceProviderUtils.getRegisteredServiceProvider
 import org.bukkit.Bukkit
 
 enum class Dependency(private val pluginName: String, val pluginHookClass: Class<out PluginHook?>? = null, val clazz: Any? = null) {
@@ -18,7 +18,8 @@ enum class Dependency(private val pluginName: String, val pluginHookClass: Class
     PREMIUM_VANISH("PremiumVanish", SuperVanishHook::class.java),
     SUPER_VANISH("SuperVanish", SuperVanishHook::class.java),
     VANISH_NO_PACKET("VanishNoPacket", VanishNoPacketHook::class.java),
-    VAULT("Vault", null, Bukkit.getServicesManager().getRegistration(Chat::class.java)?.provider);
+    VAULT("Vault", null, getRegisteredServiceProvider("net.milkbowl.vault.chat.Chat")?.provider),
+    ;
 
     val isEnabled get() = Bukkit.getPluginManager().isPluginEnabled(pluginName)
 
