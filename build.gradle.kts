@@ -4,7 +4,6 @@ import java.io.ByteArrayOutputStream
 import java.net.URL
 
 plugins {
-    java //todo: Remove once switched to Kotlin
     kotlin("jvm") version "1.7.10"
     id("io.freefair.lombok") version "6.5.0.3" //todo: Remove once switched to Kotlin
     id("com.github.johnrengelman.shadow") version "7.1.2"
@@ -44,6 +43,7 @@ val extraDependencies = mapOf(
 tasks {
 
     withType<KotlinCompile> {
+        kotlinOptions.languageVersion = "1.8"
         kotlinOptions.jvmTarget = "1.8"
     }
 
@@ -64,7 +64,7 @@ tasks {
 
     processResources {
         filteringCharset = Charsets.UTF_8.name()
-        filesMatching("*.yml") {
+        filesMatching("plugin.yml") {
             expand("version" to version)
         }
     }
@@ -77,14 +77,14 @@ tasks {
             if (file.exists())
                 continue
             println("Downloading ${entry.key} from ${entry.value}")
-            URL(entry.value).openStream().use { s -> file.outputStream().use { f -> f.write(s.readAllBytes()) } }
+            URL(entry.value).openStream().use { s -> file.outputStream().use { it.write(s.readAllBytes()) } }
             println("Successfully downloaded ${entry.key} to ${file.path}")
         }
     }
 
     build {
-        dependsOn(shadowJar)
         dependsOn(extraDeps)
+        dependsOn(shadowJar)
     }
 }
 
