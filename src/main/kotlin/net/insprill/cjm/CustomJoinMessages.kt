@@ -7,10 +7,10 @@ import net.insprill.cjm.listener.JoinEvent
 import net.insprill.cjm.listener.QuitEvent
 import net.insprill.cjm.listener.WorldChangeEvent
 import net.insprill.cjm.message.MessageSender
-import net.insprill.cjm.messages.types.ActionbarMessage
-import net.insprill.cjm.messages.types.ChatMessage
-import net.insprill.cjm.messages.types.SoundMessage
-import net.insprill.cjm.messages.types.TitleMessage
+import net.insprill.cjm.message.types.ActionbarMessage
+import net.insprill.cjm.message.types.ChatMessage
+import net.insprill.cjm.message.types.SoundMessage
+import net.insprill.cjm.message.types.TitleMessage
 import net.insprill.xenlib.XenLib
 import net.insprill.xenlib.commands.Command
 import net.insprill.xenlib.files.YamlFile
@@ -41,7 +41,12 @@ class CustomJoinMessages : JavaPlugin() {
 
         Command("cjm", "net.insprill.cjm.commands")
 
-        val messageTypes = listOf(ActionbarMessage(), ChatMessage(), SoundMessage(), TitleMessage())
+        val messageTypes = listOf(
+            ActionbarMessage(this),
+            ChatMessage(),
+            SoundMessage(),
+            TitleMessage()
+        )
 
         for (msg in messageTypes) {
             metrics.addCustomChart(SimplePie("message_type_" + msg.name) { msg.isEnabled.toString() })

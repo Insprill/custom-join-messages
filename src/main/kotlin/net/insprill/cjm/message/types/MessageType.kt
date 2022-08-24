@@ -1,34 +1,30 @@
-package net.insprill.cjm.messages.types;
+package net.insprill.cjm.message.types
 
-import net.insprill.cjm.message.MessageVisibility;
-import net.insprill.xenlib.files.YamlFile;
-import org.bukkit.entity.Player;
+import net.insprill.cjm.message.MessageVisibility
+import net.insprill.xenlib.files.YamlFile
+import org.bukkit.entity.Player
 
-import java.util.List;
-
-public interface MessageType {
-
+interface MessageType {
     /**
      * @return The name of the message type.
      */
-    String getName();
+    val name: String
 
     /**
      * @return The YamlFile associated with the message type.
      */
-    YamlFile getConfig();
+    val config: YamlFile
 
     /**
      * @return Whether this MessageType is enabled.
      */
-    default boolean isEnabled() {
-        return getConfig().getBoolean("Enabled");
-    }
+    val isEnabled: Boolean
+        get() = config.getBoolean("Enabled")
 
     /**
      * @return The primary key that all messages are under.
      */
-    String getKey();
+    val key: String
 
     /**
      * Called when a message should be sent.
@@ -39,6 +35,11 @@ public interface MessageType {
      * @param chosenPath    Full path to the chosen message.
      * @param visibility    The visibility of the message.
      */
-    void handle(Player primaryPlayer, List<Player> players, String rootPath, String chosenPath, MessageVisibility visibility);
-
+    fun handle(
+        primaryPlayer: Player,
+        players: List<Player>,
+        rootPath: String?,
+        chosenPath: String,
+        visibility: MessageVisibility
+    )
 }

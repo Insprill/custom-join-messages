@@ -5,7 +5,7 @@ import net.insprill.cjm.CustomJoinMessages;
 import net.insprill.cjm.message.MessageAction;
 import net.insprill.cjm.message.MessageSender;
 import net.insprill.cjm.message.MessageVisibility;
-import net.insprill.cjm.messages.types.MessageType;
+import net.insprill.cjm.message.types.MessageType;
 import net.insprill.xenlib.XenUtils;
 import net.insprill.xenlib.commands.ICommandArgument;
 import net.insprill.xenlib.localization.Lang;
