@@ -1,3 +1,5 @@
+.. _colours:
+
 Colours
 =======
 
@@ -6,7 +8,7 @@ Messages can have colours inserted in multiple ways.
 MiniMessage
 -----------
 
-The new `MiniMessage <https://docs.adventure.kyori.net/minimessage/index.html>`_ format is supported, however, only on `Paper <https://papermc.io/>`_ servers.
+The newer `MiniMessage <https://docs.adventure.kyori.net/minimessage/index.html>`_ format is supported, however, only on `Paper <https://papermc.io/>`_ servers.
 MiniMessage adds support for more advanced colouring in a more human-readable format. It also enables support for clickable and hoverable chat message.
 For more information on the MiniMessage format, you can visit `its wiki <https://docs.adventure.kyori.net/minimessage/format.html>`_
 
