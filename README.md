@@ -1,3 +1,5 @@
+[![bStats Servers][bstats-servers-shield]][bstats-servers-url]
+[![Rating][spigot-rating-shield]][spigot-rating-url]
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
@@ -92,15 +94,19 @@ contributions you make are **greatly appreciated**.
 4. Push to the Branch (`git push origin feature/AwesomeFeature`)
 5. Open a Pull Request
 
+
+
+
 <!-- BUILDING -->
 
 ## Building
 
-1. Install [IntelliJ Community Edition](https://www.jetbrains.com/idea/download/).
-2. Go to `File` -> `New` -> `Project from Version Control` and enter this URL: `https://github.com/Insprill/Custom-Join-Messages.git`.
-3. Go to `View` -> `Tool Windows` -> `Gradle` to open the Gradle tool window, then in the window that opened, navigate to `Custom-Join-Messages` -> `Tasks` -> `shadow`.
-4. Double click `package` and wait for it to finish.
-5. The freshly compiled jar will be in the `build/libs` folder.
+To compile Custom Join Messages, you will need JDK 8 or higher and an internet connection.  
+Clone this repo, then run `./gradlew` build from your terminal.  
+You can find the compiled jar in the `build/libs` directory.  
+
+
+
 
 <!-- LICENSE -->
 
@@ -112,14 +118,12 @@ See [LICENSE](https://github.com/Insprill/Custom-Join-Messages/blob/master/LICEN
 
 
 
-
 <!-- SUPPORT -->
 
 ## Support
 
 For support, please join the [Discord Server](https://discord.gg/SH7VyYtuC2). Once you join, you can ask your question in the `#community-support` channel.  
 **Do not ask questions via the issue tracker.**
-
 
 
 
@@ -135,10 +139,13 @@ For support, please join the [Discord Server](https://discord.gg/SH7VyYtuC2). On
 
 
 
-
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
+[bstats-servers-shield]: https://img.shields.io/bstats/servers/6346.svg?style=for-the-badge
+[bstats-servers-url]: https://bstats.org/plugin/bukkit/Custom%20Join%20Messages/6346
+[spigot-rating-shield]: https://img.shields.io/spiget/rating/71608.svg?style=for-the-badge
+[spigot-rating-url]: https://www.spigotmc.org/resources/71608
 [contributors-shield]: https://img.shields.io/github/contributors/Insprill/Custom-Join-Messages.svg?style=for-the-badge
 [contributors-url]: https://github.com/Insprill/Custom-Join-Messages/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/Insprill/Custom-Join-Messages.svg?style=for-the-badge

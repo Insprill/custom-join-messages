@@ -1,4 +1,4 @@
-### Java template
+### Kotlin template
 # Compiled class file
 *.class
 
@@ -202,8 +202,5 @@ Temporary Items
 .apdisk
 
 ### Misc
-# Test server
-server/
-
 # Built documentation
 docs/_build/

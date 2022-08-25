@@ -29,21 +29,20 @@ The Plugin Config
 
    * Jail:
       * **Description**: Setting related to jailed players.
-      * Send-Messages-For-Jailed-Players:
+      * Ignore-Jailed-Players:
             * **Default**: ``true``
-            * **Description**: Whether messages should be sent from jailed players. **Only works with EssentialsX.**
+            * **Description**: Whether messages should be sent from jailed players. **Only works with EssentialsX and CMI.**
 
 * World-Based-Messages:
    * **Description**: Settings for world-based messages. If enabled, messages will be sent when changing worlds, excluding changing dimensions of the same world.
    * Enabled:
       * **Default**: ``true``
       * **Description**: Whether world-based messages are enabled.
-   * Blacklist-As-Whitelist:
-      * **Default**: ``true``
-      * **Description**: Whether the blacklist should be treated as a whitelist.
-   * Blacklist:
-      * **Default**: ``true``
-      * **Description**: A list of worlds that should not have messages sent in.
+   * Groups:
+      * **Description**: All world groups. Messages will only be sent when moving between groups. Children keys don't matter as long as there's no duplicates.
+   * Ungrouped-Group:
+      * **Default**: ``false``
+      * **Description**:  Whether all worlds not defined in a group should be treated as their own group. If this is false no messages will be sent when moving to/from non-grouped worlds.
 
 * Version:
    * **Description**: The version of the config. **DO NOT TOUCH THIS VALUE**.

@@ -1,6 +1,6 @@
 name: CustomJoinMessages
 version: ${version}
-main: net.insprill.cjm.CJM
+main: net.insprill.cjm.CustomJoinMessages
 api-version: 1.13
 author: Insprill
 description: The most advanced custom join messages plugin on the market.
@@ -12,10 +12,6 @@ softdepend:
   - PremiumVanish
   - SuperVanish
   - Vault
-
-commands:
-  cjm:
-    description: Base command for Custom Join Messages.
 
 permissions:
   cjm.default:
