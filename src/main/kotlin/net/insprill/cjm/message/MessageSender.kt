@@ -50,9 +50,7 @@ class MessageSender(private val plugin: CustomJoinMessages, messageTypes: List<M
             return
         if (!YamlFile.CONFIG.getBoolean("Addons.Jail.Ignore-Jailed-Players") && plugin.hookManager.isJailed(player))
             return
-        for (visibility in MessageVisibility.values()) {
-            if (!visibility.supports(action))
-                continue
+        for (visibility in MessageVisibility.values().filter { it.supports(action) }) {
             for (msg in typeMap.values.filter { it.isEnabled }) {
                 val path = visibility.configSection + "." + action.configSection
 
@@ -62,13 +60,7 @@ class MessageSender(private val plugin: CustomJoinMessages, messageTypes: List<M
                     continue
 
                 val messagePath = "$path.$hp"
-
-                val maxPlayers = msg.config.getInt("$messagePath.Max-Players")
-                if (maxPlayers > 0 && Bukkit.getOnlinePlayers().size > maxPlayers)
-                    continue
-
-                val minPlayers = msg.config.getInt("$messagePath.Min-Players")
-                if (minPlayers > 0 && Bukkit.getOnlinePlayers().size < minPlayers)
+                if (!MessageCondition.checkAllConditions(plugin, msg, messagePath))
                     continue
 
                 val radius = msg.config.getDouble("$messagePath.Radius")
