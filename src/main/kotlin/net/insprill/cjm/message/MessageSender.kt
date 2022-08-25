@@ -2,7 +2,6 @@ package net.insprill.cjm.message
 
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.types.MessageType
-import net.insprill.xenlib.XenMath
 import net.insprill.xenlib.XenUtils
 import net.insprill.xenlib.files.YamlFile
 import org.bukkit.Bukkit
@@ -38,38 +37,27 @@ class MessageSender(private val plugin: CustomJoinMessages, messageTypes: List<M
     }
 
     /**
-     * Handles sending messages for a player.
+     * Handles sending messages for a player. May or may not send messages depending on if all conditions are met.
      *
      * @param player      Player who joined/ left.
      * @param action      Action the player performed.
      * @param vanishCheck Whether to check if the player is vanished before sending messages.
      */
-    fun sendMessages(player: Player, action: MessageAction, vanishCheck: Boolean) {
-        if (action == MessageAction.QUIT && !plugin.hookManager.isLoggedIn(player))
+    fun trySendMessages(player: Player, action: MessageAction, vanishCheck: Boolean) {
+        if (!action.canRun(plugin, player))
             return
         if (vanishCheck && plugin.hookManager.isVanished(player))
             return
         if (!YamlFile.CONFIG.getBoolean("Addons.Jail.Ignore-Jailed-Players") && plugin.hookManager.isJailed(player))
             return
         for (visibility in MessageVisibility.values()) {
-            if (visibility == MessageVisibility.PRIVATE && action == MessageAction.QUIT)
+            if (!visibility.supports(action))
                 continue
-            for (msg in typeMap.values) {
-                if (!msg.isEnabled)
-                    continue
-
+            for (msg in typeMap.values.filter { it.isEnabled }) {
                 val path = visibility.configSection + "." + action.configSection
 
                 // Get the highest priority message the player has access to.
-                val hp = msg.config.getKeys(path).stream()
-                    .filter { key: String? -> XenMath.isInteger(key) }
-                    .filter { num: String ->
-                        val perm = msg.config.getString("$path.$num.Permission")
-                        perm != null && player.hasPermission(perm)
-                    }
-                    .mapToInt { s: String -> s.toInt() }
-                    .max()
-                    .orElse(-1)
+                val hp = getHighestPriorityMessage(msg, path, player)
                 if (hp == -1)
                     continue
 
@@ -84,21 +72,33 @@ class MessageSender(private val plugin: CustomJoinMessages, messageTypes: List<M
                     continue
 
                 val radius = msg.config.getDouble("$messagePath.Radius")
-                val players: List<Player>
-                if (visibility == MessageVisibility.PUBLIC) {
-                    players = ArrayList(getNearbyPlayers(player, radius, YamlFile.CONFIG.getBoolean("World-Based-Messages.Enabled")))
-                    if (action == MessageAction.QUIT && YamlFile.CONFIG.getBoolean("World-Based-Messages.Enabled")) {
-                        players.remove(player)
-                    }
-                } else {
-                    players = listOf(player)
-                }
+
+                val players = getReceivingPlayers(player, visibility, action, radius)
                 val randomKey = getRandomKey(msg.config, "$messagePath.${msg.key}") ?: continue
                 val delay = msg.config.getLong("$messagePath.Delay")
                 Bukkit.getScheduler().runTaskLater(plugin, Runnable {
                     msg.handle(player, players, path, randomKey, visibility)
                 }, delay)
             }
+        }
+    }
+
+    private fun getHighestPriorityMessage(msgType: MessageType, path: String, player: Player): Int {
+        return msgType.config.getKeys(path)
+            .mapNotNull { it.toIntOrNull() }
+            .filter { player.hasPermission(msgType.config.getString("$path.$it.Permission")!!) }
+            .max()
+    }
+
+    private fun getReceivingPlayers(sourcePlayer: Player, visibility: MessageVisibility, action: MessageAction, radius: Double): List<Player> {
+        return if (visibility == MessageVisibility.PUBLIC) {
+            val players = ArrayList(getNearbyPlayers(sourcePlayer, radius, YamlFile.CONFIG.getBoolean("World-Based-Messages.Enabled")))
+            if (action == MessageAction.QUIT && YamlFile.CONFIG.getBoolean("World-Based-Messages.Enabled")) {
+                players.remove(sourcePlayer)
+            }
+            players
+        } else {
+            listOf(sourcePlayer)
         }
     }
 

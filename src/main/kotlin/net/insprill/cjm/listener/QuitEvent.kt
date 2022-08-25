@@ -12,7 +12,7 @@ class QuitEvent(private val plugin: CustomJoinMessages) : Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     fun onPlayerQuit(e: PlayerQuitEvent) {
         e.quitMessage = ""
-        plugin.messageSender.sendMessages(e.player, MessageAction.QUIT, true)
+        plugin.messageSender.trySendMessages(e.player, MessageAction.QUIT, true)
     }
 
 }

@@ -15,7 +15,7 @@ class JoinEvent(private val plugin: CustomJoinMessages) : Listener {
         e.joinMessage = ""
         Bukkit.getScheduler().runTaskLater(plugin, Runnable {
             val action = if (e.player.hasPlayedBefore()) MessageAction.JOIN else MessageAction.FIRST_JOIN
-            plugin.messageSender.sendMessages(e.player, action, true)
+            plugin.messageSender.trySendMessages(e.player, action, true)
         }, 10L)
     }
 

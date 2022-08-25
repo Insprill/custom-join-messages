@@ -46,11 +46,11 @@ class WorldChangeEvent(private val plugin: CustomJoinMessages) : Listener {
         val whitelist = YamlFile.CONFIG.getBoolean("World-Blacklist-As-Whitelist")
 
         if (whitelist xor !blacklist.contains(fromName)) {
-            plugin.messageSender.sendMessages(e.player, MessageAction.QUIT, true)
+            plugin.messageSender.trySendMessages(e.player, MessageAction.QUIT, true)
         }
         if (whitelist xor !blacklist.contains(toName)) {
             Bukkit.getScheduler().runTaskLater(plugin, Runnable {
-                plugin.messageSender.sendMessages(
+                plugin.messageSender.trySendMessages(
                     e.player,
                     if (hasJoinedWorldBefore) MessageAction.JOIN else MessageAction.FIRST_JOIN,
                     true

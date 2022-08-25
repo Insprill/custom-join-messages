@@ -16,11 +16,11 @@ interface VanishHook {
         if (!YamlFile.CONFIG.getBoolean("$path.Enabled", true)) return
         if (isVanishing) {
             if (YamlFile.CONFIG.getBoolean("$path.Vanish", true)) {
-                plugin.messageSender.sendMessages(player, MessageAction.QUIT, false)
+                plugin.messageSender.trySendMessages(player, MessageAction.QUIT, false)
             }
         } else {
             if (YamlFile.CONFIG.getBoolean("$path.Unvanish", true)) {
-                plugin.messageSender.sendMessages(player, MessageAction.JOIN, false)
+                plugin.messageSender.trySendMessages(player, MessageAction.JOIN, false)
             }
         }
     }

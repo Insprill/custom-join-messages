@@ -37,7 +37,7 @@ class AuthMeAuthHook(private val plugin: CustomJoinMessages) : AuthHook {
     private fun handleJoin(player: Player) {
         loggedInPlayers.add(player)
         val action = if (player.hasPlayedBefore()) MessageAction.JOIN else MessageAction.FIRST_JOIN
-        plugin.messageSender.sendMessages(player, action, true)
+        plugin.messageSender.trySendMessages(player, action, true)
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
