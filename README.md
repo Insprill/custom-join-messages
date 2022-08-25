@@ -12,12 +12,9 @@
 
 <!-- PROJECT LOGO -->
 <br />
-<p align="center">
-  <!-- <a href="https://github.com/Insprill/Custom-Join-Messages">
-     <img src="logo.png" alt="Logo" width="500" height="500">
-  </a> -->
+<p style="text-align: center;">
 
-<h3 align="center">Custom Join Messages</h3>
+  <h3 align="center">Custom Join Messages</h3>
 
   <p align="center">
     The most advanced Join/ Quit Message plugin on the market.
