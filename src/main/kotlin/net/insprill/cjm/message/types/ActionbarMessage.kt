@@ -5,6 +5,7 @@ import net.insprill.cjm.message.MessageVisibility
 import net.insprill.cjm.placeholder.Placeholders.Companion.fillPlaceholders
 import net.insprill.xenlib.MinecraftVersion
 import net.insprill.xenlib.files.YamlFile
+import net.kyori.adventure.text.minimessage.MiniMessage
 import net.md_5.bungee.api.ChatMessageType
 import net.md_5.bungee.api.chat.TextComponent
 import org.bukkit.entity.Player
@@ -45,34 +46,38 @@ class ActionbarMessage(private val plugin: CustomJoinMessages) : MessageType {
     override val name = "actionbar"
 
     override fun handle(primaryPlayer: Player, players: List<Player>, rootPath: String?, chosenPath: String, visibility: MessageVisibility) {
-        var msg = config.getString("$chosenPath.Message")
-        msg = fillPlaceholders(primaryPlayer, msg!!)
+        var msg = config.getString("$chosenPath.Message")!!
+        msg = fillPlaceholders(primaryPlayer, msg)
         for (p in players) {
-            sendActionBar(p, msg)
+            if (MinecraftVersion.isAtLeast(MinecraftVersion.v1_9_0)) {
+                sendActionbar(msg, p)
+            } else {
+                sendLegacyActionbar(msg, p)
+            }
         }
     }
 
-    /**
-     * Sends an Action Bar messages to a player.
-     *
-     * @param player  Player to send message to.
-     * @param message Message to send (unformatted).
-     */
-    private fun sendActionBar(player: Player, message: String?) {
-        if (MinecraftVersion.isAtLeast(MinecraftVersion.v1_9_0)) {
-            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, *TextComponent.fromLegacyText(message))
+    private fun sendActionbar(msg: String, player: Player) {
+        if (config.getBoolean("MiniMessage")) {
+            val component = MiniMessage.miniMessage().deserialize(msg)
+            player.sendActionBar(component)
         } else {
-            try {
-                val chatComponentText = classChatComponentText.getConstructor(String::class.java).newInstance(message)
-                val chatPacket =
-                    classPacketPlayOutChat.getConstructor(classIChatBaseComponent, java.lang.Byte.TYPE).newInstance(chatComponentText, 2.toByte())
-                val craftPlayer = classCraftPlayer.cast(player)
-                val entityPlayer = methodGetHandle.invoke(craftPlayer)
-                val playerConnection = fieldPlayerConnection[entityPlayer]
-                methodSendPacket.invoke(playerConnection, chatPacket)
-            } catch (ex: ReflectiveOperationException) {
-                plugin.logger.log(Level.SEVERE, "Failed to send actionbar message!", ex)
-            }
+            @Suppress("DEPRECATION") // Legacy support
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, *TextComponent.fromLegacyText(msg))
+        }
+    }
+
+    private fun sendLegacyActionbar(msg: String, player: Player) {
+        try {
+            val chatComponentText = classChatComponentText.getConstructor(String::class.java).newInstance(msg)
+            val chatPacket =
+                classPacketPlayOutChat.getConstructor(classIChatBaseComponent, java.lang.Byte.TYPE).newInstance(chatComponentText, 2.toByte())
+            val craftPlayer = classCraftPlayer.cast(player)
+            val entityPlayer = methodGetHandle.invoke(craftPlayer)
+            val playerConnection = fieldPlayerConnection[entityPlayer]
+            methodSendPacket.invoke(playerConnection, chatPacket)
+        } catch (ex: ReflectiveOperationException) {
+            plugin.logger.log(Level.SEVERE, "Failed to send actionbar message!", ex)
         }
     }
 
