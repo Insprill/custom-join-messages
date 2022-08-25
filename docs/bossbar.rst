@@ -1,4 +1,4 @@
-Actionbar Config
+Bossbar Config
 ================
 
 Example
