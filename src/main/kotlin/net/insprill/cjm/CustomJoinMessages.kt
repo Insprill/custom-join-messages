@@ -45,7 +45,7 @@ class CustomJoinMessages : JavaPlugin() {
         val messageTypes = listOf(
             ActionbarMessage(this),
             ChatMessage(),
-            SoundMessage(),
+            SoundMessage(this),
             TitleMessage()
         )
 

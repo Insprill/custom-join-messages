@@ -2,8 +2,8 @@ package net.insprill.cjm.listener
 
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.MessageAction
-import net.insprill.xenlib.XenScheduler
 import net.insprill.xenlib.files.YamlFile
+import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
@@ -49,7 +49,7 @@ class WorldChangeEvent(private val plugin: CustomJoinMessages) : Listener {
             plugin.messageSender.sendMessages(e.player, MessageAction.QUIT, true)
         }
         if (whitelist xor !blacklist.contains(toName)) {
-            XenScheduler.runTaskLater({
+            Bukkit.getScheduler().runTaskLater(plugin, Runnable {
                 plugin.messageSender.sendMessages(
                     e.player,
                     if (hasJoinedWorldBefore) MessageAction.JOIN else MessageAction.FIRST_JOIN,

@@ -2,7 +2,7 @@ package net.insprill.cjm.listener
 
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.MessageAction
-import net.insprill.xenlib.XenScheduler
+import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
@@ -13,7 +13,7 @@ class JoinEvent(private val plugin: CustomJoinMessages) : Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     fun onPlayerJoin(e: PlayerJoinEvent) {
         e.joinMessage = ""
-        XenScheduler.runTaskLater({
+        Bukkit.getScheduler().runTaskLater(plugin, Runnable {
             val action = if (e.player.hasPlayedBefore()) MessageAction.JOIN else MessageAction.FIRST_JOIN
             plugin.messageSender.sendMessages(e.player, action, true)
         }, 10L)
