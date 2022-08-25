@@ -21,7 +21,7 @@ class HookManager(pluginHooks: List<PluginHook>) {
     }
 
     fun isVanished(player: Player): Boolean {
-        return vanishHooks.any { it.isVanished(player) }
+        return vanishHooks.any { it.isVanished(player) } || player.getMetadata("vanished").any { it.asBoolean() }
     }
 
     fun isJailed(player: Player): Boolean {
