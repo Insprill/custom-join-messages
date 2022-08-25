@@ -9,12 +9,11 @@ language: en-us
 #
 # Settings for hooks into other plugins. These settings only apply after a restart.
 Addons:
-  # Settings for AuthMe (https://www.spigotmc.org/resources/6269/).
-  AuthMe:
-    # Whether we should use AuthMe's login event to send join messages over
-    # the regular Join event. Enable this to only send join message
-    # once a player successfully logs in.
-    Use-Login-Event: true
+  # Settings for Auth plugins like AuthMe.
+  Auth:
+    # Whether we should wait for the auth plugin to authenticate
+    # the player before sending any join or quit messages.
+    Wait-For-Login: true
 
 
   # Settings for Vanish plugin hooks.
@@ -32,21 +31,26 @@ Addons:
   # Settings for Jail plugins
   Jail:
     # If false, no messages will be sent for players who are in Jail.
-    Send-Messages-For-Jailed-Players: false
+    Ignore-Jailed-Players: false
 
 # If true, messages will be sent when players change worlds instead
 # of only when they join the server. This also only sends messages to players who are in the same world.
 # The Overworld, Nether, and End all count as the same world.
 World-Based-Messages:
   Enabled: false
+  # Messages will only be sent when moving between worlds in different groups.
+  # Those groups can be defined here.
+  # The keys don't matter as long as there's no duplicates.
+  # All world names are cAsE-SeNsItIvE.
   Groups:
     1:
       - world
       - world_nether
       - world_the_end
-  Blacklist-As-Whitelist: false
-  Blacklist:
-    - BlacklistedWorld
+  # Whether all worlds not defined in a group should be
+  # treated as their own group. If this is false no messages will be sent
+  # when moving to/from non-grouped worlds.
+  Ungrouped-Group: false
 
 # DO NOT TOUCH!!!
 version: "3.0.0"
