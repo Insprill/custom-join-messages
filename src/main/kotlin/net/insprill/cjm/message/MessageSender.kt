@@ -93,8 +93,11 @@ class MessageSender(private val plugin: CustomJoinMessages, messageTypes: List<M
                 } else {
                     players = listOf(player)
                 }
-                val randomKey = getRandomKey(msg.config, messagePath + "." + msg.key) ?: continue
-                msg.handle(player, players, path, randomKey, visibility)
+                val randomKey = getRandomKey(msg.config, "$messagePath.${msg.key}") ?: continue
+                val delay = msg.config.getLong("$messagePath.Delay")
+                Bukkit.getScheduler().runTaskLater(plugin, Runnable {
+                    msg.handle(player, players, path, randomKey, visibility)
+                }, delay)
             }
         }
     }
