@@ -28,7 +28,7 @@ dependencies {
     compileOnly("com.github.MyzelYam:SuperVanish:6.2.7") { isTransitive = false }
     compileOnly("fr.xephi:authme:5.6.0-SNAPSHOT")
     compileOnly("me.clip:placeholderapi:2.11.2")
-    compileOnly("net.essentialsx:EssentialsX:2.19.6")
+    compileOnly("net.essentialsx:EssentialsX:2.19.7")
     compileOnly("net.kyori:adventure-text-minimessage:4.11.0")
     compileOnly("org.jetbrains:annotations:23.0.0")
     compileOnly("io.papermc.paper:paper-api:1.19.2-R0.1-SNAPSHOT")
