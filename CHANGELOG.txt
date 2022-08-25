@@ -11,5 +11,7 @@ CJM 17.0.0
 - Added 'Max-Players' config option.
 - Added locale support.
 - Fixed HEX colour codes not working on 1.17-1.19.x.
-- Removed "cjm joindate" command.
+- Removed the "cjm joindate" command.
+- Removed the "cjm debug" command.
+- Removed the "cjm version" command.
 - Removed support for tellraw formatted JSON messages. Please use MiniMessage instead.
