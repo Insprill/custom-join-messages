@@ -12,6 +12,7 @@ import net.insprill.cjm.listener.QuitEvent
 import net.insprill.cjm.listener.WorldChangeEvent
 import net.insprill.cjm.message.MessageSender
 import net.insprill.cjm.message.types.ActionbarMessage
+import net.insprill.cjm.message.types.BossbarMessage
 import net.insprill.cjm.message.types.ChatMessage
 import net.insprill.cjm.message.types.SoundMessage
 import net.insprill.cjm.message.types.TitleMessage
@@ -44,9 +45,10 @@ class CustomJoinMessages : JavaPlugin() {
 
         val messageTypes = listOf(
             ActionbarMessage(this),
+            BossbarMessage(this),
             ChatMessage(),
             SoundMessage(this),
-            TitleMessage()
+            TitleMessage(),
         )
 
         for (msg in messageTypes) {

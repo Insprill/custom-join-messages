@@ -2,9 +2,10 @@ CJM 17.0.0
 - Reformatted configuration files. Your old config will be renamed and a new one will be generated.
 - Added support for MiniMessage on Paper 1.16+ servers.
 - Added support for world-based messages.
+- Added bossbar messages.
+- Added sound "messages".
 - Added option to not send messages for jailed players (Only supports EssentialsX and CMI jails).
 - Added support for EssentialsX's /vanish command.
-- Added sound "messages".
 - Added support for ActionBar messages on 1.8.x.
 - Added support for '#000000', &#000000', and '<#000000>' style HEX colour codes.
 - Added 'Min-Players' config option.

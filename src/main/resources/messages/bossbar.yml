@@ -1,0 +1,62 @@
+# Toggles whether bossbar messages should be sent.
+Enabled: false
+# Whether messages should be formatted with MiniMessage. Only works on Paper 1.16+.
+# MiniMessage's format can be found here: https://docs.adventure.kyori.net/minimessage/format.html
+# When using MiniMessage, you cannot use legacy formatting.
+MiniMessage: false
+
+Public:
+  First-Join:
+    1:
+      Permission: cjm.default
+      Radius: -1
+      Max-Players: -1
+      Messages:
+        1:
+          Message: "&a%name% &7has joined the server for the first time!"
+          Bar-Color: GREEN
+          Bar-Style: SOLID
+          Show-Time: 60
+          Count-Down: true
+  Join:
+    1:
+      Permission: cjm.default
+      Messages:
+        1:
+          Message: "&a%name% &7has joined!"
+          Bar-Color: GREEN
+          Bar-Style: SOLID
+          Show-Time: 60
+          Count-Down: true
+  Quit:
+    1:
+      Permission: cjm.default
+      Messages:
+        1:
+          Message: "&a%name% &7has left!"
+          Bar-Color: RED
+          Bar-Style: SOLID
+          Show-Time: 60
+          Count-Down: true
+
+Private:
+  First-Join:
+    1:
+      Permission: cjm.default
+      Messages:
+        1:
+          Message: "&7Welcome to our server!"
+          Bar-Color: GREEN
+          Bar-Style: SOLID
+          Show-Time: 60
+          Count-Down: true
+  Join:
+    1:
+      Permission: cjm.default
+      Messages:
+        1:
+          Message: "&7Welcome back!"
+          Bar-Color: GREEN
+          Bar-Style: SOLID
+          Show-Time: 60
+          Count-Down: true
