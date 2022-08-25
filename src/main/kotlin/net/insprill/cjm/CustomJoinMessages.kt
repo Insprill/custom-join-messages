@@ -1,5 +1,9 @@
 package net.insprill.cjm
 
+import co.aikar.commands.PaperCommandManager
+import net.insprill.cjm.command.CjmCommand
+import net.insprill.cjm.command.CommandCompletion
+import net.insprill.cjm.command.CommandContext
 import net.insprill.cjm.compatibility.Dependency
 import net.insprill.cjm.compatibility.hook.HookManager
 import net.insprill.cjm.compatibility.hook.PluginHook
@@ -12,7 +16,6 @@ import net.insprill.cjm.message.types.ChatMessage
 import net.insprill.cjm.message.types.SoundMessage
 import net.insprill.cjm.message.types.TitleMessage
 import net.insprill.xenlib.XenLib
-import net.insprill.xenlib.commands.Command
 import net.insprill.xenlib.files.YamlFile
 import org.bstats.bukkit.Metrics
 import org.bstats.charts.SimplePie
@@ -39,8 +42,6 @@ class CustomJoinMessages : JavaPlugin() {
 
         registerListeners()
 
-        Command("cjm", "net.insprill.cjm.commands")
-
         val messageTypes = listOf(
             ActionbarMessage(this),
             ChatMessage(),
@@ -54,6 +55,14 @@ class CustomJoinMessages : JavaPlugin() {
 
         messageSender = MessageSender(this, messageTypes)
         messageSender.setupPermissions()
+
+        // Commands
+        val manager = PaperCommandManager(this)
+        @Suppress("DEPRECATION")
+        manager.enableUnstableAPI("help")
+        CommandContext(this).register(manager)
+        CommandCompletion(this).register(manager)
+        manager.registerCommand(CjmCommand(this))
     }
 
     private fun getPluginHooks(): List<PluginHook> {

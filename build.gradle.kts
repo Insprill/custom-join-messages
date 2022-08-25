@@ -17,6 +17,7 @@ repositories {
     mavenCentral()
     maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
     maven("https://jitpack.io")
+    maven("https://repo.aikar.co/content/groups/aikar/")
     maven("https://repo.codemc.org/repository/maven-public/")
     maven("https://repo.essentialsx.net/releases/")
     maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
@@ -31,6 +32,7 @@ dependencies {
     compileOnly("org.spigotmc:spigot-api:1.19.2-R0.1-SNAPSHOT")
     compileOnly("com.github.MilkBowl:VaultAPI:1.7.1") { isTransitive = false }
     compileOnly("com.github.MyzelYam:SuperVanish:6.2.7") { isTransitive = false }
+    implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
     implementation("net.insprill:XenLib:a6942f042e")
     implementation("org.bstats:bstats-bukkit:3.0.0")
 }

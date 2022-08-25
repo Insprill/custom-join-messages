@@ -5,7 +5,6 @@ import net.insprill.cjm.message.types.MessageType
 import net.insprill.xenlib.XenMath
 import net.insprill.xenlib.XenUtils
 import net.insprill.xenlib.files.YamlFile
-import net.insprill.xenlib.logging.Logger
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.permissions.PermissionDefault
@@ -14,7 +13,7 @@ import kotlin.random.Random.Default.nextInt
 
 class MessageSender(private val plugin: CustomJoinMessages, messageTypes: List<MessageType>) {
 
-    val typeMap = messageTypes.associateBy { t -> t.name }
+    val typeMap = messageTypes.associateBy { t -> t.name.lowercase() }
 
     private val registeredPermissions: MutableList<String> = ArrayList()
 
@@ -102,7 +101,7 @@ class MessageSender(private val plugin: CustomJoinMessages, messageTypes: List<M
 
     fun getRandomKey(config: YamlFile, path: String): String? {
         if (config.getConfigSection(path) == null) {
-            Logger.severe("\"" + path + "\" in messages/" + config.file.name + " has no keys. Perhaps the messages indentation is wrong?")
+            plugin.logger.severe("\"" + path + "\" in messages/" + config.file.name + " has no keys. Perhaps the messages indentation is wrong?")
             return null
         }
         val amount = config.getConfigSection(path)!!.getKeys(false).size

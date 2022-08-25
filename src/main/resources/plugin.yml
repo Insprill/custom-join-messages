@@ -13,10 +13,6 @@ softdepend:
   - SuperVanish
   - Vault
 
-commands:
-  cjm:
-    description: Base command for Custom Join Messages.
-
 permissions:
   cjm.default:
     default: true
