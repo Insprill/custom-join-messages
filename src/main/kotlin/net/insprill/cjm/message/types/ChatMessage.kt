@@ -39,7 +39,7 @@ class ChatMessage : MessageType {
     }
 
     private fun sendMessage(msg: String, player: Player, visibility: MessageVisibility) {
-        if (config.getBoolean("Mini-Message")) {
+        if (config.getBoolean("MiniMessage")) {
             val component = MiniMessage.miniMessage().deserialize(msg)
             player.sendMessage(component)
             if (visibility != MessageVisibility.PRIVATE)

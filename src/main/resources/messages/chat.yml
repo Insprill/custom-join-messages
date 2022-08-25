@@ -1,9 +1,9 @@
 # Toggles whether chat messages should be sent.
 Enabled: true
-# Whether messages should be formatted with MiniMessage. Only works on Paper.
+# Whether messages should be formatted with MiniMessage. Only works on Paper 1.16+.
 # MiniMessage's format can be found here: https://docs.adventure.kyori.net/minimessage/format.html
 # When using MiniMessage, you cannot use legacy formatting.
-Mini-Message: false
+MiniMessage: false
 
 Public:
   First-Join:
