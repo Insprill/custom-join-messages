@@ -8,6 +8,7 @@ description: The most advanced custom join messages plugin on the market.
 softdepend:
   - AuthMe
   - CMI
+  - LockLogin
   - PlaceholderAPI
   - PremiumVanish
   - SuperVanish

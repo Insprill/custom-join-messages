@@ -4,6 +4,7 @@ import net.insprill.cjm.compatibility.authme.AuthMeHook
 import net.insprill.cjm.compatibility.cmi.CmiHook
 import net.insprill.cjm.compatibility.essentials.EssentialsHook
 import net.insprill.cjm.compatibility.hook.PluginHook
+import net.insprill.cjm.compatibility.locklogin.LockLoginHook
 import net.insprill.cjm.compatibility.supervanish.SuperVanishHook
 import net.insprill.cjm.compatibility.vanishnopacket.VanishNoPacketHook
 import net.insprill.cjm.util.ServiceProviderUtils.getRegisteredServiceProvider
@@ -13,7 +14,7 @@ enum class Dependency(private val pluginName: String, val pluginHookClass: Class
     AUTH_ME("AuthMe", AuthMeHook::class.java),
     CMI("CMI", CmiHook::class.java),
     ESSENTIALS("Essentials", EssentialsHook::class.java),
-    LOCK_LOGIN("LockLogin"),
+    LOCK_LOGIN("LockLogin", LockLoginHook::class.java),
     PAPI("PlaceholderAPI"),
     PREMIUM_VANISH("PremiumVanish", SuperVanishHook::class.java),
     SUPER_VANISH("SuperVanish", SuperVanishHook::class.java),
