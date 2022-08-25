@@ -3,6 +3,7 @@ package net.insprill.cjm.message.types
 import net.insprill.cjm.message.MessageVisibility
 import net.insprill.cjm.placeholder.Placeholders.Companion.fillPlaceholders
 import net.insprill.xenlib.CenteredMessages
+import net.insprill.xenlib.MinecraftVersion
 import net.insprill.xenlib.files.YamlFile
 import net.kyori.adventure.text.minimessage.MiniMessage
 import org.bukkit.Bukkit
@@ -39,7 +40,7 @@ class ChatMessage : MessageType {
     }
 
     private fun sendMessage(msg: String, player: Player, visibility: MessageVisibility) {
-        if (config.getBoolean("MiniMessage")) {
+        if (config.getBoolean("MiniMessage") && MinecraftVersion.isAtLeast(MinecraftVersion.v1_16_0)) {
             val component = MiniMessage.miniMessage().deserialize(msg)
             player.sendMessage(component)
             if (visibility != MessageVisibility.PRIVATE)

@@ -58,7 +58,7 @@ class ActionbarMessage(private val plugin: CustomJoinMessages) : MessageType {
     }
 
     private fun sendActionbar(msg: String, player: Player) {
-        if (config.getBoolean("MiniMessage")) {
+        if (config.getBoolean("MiniMessage") && MinecraftVersion.isAtLeast(MinecraftVersion.v1_16_0)) {
             val component = MiniMessage.miniMessage().deserialize(msg)
             player.sendActionBar(component)
         } else {
