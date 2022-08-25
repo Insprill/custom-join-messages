@@ -5,7 +5,6 @@ import java.net.URL
 
 plugins {
     kotlin("jvm") version "1.7.10"
-    id("io.freefair.lombok") version "6.5.0.3" //todo: Remove once switched to Kotlin
     id("com.github.johnrengelman.shadow") version "7.1.2"
     id("com.rikonardo.papermake") version "1.0.4"
 }
@@ -43,10 +42,6 @@ val extraDependencies = mapOf(
 )
 
 tasks {
-
-    java { //todo: Remove once switched to Kotlin
-        toolchain.languageVersion.set(JavaLanguageVersion.of(8))
-    }
 
     withType<KotlinCompile> {
         kotlinOptions.jvmTarget = "1.8"
