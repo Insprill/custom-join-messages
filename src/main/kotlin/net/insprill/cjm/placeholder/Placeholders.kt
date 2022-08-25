@@ -8,6 +8,7 @@ import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 
 enum class Placeholders(private val stringName: String, private val result: (Player) -> String) {
+    @Suppress("DEPRECATION")
     DISPLAY_NAME("displayname", { if (it.customName != null) it.customName!! else it.displayName }),
     NAME("name", { it.name }),
     PREFIX("prefix", { if (Dependency.VAULT.isEnabled) (Dependency.VAULT.clazz as Chat).getPlayerPrefix(it) ?: "" else "" }),

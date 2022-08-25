@@ -27,6 +27,7 @@ class AuthMeAuthHook(private val plugin: CustomJoinMessages) : AuthHook {
 
     @EventHandler(priority = EventPriority.MONITOR)
     fun onJoin(e: PlayerJoinEvent) {
+        @Suppress("DEPRECATION")
         e.joinMessage = ""
         if (AuthMeApi.getInstance().isUnrestricted(e.player)) {
             loggedInPlayers.add(e.player)

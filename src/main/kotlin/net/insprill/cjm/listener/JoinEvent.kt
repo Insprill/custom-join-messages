@@ -12,6 +12,7 @@ class JoinEvent(private val plugin: CustomJoinMessages) : Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     fun onPlayerJoin(e: PlayerJoinEvent) {
+        @Suppress("DEPRECATION")
         e.joinMessage = ""
         Bukkit.getScheduler().runTaskLater(plugin, Runnable {
             val action = if (e.player.hasPlayedBefore()) MessageAction.JOIN else MessageAction.FIRST_JOIN
