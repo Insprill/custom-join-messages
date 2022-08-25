@@ -24,11 +24,11 @@ The message to be sent. Only supports a single line.
 
 Bar-Color
 ^^^^^^^^^
-What color the bar should be. All colors can be found `here <https://hub.spigotmc.org/javadocs/spigot/org/bukkit/boss/BarColor.html>`_
+What color the bar should be. `All colors <https://hub.spigotmc.org/javadocs/spigot/org/bukkit/boss/BarColor.html>`_
 
 Bar-Style
 ^^^^^^^^^
-The style of the bar (solid, 6 notches, 12 notches, etc). All styles can be found `here <https://hub.spigotmc.org/javadocs/spigot/org/bukkit/boss/BarStyle.html>`_
+The style of the bar (solid, 6 notches, 12 notches, etc). `All styles <https://hub.spigotmc.org/javadocs/spigot/org/bukkit/boss/BarStyle.html>`_
 
 
 Show-Time
