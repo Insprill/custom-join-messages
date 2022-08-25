@@ -20,7 +20,7 @@ class WorldChangeEvent(private val plugin: CustomJoinMessages) : Listener {
             return
 
         val from = e.from
-        val to = e.to ?: return
+        val to = e.to
         val fromWorld = from.world ?: return
         val toWorld = to.world ?: return
 
@@ -60,6 +60,8 @@ class WorldChangeEvent(private val plugin: CustomJoinMessages) : Listener {
     }
 
     private fun isDifferentGroup(toName: String, fromName: String): Boolean {
+        if (isUngrouped(toName) != isUngrouped(fromName))
+            return YamlFile.CONFIG.getBoolean("World-Based-Messages.Ungrouped-Group")
         for (key in YamlFile.CONFIG.getKeys("World-Based-Messages.Groups")) {
             val group = YamlFile.CONFIG.getStringList("World-Based-Messages.Groups.$key")
             if (group.contains(toName) && group.contains(fromName)) {
@@ -67,6 +69,13 @@ class WorldChangeEvent(private val plugin: CustomJoinMessages) : Listener {
             }
         }
         return true
+    }
+
+    private fun isUngrouped(world: String): Boolean {
+        val path = "World-Based-Messages.Groups"
+        return YamlFile.CONFIG.getKeys(path).none {
+            YamlFile.CONFIG.getStringList("$path.$it").contains(world)
+        }
     }
 
 }

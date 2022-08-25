@@ -38,14 +38,19 @@ Addons:
 # The Overworld, Nether, and End all count as the same world.
 World-Based-Messages:
   Enabled: false
+  # Messages will only be sent when moving between worlds in different groups.
+  # Those groups can be defined here.
+  # The keys don't matter as long as there's no duplicates.
+  # All world names are cAsE-SeNsItIvE.
   Groups:
     1:
       - world
       - world_nether
       - world_the_end
-  Blacklist-As-Whitelist: false
-  Blacklist:
-    - BlacklistedWorld
+  # Whether all worlds not defined in a group should be
+  # treated as their own group. If this is false no messages will be sent
+  # when moving to/from non-grouped worlds.
+  Ungrouped-Group: false
 
 # DO NOT TOUCH!!!
 version: "3.0.0"
