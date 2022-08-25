@@ -14,7 +14,7 @@ version = getFullVersion()
 
 repositories {
     mavenCentral()
-    maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
+    maven("https://repo.papermc.io/repository/maven-public/")
     maven("https://jitpack.io")
     maven("https://repo.aikar.co/content/groups/aikar/")
     maven("https://repo.codemc.org/repository/maven-public/")
@@ -24,13 +24,14 @@ repositories {
 
 dependencies {
     compileOnly(fileTree("libs"))
+    compileOnly("com.github.MilkBowl:VaultAPI:1.7.1") { isTransitive = false }
+    compileOnly("com.github.MyzelYam:SuperVanish:6.2.7") { isTransitive = false }
     compileOnly("fr.xephi:authme:5.6.0-SNAPSHOT")
     compileOnly("me.clip:placeholderapi:2.11.2")
     compileOnly("net.essentialsx:EssentialsX:2.19.6")
+    compileOnly("net.kyori:adventure-text-minimessage:4.11.0")
     compileOnly("org.jetbrains:annotations:23.0.0")
-    compileOnly("org.spigotmc:spigot-api:1.19.2-R0.1-SNAPSHOT")
-    compileOnly("com.github.MilkBowl:VaultAPI:1.7.1") { isTransitive = false }
-    compileOnly("com.github.MyzelYam:SuperVanish:6.2.7") { isTransitive = false }
+    compileOnly("io.papermc.paper:paper-api:1.19.2-R0.1-SNAPSHOT")
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
     implementation("net.insprill:XenLib:a6942f042e")
     implementation("org.bstats:bstats-bukkit:3.0.0")

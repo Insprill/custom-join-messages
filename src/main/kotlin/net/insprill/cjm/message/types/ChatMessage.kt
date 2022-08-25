@@ -4,6 +4,7 @@ import net.insprill.cjm.message.MessageVisibility
 import net.insprill.cjm.placeholder.Placeholders.Companion.fillPlaceholders
 import net.insprill.xenlib.CenteredMessages
 import net.insprill.xenlib.files.YamlFile
+import net.kyori.adventure.text.minimessage.MiniMessage
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import java.io.File
@@ -18,6 +19,15 @@ class ChatMessage : MessageType {
 
     override fun handle(primaryPlayer: Player, players: List<Player>, rootPath: String?, chosenPath: String, visibility: MessageVisibility) {
         val messages = config.getStringList(chosenPath)
+        formatMessages(primaryPlayer, messages)
+        for (msg in messages) {
+            for (player in players) {
+                sendMessage(msg, player, visibility)
+            }
+        }
+    }
+
+    private fun formatMessages(primaryPlayer: Player, messages: MutableList<String>) {
         fillPlaceholders(primaryPlayer, messages)
         messages.replaceAll {
             if (it.startsWith(CENTER_PREFIX)) {
@@ -26,18 +36,18 @@ class ChatMessage : MessageType {
                 it
             }
         }
-        for (msg in messages) {
-            val isJson = msg.contains("{\"text\":")
-            for (player in players) {
-                if (isJson) {
-                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "minecraft:tellraw " + player.name + " " + msg)
-                } else {
-                    player.sendMessage(msg)
-                }
-            }
-            if (visibility === MessageVisibility.PUBLIC && !isJson) {
+    }
+
+    private fun sendMessage(msg: String, player: Player, visibility: MessageVisibility) {
+        if (config.getBoolean("Mini-Message")) {
+            val component = MiniMessage.miniMessage().deserialize(msg)
+            player.sendMessage(component)
+            if (visibility != MessageVisibility.PRIVATE)
+                Bukkit.getConsoleSender().sendMessage(component)
+        } else {
+            player.sendMessage(msg)
+            if (visibility != MessageVisibility.PRIVATE)
                 Bukkit.getConsoleSender().sendMessage(msg)
-            }
         }
     }
 

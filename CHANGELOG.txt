@@ -9,5 +9,7 @@ CJM 17.0.0
 - Added 'Min-Players' config option.
 - Added 'Max-Players' config option.
 - Added locale support.
+- Added support for MiniMessage.
 - Fixed HEX colour codes not working on 1.17-1.19.
 - Removed "cjm joindate" command.
+- Removed support for tellraw formatted JSON messages. Please use MiniMessage instead.
