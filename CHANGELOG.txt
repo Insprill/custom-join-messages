@@ -1,6 +1,6 @@
 CJM 17.0.0
 - Reformatted configuration files. Your old config will be renamed and a new one will be generated.
-- Added support for MiniMessage.
+- Added support for MiniMessage on Paper 1.16+ servers.
 - Added support for world-based messages.
 - Added option to not send messages for jailed players (Only supports EssentialsX and CMI jails).
 - Added support for EssentialsX's /vanish command.
@@ -10,6 +10,6 @@ CJM 17.0.0
 - Added 'Min-Players' config option.
 - Added 'Max-Players' config option.
 - Added locale support.
-- Fixed HEX colour codes not working on 1.17-1.19.
+- Fixed HEX colour codes not working on 1.17-1.19.x.
 - Removed "cjm joindate" command.
 - Removed support for tellraw formatted JSON messages. Please use MiniMessage instead.
