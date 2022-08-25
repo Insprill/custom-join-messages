@@ -6,11 +6,11 @@ import net.insprill.cjm.message.types.MessageType
 enum class MessageCondition(private val condition: (CustomJoinMessages, MessageType, String) -> Boolean) {
     MAX_PLAYERS({ plugin, msg, path ->
         val maxPlayers = msg.config.getInt("$path.Max-Players")
-        maxPlayers > 0 && plugin.server.onlinePlayers.size > maxPlayers
+        maxPlayers < 1 || plugin.server.onlinePlayers.size > maxPlayers
     }),
     MIN_PLAYERS({ plugin, msg, path ->
         val minPlayers = msg.config.getInt("$path.Min-Players")
-        minPlayers > 0 && plugin.server.onlinePlayers.size < minPlayers
+        minPlayers < 1 || plugin.server.onlinePlayers.size < minPlayers
     }),
     ;
 
