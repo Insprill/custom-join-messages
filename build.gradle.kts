@@ -60,6 +60,9 @@ tasks {
     shadowJar {
         dependsOn(reloc)
         archiveClassifier.set("")
+        manifest {
+            attributes["bStats-Id"] = project.property("bstats-id")
+        }
         minimize()
     }
 
