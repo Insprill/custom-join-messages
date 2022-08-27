@@ -5,6 +5,7 @@ import net.insprill.cjm.message.MessageVisibility
 import net.insprill.cjm.placeholder.Placeholders.Companion.fillPlaceholders
 import net.insprill.xenlib.CenteredMessages
 import net.insprill.xenlib.files.YamlFile
+import net.md_5.bungee.api.ChatMessageType
 import org.bukkit.entity.Player
 import java.io.File
 
@@ -19,10 +20,10 @@ class ChatMessage : MessageType {
     override fun handle(primaryPlayer: Player, players: List<Player>, rootPath: String?, chosenPath: String, visibility: MessageVisibility) {
         val messages = config.getStringList(chosenPath)
         formatMessages(primaryPlayer, messages)
-        for (comp in messages.flatMap { MineDown.parse(it).toList() }) {
-            for (player in players) {
-                player.spigot().sendMessage(comp)
-            }
+        val components = messages.flatMap { MineDown.parse(it).toList() }.toTypedArray()
+        for (player in players) {
+            @Suppress("DEPRECATION")
+            player.spigot().sendMessage(ChatMessageType.CHAT, *components)
         }
     }
 
