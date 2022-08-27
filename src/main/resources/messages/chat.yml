@@ -9,7 +9,7 @@ Public:
       Max-Players: -1
       Messages:
         1:
-          - "[&a%name% &7has joined the server for the first time!](https://namemc.com/profile/%name% &8\(&a#%uniquejoins%&8\))"
+          - "[&a%name% &7has joined the server for the first time!](https://namemc.com/profile/%name% &8\\\\(&a#%uniquejoins%&8\\\\))"
   Join:
     1:
       Permission: cjm.default
