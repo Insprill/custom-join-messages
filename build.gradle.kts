@@ -31,7 +31,6 @@ dependencies {
     compileOnly("io.papermc.paper:paper-api:1.19.2-R0.1-SNAPSHOT")
     compileOnly("me.clip:placeholderapi:2.11.2")
     compileOnly("net.essentialsx:EssentialsX:2.19.7")
-    compileOnly("net.kyori:adventure-text-minimessage:4.11.0")
     compileOnly("org.jetbrains:annotations:23.0.0")
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
     implementation("de.themoep:minedown:1.7.1-SNAPSHOT")
