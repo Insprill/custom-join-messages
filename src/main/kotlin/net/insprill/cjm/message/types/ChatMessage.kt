@@ -14,7 +14,7 @@ class ChatMessage : MessageType {
 
     private val CENTER_PREFIX = "center:"
 
-    override val config = YamlFile("messages" + File.separator + "chat.yml", false)
+    override val config = YamlFile("messages" + File.separator + "chat.yml").setModifiable(false)
     override val key = "Messages"
     override val name = "chat"
 

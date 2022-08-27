@@ -10,7 +10,7 @@ import java.io.File
 
 class SoundMessage(private val plugin: CustomJoinMessages) : MessageType {
 
-    override val config = YamlFile("messages" + File.separator + "sound.yml", false)
+    override val config = YamlFile("messages" + File.separator + "sound.yml").setModifiable(false)
     override val key = "Sounds"
     override val name = "sound"
 

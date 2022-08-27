@@ -13,7 +13,7 @@ import java.time.Duration
 
 class TitleMessage : MessageType {
 
-    override val config = YamlFile("messages" + File.separator + "title.yml", false)
+    override val config = YamlFile("messages" + File.separator + "title.yml").setModifiable(false)
     override val key = "Messages"
     override val name = "title"
 
