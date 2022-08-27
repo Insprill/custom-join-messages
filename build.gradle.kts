@@ -14,12 +14,13 @@ version = getFullVersion()
 
 repositories {
     mavenCentral()
-    maven("https://repo.papermc.io/repository/maven-public/")
     maven("https://jitpack.io")
     maven("https://repo.aikar.co/content/groups/aikar/")
     maven("https://repo.codemc.org/repository/maven-public/")
     maven("https://repo.essentialsx.net/releases/")
     maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
+    maven("https://repo.minebench.de/")
+    maven("https://repo.papermc.io/repository/maven-public/")
 }
 
 dependencies {
@@ -33,6 +34,7 @@ dependencies {
     compileOnly("net.kyori:adventure-text-minimessage:4.11.0")
     compileOnly("org.jetbrains:annotations:23.0.0")
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
+    implementation("de.themoep:minedown:1.7.1-SNAPSHOT")
     implementation("net.insprill:XenLib:a6942f042e")
     implementation("org.bstats:bstats-bukkit:3.0.0")
 }
