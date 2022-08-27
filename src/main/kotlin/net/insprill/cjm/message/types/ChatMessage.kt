@@ -1,12 +1,10 @@
 package net.insprill.cjm.message.types
 
+import de.themoep.minedown.MineDown
 import net.insprill.cjm.message.MessageVisibility
 import net.insprill.cjm.placeholder.Placeholders.Companion.fillPlaceholders
 import net.insprill.xenlib.CenteredMessages
-import net.insprill.xenlib.MinecraftVersion
 import net.insprill.xenlib.files.YamlFile
-import net.kyori.adventure.text.minimessage.MiniMessage
-import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import java.io.File
 
@@ -21,9 +19,9 @@ class ChatMessage : MessageType {
     override fun handle(primaryPlayer: Player, players: List<Player>, rootPath: String?, chosenPath: String, visibility: MessageVisibility) {
         val messages = config.getStringList(chosenPath)
         formatMessages(primaryPlayer, messages)
-        for (msg in messages) {
+        for (comp in messages.flatMap { MineDown.parse(it).toList() }) {
             for (player in players) {
-                sendMessage(msg, player, visibility)
+                player.spigot().sendMessage(comp)
             }
         }
     }
@@ -36,19 +34,6 @@ class ChatMessage : MessageType {
             } else {
                 it
             }
-        }
-    }
-
-    private fun sendMessage(msg: String, player: Player, visibility: MessageVisibility) {
-        if (config.getBoolean("MiniMessage") && MinecraftVersion.isAtLeast(MinecraftVersion.v1_16_0)) {
-            val component = MiniMessage.miniMessage().deserialize(msg)
-            player.sendMessage(component)
-            if (visibility != MessageVisibility.PRIVATE)
-                Bukkit.getConsoleSender().sendMessage(component)
-        } else {
-            player.sendMessage(msg)
-            if (visibility != MessageVisibility.PRIVATE)
-                Bukkit.getConsoleSender().sendMessage(msg)
         }
     }
 
