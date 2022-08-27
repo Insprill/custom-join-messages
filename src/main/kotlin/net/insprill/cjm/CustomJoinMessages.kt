@@ -24,7 +24,7 @@ import org.bukkit.Bukkit
 import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
 import java.util.*
-import java.util.jar.Manifest
+import java.util.jar.JarFile
 
 class CustomJoinMessages : JavaPlugin() {
 
@@ -32,7 +32,7 @@ class CustomJoinMessages : JavaPlugin() {
     lateinit var hookManager: HookManager
 
     override fun onEnable() {
-        val manifest = Manifest().apply { read(getResource("META-INF/MANIFEST.MF")) }.mainAttributes
+        val manifest = JarFile(file).manifest.mainAttributes
 
         val metrics = Metrics(this, manifest.getValue("bStats-Id").toInt())
         metrics.addCustomChart(SimplePie("worldBasedMessages") {
