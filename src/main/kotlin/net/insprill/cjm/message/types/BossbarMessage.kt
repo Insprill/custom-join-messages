@@ -1,13 +1,12 @@
 package net.insprill.cjm.message.types
 
+import de.themoep.minedown.MineDown
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.MessageVisibility
 import net.insprill.cjm.placeholder.Placeholders.Companion.fillPlaceholders
-import net.insprill.xenlib.MinecraftVersion
 import net.insprill.xenlib.XenUtils
 import net.insprill.xenlib.files.YamlFile
-import net.kyori.adventure.bossbar.BossBar
-import net.kyori.adventure.text.minimessage.MiniMessage
+import net.md_5.bungee.api.chat.BaseComponent
 import org.bukkit.Bukkit
 import org.bukkit.boss.BarColor
 import org.bukkit.boss.BarFlag
@@ -31,7 +30,7 @@ class BossbarMessage(private val plugin: CustomJoinMessages) : MessageType {
         val countDown = config.getBoolean("$chosenPath.Count-Down", true)
 
         val barInfo = BarInfo(
-            msg,
+            BaseComponent.toLegacyText(*MineDown.parse(msg)),
             barColor,
             barStyle,
             barFlags,
@@ -40,65 +39,10 @@ class BossbarMessage(private val plugin: CustomJoinMessages) : MessageType {
             players.filter { visibility != MessageVisibility.PUBLIC || primaryPlayer != it }
         )
 
-        if (config.getBoolean("MiniMessage") && MinecraftVersion.isAtLeast(MinecraftVersion.v1_16_0)) {
-            handleMiniMessage(barInfo)
-        } else {
-            handleLegacy(barInfo)
-        }
+        handleBar(barInfo)
     }
 
-    private fun handleMiniMessage(info: BarInfo) {
-        val component = MiniMessage.miniMessage().deserialize(info.msg)
-        val bossBar = BossBar.bossBar(
-            component,
-            1.0F,
-            BossBar.Color.valueOf(info.color.name),
-            when (info.style) {
-                BarStyle.SOLID -> BossBar.Overlay.PROGRESS
-                BarStyle.SEGMENTED_6 -> BossBar.Overlay.NOTCHED_6
-                BarStyle.SEGMENTED_10 -> BossBar.Overlay.NOTCHED_10
-                BarStyle.SEGMENTED_12 -> BossBar.Overlay.NOTCHED_12
-                BarStyle.SEGMENTED_20 -> BossBar.Overlay.NOTCHED_20
-            },
-            info.flags.map {
-                when (it) {
-                    BarFlag.DARKEN_SKY -> BossBar.Flag.DARKEN_SCREEN
-                    BarFlag.PLAY_BOSS_MUSIC -> BossBar.Flag.PLAY_BOSS_MUSIC
-                    BarFlag.CREATE_FOG -> BossBar.Flag.CREATE_WORLD_FOG
-                }
-            }.toMutableSet()
-        )
-
-        for (p in info.players) {
-            p.showBossBar(bossBar)
-        }
-
-        if (info.countDown) {
-            class CountDown : BukkitRunnable() {
-                var progress = 1.0F
-                override fun run() {
-                    progress -= 1 / info.showTime.toFloat()
-                    if (progress < 0.0) {
-                        for (p in info.players) {
-                            p.hideBossBar(bossBar)
-                        }
-                        cancel()
-                        return
-                    }
-                    bossBar.progress(progress)
-                }
-            }
-            CountDown().runTaskTimer(plugin, 1, 1)
-        } else {
-            Bukkit.getScheduler().runTaskLater(plugin, Runnable {
-                for (p in info.players) {
-                    p.hideBossBar(bossBar)
-                }
-            }, info.showTime)
-        }
-    }
-
-    private fun handleLegacy(info: BarInfo) {
+    private fun handleBar(info: BarInfo) {
         val bossBar = Bukkit.createBossBar(info.msg, info.color, info.style, *info.flags)
         for (p in info.players) {
             bossBar.addPlayer(p)
