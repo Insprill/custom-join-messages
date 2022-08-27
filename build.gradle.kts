@@ -34,7 +34,7 @@ dependencies {
     compileOnly("org.jetbrains:annotations:23.0.0")
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
     implementation("de.themoep:minedown:1.7.1-SNAPSHOT")
-    implementation("net.insprill:XenLib:a6942f042e")
+    implementation("net.insprill:XenLib:2f228459af")
     implementation("org.bstats:bstats-bukkit:3.0.0")
 }
 

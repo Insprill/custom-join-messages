@@ -11,7 +11,7 @@ import java.io.File
 
 class ActionbarMessage(private val plugin: CustomJoinMessages) : MessageType {
 
-    override val config = YamlFile("messages" + File.separator + "actionbar.yml", false)
+    override val config = YamlFile("messages" + File.separator + "actionbar.yml").setModifiable(false)
     override val key = "Messages"
     override val name = "actionbar"
 

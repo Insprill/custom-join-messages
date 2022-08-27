@@ -17,7 +17,7 @@ import java.io.File
 
 class BossbarMessage(private val plugin: CustomJoinMessages) : MessageType {
 
-    override val config = YamlFile("messages" + File.separator + "bossbar.yml", false)
+    override val config = YamlFile("messages" + File.separator + "bossbar.yml").setModifiable(false)
     override val key = "Messages"
     override val name = "bossbar"
 
