@@ -8,8 +8,8 @@ Example
 
   Messages:
     1:
-      - 'Hello, world!'
-      - '{"text":"This is a JSON message!"}'
+      - "Hello, world!"
+      - "[This is a clickable message!](https://google.com/ When clicked I'll go to google, and when hovered I'll show this!)"
 
 
 Parameters
