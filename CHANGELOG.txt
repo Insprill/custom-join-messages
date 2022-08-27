@@ -6,12 +6,12 @@ CJM 17.0.0
 - Added sound "messages".
 - Added option to not send messages for jailed players (Only supports EssentialsX and CMI jails).
 - Added support for EssentialsX's /vanish command.
-- Added support for ActionBar messages on 1.8.x.
 - Added support for '#000000', &#000000', and '<#000000>' style HEX colour codes.
 - Added 'Min-Players' config option.
 - Added 'Max-Players' config option.
 - Added locale support.
 - Fixed HEX colour codes not working on 1.17-1.19.x.
+- Removed support for 1.8.x servers.
 - Removed the "cjm joindate" command.
 - Removed the "cjm debug" command.
 - Removed the "cjm version" command.
