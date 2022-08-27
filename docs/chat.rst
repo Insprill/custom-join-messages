@@ -18,12 +18,11 @@ Parameters
 Chat messages don't have any message-specific parameters. The messages are simply added as a list directly under the index.
 All lines will be sent at once, but in order.
 
-JSON Messages
+Clickable & Hoverable Messages
 ~~~~~~~~~~~~~
 
-JSON messages are supported using the ``tellraw`` command format.
-`Here <https://minecraft.tools/en/tellraw.php>`_ you can find a generator for these messages.
-When added to the list, it **must** be surrounded by *single* quotes (``'``).
+Chat messages can be written to perform certain action when clicked on, or display text when hovered over.
+For more information on how to do this, check out the :ref:`formatting` page.
 
 Centered Messages
 ~~~~~~~~~~~~~~~~~
