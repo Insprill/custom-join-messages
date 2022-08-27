@@ -4,6 +4,7 @@ import de.themoep.minedown.MineDown
 import net.insprill.cjm.message.MessageVisibility
 import net.insprill.cjm.placeholder.Placeholders.Companion.fillPlaceholders
 import net.insprill.xenlib.CenteredMessages
+import net.insprill.xenlib.MinecraftVersion
 import net.insprill.xenlib.files.YamlFile
 import net.md_5.bungee.api.ChatMessageType
 import org.bukkit.entity.Player
@@ -23,7 +24,11 @@ class ChatMessage : MessageType {
         for (message in messages.map { MineDown.parse(it) }) {
             for (player in players) {
                 @Suppress("DEPRECATION")
-                player.spigot().sendMessage(ChatMessageType.CHAT, *message)
+                if (MinecraftVersion.isAtLeast(MinecraftVersion.v1_9_0)) {
+                    player.spigot().sendMessage(ChatMessageType.CHAT, *message)
+                } else {
+                    player.spigot().sendMessage(*message)
+                }
             }
         }
     }
