@@ -20,10 +20,11 @@ class ChatMessage : MessageType {
     override fun handle(primaryPlayer: Player, players: List<Player>, rootPath: String?, chosenPath: String, visibility: MessageVisibility) {
         val messages = config.getStringList(chosenPath)
         formatMessages(primaryPlayer, messages)
-        val components = messages.flatMap { MineDown.parse(it).toList() }.toTypedArray()
-        for (player in players) {
-            @Suppress("DEPRECATION")
-            player.spigot().sendMessage(ChatMessageType.CHAT, *components)
+        for (message in messages.map { MineDown.parse(it) }) {
+            for (player in players) {
+                @Suppress("DEPRECATION")
+                player.spigot().sendMessage(ChatMessageType.CHAT, *message)
+            }
         }
     }
 
