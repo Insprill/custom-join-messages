@@ -19,7 +19,7 @@ Chat messages don't have any message-specific parameters. The messages are simpl
 All lines will be sent at once, but in order.
 
 Clickable & Hoverable Messages
-~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Chat messages can be written to perform certain action when clicked on, or display text when hovered over.
 For more information on how to do this, check out the :ref:`formatting` page.
