@@ -34,11 +34,11 @@
 
 * [About The Project](#about-the-project)
 * [Roadmap](#roadmap)
-* [Contributing]("#contributing")
-* [Building]("#building")
-* [License]("#license")
-* [Support]("#support")
-* [Contact]("#contact")
+* [Contributing](#contributing)
+* [Building](#building)
+* [License](#license)
+* [Support](#support)
+* [Contact](#contact)
 
 
 
