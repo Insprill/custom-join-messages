@@ -25,7 +25,7 @@ repositories {
 dependencies {
     compileOnly(fileTree("libs"))
     compileOnly("com.github.MilkBowl:VaultAPI:1.7.1") { isTransitive = false }
-    compileOnly("com.github.MyzelYam:SuperVanish:6.2.7") { isTransitive = false }
+    compileOnly("com.github.MyzelYam:SuperVanish:6.2.12") { isTransitive = false }
     compileOnly("fr.xephi:authme:5.6.0-SNAPSHOT")
     compileOnly("io.papermc.paper:paper-api:1.19.2-R0.1-SNAPSHOT")
     compileOnly("me.clip:placeholderapi:2.11.2")
