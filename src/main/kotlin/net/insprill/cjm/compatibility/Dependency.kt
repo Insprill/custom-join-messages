@@ -13,7 +13,6 @@ enum class Dependency(private val pluginName: String, val pluginHookClass: Class
     AUTH_ME("AuthMe", AuthMeHook::class.java),
     CMI("CMI", CmiHook::class.java),
     ESSENTIALS("Essentials", EssentialsHook::class.java),
-    LOCK_LOGIN("LockLogin"),
     PAPI("PlaceholderAPI"),
     PREMIUM_VANISH("PremiumVanish", SuperVanishHook::class.java),
     SUPER_VANISH("SuperVanish", SuperVanishHook::class.java),
