@@ -1,6 +1,6 @@
 CJM 17.0.0
 - Reformatted configuration files. Your old config will be renamed and a new one will be generated.
-- Added support for formatting messages with MineDown.
+- Added support for formatting messages with MineDown. More information on the wiki.
 - Added support for world-based messages.
 - Added bossbar messages.
 - Added sound "messages".
