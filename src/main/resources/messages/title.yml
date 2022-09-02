@@ -1,9 +1,5 @@
 # Toggles whether titles should be sent.
 Enabled: false
-# Whether messages should be formatted with MiniMessage. Only works on Paper 1.16+.
-# MiniMessage's format can be found here: https://docs.adventure.kyori.net/minimessage/format.html
-# When using MiniMessage, you cannot use legacy formatting.
-MiniMessage: false
 
 Public:
   First-Join:

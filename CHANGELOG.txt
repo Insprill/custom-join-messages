@@ -1,6 +1,6 @@
 CJM 17.0.0
 - Reformatted configuration files. Your old config will be renamed and a new one will be generated.
-- Added support for MiniMessage on Paper 1.16+ servers.
+- Added support for formatting messages with MineDown. More information on the wiki.
 - Added support for world-based messages.
 - Added bossbar messages.
 - Added sound "messages".
@@ -15,4 +15,4 @@ CJM 17.0.0
 - Removed the "cjm joindate" command.
 - Removed the "cjm debug" command.
 - Removed the "cjm version" command.
-- Removed support for tellraw formatted JSON messages. Please use MiniMessage instead.
+- Removed support for tellraw formatted JSON messages. Please use the MineDown format instead.

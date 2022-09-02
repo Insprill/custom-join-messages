@@ -7,7 +7,6 @@ All message types follow the same basic structure:
 .. code-block:: yaml
 
   Enabled:
-  MiniMessage:
   Visibility:
     Action:
       Group Index:
@@ -20,11 +19,6 @@ Enabled
 ^^^^^^^
 Whether the message type is enabled.
 
-MiniMessage
-^^^^^^^^^^^
-Whether messages should be formatted using MiniMessage.
-Does not apply to non-text messages like sounds.
-More info can be found on the :ref:`colours` page.
 
 Visibility
 ^^^^^^^^^^
