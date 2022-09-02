@@ -14,6 +14,7 @@ enum class Placeholders(private val stringName: String, private val result: (Pla
     PREFIX("prefix", { if (Dependency.VAULT.isEnabled) (Dependency.VAULT.clazz as Chat).getPlayerPrefix(it) ?: "" else "" }),
     SUFFIX("suffix", { if (Dependency.VAULT.isEnabled) (Dependency.VAULT.clazz as Chat).getPlayerSuffix(it) ?: "" else "" }),
     UNIQUE_JOINS("uniquejoins", { Bukkit.getOfflinePlayers().size.toString() }),
+    UUID("uuid", { it.uniqueId.toString() }),
     ;
 
     companion object {
