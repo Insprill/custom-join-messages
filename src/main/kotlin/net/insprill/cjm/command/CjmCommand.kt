@@ -1,6 +1,7 @@
 package net.insprill.cjm.command
 
 import co.aikar.commands.BaseCommand
+import co.aikar.commands.BukkitCommandManager
 import co.aikar.commands.CommandHelp
 import co.aikar.commands.annotation.CommandAlias
 import co.aikar.commands.annotation.CommandCompletion
@@ -18,13 +19,25 @@ import net.insprill.xenlib.files.YamlFolder
 import net.insprill.xenlib.localization.Lang
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
+import java.util.*
 import java.util.function.Consumer
 
 
 @CommandAlias("cjm|customjoinmessages")
 @Description("Base command for Custom Join Messages.")
 @Suppress("UNUSED")
-class CjmCommand(private val plugin: CustomJoinMessages) : BaseCommand() {
+class CjmCommand(private val manager: BukkitCommandManager, private val plugin: CustomJoinMessages) : BaseCommand() {
+
+    fun updateLocale() {
+        val requestedLang = YamlFile.CONFIG.getString("language", "en")!!.lowercase()
+        val lang: Locale = if (!manager.supportedLanguages.any { it.language.equals(requestedLang) }) {
+            plugin.logger.severe("Unsupported language '$requestedLang'. Defaulting to 'en'. Please choose from one of the following: ${manager.supportedLanguages.map { it.language }}")
+            Locale.ENGLISH
+        } else {
+            manager.supportedLanguages.first { it.language.equals(requestedLang) }
+        }
+        manager.locales.defaultLocale = lang
+    }
 
     @HelpCommand
     @Syntax("(page)")

@@ -68,16 +68,7 @@ class CustomJoinMessages : JavaPlugin() {
         messageSender = MessageSender(this, messageTypes)
         messageSender.setupPermissions()
 
-        // Commands
-        val manager = PaperCommandManager(this)
-        @Suppress("DEPRECATION")
-        manager.run {
-            enableUnstableAPI("help")
-            enableUnstableAPI("brigadier")
-        }
-        CommandContext(this).register(manager)
-        CommandCompletion(this).register(manager)
-        manager.registerCommand(CjmCommand(this))
+        registerCommands()
     }
 
     private fun getPluginHooks(): List<PluginHook> {
@@ -111,6 +102,24 @@ class CustomJoinMessages : JavaPlugin() {
                 continue
             Bukkit.getPluginManager().registerEvents(listener, this)
         }
+    }
+
+    private fun registerCommands() {
+        // Commands
+        val manager = PaperCommandManager(this)
+
+        @Suppress("DEPRECATION")
+        manager.run {
+            enableUnstableAPI("help")
+            enableUnstableAPI("brigadier")
+        }
+
+        CommandContext(this).register(manager)
+        CommandCompletion(this).register(manager)
+
+        val command = CjmCommand(manager, this)
+        command.updateLocale()
+        manager.registerCommand(command)
     }
 
 }

@@ -5,7 +5,7 @@
 #                                        #
 ##########################################
 #
-language: en-us
+language: en
 #
 # Settings for hooks into other plugins. These settings only apply after a restart.
 Addons:
