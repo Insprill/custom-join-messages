@@ -5,6 +5,8 @@
 #                                        #
 ##########################################
 #
+# Please visit https://cjm.insprill.net/ for the full CJM wiki.
+#
 language: en
 #
 # Settings for hooks into other plugins. These settings only apply after a restart.
