@@ -71,7 +71,10 @@ class CustomJoinMessages : JavaPlugin() {
         // Commands
         val manager = PaperCommandManager(this)
         @Suppress("DEPRECATION")
-        manager.enableUnstableAPI("help")
+        manager.run {
+            enableUnstableAPI("help")
+            enableUnstableAPI("brigadier")
+        }
         CommandContext(this).register(manager)
         CommandCompletion(this).register(manager)
         manager.registerCommand(CjmCommand(this))
