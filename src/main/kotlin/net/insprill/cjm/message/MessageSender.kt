@@ -79,7 +79,7 @@ class MessageSender(private val plugin: CustomJoinMessages, messageTypes: List<M
         return msgType.config.getKeys(path)
             .mapNotNull { it.toIntOrNull() }
             .filter { player.hasPermission(msgType.config.getString("$path.$it.Permission") ?: "cjm.default") }
-            .max()
+            .maxOrNull() ?: -1
     }
 
     private fun getReceivingPlayers(sourcePlayer: Player, visibility: MessageVisibility, action: MessageAction, radius: Double): List<Player> {
