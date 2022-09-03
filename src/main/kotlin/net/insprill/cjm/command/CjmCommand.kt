@@ -30,13 +30,12 @@ class CjmCommand(private val manager: BukkitCommandManager, private val plugin: 
 
     fun updateLocale() {
         val requestedLang = YamlFile.CONFIG.getString("language", "en")!!.lowercase()
-        val lang: Locale = if (!manager.supportedLanguages.any { it.language.equals(requestedLang) }) {
+        manager.locales.defaultLocale = if (!manager.supportedLanguages.any { it.language.equals(requestedLang) }) {
             plugin.logger.severe("Unsupported language '$requestedLang'. Defaulting to 'en'. Please choose from one of the following: ${manager.supportedLanguages.map { it.language }}")
             Locale.ENGLISH
         } else {
             manager.supportedLanguages.first { it.language.equals(requestedLang) }
         }
-        manager.locales.defaultLocale = lang
     }
 
     @HelpCommand
