@@ -78,7 +78,7 @@ class MessageSender(private val plugin: CustomJoinMessages, messageTypes: List<M
     private fun getHighestPriorityMessage(msgType: MessageType, path: String, player: Player): Int {
         return msgType.config.getKeys(path)
             .mapNotNull { it.toIntOrNull() }
-            .filter { player.hasPermission(msgType.config.getString("$path.$it.Permission")!!) }
+            .filter { player.hasPermission(msgType.config.getString("$path.$it.Permission") ?: "cjm.default") }
             .max()
     }
 
