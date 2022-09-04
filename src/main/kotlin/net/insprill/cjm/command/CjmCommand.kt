@@ -71,7 +71,7 @@ class CjmCommand(private val manager: BukkitCommandManager, private val plugin: 
         }
 
         val randomKey = plugin.messageSender.getRandomKey(messageType.config, "$path.${messageType.key}") ?: return
-        messageType.handle(target, listOf(sender as Player), path, randomKey, MessageVisibility.PRIVATE)
+        messageType.handle(target, listOf(target), path, randomKey, MessageVisibility.PRIVATE)
     }
 
 }
