@@ -42,7 +42,7 @@ class CustomJoinMessages : JavaPlugin() {
 
         XenLib.init(this)
 
-        if (!MinecraftVersion.isAtLeast(MinecraftVersion.v1_9_0)) {
+        if (MinecraftVersion.isOlderThan(MinecraftVersion.v1_9_0)) {
             logger.severe("Custom Join Messages only supports 1.9+ servers! (https://howoldisminecraft188.today/)")
             Bukkit.getPluginManager().disablePlugin(this)
             return
