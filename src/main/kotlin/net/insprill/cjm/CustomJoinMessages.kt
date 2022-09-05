@@ -16,7 +16,7 @@ import net.insprill.cjm.message.types.BossbarMessage
 import net.insprill.cjm.message.types.ChatMessage
 import net.insprill.cjm.message.types.SoundMessage
 import net.insprill.cjm.message.types.TitleMessage
-import net.insprill.xenlib.MinecraftVersion
+import net.insprill.spigotutils.MinecraftVersion
 import net.insprill.xenlib.XenLib
 import net.insprill.xenlib.files.YamlFile
 import org.bstats.bukkit.Metrics
