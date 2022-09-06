@@ -9,11 +9,15 @@ import org.bukkit.permissions.Permission
 import org.bukkit.permissions.PermissionDefault
 import kotlin.random.Random.Default.nextInt
 
-class MessageSender(private val plugin: CustomJoinMessages, messageTypes: List<MessageType>) {
+class MessageSender(private val plugin: CustomJoinMessages) {
 
-    val typeMap = messageTypes.associateBy { t -> t.name.lowercase() }
+    val typeMap = HashMap<String, MessageType>()
 
-    private val registeredPermissions: MutableList<String> = ArrayList()
+    private val registeredPermissions = ArrayList<String>()
+
+    fun registerType(messageType: MessageType) {
+        typeMap[messageType.name.lowercase()] = messageType
+    }
 
     fun reloadPermissions(config: FlatFile) {
         registeredPermissions.forEach { Bukkit.getPluginManager().removePermission(it) }

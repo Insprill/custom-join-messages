@@ -52,7 +52,6 @@ class CustomJoinMessages : JavaPlugin() {
             return
 
         val manifest = JarFile(file).manifest.mainAttributes
-
         val metrics = Metrics(this, manifest.getValue("bStats-Id").toInt())
         metrics.addCustomChart(SimplePie("worldBasedMessages") {
             config.getBoolean("World-Based-Messages.Enabled").toString()
@@ -63,6 +62,8 @@ class CustomJoinMessages : JavaPlugin() {
 
         registerListeners()
 
+        messageSender = MessageSender(this)
+
         val messageTypes = listOf(
             ActionbarMessage(this),
             BossbarMessage(this),
@@ -71,11 +72,10 @@ class CustomJoinMessages : JavaPlugin() {
             TitleMessage(this),
         )
 
-        for (msg in messageTypes) {
-            metrics.addCustomChart(SimplePie("message_type_" + msg.name) { msg.isEnabled.toString() })
+        messageTypes.forEach {
+            metrics.addCustomChart(SimplePie("message_type_" + it.name) { it.isEnabled.toString() })
+            messageSender.registerType(it)
         }
-
-        messageSender = MessageSender(this, messageTypes)
 
         registerCommands()
     }
