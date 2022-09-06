@@ -19,7 +19,6 @@ import net.insprill.cjm.message.types.ChatMessage
 import net.insprill.cjm.message.types.SoundMessage
 import net.insprill.cjm.message.types.TitleMessage
 import net.insprill.spigotutils.MinecraftVersion
-import net.insprill.xenlib.XenLib
 import org.bstats.bukkit.Metrics
 import org.bstats.charts.SimplePie
 import org.bukkit.Bukkit
@@ -46,8 +45,6 @@ class CustomJoinMessages : JavaPlugin() {
         metrics.addCustomChart(SimplePie("worldBasedMessages") {
             config.getBoolean("World-Based-Messages.Enabled").toString()
         })
-
-        XenLib.init(this)
 
         if (MinecraftVersion.isOlderThan(MinecraftVersion.v1_9_0)) {
             logger.severe("Custom Join Messages only supports 1.9+ servers! (https://howoldisminecraft188.today/)")
