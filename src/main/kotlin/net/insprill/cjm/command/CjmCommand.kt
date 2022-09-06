@@ -18,7 +18,6 @@ import net.insprill.cjm.message.types.MessageType
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import java.util.Locale
-import java.util.function.Consumer
 
 
 @CommandAlias("cjm|customjoinmessages")
@@ -43,16 +42,6 @@ class CjmCommand(private val manager: BukkitCommandManager, private val plugin: 
     fun onHelp(sender: CommandSender, help: CommandHelp) {
         help.helpEntries.sortBy { it.command }
         help.showHelp()
-    }
-
-    @Subcommand("reload|r")
-    @CommandPermission("cjm.command.reload")
-    @Description("Reloads all configuration files")
-    fun onReload(sender: CommandSender) {
-        plugin.config.forceReload()
-        plugin.messageSender.typeMap.values.forEach(Consumer { m: MessageType -> m.config.forceReload() })
-        plugin.messageSender.setupPermissions()
-        sender.spigot().sendMessage(*MineDown.parse("&aPlugin reloaded."))
     }
 
     @Subcommand("preview|p")
