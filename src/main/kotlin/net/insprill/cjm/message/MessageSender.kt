@@ -15,10 +15,6 @@ class MessageSender(private val plugin: CustomJoinMessages, messageTypes: List<M
 
     private val registeredPermissions: MutableList<String> = ArrayList()
 
-    init {
-        messageTypes.forEach { reloadPermissions(it.config) }
-    }
-
     fun reloadPermissions(config: FlatFile) {
         registeredPermissions.forEach { Bukkit.getPluginManager().removePermission(it) }
         registeredPermissions.clear()
