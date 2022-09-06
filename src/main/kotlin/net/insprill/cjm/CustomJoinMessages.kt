@@ -35,12 +35,14 @@ class CustomJoinMessages : JavaPlugin() {
     lateinit var messageSender: MessageSender
     lateinit var hookManager: HookManager
     lateinit var config: Yaml
+    private lateinit var cjmCommand: CjmCommand
 
     override fun onEnable() {
         config = SimplixBuilder.fromPath(Path.of("$dataFolder/config.yml"))
             .addInputStreamFromResource("config.yml")
             .setConfigSettings(ConfigSettings.PRESERVE_COMMENTS)
             .setDataType(DataType.SORTED)
+            .reloadCallback { cjmCommand.updateLocale() }
             .createYaml()
 
         val manifest = JarFile(file).manifest.mainAttributes
@@ -124,9 +126,9 @@ class CustomJoinMessages : JavaPlugin() {
         CommandContext(this).register(manager)
         CommandCompletion(this).register(manager)
 
-        val command = CjmCommand(manager, this)
-        command.updateLocale()
-        manager.registerCommand(command)
+        cjmCommand = CjmCommand(manager, this)
+        cjmCommand.updateLocale()
+        manager.registerCommand(cjmCommand)
     }
 
 }
