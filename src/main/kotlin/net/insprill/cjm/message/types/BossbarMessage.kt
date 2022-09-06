@@ -4,7 +4,6 @@ import de.themoep.minedown.MineDown
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.MessageVisibility
 import net.insprill.cjm.placeholder.Placeholders.Companion.fillPlaceholders
-import net.insprill.xenlib.XenUtils
 import net.md_5.bungee.api.chat.BaseComponent
 import org.bukkit.Bukkit
 import org.bukkit.boss.BarColor
@@ -67,7 +66,7 @@ class BossbarMessage(private val plugin: CustomJoinMessages) : MessageType(plugi
     }
 
     private inline fun <reified T : Enum<T>> checkEnum(str: String, type: Class<T>): T? {
-        if (!XenUtils.isValidEnum(type, str)) {
+        if (enumValues<T>().none { it.name == str }) {
             plugin.logger.severe("Unknown ${type.simpleName} '$str'! Please choose from one of the following: ${type.enumConstants.contentToString()}")
             return null
         }
