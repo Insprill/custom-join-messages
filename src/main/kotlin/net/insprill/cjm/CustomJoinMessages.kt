@@ -21,6 +21,7 @@ import net.insprill.cjm.message.types.ChatMessage
 import net.insprill.cjm.message.types.SoundMessage
 import net.insprill.cjm.message.types.TitleMessage
 import net.insprill.spigotutils.MinecraftVersion
+import net.insprill.spigotutils.ServerEnvironment
 import org.bstats.bukkit.Metrics
 import org.bstats.charts.SimplePie
 import org.bukkit.Bukkit
@@ -38,6 +39,9 @@ class CustomJoinMessages : JavaPlugin() {
     private lateinit var cjmCommand: CjmCommand
 
     override fun onEnable() {
+        if (!checkCompatible())
+            return
+
         config = SimplixBuilder.fromPath(Path.of("$dataFolder/config.yml"))
             .addInputStreamFromResource("config.yml")
             .setConfigSettings(ConfigSettings.PRESERVE_COMMENTS)
@@ -51,12 +55,6 @@ class CustomJoinMessages : JavaPlugin() {
         metrics.addCustomChart(SimplePie("worldBasedMessages") {
             config.getBoolean("World-Based-Messages.Enabled").toString()
         })
-
-        if (MinecraftVersion.isOlderThan(MinecraftVersion.v1_9_0)) {
-            logger.severe("Custom Join Messages only supports 1.9+ servers! (https://howoldisminecraft188.today/)")
-            Bukkit.getPluginManager().disablePlugin(this)
-            return
-        }
 
         val pluginHooks = getPluginHooks()
         hookManager = HookManager(pluginHooks)
@@ -78,6 +76,21 @@ class CustomJoinMessages : JavaPlugin() {
         messageSender = MessageSender(this, messageTypes)
 
         registerCommands()
+    }
+
+    private fun checkCompatible(): Boolean {
+        if (!ServerEnvironment.isSpigot()) {
+            logger.severe("Custom Join Messages only works on Spigot, or forks of Spigot like Paper! Please upgrade to one of the two.")
+            Bukkit.getPluginManager().disablePlugin(this)
+            return false
+        }
+
+        if (MinecraftVersion.isOlderThan(MinecraftVersion.v1_9_0)) {
+            logger.severe("Custom Join Messages only supports 1.9+ servers! (https://howoldisminecraft188.today/)")
+            Bukkit.getPluginManager().disablePlugin(this)
+            return false
+        }
+        return true
     }
 
     private fun getPluginHooks(): List<PluginHook> {
