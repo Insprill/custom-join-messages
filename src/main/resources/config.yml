@@ -43,16 +43,20 @@ World-Based-Messages:
   # Messages will only be sent when moving between worlds in different groups.
   # Those groups can be defined here.
   # The keys don't matter as long as there's no duplicates.
+  # Note that groups are saved by key name, so while what it is doesn't matter,
+  # it cannot be changed without losing its reference.
   # All world names are cAsE-SeNsItIvE.
   Groups:
     1:
       - world
       - world_nether
       - world_the_end
-  # Whether all worlds not defined in a group should be
-  # treated as their own group. If this is false no messages will be sent
-  # when moving to/from non-grouped worlds.
-  Ungrouped-Group: false
+  # How worlds which aren't in a group should be handled.
+  # You can pick from one of 3 options:
+  #  NONE - Worlds will not send messages when entering/exiting.
+  #  SAME - Worlds will be treated as if they're in one group.
+  #  INDIVIDUAL - Worlds will be treated as if they're all in their own groups.
+  Ungrouped-Mode: INDIVIDUAL
 
 # DO NOT TOUCH!!!
 version: "3.0.0"
