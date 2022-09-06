@@ -29,7 +29,7 @@ import java.util.function.Consumer
 class CjmCommand(private val manager: BukkitCommandManager, private val plugin: CustomJoinMessages) : BaseCommand() {
 
     fun updateLocale() {
-        val requestedLang = YamlFile.CONFIG.getString("language", "en")!!.lowercase()
+        val requestedLang = plugin.config.getOrDefault("language", "en")!!.lowercase()
         manager.locales.defaultLocale = if (!manager.supportedLanguages.any { it.language.equals(requestedLang) }) {
             plugin.logger.severe("Unsupported language '$requestedLang'. Defaulting to 'en'. Please choose from one of the following: ${manager.supportedLanguages.map { it.language }}")
             Locale.ENGLISH
@@ -51,9 +51,8 @@ class CjmCommand(private val manager: BukkitCommandManager, private val plugin: 
     @CommandPermission("cjm.command.reload")
     @Description("Reloads all configuration files")
     fun onReload(sender: CommandSender) {
-        YamlFolder.LOCALE.reload()
-        YamlFile.CONFIG.reload()
-        plugin.messageSender.typeMap.values.forEach(Consumer { m: MessageType -> m.config.reload() })
+        plugin.config.forceReload()
+        plugin.messageSender.typeMap.values.forEach(Consumer { m: MessageType -> m.config.forceReload() })
         plugin.messageSender.setupPermissions()
         Lang.send(sender, "commands.reload")
     }

@@ -1,19 +1,17 @@
 package net.insprill.cjm.message.types
 
 import de.themoep.minedown.MineDown
+import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.MessageVisibility
 import net.insprill.cjm.placeholder.Placeholders.Companion.fillPlaceholders
 import net.insprill.spigotutils.MinecraftVersion
-import net.insprill.xenlib.files.YamlFile
 import net.md_5.bungee.api.ChatMessageType
 import org.bukkit.entity.Player
-import java.io.File
 
-class ChatMessage : MessageType {
+class ChatMessage(plugin: CustomJoinMessages) : MessageType(plugin) {
 
     private val CENTER_PREFIX = "center:"
 
-    override val config = YamlFile("messages" + File.separator + "chat.yml").setModifiable(false)
     override val key = "Messages"
     override val name = "chat"
 

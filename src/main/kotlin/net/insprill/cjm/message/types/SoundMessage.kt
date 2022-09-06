@@ -3,14 +3,11 @@ package net.insprill.cjm.message.types
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.MessageVisibility
 import net.insprill.xenlib.XenUtils
-import net.insprill.xenlib.files.YamlFile
 import org.bukkit.Sound
 import org.bukkit.entity.Player
-import java.io.File
 
-class SoundMessage(private val plugin: CustomJoinMessages) : MessageType {
+class SoundMessage(private val plugin: CustomJoinMessages) : MessageType(plugin) {
 
-    override val config = YamlFile("messages" + File.separator + "sound.yml").setModifiable(false)
     override val key = "Sounds"
     override val name = "sound"
 

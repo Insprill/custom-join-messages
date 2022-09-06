@@ -1,6 +1,8 @@
 package net.insprill.cjm
 
 import co.aikar.commands.PaperCommandManager
+import de.leonhard.storage.SimplixBuilder
+import de.leonhard.storage.internal.FlatFile
 import net.insprill.cjm.command.CjmCommand
 import net.insprill.cjm.command.CommandCompletion
 import net.insprill.cjm.command.CommandContext
@@ -18,12 +20,12 @@ import net.insprill.cjm.message.types.SoundMessage
 import net.insprill.cjm.message.types.TitleMessage
 import net.insprill.spigotutils.MinecraftVersion
 import net.insprill.xenlib.XenLib
-import net.insprill.xenlib.files.YamlFile
 import org.bstats.bukkit.Metrics
 import org.bstats.charts.SimplePie
 import org.bukkit.Bukkit
 import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
+import java.nio.file.Path
 import java.util.*
 import java.util.jar.JarFile
 
@@ -31,13 +33,18 @@ class CustomJoinMessages : JavaPlugin() {
 
     lateinit var messageSender: MessageSender
     lateinit var hookManager: HookManager
+    lateinit var config: FlatFile
 
     override fun onEnable() {
+        config = SimplixBuilder.fromPath(Path.of("$dataFolder/config.yml"))
+            .addInputStreamFromResource("config.yml")
+            .createYaml()
+
         val manifest = JarFile(file).manifest.mainAttributes
 
         val metrics = Metrics(this, manifest.getValue("bStats-Id").toInt())
         metrics.addCustomChart(SimplePie("worldBasedMessages") {
-            YamlFile.CONFIG.getBoolean("World-Based-Messages.Enabled").toString()
+            config.getBoolean("World-Based-Messages.Enabled").toString()
         })
 
         XenLib.init(this)
@@ -54,11 +61,11 @@ class CustomJoinMessages : JavaPlugin() {
         registerListeners()
 
         val messageTypes = listOf(
-            ActionbarMessage(),
+            ActionbarMessage(this),
             BossbarMessage(this),
-            ChatMessage(),
+            ChatMessage(this),
             SoundMessage(this),
-            TitleMessage(),
+            TitleMessage(this),
         )
 
         for (msg in messageTypes) {
@@ -85,7 +92,7 @@ class CustomJoinMessages : JavaPlugin() {
     private fun registerListeners() {
         var registeredAuthListener = false
         for (listener in hookManager.authHooks) {
-            if (!YamlFile.CONFIG.getBoolean("Addons.Auth.Wait-For-Login"))
+            if (!config.getBoolean("Addons.Auth.Wait-For-Login"))
                 continue
             Bukkit.getPluginManager().registerEvents(listener, this)
             registeredAuthListener = true
@@ -98,7 +105,7 @@ class CustomJoinMessages : JavaPlugin() {
         Bukkit.getPluginManager().registerEvents(WorldChangeEvent(this), this)
 
         for (listener in hookManager.vanishHooks.filterIsInstance<Listener>()) {
-            if (!YamlFile.CONFIG.getBoolean("Addons.Vanish.Fake-Messages.Enabled"))
+            if (!config.getBoolean("Addons.Vanish.Fake-Messages.Enabled"))
                 continue
             Bukkit.getPluginManager().registerEvents(listener, this)
         }

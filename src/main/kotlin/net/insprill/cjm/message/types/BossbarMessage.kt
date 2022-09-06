@@ -5,7 +5,6 @@ import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.MessageVisibility
 import net.insprill.cjm.placeholder.Placeholders.Companion.fillPlaceholders
 import net.insprill.xenlib.XenUtils
-import net.insprill.xenlib.files.YamlFile
 import net.md_5.bungee.api.chat.BaseComponent
 import org.bukkit.Bukkit
 import org.bukkit.boss.BarColor
@@ -13,11 +12,9 @@ import org.bukkit.boss.BarFlag
 import org.bukkit.boss.BarStyle
 import org.bukkit.entity.Player
 import org.bukkit.scheduler.BukkitRunnable
-import java.io.File
 
-class BossbarMessage(private val plugin: CustomJoinMessages) : MessageType {
+class BossbarMessage(private val plugin: CustomJoinMessages) : MessageType(plugin) {
 
-    override val config = YamlFile("messages" + File.separator + "bossbar.yml").setModifiable(false)
     override val key = "Messages"
     override val name = "bossbar"
 
@@ -27,7 +24,7 @@ class BossbarMessage(private val plugin: CustomJoinMessages) : MessageType {
         val barStyle = checkEnum(config.getString("$chosenPath.Bar-Style")!!, BarStyle::class.java) ?: return
         val barFlags = config.getStringList("$chosenPath.Bar-Flags").mapNotNull { checkEnum(it, BarFlag::class.java) }.toTypedArray()
         val showTime = config.getLong("$chosenPath.Show-Time")
-        val countDown = config.getBoolean("$chosenPath.Count-Down", true)
+        val countDown = config.getOrDefault("$chosenPath.Count-Down", true)
 
         val barInfo = BarInfo(
             BaseComponent.toLegacyText(*MineDown.parse(msg)),

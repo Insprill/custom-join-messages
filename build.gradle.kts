@@ -33,6 +33,7 @@ dependencies {
     compileOnly("net.essentialsx:EssentialsX:2.19.7")
     compileOnly("org.jetbrains:annotations:23.0.0")
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
+    implementation("com.github.simplix-softworks:simplixstorage:3.2.5")
     implementation("de.themoep:minedown:1.7.1-SNAPSHOT")
     implementation("net.insprill:spigot-utils:0.1.0")
     implementation("net.insprill:XenLib:2f228459af")

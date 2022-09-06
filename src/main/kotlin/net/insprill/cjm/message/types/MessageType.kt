@@ -1,30 +1,37 @@
 package net.insprill.cjm.message.types
 
+import de.leonhard.storage.SimplixBuilder
+import de.leonhard.storage.internal.DataStorage
+import de.leonhard.storage.internal.FlatFile
+import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.MessageVisibility
-import net.insprill.xenlib.files.YamlFile
 import org.bukkit.entity.Player
+import java.nio.file.Path
 
-interface MessageType {
+abstract class MessageType(plugin: CustomJoinMessages) {
+
     /**
      * @return The name of the message type.
      */
-    val name: String
+    abstract val name: String
 
     /**
-     * @return The YamlFile associated with the message type.
+     * @return The primary key that all messages are under.
      */
-    val config: YamlFile
+    abstract val key: String
+
+    /**
+     * @return The [FlatFile] associated with the message type.
+     */
+    val config: FlatFile = SimplixBuilder.fromPath(Path.of("${plugin.dataFolder}/messages/$name.yml"))
+        .addInputStreamFromResource("messages/$name.yml")
+        .createYaml()
 
     /**
      * @return Whether this MessageType is enabled.
      */
     val isEnabled: Boolean
         get() = config.getBoolean("Enabled")
-
-    /**
-     * @return The primary key that all messages are under.
-     */
-    val key: String
 
     /**
      * Called when a message should be sent.
@@ -35,11 +42,12 @@ interface MessageType {
      * @param chosenPath    Full path to the chosen message.
      * @param visibility    The visibility of the message.
      */
-    fun handle(
+    abstract fun handle(
         primaryPlayer: Player,
         players: List<Player>,
         rootPath: String?,
         chosenPath: String,
         visibility: MessageVisibility
     )
+
 }
