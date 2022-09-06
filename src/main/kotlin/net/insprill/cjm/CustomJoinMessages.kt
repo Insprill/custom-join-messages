@@ -36,7 +36,6 @@ class CustomJoinMessages : JavaPlugin() {
     lateinit var messageSender: MessageSender
     lateinit var hookManager: HookManager
     lateinit var config: Yaml
-    private lateinit var cjmCommand: CjmCommand
 
     override fun onEnable() {
         if (!checkCompatible())
@@ -46,7 +45,6 @@ class CustomJoinMessages : JavaPlugin() {
             .addInputStreamFromResource("config.yml")
             .setConfigSettings(ConfigSettings.PRESERVE_COMMENTS)
             .setDataType(DataType.SORTED)
-            .reloadCallback { cjmCommand.updateLocale() }
             .createYaml()
 
         val manifest = JarFile(file).manifest.mainAttributes
@@ -74,8 +72,6 @@ class CustomJoinMessages : JavaPlugin() {
         }
 
         messageSender = MessageSender(this, messageTypes)
-
-        registerCommands()
     }
 
     private fun checkCompatible(): Boolean {
@@ -139,8 +135,7 @@ class CustomJoinMessages : JavaPlugin() {
         CommandContext(this).register(manager)
         CommandCompletion(this).register(manager)
 
-        cjmCommand = CjmCommand(manager, this)
-        cjmCommand.updateLocale()
+        val cjmCommand = CjmCommand(manager, this)
         manager.registerCommand(cjmCommand)
     }
 
