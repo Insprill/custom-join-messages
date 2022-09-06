@@ -7,10 +7,7 @@ import net.insprill.cjm.placeholder.Placeholders
 import net.md_5.bungee.api.chat.BaseComponent
 import org.bukkit.entity.Player
 
-class TitleMessage(plugin: CustomJoinMessages) : MessageType(plugin) {
-
-    override val key = "Messages"
-    override val name = "title"
+class TitleMessage(plugin: CustomJoinMessages) : MessageType(plugin, "title", "Messages") {
 
     override fun handle(primaryPlayer: Player, players: List<Player>, rootPath: String?, chosenPath: String, visibility: MessageVisibility) {
         val title = BaseComponent.toLegacyText(

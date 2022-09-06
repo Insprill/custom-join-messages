@@ -9,29 +9,27 @@ import net.insprill.cjm.message.MessageVisibility
 import org.bukkit.entity.Player
 import java.nio.file.Path
 
-abstract class MessageType(plugin: CustomJoinMessages) {
-
+abstract class MessageType(
+    plugin: CustomJoinMessages,
     /**
-     * @return The name of the message type.
+     * The name of the message type.
      */
-    abstract val name: String
-
+    val name: String,
     /**
-     * @return The primary key that all messages are under.
+     * The primary key that all messages are under.
      */
-    abstract val key: String
+    val key: String
+) {
 
     /**
      * @return The [FlatFile] associated with the message type.
      */
-    val config: FlatFile by lazy {
-        SimplixBuilder.fromPath(Path.of("${plugin.dataFolder}/messages/$name.yml"))
-            .addInputStreamFromResource("messages/$name.yml")
-            .setConfigSettings(ConfigSettings.PRESERVE_COMMENTS)
-            .setDataType(DataType.SORTED)
-            .reloadCallback { plugin.messageSender.reloadPermissions(it) }
-            .createYaml()
-    }
+    val config: FlatFile = SimplixBuilder.fromPath(Path.of("${plugin.dataFolder}/messages/$name.yml"))
+        .addInputStreamFromResource("messages/$name.yml")
+        .setConfigSettings(ConfigSettings.PRESERVE_COMMENTS)
+        .setDataType(DataType.SORTED)
+//        .reloadCallback { plugin.messageSender.reloadPermissions(it) } TODO: This gets called when initialized, before messageSender is set.
+        .createYaml()
 
     /**
      * @return Whether this MessageType is enabled.

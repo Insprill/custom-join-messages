@@ -12,10 +12,7 @@ import org.bukkit.boss.BarStyle
 import org.bukkit.entity.Player
 import org.bukkit.scheduler.BukkitRunnable
 
-class BossbarMessage(private val plugin: CustomJoinMessages) : MessageType(plugin) {
-
-    override val key = "Messages"
-    override val name = "bossbar"
+class BossbarMessage(private val plugin: CustomJoinMessages) : MessageType(plugin, "bossbar", "Messages") {
 
     override fun handle(primaryPlayer: Player, players: List<Player>, rootPath: String?, chosenPath: String, visibility: MessageVisibility) {
         val msg = fillPlaceholders(primaryPlayer, config.getString("$chosenPath.Message")!!)

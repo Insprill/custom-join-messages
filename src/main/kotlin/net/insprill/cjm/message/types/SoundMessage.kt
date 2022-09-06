@@ -5,10 +5,7 @@ import net.insprill.cjm.message.MessageVisibility
 import org.bukkit.Sound
 import org.bukkit.entity.Player
 
-class SoundMessage(private val plugin: CustomJoinMessages) : MessageType(plugin) {
-
-    override val key = "Sounds"
-    override val name = "sound"
+class SoundMessage(private val plugin: CustomJoinMessages) : MessageType(plugin, "sound", "Sounds") {
 
     override fun handle(primaryPlayer: Player, players: List<Player>, rootPath: String?, chosenPath: String, visibility: MessageVisibility) {
         val global = config.getBoolean("$chosenPath.Global")

@@ -9,14 +9,11 @@ import net.md_5.bungee.api.ChatMessageType
 import org.bukkit.entity.Player
 import kotlin.math.abs
 
-class ChatMessage(plugin: CustomJoinMessages) : MessageType(plugin) {
+class ChatMessage(plugin: CustomJoinMessages) : MessageType(plugin, "chat", "Messages") {
 
     companion object {
         private const val CENTER_PREFIX = "center:"
     }
-
-    override val key = "Messages"
-    override val name = "chat"
 
     override fun handle(primaryPlayer: Player, players: List<Player>, rootPath: String?, chosenPath: String, visibility: MessageVisibility) {
         val messages = config.getStringList(chosenPath)

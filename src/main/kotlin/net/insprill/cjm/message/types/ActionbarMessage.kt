@@ -7,10 +7,7 @@ import net.insprill.cjm.placeholder.Placeholders.Companion.fillPlaceholders
 import net.md_5.bungee.api.ChatMessageType
 import org.bukkit.entity.Player
 
-class ActionbarMessage(plugin: CustomJoinMessages) : MessageType(plugin) {
-
-    override val key = "Messages"
-    override val name = "actionbar"
+class ActionbarMessage(plugin: CustomJoinMessages) : MessageType(plugin, "actionbar", "Messages") {
 
     override fun handle(primaryPlayer: Player, players: List<Player>, rootPath: String?, chosenPath: String, visibility: MessageVisibility) {
         var msg = config.getString("$chosenPath.Message")!!
