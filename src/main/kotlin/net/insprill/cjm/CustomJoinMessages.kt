@@ -28,7 +28,7 @@ import org.bukkit.Bukkit
 import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
 import java.nio.file.Path
-import java.util.*
+import java.util.Collections
 import java.util.jar.JarFile
 
 class CustomJoinMessages : JavaPlugin() {
@@ -72,6 +72,8 @@ class CustomJoinMessages : JavaPlugin() {
         }
 
         messageSender = MessageSender(this, messageTypes)
+
+        registerCommands()
     }
 
     private fun checkCompatible(): Boolean {
