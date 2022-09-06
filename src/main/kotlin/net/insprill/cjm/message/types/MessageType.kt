@@ -23,9 +23,11 @@ abstract class MessageType(plugin: CustomJoinMessages) {
     /**
      * @return The [FlatFile] associated with the message type.
      */
-    val config: FlatFile = SimplixBuilder.fromPath(Path.of("${plugin.dataFolder}/messages/$name.yml"))
-        .addInputStreamFromResource("messages/$name.yml")
-        .createYaml()
+    val config: FlatFile by lazy {
+        SimplixBuilder.fromPath(Path.of("${plugin.dataFolder}/messages/$name.yml"))
+            .addInputStreamFromResource("messages/$name.yml")
+            .createYaml()
+    }
 
     /**
      * @return Whether this MessageType is enabled.
