@@ -1,8 +1,8 @@
 package net.insprill.cjm.message.types
 
 import de.leonhard.storage.SimplixBuilder
-import de.leonhard.storage.internal.DataStorage
 import de.leonhard.storage.internal.FlatFile
+import de.leonhard.storage.internal.settings.DataType
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.MessageVisibility
 import org.bukkit.entity.Player
@@ -26,6 +26,7 @@ abstract class MessageType(plugin: CustomJoinMessages) {
     val config: FlatFile by lazy {
         SimplixBuilder.fromPath(Path.of("${plugin.dataFolder}/messages/$name.yml"))
             .addInputStreamFromResource("messages/$name.yml")
+            .setDataType(DataType.SORTED)
             .createYaml()
     }
 

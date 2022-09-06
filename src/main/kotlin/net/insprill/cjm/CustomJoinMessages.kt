@@ -2,7 +2,8 @@ package net.insprill.cjm
 
 import co.aikar.commands.PaperCommandManager
 import de.leonhard.storage.SimplixBuilder
-import de.leonhard.storage.internal.FlatFile
+import de.leonhard.storage.Yaml
+import de.leonhard.storage.internal.settings.DataType
 import net.insprill.cjm.command.CjmCommand
 import net.insprill.cjm.command.CommandCompletion
 import net.insprill.cjm.command.CommandContext
@@ -32,11 +33,12 @@ class CustomJoinMessages : JavaPlugin() {
 
     lateinit var messageSender: MessageSender
     lateinit var hookManager: HookManager
-    lateinit var config: FlatFile
+    lateinit var config: Yaml
 
     override fun onEnable() {
         config = SimplixBuilder.fromPath(Path.of("$dataFolder/config.yml"))
             .addInputStreamFromResource("config.yml")
+            .setDataType(DataType.SORTED)
             .createYaml()
 
         val manifest = JarFile(file).manifest.mainAttributes
