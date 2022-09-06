@@ -2,6 +2,7 @@ package net.insprill.cjm.listener
 
 import de.leonhard.storage.SimplixBuilder
 import de.leonhard.storage.internal.FlatFile
+import de.leonhard.storage.internal.settings.ReloadSettings
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.MessageAction
 import org.bukkit.Bukkit
@@ -13,7 +14,9 @@ import java.nio.file.Path
 
 class WorldChangeEvent(private val plugin: CustomJoinMessages) : Listener {
 
-    private val worldLogConfig: FlatFile = SimplixBuilder.fromPath(Path.of("${plugin.dataFolder}/data/worlds.yml")).createYaml()
+    private val worldLogConfig: FlatFile = SimplixBuilder.fromPath(Path.of("${plugin.dataFolder}/data/worlds.yml"))
+        .setReloadSettings(ReloadSettings.MANUALLY)
+        .createYaml()
 
     @EventHandler(priority = EventPriority.MONITOR)
     fun onPlayerChangeWorld(e: PlayerTeleportEvent) {
