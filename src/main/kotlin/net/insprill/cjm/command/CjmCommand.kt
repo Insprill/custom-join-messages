@@ -19,7 +19,6 @@ import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import java.util.Locale
 
-
 @CommandAlias("cjm|customjoinmessages")
 @Description("Base command for Custom Join Messages.")
 @Suppress("UNUSED")

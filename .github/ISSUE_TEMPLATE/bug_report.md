@@ -13,6 +13,7 @@ assignees: ''
 ---
 
 **ERROR (DELETE IF YOU HAVE NO ERROR):**
+
 ```
 ######################
 ## REPLACE WITH ERROR ##
@@ -20,6 +21,7 @@ assignees: ''
 ```
 
 **CONFIG SECTION (DELETE IF NOT RELEVANT):**
+
 ```
 #######################################
 ## REPLACE WITH RELEVANT CONFIG SECTION  ##
