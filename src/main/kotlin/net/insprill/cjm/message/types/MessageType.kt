@@ -28,7 +28,7 @@ abstract class MessageType(
         .addInputStreamFromResource("messages/$name.yml")
         .setConfigSettings(ConfigSettings.PRESERVE_COMMENTS)
         .setDataType(DataType.SORTED)
-//        .reloadCallback { plugin.messageSender.reloadPermissions(it) } TODO: This gets called when initialized, before messageSender is set.
+        .reloadCallback { plugin.messageSender.reloadPermissions(it) }
         .createYaml()
 
     /**
