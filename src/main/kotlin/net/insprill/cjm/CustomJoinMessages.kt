@@ -27,6 +27,7 @@ import org.bstats.charts.SimplePie
 import org.bukkit.Bukkit
 import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
+import java.io.File
 import java.nio.file.Path
 import java.util.Collections
 import java.util.jar.JarFile
@@ -46,6 +47,9 @@ class CustomJoinMessages : JavaPlugin() {
             .setConfigSettings(ConfigSettings.PRESERVE_COMMENTS)
             .setDataType(DataType.SORTED)
             .createYaml()
+
+        if (!migrateFromLegacyConfiguration())
+            return
 
         val manifest = JarFile(file).manifest.mainAttributes
 
@@ -139,6 +143,19 @@ class CustomJoinMessages : JavaPlugin() {
 
         val cjmCommand = CjmCommand(manager, this)
         manager.registerCommand(cjmCommand)
+    }
+
+    private fun migrateFromLegacyConfiguration(): Boolean {
+        val version = config.getString("version")
+        if (!version.startsWith("1.") && !version.startsWith("2."))
+            return true
+        dataFolder.renameTo(File(dataFolder.parentFile, "$name-old"))
+        logger.severe("It appears you've recently upgraded to CJM 17 from an older version.")
+        logger.severe("Since the configuration has changed in layout, your old config folder has been renamed to \"$name-old\" and a new one has been generated.")
+        logger.severe("Please manually setup the new configuration and restart your server to re-enabled the plugin.")
+        onEnable()
+        Bukkit.getPluginManager().disablePlugin(this)
+        return false
     }
 
 }
