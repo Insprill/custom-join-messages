@@ -33,8 +33,6 @@ class WorldChangeEvent(private val plugin: CustomJoinMessages) : Listener {
 
         val fromName = fromWorld.name
         val toName = toWorld.name
-        if (!isDifferentGroup(toName, fromName))
-            return
 
         val toPlayers = worldLogConfig.getStringList(toName)
         val uuid = e.player.uniqueId.toString()
@@ -45,21 +43,18 @@ class WorldChangeEvent(private val plugin: CustomJoinMessages) : Listener {
             worldLogConfig[toName] = toPlayers
         }
 
-        val blacklist = plugin.config.getStringList("World-Blacklist")
-        val whitelist = plugin.config.getBoolean("World-Blacklist-As-Whitelist")
+        if (!isDifferentGroup(toName, fromName))
+            return
 
-        if (whitelist xor !blacklist.contains(fromName)) {
-            plugin.messageSender.trySendMessages(e.player, MessageAction.QUIT, true)
-        }
-        if (whitelist xor !blacklist.contains(toName)) {
-            Bukkit.getScheduler().runTaskLater(plugin, Runnable {
-                plugin.messageSender.trySendMessages(
-                    e.player,
-                    if (hasJoinedWorldBefore) MessageAction.JOIN else MessageAction.FIRST_JOIN,
-                    true
-                )
-            }, 10L)
-        }
+        plugin.messageSender.trySendMessages(e.player, MessageAction.QUIT, true)
+
+        Bukkit.getScheduler().runTaskLater(plugin, Runnable {
+            plugin.messageSender.trySendMessages(
+                e.player,
+                if (hasJoinedWorldBefore) MessageAction.JOIN else MessageAction.FIRST_JOIN,
+                true
+            )
+        }, 10L)
     }
 
     private fun isDifferentGroup(toName: String, fromName: String): Boolean {
