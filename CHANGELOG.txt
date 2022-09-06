@@ -4,6 +4,7 @@ CJM 17.0.0
 - Added support for world-based messages.
 - Added bossbar messages.
 - Added sound "messages".
+- Added automatic config reloading. Once changes are saved, they will be automatically picked up.
 - Added option to not send messages for jailed players (Only supports EssentialsX and CMI jails).
 - Added support for EssentialsX's /vanish command.
 - Added support for '#000000', &#000000', and '<#000000>' style HEX colour codes.
