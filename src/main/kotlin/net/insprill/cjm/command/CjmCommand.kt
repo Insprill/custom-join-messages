@@ -10,16 +10,14 @@ import co.aikar.commands.annotation.Description
 import co.aikar.commands.annotation.HelpCommand
 import co.aikar.commands.annotation.Subcommand
 import co.aikar.commands.annotation.Syntax
+import de.themoep.minedown.MineDown
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.MessageAction
 import net.insprill.cjm.message.MessageVisibility
 import net.insprill.cjm.message.types.MessageType
-import net.insprill.xenlib.files.YamlFile
-import net.insprill.xenlib.files.YamlFolder
-import net.insprill.xenlib.localization.Lang
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
-import java.util.*
+import java.util.Locale
 import java.util.function.Consumer
 
 
@@ -54,7 +52,7 @@ class CjmCommand(private val manager: BukkitCommandManager, private val plugin: 
         plugin.config.forceReload()
         plugin.messageSender.typeMap.values.forEach(Consumer { m: MessageType -> m.config.forceReload() })
         plugin.messageSender.setupPermissions()
-        Lang.send(sender, "commands.reload")
+        sender.spigot().sendMessage(*MineDown.parse("&aPlugin reloaded."))
     }
 
     @Subcommand("preview|p")
@@ -65,7 +63,7 @@ class CjmCommand(private val manager: BukkitCommandManager, private val plugin: 
     fun onPreview(sender: CommandSender, target: Player, messageType: MessageType, visibility: MessageVisibility, action: MessageAction, id: Int) {
         val path = "${visibility.configSection}.${action.configSection}.$id"
         if (!messageType.config.contains(path)) {
-            Lang.send(sender, "commands.preview.invalid-message", "%id%;$id")
+            sender.spigot().sendMessage(*MineDown.parse("&cA message with ID &4%id% &cdoesn't exist!", "id", id.toString()))
             return
         }
 
