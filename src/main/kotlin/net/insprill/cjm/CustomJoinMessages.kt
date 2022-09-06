@@ -3,6 +3,7 @@ package net.insprill.cjm
 import co.aikar.commands.PaperCommandManager
 import de.leonhard.storage.SimplixBuilder
 import de.leonhard.storage.Yaml
+import de.leonhard.storage.internal.settings.ConfigSettings
 import de.leonhard.storage.internal.settings.DataType
 import net.insprill.cjm.command.CjmCommand
 import net.insprill.cjm.command.CommandCompletion
@@ -38,6 +39,7 @@ class CustomJoinMessages : JavaPlugin() {
     override fun onEnable() {
         config = SimplixBuilder.fromPath(Path.of("$dataFolder/config.yml"))
             .addInputStreamFromResource("config.yml")
+            .setConfigSettings(ConfigSettings.PRESERVE_COMMENTS)
             .setDataType(DataType.SORTED)
             .createYaml()
 
