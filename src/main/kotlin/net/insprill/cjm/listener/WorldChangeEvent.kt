@@ -26,7 +26,7 @@ class WorldChangeEvent(private val plugin: CustomJoinMessages) : Listener {
         val from = e.from
         val to = e.to
         val fromWorld = from.world ?: return
-        val toWorld = to.world ?: return
+        val toWorld = to?.world ?: return
 
         if (toWorld == fromWorld)
             return

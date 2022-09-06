@@ -11,7 +11,6 @@ class QuitEvent(private val plugin: CustomJoinMessages) : Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     fun onPlayerQuit(e: PlayerQuitEvent) {
-        @Suppress("DEPRECATION")
         e.quitMessage = ""
         plugin.messageSender.trySendMessages(e.player, MessageAction.QUIT, true)
     }

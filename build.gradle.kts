@@ -14,13 +14,13 @@ version = getFullVersion()
 
 repositories {
     mavenCentral()
+    maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
     maven("https://jitpack.io")
     maven("https://repo.aikar.co/content/groups/aikar/")
     maven("https://repo.codemc.org/repository/maven-public/")
     maven("https://repo.essentialsx.net/releases/")
     maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
     maven("https://repo.minebench.de/")
-    maven("https://repo.papermc.io/repository/maven-public/")
 }
 
 dependencies {
@@ -28,7 +28,7 @@ dependencies {
     compileOnly("com.github.MilkBowl:VaultAPI:1.7.1") { isTransitive = false }
     compileOnly("com.github.MyzelYam:SuperVanish:6.2.12") { isTransitive = false }
     compileOnly("fr.xephi:authme:5.6.0-SNAPSHOT")
-    compileOnly("io.papermc.paper:paper-api:1.19.2-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc:spigot-api:1.19.2-R0.1-SNAPSHOT")
     compileOnly("me.clip:placeholderapi:2.11.2")
     compileOnly("net.essentialsx:EssentialsX:2.19.7")
     compileOnly("org.jetbrains:annotations:23.0.0")

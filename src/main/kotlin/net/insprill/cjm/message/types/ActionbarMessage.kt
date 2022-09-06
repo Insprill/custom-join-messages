@@ -17,7 +17,6 @@ class ActionbarMessage(plugin: CustomJoinMessages) : MessageType(plugin) {
         msg = fillPlaceholders(primaryPlayer, msg)
         val components = MineDown.parse(msg)
         for (player in players) {
-            @Suppress("DEPRECATION")
             player.spigot().sendMessage(ChatMessageType.ACTION_BAR, *components)
         }
     }

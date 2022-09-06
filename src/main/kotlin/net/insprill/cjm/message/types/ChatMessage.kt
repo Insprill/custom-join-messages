@@ -7,10 +7,13 @@ import net.insprill.cjm.placeholder.Placeholders.Companion.fillPlaceholders
 import net.insprill.spigotutils.MinecraftVersion
 import net.md_5.bungee.api.ChatMessageType
 import org.bukkit.entity.Player
+import kotlin.math.abs
 
 class ChatMessage(plugin: CustomJoinMessages) : MessageType(plugin) {
 
-    private val CENTER_PREFIX = "center:"
+    companion object {
+        private const val CENTER_PREFIX = "center:"
+    }
 
     override val key = "Messages"
     override val name = "chat"
@@ -20,7 +23,6 @@ class ChatMessage(plugin: CustomJoinMessages) : MessageType(plugin) {
         formatMessages(primaryPlayer, messages)
         for (message in messages.map { MineDown.parse(it) }) {
             for (player in players) {
-                @Suppress("DEPRECATION")
                 if (MinecraftVersion.isAtLeast(MinecraftVersion.v1_9_0)) {
                     player.spigot().sendMessage(ChatMessageType.CHAT, *message)
                 } else {
@@ -50,10 +52,6 @@ class ChatMessage(plugin: CustomJoinMessages) : MessageType(plugin) {
 
         private const val CENTER_PX = 154
 
-        fun centerMessages(messages: MutableList<String>) {
-            messages.replaceAll { centerMessage(it) }
-        }
-
         fun centerMessage(message: String): String {
             if (message.isEmpty()) return ""
             var messagePxSize = 0
@@ -72,7 +70,7 @@ class ChatMessage(plugin: CustomJoinMessages) : MessageType(plugin) {
                 }
             }
             val halvedMessageSize = messagePxSize shr 1
-            val toCompensate: Int = Math.abs(CENTER_PX - halvedMessageSize)
+            val toCompensate: Int = abs(CENTER_PX - halvedMessageSize)
             val spaceLength = CenteredMessages.DefaultFontInfo.SPACE.length + 1
             var compensated = 0
             val sb = StringBuilder(toCompensate)

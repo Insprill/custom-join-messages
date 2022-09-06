@@ -28,7 +28,6 @@ class TitleMessage(plugin: CustomJoinMessages) : MessageType(plugin) {
         val fadeOut = config.getInt("$chosenPath.Fade-Out")
 
         for (player in players) {
-            @Suppress("DEPRECATION")
             player.sendTitle(title, subTitle, fadeIn, stay, fadeOut)
         }
     }
