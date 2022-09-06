@@ -3,9 +3,9 @@ package net.insprill.cjm.message
 import de.leonhard.storage.internal.FlatFile
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.types.MessageType
-import net.insprill.xenlib.XenUtils
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
+import org.bukkit.permissions.Permission
 import org.bukkit.permissions.PermissionDefault
 import kotlin.random.Random.Default.nextInt
 
@@ -16,18 +16,17 @@ class MessageSender(private val plugin: CustomJoinMessages, messageTypes: List<M
     private val registeredPermissions: MutableList<String> = ArrayList()
 
     fun setupPermissions() {
-        for (permission in registeredPermissions) {
-            XenUtils.unregisterPermission(permission)
-        }
+        registeredPermissions.forEach { Bukkit.getPluginManager().removePermission(it) }
         registeredPermissions.clear()
-        for (msg in typeMap.values) {
-            if (!msg.isEnabled) continue
+        for (msg in typeMap.values.filter { it.isEnabled }) {
             for (action in MessageAction.values()) {
                 for (visibility in MessageVisibility.values()) {
                     val path = visibility.configSection + "." + action.configSection
                     for (key in msg.config.singleLayerKeySet(path)) {
                         val permission = msg.config.getString("$path.$key.Permission") ?: continue
-                        XenUtils.registerPermission(permission, PermissionDefault.FALSE)
+                        if (Bukkit.getPluginManager().getPermission(permission) == null) {
+                            Bukkit.getPluginManager().addPermission(Permission(permission, PermissionDefault.FALSE))
+                        }
                         registeredPermissions.add(permission)
                     }
                 }
