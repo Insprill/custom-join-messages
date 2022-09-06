@@ -72,7 +72,6 @@ class CustomJoinMessages : JavaPlugin() {
         }
 
         messageSender = MessageSender(this, messageTypes)
-        messageSender.setupPermissions()
 
         registerCommands()
     }

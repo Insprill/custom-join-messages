@@ -15,20 +15,18 @@ class MessageSender(private val plugin: CustomJoinMessages, messageTypes: List<M
 
     private val registeredPermissions: MutableList<String> = ArrayList()
 
-    fun setupPermissions() {
+    fun reloadPermissions(config: FlatFile) {
         registeredPermissions.forEach { Bukkit.getPluginManager().removePermission(it) }
         registeredPermissions.clear()
-        for (msg in typeMap.values.filter { it.isEnabled }) {
-            for (action in MessageAction.values()) {
-                for (visibility in MessageVisibility.values()) {
-                    val path = visibility.configSection + "." + action.configSection
-                    for (key in msg.config.singleLayerKeySet(path)) {
-                        val permission = msg.config.getString("$path.$key.Permission") ?: continue
-                        if (Bukkit.getPluginManager().getPermission(permission) == null) {
-                            Bukkit.getPluginManager().addPermission(Permission(permission, PermissionDefault.FALSE))
-                        }
-                        registeredPermissions.add(permission)
+        for (action in MessageAction.values()) {
+            for (visibility in MessageVisibility.values()) {
+                val path = visibility.configSection + "." + action.configSection
+                for (key in config.singleLayerKeySet(path)) {
+                    val permission = config.getString("$path.$key.Permission") ?: continue
+                    if (Bukkit.getPluginManager().getPermission(permission) == null) {
+                        Bukkit.getPluginManager().addPermission(Permission(permission, PermissionDefault.FALSE))
                     }
+                    registeredPermissions.add(permission)
                 }
             }
         }

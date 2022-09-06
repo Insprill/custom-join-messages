@@ -27,6 +27,7 @@ abstract class MessageType(plugin: CustomJoinMessages) {
         SimplixBuilder.fromPath(Path.of("${plugin.dataFolder}/messages/$name.yml"))
             .addInputStreamFromResource("messages/$name.yml")
             .setDataType(DataType.SORTED)
+            .reloadCallback { plugin.messageSender.reloadPermissions(it) }
             .createYaml()
     }
 
