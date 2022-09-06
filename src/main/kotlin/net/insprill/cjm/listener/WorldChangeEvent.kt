@@ -13,9 +13,7 @@ import java.nio.file.Path
 
 class WorldChangeEvent(private val plugin: CustomJoinMessages) : Listener {
 
-    private val worldLogConfig: FlatFile = SimplixBuilder.fromPath(Path.of("${plugin.dataFolder}/data/worlds.yml"))
-        .addInputStreamFromResource("data/worlds.yml")
-        .createYaml()
+    private val worldLogConfig: FlatFile = SimplixBuilder.fromPath(Path.of("${plugin.dataFolder}/data/worlds.yml")).createYaml()
 
     @EventHandler(priority = EventPriority.MONITOR)
     fun onPlayerChangeWorld(e: PlayerTeleportEvent) {
