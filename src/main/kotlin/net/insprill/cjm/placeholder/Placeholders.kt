@@ -1,8 +1,9 @@
 package net.insprill.cjm.placeholder
 
+import de.themoep.minedown.MineDown
 import me.clip.placeholderapi.PlaceholderAPI
 import net.insprill.cjm.compatibility.Dependency
-import net.insprill.xenlib.ColourUtils
+import net.md_5.bungee.api.chat.TextComponent
 import net.milkbowl.vault.chat.Chat
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
@@ -25,7 +26,7 @@ enum class Placeholders(private val stringName: String, private val result: (Pla
                 newMessage = newMessage.replace("%${placeholder.stringName}%", placeholder.result.invoke(player))
             }
             if (Dependency.PAPI.isEnabled) {
-                newMessage = ColourUtils.format(PlaceholderAPI.setPlaceholders(player, msg))
+                newMessage = TextComponent.toLegacyText(*MineDown.parse(PlaceholderAPI.setPlaceholders(player, msg)))
             }
             return newMessage
         }
