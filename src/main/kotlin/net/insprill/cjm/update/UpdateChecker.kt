@@ -1,11 +1,13 @@
 package net.insprill.cjm.update
 
-import com.github.kittinunf.fuel.gson.responseObject
-import com.github.kittinunf.fuel.httpGet
+import com.google.gson.Gson
 import net.insprill.cjm.CustomJoinMessages
 import net.swiftzer.semver.SemVer
 import org.bukkit.Bukkit
 import org.bukkit.plugin.Plugin
+import java.net.HttpURLConnection
+import java.net.URL
+import java.nio.charset.StandardCharsets
 import java.util.logging.Level
 
 class UpdateChecker(private val resourceId: Int, private val plugin: CustomJoinMessages) {
@@ -26,18 +28,15 @@ class UpdateChecker(private val resourceId: Int, private val plugin: CustomJoinM
 
     fun getVersion(consumer: (VersionData) -> Unit) {
         Bukkit.getScheduler().runTaskAsynchronously(plugin, Runnable {
-            REQUEST_URL.format(resourceId).httpGet()
-                .header("User-Agent", USER_AGENT)
-                .responseObject { _, _, deser ->
-                    try {
-                        if (deser.component2() != null) {
-                            throw deser.component2()!!
-                        }
-                        consumer.invoke(deser.component1()!!)
-                    } catch (exception: Exception) {
-                        plugin.logger.log(Level.WARNING, "Unable to check for updates", exception)
-                    }
-                }
+            try {
+                val conn = URL(REQUEST_URL.format(resourceId)).openConnection() as HttpURLConnection
+                conn.addRequestProperty("User-Agent", USER_AGENT)
+                val body = String(conn.inputStream.readAllBytes(), StandardCharsets.UTF_8)
+                val versionData = Gson().fromJson(body, VersionData::class.java)
+                consumer.invoke(versionData)
+            } catch (exception: Exception) {
+                plugin.logger.log(Level.WARNING, "Unable to check for updates", exception)
+            }
         })
     }
 

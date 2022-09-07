@@ -33,8 +33,6 @@ dependencies {
     compileOnly("org.jetbrains:annotations:23.0.0")
     compileOnly("org.spigotmc:spigot-api:1.19.2-R0.1-SNAPSHOT")
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
-    implementation("com.github.kittinunf.fuel:fuel:2.3.1")
-    implementation("com.github.kittinunf.fuel:fuel-gson:2.3.1")
     implementation("com.github.simplix-softworks:simplixstorage:3.2.5")
     implementation("de.themoep:minedown:1.7.1-SNAPSHOT")
     implementation("net.insprill:spigot-utils:0.1.1")
