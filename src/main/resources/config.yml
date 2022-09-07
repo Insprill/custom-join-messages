@@ -25,10 +25,6 @@ Addons:
     Fake-Messages:
       # Whether we should use our own messages.
       Enabled: true
-      # Whether we should send a quit message when a player vanishes.
-      Vanish: true
-      # Whether we should send a join message when a player unvanishes.
-      Unvanish: true
 
   # Settings for Jail plugins
   Jail:

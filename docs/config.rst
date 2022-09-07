@@ -20,12 +20,6 @@ The Plugin Config
          * Enabled:
             * **Default**: ``true``
             * **Description**: Whether fake messages should be sent.
-         * Vanish:
-            * **Default**: ``true``
-            * **Description**: Whether fake messages should be sent when vanishing.
-         * Unvanish:
-            * **Default**: ``true``
-            * **Description**: Whether fake messages should be sent when unvanishing.
 
    * Jail:
       * **Description**: Setting related to jailed players.
