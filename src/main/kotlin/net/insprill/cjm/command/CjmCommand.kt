@@ -3,6 +3,7 @@ package net.insprill.cjm.command
 import co.aikar.commands.BaseCommand
 import co.aikar.commands.BukkitCommandManager
 import co.aikar.commands.CommandHelp
+import co.aikar.commands.CommandManager
 import co.aikar.commands.InvalidCommandArgument
 import co.aikar.commands.annotation.CommandAlias
 import co.aikar.commands.annotation.CommandCompletion
@@ -12,7 +13,7 @@ import co.aikar.commands.annotation.HelpCommand
 import co.aikar.commands.annotation.Optional
 import co.aikar.commands.annotation.Subcommand
 import co.aikar.commands.annotation.Syntax
-import de.themoep.minedown.MineDown
+import co.aikar.locales.MessageKey
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.MessageAction
 import net.insprill.cjm.message.MessageVisibility
@@ -50,12 +51,12 @@ class CjmCommand(private val manager: BukkitCommandManager, private val plugin: 
     @Syntax("[target] [messageType] [visibility] [action] [messageId]")
     @CommandCompletion("@players @messageType @messageVisibility @messageAction @messageId")
     @CommandPermission("cjm.command.preview")
-    @Description("Previews how a particular message will look/sound")
+    @Description("{@@cjm.command.preview.description}")
+    @Suppress("UNUSED")
     fun onPreview(sender: CommandSender, target: Player, messageType: MessageType, visibility: MessageVisibility, action: MessageAction, id: Int) {
         val path = "${visibility.configSection}.${action.configSection}.$id"
         if (!messageType.config.contains(path)) {
-            sender.spigot().sendMessage(*MineDown.parse("&cA message with ID &4%id% &cdoesn't exist!", "id", id.toString()))
-            return
+            throw InvalidCommandArgument(getLocale("cjm.command.preview.invalid-id").replace("%id%", id.toString()))
         }
 
         val randomKey = plugin.messageSender.getRandomKey(messageType.config, "$path.${messageType.key}") ?: return
@@ -66,18 +67,27 @@ class CjmCommand(private val manager: BukkitCommandManager, private val plugin: 
     @Syntax("[action] (on/off) (target)")
     @CommandCompletion("@messageAction @onOffToggle @players")
     @CommandPermission("cjm.command.toggle")
-    @Description("Toggles the sending of a specific message type")
+    @Description("{@@cjm.command.toggle.description}")
     fun onTarget(sender: CommandSender, action: MessageAction, @Optional toggle: String?, @Optional providedTarget: OfflinePlayer?) {
         if (sender !is Player && providedTarget == null) {
-            throw InvalidCommandArgument()
+            throw InvalidCommandArgument(getLocale("cjm.command.toggle.no-target"))
         }
         val target = providedTarget ?: sender as Player
+        val toggledTo: Boolean
         if (toggle != null) {
-            plugin.toggleHandler.setToggle(target, action, toggle == "on")
+            toggledTo = toggle == "on"
+            plugin.toggleHandler.setToggle(target, action, toggledTo)
         } else {
-            val curr = plugin.toggleHandler.isToggled(target, action)
-            plugin.toggleHandler.setToggle(target, action, !curr)
+            toggledTo = !plugin.toggleHandler.isToggled(target, action)
+            plugin.toggleHandler.setToggle(target, action, toggledTo)
         }
+        val response = getLocale("cjm.command.toggle.${if (toggledTo) "on" else "off"}")
+            .replace("%action%", action.name.lowercase())
+        sender.sendMessage(response)
+    }
+
+    private fun getLocale(key: String): String {
+        return manager.locales.getMessage(CommandManager.getCurrentCommandIssuer(), MessageKey.of(key))
     }
 
 }
