@@ -14,7 +14,7 @@ import java.nio.file.Path
 
 class WorldChangeEvent(private val plugin: CustomJoinMessages) : Listener {
 
-    private val visitedWorldsConfig: FlatFile = SimplixBuilder.fromPath(Path.of("${plugin.dataFolder}/data/worlds.yml"))
+    private val visitedWorldsConfig: FlatFile = SimplixBuilder.fromPath(Path.of("${plugin.dataFolder}/data/worlds.json"))
         .setReloadSettings(ReloadSettings.MANUALLY)
         .createJson()
     private val groupPath = "World-Based-Messages.Groups"
