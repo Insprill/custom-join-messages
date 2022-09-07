@@ -28,14 +28,17 @@ dependencies {
     compileOnly("com.github.MilkBowl:VaultAPI:1.7.1") { isTransitive = false }
     compileOnly("com.github.MyzelYam:SuperVanish:6.2.12") { isTransitive = false }
     compileOnly("fr.xephi:authme:5.6.0-SNAPSHOT")
-    compileOnly("org.spigotmc:spigot-api:1.19.2-R0.1-SNAPSHOT")
     compileOnly("me.clip:placeholderapi:2.11.2")
     compileOnly("net.essentialsx:EssentialsX:2.19.7")
     compileOnly("org.jetbrains:annotations:23.0.0")
+    compileOnly("org.spigotmc:spigot-api:1.19.2-R0.1-SNAPSHOT")
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
+    implementation("com.github.kittinunf.fuel:fuel:2.3.1")
+    implementation("com.github.kittinunf.fuel:fuel-gson:2.3.1")
     implementation("com.github.simplix-softworks:simplixstorage:3.2.5")
     implementation("de.themoep:minedown:1.7.1-SNAPSHOT")
     implementation("net.insprill:spigot-utils:0.1.1")
+    implementation("net.swiftzer.semver:semver:1.2.0")
     implementation("org.bstats:bstats-bukkit:3.0.0")
 }
 
@@ -65,6 +68,7 @@ tasks {
         from("LICENSE")
         manifest {
             attributes["bStats-Id"] = project.property("bstats-id")
+            attributes["Spigot-Resource-Id"] = project.property("spigot-resource-id")
         }
         minimize()
     }

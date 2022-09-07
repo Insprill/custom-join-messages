@@ -1,5 +1,6 @@
 package net.insprill.cjm
 
+import co.aikar.commands.BukkitCommandManager
 import co.aikar.commands.PaperCommandManager
 import de.leonhard.storage.SimplixBuilder
 import de.leonhard.storage.Yaml
@@ -21,6 +22,7 @@ import net.insprill.cjm.message.types.ChatMessage
 import net.insprill.cjm.message.types.SoundMessage
 import net.insprill.cjm.message.types.TitleMessage
 import net.insprill.cjm.toggle.ToggleHandler
+import net.insprill.cjm.update.UpdateChecker
 import net.insprill.spigotutils.MinecraftVersion
 import net.insprill.spigotutils.ServerEnvironment
 import org.bstats.bukkit.Metrics
@@ -39,6 +41,8 @@ class CustomJoinMessages : JavaPlugin() {
     lateinit var hookManager: HookManager
     lateinit var toggleHandler: ToggleHandler
     lateinit var config: Yaml
+    lateinit var updateChecker: UpdateChecker
+    lateinit var commandManager: BukkitCommandManager
 
     override fun onEnable() {
         if (!checkCompatible())
@@ -49,6 +53,7 @@ class CustomJoinMessages : JavaPlugin() {
             .setConfigSettings(ConfigSettings.PRESERVE_COMMENTS)
             .setDataType(DataType.SORTED)
             .createYaml()
+        config.addDefaultsFromInputStream()
 
         if (!migrateFromLegacyConfiguration())
             return
@@ -82,6 +87,9 @@ class CustomJoinMessages : JavaPlugin() {
         }
 
         registerCommands()
+
+        updateChecker = UpdateChecker(manifest.getValue("Spigot-Resource-Id").toInt(), this)
+        checkForUpdates()
     }
 
     private fun checkCompatible(): Boolean {
@@ -134,20 +142,20 @@ class CustomJoinMessages : JavaPlugin() {
 
     private fun registerCommands() {
         // Commands
-        val manager = PaperCommandManager(this)
+        commandManager = PaperCommandManager(this)
 
         @Suppress("DEPRECATION")
-        manager.run {
+        commandManager.run {
             enableUnstableAPI("help")
             enableUnstableAPI("brigadier")
         }
 
-        CommandContext(this).register(manager)
-        CommandCompletion(this).register(manager)
+        CommandContext(this).register(commandManager)
+        CommandCompletion(this).register(commandManager)
 
-        val cjmCommand = CjmCommand(manager, this)
+        val cjmCommand = CjmCommand(commandManager, this)
         cjmCommand.updateLocale()
-        manager.registerCommand(cjmCommand)
+        commandManager.registerCommand(cjmCommand)
     }
 
     private fun migrateFromLegacyConfiguration(): Boolean {
@@ -161,6 +169,18 @@ class CustomJoinMessages : JavaPlugin() {
         onEnable()
         Bukkit.getPluginManager().disablePlugin(this)
         return false
+    }
+
+    private fun checkForUpdates() {
+        if (!updateChecker.isEnabled(UpdateChecker.NotificationType.CONSOLE))
+            return
+
+        updateChecker.getVersion {
+            if (!it.isNewer(this))
+                return@getVersion
+            logger.warning("A new version of CustomJoinMessages is available (${it.name})!")
+            logger.warning("You can download it at ${updateChecker.getResourceUrl()}")
+        }
     }
 
 }

@@ -54,5 +54,16 @@ World-Based-Messages:
   #  INDIVIDUAL - Worlds will be treated as if they're all in their own groups.
   Ungrouped-Mode: INDIVIDUAL
 
+# Settings for the plugins update checker.
+Update-Checker:
+  # Whether the update checker is enabled.
+  Enabled: true
+  # Settings for notifications when an update is found.
+  Notifications:
+    # Whether OPed users should get notified in-game when an update is available.
+    In-Game: true
+    # Whether a console message should be printed when an update is available.
+    Console: true
+
 # DO NOT TOUCH!!!
 version: "3.0.0"
