@@ -5,6 +5,7 @@ import co.aikar.commands.BukkitCommandManager
 import co.aikar.commands.CommandHelp
 import co.aikar.commands.CommandManager
 import co.aikar.commands.InvalidCommandArgument
+import co.aikar.commands.MessageType
 import co.aikar.commands.annotation.CommandAlias
 import co.aikar.commands.annotation.CommandCompletion
 import co.aikar.commands.annotation.CommandPermission
@@ -17,7 +18,6 @@ import co.aikar.locales.MessageKey
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.MessageAction
 import net.insprill.cjm.message.MessageVisibility
-import net.insprill.cjm.message.types.MessageType
 import org.bukkit.OfflinePlayer
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
@@ -52,11 +52,18 @@ class CjmCommand(private val manager: BukkitCommandManager, private val plugin: 
     @CommandCompletion("@players @messageType @messageVisibility @messageAction @messageId")
     @CommandPermission("cjm.command.preview")
     @Description("{@@cjm.command.preview.description}")
-    @Suppress("UNUSED")
-    fun onPreview(sender: CommandSender, target: Player, messageType: MessageType, visibility: MessageVisibility, action: MessageAction, id: Int) {
+    @Suppress("UNUSED_PARAMETER")
+    fun onPreview(
+        sender: CommandSender,
+        target: Player,
+        messageType: net.insprill.cjm.message.types.MessageType,
+        visibility: MessageVisibility,
+        action: MessageAction,
+        id: Int
+    ) {
         val path = "${visibility.configSection}.${action.configSection}.$id"
         if (!messageType.config.contains(path)) {
-            throw InvalidCommandArgument(getLocale("cjm.command.preview.invalid-id").replace("%id%", id.toString()))
+            throw InvalidCommandArgument(getLocale("cjm.command.preview.invalid-id", MessageType.ERROR, "%id%", id.toString()))
         }
 
         val randomKey = plugin.messageSender.getRandomKey(messageType.config, "$path.${messageType.key}") ?: return
@@ -70,7 +77,7 @@ class CjmCommand(private val manager: BukkitCommandManager, private val plugin: 
     @Description("{@@cjm.command.toggle.description}")
     fun onTarget(sender: CommandSender, action: MessageAction, @Optional toggle: String?, @Optional providedTarget: OfflinePlayer?) {
         if (sender !is Player && providedTarget == null) {
-            throw InvalidCommandArgument(getLocale("cjm.command.toggle.no-target"))
+            throw InvalidCommandArgument(getLocale("cjm.command.toggle.no-target", MessageType.ERROR))
         }
         val target = providedTarget ?: sender as Player
         val toggledTo: Boolean
@@ -81,13 +88,12 @@ class CjmCommand(private val manager: BukkitCommandManager, private val plugin: 
             toggledTo = !plugin.toggleHandler.isToggled(target, action)
             plugin.toggleHandler.setToggle(target, action, toggledTo)
         }
-        val response = getLocale("cjm.command.toggle.${if (toggledTo) "on" else "off"}")
-            .replace("%action%", action.name.lowercase())
+        val response = getLocale("cjm.command.toggle.${if (toggledTo) "on" else "off"}", MessageType.INFO, "%action%", action.name.lowercase())
         sender.sendMessage(response)
     }
 
-    private fun getLocale(key: String): String {
-        return manager.locales.getMessage(CommandManager.getCurrentCommandIssuer(), MessageKey.of(key))
+    private fun getLocale(key: String, type: MessageType, vararg placeholders: String): String {
+        return manager.formatMessage(CommandManager.getCurrentCommandIssuer(), type, MessageKey.of(key), *placeholders)
     }
 
 }
