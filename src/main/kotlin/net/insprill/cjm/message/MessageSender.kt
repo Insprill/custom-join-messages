@@ -63,7 +63,7 @@ class MessageSender(private val plugin: CustomJoinMessages) {
                 if (!MessageCondition.checkAllConditions(plugin, msg, messagePath))
                     continue
 
-                val radius = msg.config.getDouble("$messagePath.Radius")
+                val radius = msg.config.getOrDefault("$messagePath.Radius", -1.0)
 
                 val players = getReceivingPlayers(player, visibility, action, radius)
                 val randomKey = getRandomKey(msg.config, "$messagePath.${msg.key}") ?: continue
