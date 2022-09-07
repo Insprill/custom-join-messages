@@ -62,6 +62,7 @@ tasks {
     shadowJar {
         dependsOn(reloc)
         archiveClassifier.set("")
+        from("LICENSE")
         manifest {
             attributes["bStats-Id"] = project.property("bstats-id")
         }
