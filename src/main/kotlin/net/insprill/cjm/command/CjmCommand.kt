@@ -63,7 +63,7 @@ class CjmCommand(private val manager: BukkitCommandManager, private val plugin: 
     ) {
         val path = "${visibility.configSection}.${action.configSection}.$id"
         if (!messageType.config.contains(path)) {
-            throw InvalidCommandArgument(getLocale("cjm.command.preview.invalid-id", MessageType.ERROR, "%id%", id.toString()))
+            throw InvalidCommandArgument(MessageKey.of("cjm.command.preview.invalid-id"), "%id%", id.toString())
         }
 
         val randomKey = plugin.messageSender.getRandomKey(messageType.config, "$path.${messageType.key}") ?: return
@@ -77,7 +77,7 @@ class CjmCommand(private val manager: BukkitCommandManager, private val plugin: 
     @Description("{@@cjm.command.toggle.description}")
     fun onTarget(sender: CommandSender, action: MessageAction, @Optional toggle: String?, @Optional providedTarget: OfflinePlayer?) {
         if (sender !is Player && providedTarget == null) {
-            throw InvalidCommandArgument(getLocale("cjm.command.toggle.no-target", MessageType.ERROR))
+            throw InvalidCommandArgument("{@@cjm.command.toggle.no-target}")
         }
         val target = providedTarget ?: sender as Player
         val toggledTo: Boolean
@@ -88,12 +88,11 @@ class CjmCommand(private val manager: BukkitCommandManager, private val plugin: 
             toggledTo = !plugin.toggleHandler.isToggled(target, action)
             plugin.toggleHandler.setToggle(target, action, toggledTo)
         }
-        val response = getLocale("cjm.command.toggle.${if (toggledTo) "on" else "off"}", MessageType.INFO, "%action%", action.name.lowercase())
-        sender.sendMessage(response)
+        sendMessage("cjm.command.toggle.${if (toggledTo) "on" else "off"}", MessageType.INFO, "%action%", action.name.lowercase())
     }
 
-    private fun getLocale(key: String, type: MessageType, vararg placeholders: String): String {
-        return manager.formatMessage(CommandManager.getCurrentCommandIssuer(), type, MessageKey.of(key), *placeholders)
+    private fun sendMessage(key: String, type: MessageType, vararg placeholders: String) {
+        manager.sendMessage(CommandManager.getCurrentCommandIssuer(), type, MessageKey.of(key), *placeholders)
     }
 
 }
