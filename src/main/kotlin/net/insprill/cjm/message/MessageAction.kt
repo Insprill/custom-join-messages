@@ -10,7 +10,7 @@ enum class MessageAction(val configSection: String, private val function: (Custo
     ;
 
     fun canRun(plugin: CustomJoinMessages, player: Player): Boolean {
-        return function.invoke(plugin, player)
+        return function.invoke(plugin, player) && plugin.toggleHandler.isToggled(player, this)
     }
 
 }

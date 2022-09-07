@@ -3,11 +3,13 @@ package net.insprill.cjm.command
 import co.aikar.commands.BaseCommand
 import co.aikar.commands.BukkitCommandManager
 import co.aikar.commands.CommandHelp
+import co.aikar.commands.InvalidCommandArgument
 import co.aikar.commands.annotation.CommandAlias
 import co.aikar.commands.annotation.CommandCompletion
 import co.aikar.commands.annotation.CommandPermission
 import co.aikar.commands.annotation.Description
 import co.aikar.commands.annotation.HelpCommand
+import co.aikar.commands.annotation.Optional
 import co.aikar.commands.annotation.Subcommand
 import co.aikar.commands.annotation.Syntax
 import de.themoep.minedown.MineDown
@@ -15,6 +17,7 @@ import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.MessageAction
 import net.insprill.cjm.message.MessageVisibility
 import net.insprill.cjm.message.types.MessageType
+import org.bukkit.OfflinePlayer
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import java.util.Locale
@@ -57,6 +60,24 @@ class CjmCommand(private val manager: BukkitCommandManager, private val plugin: 
 
         val randomKey = plugin.messageSender.getRandomKey(messageType.config, "$path.${messageType.key}") ?: return
         messageType.handle(target, listOf(target), path, randomKey, MessageVisibility.PRIVATE)
+    }
+
+    @Subcommand("toggle|t")
+    @Syntax("[action] (on/off) (target)")
+    @CommandCompletion("@messageAction @onOffToggle @players")
+    @CommandPermission("cjm.command.toggle")
+    @Description("Toggles the sending of a specific message type")
+    fun onTarget(sender: CommandSender, action: MessageAction, @Optional toggle: String?, @Optional providedTarget: OfflinePlayer?) {
+        if (sender !is Player && providedTarget == null) {
+            throw InvalidCommandArgument()
+        }
+        val target = providedTarget ?: sender as Player
+        if (toggle != null) {
+            plugin.toggleHandler.setToggle(target, action, toggle == "on")
+        } else {
+            val curr = plugin.toggleHandler.isToggled(target, action)
+            plugin.toggleHandler.setToggle(target, action, !curr)
+        }
     }
 
 }

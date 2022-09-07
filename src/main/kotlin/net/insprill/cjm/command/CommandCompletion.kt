@@ -9,6 +9,9 @@ import net.insprill.cjm.message.types.MessageType
 class CommandCompletion(private val plugin: CustomJoinMessages) {
 
     fun register(manager: BukkitCommandManager): Unit = manager.commandCompletions.run {
+        registerAsyncCompletion("onOffToggle") {
+            listOf("on", "off")
+        }
         registerAsyncCompletion("messageType") {
             plugin.messageSender.typeMap.keys
         }

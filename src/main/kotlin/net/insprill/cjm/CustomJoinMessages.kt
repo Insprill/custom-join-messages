@@ -20,6 +20,7 @@ import net.insprill.cjm.message.types.BossbarMessage
 import net.insprill.cjm.message.types.ChatMessage
 import net.insprill.cjm.message.types.SoundMessage
 import net.insprill.cjm.message.types.TitleMessage
+import net.insprill.cjm.toggle.ToggleHandler
 import net.insprill.spigotutils.MinecraftVersion
 import net.insprill.spigotutils.ServerEnvironment
 import org.bstats.bukkit.Metrics
@@ -36,6 +37,7 @@ class CustomJoinMessages : JavaPlugin() {
 
     lateinit var messageSender: MessageSender
     lateinit var hookManager: HookManager
+    lateinit var toggleHandler: ToggleHandler
     lateinit var config: Yaml
 
     override fun onEnable() {
@@ -61,6 +63,8 @@ class CustomJoinMessages : JavaPlugin() {
         hookManager = HookManager(pluginHooks)
 
         registerListeners()
+
+        toggleHandler = ToggleHandler(this)
 
         messageSender = MessageSender(this)
 
