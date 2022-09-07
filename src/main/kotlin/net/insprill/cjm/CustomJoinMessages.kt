@@ -146,6 +146,7 @@ class CustomJoinMessages : JavaPlugin() {
         CommandCompletion(this).register(manager)
 
         val cjmCommand = CjmCommand(manager, this)
+        cjmCommand.updateLocale()
         manager.registerCommand(cjmCommand)
     }
 
