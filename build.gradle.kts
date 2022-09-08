@@ -28,6 +28,7 @@ dependencies {
     compileOnly("com.github.MilkBowl:VaultAPI:1.7.1") { isTransitive = false }
     compileOnly("com.github.MyzelYam:SuperVanish:6.2.12") { isTransitive = false }
     compileOnly("eu.locklogin:LockLogin-API:1.13.28")
+    compileOnly("ml.karmaconfigs:KarmaAPI-Bukkit:1.3.2")
     compileOnly("fr.xephi:authme:5.6.0-SNAPSHOT")
     compileOnly("me.clip:placeholderapi:2.11.2")
     compileOnly("net.essentialsx:EssentialsX:2.19.7")
