@@ -1,17 +1,18 @@
-CJM 17.0.0
+CJM 17.0.0:
 - Reformatted configuration files. Your old config will be renamed and a new one will be generated.
-- Added support for MiniMessage on Paper 1.16+ servers.
+- Added support for formatting messages with MineDown. It may be different from what you're used to, so please check out the wiki.
 - Added support for world-based messages.
+- Added bossbar messages.
+- Added sound "messages".
+- Added automatic config reloading. Once changes are saved, they will be automatically picked up.
 - Added option to not send messages for jailed players (Only supports EssentialsX and CMI jails).
 - Added support for EssentialsX's /vanish command.
-- Added sound "messages".
-- Added support for ActionBar messages on 1.8.x.
-- Added support for '#000000', &#000000', and '<#000000>' style HEX colour codes.
 - Added 'Min-Players' config option.
 - Added 'Max-Players' config option.
-- Added locale support.
 - Fixed HEX colour codes not working on 1.17-1.19.x.
-- Removed the "cjm joindate" command.
+- Removed support for 1.8.x servers.
 - Removed the "cjm debug" command.
+- Removed the "cjm joindate" command.
+- Removed the "cjm reload" command.
 - Removed the "cjm version" command.
-- Removed support for tellraw formatted JSON messages. Please use MiniMessage instead.
+- Removed support for tellraw formatted JSON messages. Please use the MineDown format instead.

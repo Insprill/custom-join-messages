@@ -14,27 +14,30 @@ version = getFullVersion()
 
 repositories {
     mavenCentral()
-    maven("https://repo.papermc.io/repository/maven-public/")
+    maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
     maven("https://jitpack.io")
     maven("https://repo.aikar.co/content/groups/aikar/")
     maven("https://repo.codemc.org/repository/maven-public/")
     maven("https://repo.essentialsx.net/releases/")
     maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
+    maven("https://repo.minebench.de/")
 }
 
 dependencies {
     compileOnly(fileTree("libs"))
     compileOnly("com.github.MilkBowl:VaultAPI:1.7.1") { isTransitive = false }
-    compileOnly("com.github.MyzelYam:SuperVanish:6.2.7") { isTransitive = false }
+    compileOnly("com.github.MyzelYam:SuperVanish:6.2.12") { isTransitive = false }
     compileOnly("eu.locklogin:LockLogin-API:1.13.28")
     compileOnly("fr.xephi:authme:5.6.0-SNAPSHOT")
-    compileOnly("io.papermc.paper:paper-api:1.19.2-R0.1-SNAPSHOT")
     compileOnly("me.clip:placeholderapi:2.11.2")
     compileOnly("net.essentialsx:EssentialsX:2.19.7")
-    compileOnly("net.kyori:adventure-text-minimessage:4.11.0")
     compileOnly("org.jetbrains:annotations:23.0.0")
+    compileOnly("org.spigotmc:spigot-api:1.19.2-R0.1-SNAPSHOT")
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
-    implementation("net.insprill:XenLib:a6942f042e")
+    implementation("com.github.simplix-softworks:simplixstorage:3.2.5")
+    implementation("de.themoep:minedown:1.7.1-SNAPSHOT")
+    implementation("net.insprill:spigot-utils:0.1.1")
+    implementation("net.swiftzer.semver:semver:1.2.0")
     implementation("org.bstats:bstats-bukkit:3.0.0")
 }
 
@@ -61,6 +64,11 @@ tasks {
     shadowJar {
         dependsOn(reloc)
         archiveClassifier.set("")
+        from("LICENSE")
+        manifest {
+            attributes["bStats-Id"] = project.property("bstats-id")
+            attributes["Spigot-Resource-Id"] = project.property("spigot-resource-id")
+        }
         minimize()
     }
 

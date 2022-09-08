@@ -1,36 +1,36 @@
 package net.insprill.cjm.message
 
+import de.leonhard.storage.internal.FlatFile
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.types.MessageType
-import net.insprill.xenlib.XenUtils
-import net.insprill.xenlib.files.YamlFile
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
+import org.bukkit.permissions.Permission
 import org.bukkit.permissions.PermissionDefault
 import kotlin.random.Random.Default.nextInt
 
+class MessageSender(private val plugin: CustomJoinMessages) {
 
-class MessageSender(private val plugin: CustomJoinMessages, messageTypes: List<MessageType>) {
+    val typeMap = HashMap<String, MessageType>()
 
-    val typeMap = messageTypes.associateBy { t -> t.name.lowercase() }
+    private val registeredPermissions = ArrayList<String>()
 
-    private val registeredPermissions: MutableList<String> = ArrayList()
+    fun registerType(messageType: MessageType) {
+        typeMap[messageType.name.lowercase()] = messageType
+    }
 
-    fun setupPermissions() {
-        for (permission in registeredPermissions) {
-            XenUtils.unregisterPermission(permission)
-        }
+    fun reloadPermissions(config: FlatFile) {
+        registeredPermissions.forEach { Bukkit.getPluginManager().removePermission(it) }
         registeredPermissions.clear()
-        for (msg in typeMap.values) {
-            if (!msg.isEnabled) continue
-            for (action in MessageAction.values()) {
-                for (visibility in MessageVisibility.values()) {
-                    val path = visibility.configSection + "." + action.configSection
-                    for (key in msg.config.getKeys(path)) {
-                        val permission = msg.config.getString("$path.$key.Permission") ?: continue
-                        XenUtils.registerPermission(permission, PermissionDefault.FALSE)
-                        registeredPermissions.add(permission)
+        for (action in MessageAction.values()) {
+            for (visibility in MessageVisibility.values()) {
+                val path = visibility.configSection + "." + action.configSection
+                for (key in config.singleLayerKeySet(path)) {
+                    val permission = config.getString("$path.$key.Permission") ?: continue
+                    if (Bukkit.getPluginManager().getPermission(permission) == null) {
+                        Bukkit.getPluginManager().addPermission(Permission(permission, PermissionDefault.FALSE))
                     }
+                    registeredPermissions.add(permission)
                 }
             }
         }
@@ -48,7 +48,7 @@ class MessageSender(private val plugin: CustomJoinMessages, messageTypes: List<M
             return
         if (vanishCheck && plugin.hookManager.isVanished(player))
             return
-        if (!YamlFile.CONFIG.getBoolean("Addons.Jail.Ignore-Jailed-Players") && plugin.hookManager.isJailed(player))
+        if (!plugin.config.getBoolean("Addons.Jail.Ignore-Jailed-Players") && plugin.hookManager.isJailed(player))
             return
         for (visibility in MessageVisibility.values().filter { it.supports(action) }) {
             for (msg in typeMap.values.filter { it.isEnabled }) {
@@ -63,7 +63,7 @@ class MessageSender(private val plugin: CustomJoinMessages, messageTypes: List<M
                 if (!MessageCondition.checkAllConditions(plugin, msg, messagePath))
                     continue
 
-                val radius = msg.config.getDouble("$messagePath.Radius")
+                val radius = msg.config.getOrDefault("$messagePath.Radius", -1.0)
 
                 val players = getReceivingPlayers(player, visibility, action, radius)
                 val randomKey = getRandomKey(msg.config, "$messagePath.${msg.key}") ?: continue
@@ -76,16 +76,16 @@ class MessageSender(private val plugin: CustomJoinMessages, messageTypes: List<M
     }
 
     private fun getHighestPriorityMessage(msgType: MessageType, path: String, player: Player): Int {
-        return msgType.config.getKeys(path)
+        return msgType.config.singleLayerKeySet(path)
             .mapNotNull { it.toIntOrNull() }
-            .filter { player.hasPermission(msgType.config.getString("$path.$it.Permission")!!) }
-            .max()
+            .filter { player.hasPermission(msgType.config.getString("$path.$it.Permission") ?: "cjm.default") }
+            .maxOrNull() ?: -1
     }
 
     private fun getReceivingPlayers(sourcePlayer: Player, visibility: MessageVisibility, action: MessageAction, radius: Double): List<Player> {
         return if (visibility == MessageVisibility.PUBLIC) {
-            val players = ArrayList(getNearbyPlayers(sourcePlayer, radius, YamlFile.CONFIG.getBoolean("World-Based-Messages.Enabled")))
-            if (action == MessageAction.QUIT && YamlFile.CONFIG.getBoolean("World-Based-Messages.Enabled")) {
+            val players = ArrayList(getNearbyPlayers(sourcePlayer, radius, plugin.config.getBoolean("World-Based-Messages.Enabled")))
+            if (action == MessageAction.QUIT && plugin.config.getBoolean("World-Based-Messages.Enabled")) {
                 players.remove(sourcePlayer)
             }
             players
@@ -94,12 +94,12 @@ class MessageSender(private val plugin: CustomJoinMessages, messageTypes: List<M
         }
     }
 
-    fun getRandomKey(config: YamlFile, path: String): String? {
-        if (config.getConfigSection(path) == null) {
+    fun getRandomKey(config: FlatFile, path: String): String? {
+        if (config.getSection(path) == null) {
             plugin.logger.severe("\"" + path + "\" in messages/" + config.file.name + " has no keys. Perhaps the messages indentation is wrong?")
             return null
         }
-        val amount = config.getConfigSection(path)!!.getKeys(false).size
+        val amount = config.getSection(path).singleLayerKeySet().size
         val selectedMessage = nextInt(amount) + 1
         return "$path.$selectedMessage"
     }

@@ -17,7 +17,7 @@ class HookManager(pluginHooks: List<PluginHook>) {
         .map { it.jailHook!! }
 
     fun isLoggedIn(player: Player): Boolean {
-        return if (authHooks.isEmpty()) true else authHooks.any { it.isLoggedIn(player) }
+        return authHooks.isEmpty() || authHooks.any { it.isLoggedIn(player) }
     }
 
     fun isVanished(player: Player): Boolean {

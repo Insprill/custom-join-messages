@@ -13,8 +13,9 @@ Custom Join Messages documentation!
    config.rst
    messages.rst
    actionbar.rst
+   bossbar.rst
    chat.rst
    sound.rst
    title.rst
    placeholders.rst
-   colours.rst
+   formatting.rst

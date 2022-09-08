@@ -1,5 +1,0 @@
-prefix: "&8[&2Custom Join Messages&8]"
-commands:
-  preview:
-    invalid-message: "%p% &cA message with ID &4%id% &cdoesn't exist!"
-  reload: "%p% &aPlugin reloaded."

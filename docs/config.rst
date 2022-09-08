@@ -20,12 +20,6 @@ The Plugin Config
          * Enabled:
             * **Default**: ``true``
             * **Description**: Whether fake messages should be sent.
-         * Vanish:
-            * **Default**: ``true``
-            * **Description**: Whether fake messages should be sent when vanishing.
-         * Unvanish:
-            * **Default**: ``true``
-            * **Description**: Whether fake messages should be sent when unvanishing.
 
    * Jail:
       * **Description**: Setting related to jailed players.
@@ -39,10 +33,15 @@ The Plugin Config
       * **Default**: ``true``
       * **Description**: Whether world-based messages are enabled.
    * Groups:
-      * **Description**: All world groups. Messages will only be sent when moving between groups. Children keys don't matter as long as there's no duplicates.
-   * Ungrouped-Group:
-      * **Default**: ``false``
-      * **Description**:  Whether all worlds not defined in a group should be treated as their own group. If this is false no messages will be sent when moving to/from non-grouped worlds.
+      * **Description**: All world groups. Messages will only be sent when moving between groups. Children keys don't matter as long as there's no duplicates. Keys cannot be changed without losing reference to the group and essentially resetting it.
+   * Ungrouped-Mode:
+      * **Default**: ``INDIVIDUAL``
+      * **Description**:
+        How worlds which aren't in a group should be handled. This has three options:
+
+        * ``NONE`` - No messages will be sent when entering/exiting ungrouped worlds.
+        * ``SAME`` - Ungrouped worlds will be treated as if they're all one group.
+        * ``INDIVIDUAL`` - Ungrouped worlds will be treated as if each worlds is its own group.
 
 * Version:
    * **Description**: The version of the config. **DO NOT TOUCH THIS VALUE**.

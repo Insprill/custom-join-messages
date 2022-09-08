@@ -2,7 +2,6 @@ package net.insprill.cjm.compatibility.hook
 
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.MessageAction
-import net.insprill.xenlib.files.YamlFile
 import org.bukkit.entity.Player
 
 interface VanishHook {
@@ -13,13 +12,13 @@ interface VanishHook {
 
     fun handleToggle(player: Player, isVanishing: Boolean) {
         val path = "Addons.Vanish.Fake-Messages"
-        if (!YamlFile.CONFIG.getBoolean("$path.Enabled", true)) return
+        if (!plugin.config.getOrDefault("$path.Enabled", true)) return
         if (isVanishing) {
-            if (YamlFile.CONFIG.getBoolean("$path.Vanish", true)) {
+            if (plugin.config.getOrDefault("$path.Vanish", true)) {
                 plugin.messageSender.trySendMessages(player, MessageAction.QUIT, false)
             }
         } else {
-            if (YamlFile.CONFIG.getBoolean("$path.Unvanish", true)) {
+            if (plugin.config.getOrDefault("$path.Unvanish", true)) {
                 plugin.messageSender.trySendMessages(player, MessageAction.JOIN, false)
             }
         }

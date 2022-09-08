@@ -5,7 +5,9 @@
 #                                        #
 ##########################################
 #
-language: en-us
+# Please visit https://cjm.insprill.net/ for the full CJM wiki.
+#
+language: en
 #
 # Settings for hooks into other plugins. These settings only apply after a restart.
 Addons:
@@ -23,10 +25,6 @@ Addons:
     Fake-Messages:
       # Whether we should use our own messages.
       Enabled: true
-      # Whether we should send a quit message when a player vanishes.
-      Vanish: true
-      # Whether we should send a join message when a player unvanishes.
-      Unvanish: true
 
   # Settings for Jail plugins
   Jail:
@@ -41,16 +39,31 @@ World-Based-Messages:
   # Messages will only be sent when moving between worlds in different groups.
   # Those groups can be defined here.
   # The keys don't matter as long as there's no duplicates.
+  # Note that groups are saved by key name, so while what it is doesn't matter,
+  # it cannot be changed without losing its reference.
   # All world names are cAsE-SeNsItIvE.
   Groups:
     1:
       - world
       - world_nether
       - world_the_end
-  # Whether all worlds not defined in a group should be
-  # treated as their own group. If this is false no messages will be sent
-  # when moving to/from non-grouped worlds.
-  Ungrouped-Group: false
+  # How worlds which aren't in a group should be handled.
+  # You can pick from one of 3 options:
+  #  NONE - Worlds will not send messages when entering/exiting.
+  #  SAME - Worlds will be treated as if they're in one group.
+  #  INDIVIDUAL - Worlds will be treated as if they're all in their own groups.
+  Ungrouped-Mode: INDIVIDUAL
+
+# Settings for the plugins update checker.
+Update-Checker:
+  # Whether the update checker is enabled.
+  Enabled: true
+  # Settings for notifications when an update is found.
+  Notifications:
+    # Whether OPed users should get notified in-game when an update is available.
+    In-Game: true
+    # Whether a console message should be printed when an update is available.
+    Console: true
 
 # DO NOT TOUCH!!!
 version: "3.0.0"

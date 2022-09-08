@@ -1,80 +1,97 @@
 package net.insprill.cjm.listener
 
+import de.leonhard.storage.SimplixBuilder
+import de.leonhard.storage.internal.FlatFile
+import de.leonhard.storage.internal.settings.ReloadSettings
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.MessageAction
-import net.insprill.xenlib.files.YamlFile
 import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerTeleportEvent
-import java.io.File
+import java.nio.file.Path
 
 class WorldChangeEvent(private val plugin: CustomJoinMessages) : Listener {
 
-    val worldLogConfig = YamlFile("data" + File.separator + "worlds.yml")
+    private val visitedWorldsConfig: FlatFile = SimplixBuilder.fromPath(Path.of("${plugin.dataFolder}/data/worlds.json"))
+        .setReloadSettings(ReloadSettings.MANUALLY)
+        .createJson()
+    private val groupPath = "World-Based-Messages.Groups"
 
     @EventHandler(priority = EventPriority.MONITOR)
     fun onPlayerChangeWorld(e: PlayerTeleportEvent) {
-        if (!YamlFile.CONFIG.getBoolean("World-Based-Messages.Enabled"))
+        if (!plugin.config.getBoolean("World-Based-Messages.Enabled"))
             return
 
-        val from = e.from
-        val to = e.to
-        val fromWorld = from.world ?: return
-        val toWorld = to.world ?: return
-
+        val fromWorld = e.from.world ?: return
+        val toWorld = e.to?.world ?: return
         if (toWorld == fromWorld)
             return
 
-        val fromName = fromWorld.name
-        val toName = toWorld.name
-        if (!isDifferentGroup(toName, fromName))
+        if (isSameGroup(toWorld.name, fromWorld.name))
             return
 
-        val toPlayers = worldLogConfig.getStringList(toName)
+        val groupName = getGroupName(toWorld.name)
+
         val uuid = e.player.uniqueId.toString()
-        val hasJoinedWorldBefore = toPlayers.contains(uuid)
+        val groupPlayers = visitedWorldsConfig.getStringList(groupName)
+        val hasJoinedWorldBefore = groupPlayers.contains(uuid)
         if (!hasJoinedWorldBefore) {
-            toPlayers.add(uuid)
-            worldLogConfig[fromName] = toPlayers
-            worldLogConfig[toName] = toPlayers
-            worldLogConfig.save()
+            groupPlayers.add(uuid)
+            visitedWorldsConfig[groupName] = groupPlayers
         }
 
-        val blacklist = YamlFile.CONFIG.getStringList("World-Blacklist")
-        val whitelist = YamlFile.CONFIG.getBoolean("World-Blacklist-As-Whitelist")
+        plugin.messageSender.trySendMessages(e.player, MessageAction.QUIT, true)
 
-        if (whitelist xor !blacklist.contains(fromName)) {
-            plugin.messageSender.trySendMessages(e.player, MessageAction.QUIT, true)
-        }
-        if (whitelist xor !blacklist.contains(toName)) {
-            Bukkit.getScheduler().runTaskLater(plugin, Runnable {
-                plugin.messageSender.trySendMessages(
-                    e.player,
-                    if (hasJoinedWorldBefore) MessageAction.JOIN else MessageAction.FIRST_JOIN,
-                    true
-                )
-            }, 10L)
-        }
+        Bukkit.getScheduler().runTaskLater(plugin, Runnable {
+            plugin.messageSender.trySendMessages(
+                e.player,
+                if (hasJoinedWorldBefore) MessageAction.JOIN else MessageAction.FIRST_JOIN,
+                true
+            )
+        }, 10L)
     }
 
-    private fun isDifferentGroup(toName: String, fromName: String): Boolean {
-        if (isUngrouped(toName) != isUngrouped(fromName))
-            return YamlFile.CONFIG.getBoolean("World-Based-Messages.Ungrouped-Group")
-        for (key in YamlFile.CONFIG.getKeys("World-Based-Messages.Groups")) {
-            val group = YamlFile.CONFIG.getStringList("World-Based-Messages.Groups.$key")
-            if (group.contains(toName) && group.contains(fromName)) {
-                return false
+    private fun isSameGroup(toName: String, fromName: String): Boolean {
+        return getGroupName(toName) == getGroupName(fromName)
+                || (UngroupedMode.getMode(plugin) == UngroupedMode.NONE && (isUngrouped(toName) || isUngrouped(fromName)))
+    }
+
+    private fun getGroupName(worldName: String): String {
+        if (!isUngrouped(worldName)) {
+            return plugin.config.singleLayerKeySet(groupPath).first {
+                plugin.config.getStringList("$groupPath.$it").contains(worldName)
             }
         }
-        return true
+        val mode = UngroupedMode.getMode(plugin) ?: return worldName
+        return when (mode) {
+            UngroupedMode.NONE -> ""
+            UngroupedMode.SAME -> "ungrouped"
+            UngroupedMode.INDIVIDUAL -> worldName
+        }
     }
 
     private fun isUngrouped(world: String): Boolean {
-        val path = "World-Based-Messages.Groups"
-        return YamlFile.CONFIG.getKeys(path).none {
-            YamlFile.CONFIG.getStringList("$path.$it").contains(world)
+        return plugin.config.singleLayerKeySet(groupPath).none {
+            plugin.config.getStringList("$groupPath.$it").contains(world)
+        }
+    }
+
+    private enum class UngroupedMode {
+        NONE,
+        SAME,
+        INDIVIDUAL;
+
+        companion object {
+            fun getMode(plugin: CustomJoinMessages): UngroupedMode? {
+                val modeStr = plugin.config.getString("World-Based-Messages.Ungrouped-Mode")
+                if (enumValues<UngroupedMode>().none { it.name == modeStr }) {
+                    plugin.logger.severe("Unknown Ungrouped-Mode '$modeStr'! Please choose from one of the following: ${enumValues<UngroupedMode>()}")
+                    return null
+                }
+                return UngroupedMode.valueOf(modeStr)
+            }
         }
     }
 

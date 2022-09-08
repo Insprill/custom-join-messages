@@ -1,4 +1,4 @@
-# Toggles whether action bar messages should be sent.
+# Toggles whether bossbar messages should be sent.
 Enabled: false
 
 Public:
@@ -10,18 +10,30 @@ Public:
       Messages:
         1:
           Message: "&a%name% &7has joined the server for the first time!"
+          Bar-Color: GREEN
+          Bar-Style: SOLID
+          Show-Time: 60
+          Count-Down: true
   Join:
     1:
       Permission: cjm.default
       Messages:
         1:
           Message: "&a%name% &7has joined!"
+          Bar-Color: GREEN
+          Bar-Style: SOLID
+          Show-Time: 60
+          Count-Down: true
   Quit:
     1:
       Permission: cjm.default
       Messages:
         1:
           Message: "&a%name% &7has left!"
+          Bar-Color: RED
+          Bar-Style: SOLID
+          Show-Time: 60
+          Count-Down: true
 
 Private:
   First-Join:
@@ -30,9 +42,17 @@ Private:
       Messages:
         1:
           Message: "&7Welcome to our server!"
+          Bar-Color: GREEN
+          Bar-Style: SOLID
+          Show-Time: 60
+          Count-Down: true
   Join:
     1:
       Permission: cjm.default
       Messages:
         1:
           Message: "&7Welcome back!"
+          Bar-Color: GREEN
+          Bar-Style: SOLID
+          Show-Time: 60
+          Count-Down: true

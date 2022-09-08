@@ -12,12 +12,9 @@
 
 <!-- PROJECT LOGO -->
 <br />
-<p align="center">
-  <!-- <a href="https://github.com/Insprill/Custom-Join-Messages">
-     <img src="logo.png" alt="Logo" width="500" height="500">
-  </a> -->
+<p style="text-align: center;">
 
-<h3 align="center">Custom Join Messages</h3>
+  <h3 align="center">Custom Join Messages</h3>
 
   <p align="center">
     The most advanced Join/ Quit Message plugin on the market.
@@ -37,11 +34,11 @@
 
 * [About The Project](#about-the-project)
 * [Roadmap](#roadmap)
-* [Contributing]("#contributing")
-* [Building]("#building")
-* [License]("#license")
-* [Support]("#support")
-* [Contact]("#contact")
+* [Contributing](#contributing)
+* [Building](#building)
+* [License](#license)
+* [Support](#support)
+* [Contact](#contact)
 
 
 
@@ -50,10 +47,12 @@
 
 ## About The Project
 
-Custom Join Messages can way more than just add Custom Join Messages. 
-You can send titles, action bar messages, private messages, have custom quit messages, and much more! 
-Including having different messages for different groups, have it pick a random message from a list, and even have it only send messages within a range of the person who joined/ left! 
-You can toggle join/ quit messages per player (with MySQL support). It has full support for PlaceholderAPI, SuperVanish/ PremiumVanish (& most other vanish plugins), 
+Custom Join Messages can way more than just add Custom Join Messages.
+You can send titles, action bar messages, private messages, have custom quit messages, and much more!
+Including having different messages for different groups, have it pick a random message from a list, and even have it only send messages within a
+range of the person who joined/ left!
+You can toggle join/ quit messages per player (with MySQL support).
+It has full support for PlaceholderAPI, SuperVanish/ PremiumVanish (& most other vanish plugins),
 Vault prefixes/ suffixes, and AuthMe! It also has a few extra features like being able to check the first join date of online & offline players!
 
 
@@ -103,7 +102,7 @@ contributions you make are **greatly appreciated**.
 
 To compile Custom Join Messages, you will need JDK 8 or higher and an internet connection.  
 Clone this repo, then run `./gradlew` build from your terminal.  
-You can find the compiled jar in the `build/libs` directory.  
+You can find the compiled jar in the `build/libs` directory.
 
 
 
@@ -122,7 +121,8 @@ See [LICENSE](https://github.com/Insprill/Custom-Join-Messages/blob/master/LICEN
 
 ## Support
 
-For support, please join the [Discord Server](https://discord.gg/SH7VyYtuC2). Once you join, you can ask your question in the `#community-support` channel.  
+For support, please join the [Discord Server](https://discord.gg/SH7VyYtuC2).
+Once you join, you can ask your question in the `#community-support` channel.  
 **Do not ask questions via the issue tracker.**
 
 

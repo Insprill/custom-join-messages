@@ -7,7 +7,6 @@ All message types follow the same basic structure:
 .. code-block:: yaml
 
   Enabled:
-  MiniMessage:
   Visibility:
     Action:
       Group Index:
@@ -20,11 +19,6 @@ Enabled
 ^^^^^^^
 Whether the message type is enabled.
 
-MiniMessage
-^^^^^^^^^^^
-Whether messages should be formatted using MiniMessage.
-Does not apply to non-text messages like sounds.
-More info can be found on the :ref:`colours` page.
 
 Visibility
 ^^^^^^^^^^
@@ -46,6 +40,7 @@ The action is when the message is displayed. There are three types:
 Group Index
 ^^^^^^^^^^^
 The group index is a unique identifier for the group of messages.
+The identifier **must** be an integer. If it's not, the message will not work.
 If a player has permissions for multiple groups, the group with the highest index will be used.
 The indexes don't `need` to be sequential, but they must be unique per-action.
 
