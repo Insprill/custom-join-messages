@@ -29,13 +29,15 @@ import org.bstats.bukkit.Metrics
 import org.bstats.charts.SimplePie
 import org.bukkit.Bukkit
 import org.bukkit.event.Listener
+import org.bukkit.plugin.PluginDescriptionFile
 import org.bukkit.plugin.java.JavaPlugin
+import org.bukkit.plugin.java.JavaPluginLoader
 import java.io.File
 import java.nio.file.Path
 import java.util.Collections
 import java.util.Properties
 
-class CustomJoinMessages : JavaPlugin() {
+class CustomJoinMessages : JavaPlugin {
 
     lateinit var messageSender: MessageSender
     lateinit var hookManager: HookManager
@@ -184,5 +186,21 @@ class CustomJoinMessages : JavaPlugin() {
             logger.warning("You can download it at ${updateChecker.getResourceUrl()}")
         }
     }
+
+    // region MockBukkit Constructors
+    constructor() : super()
+
+    constructor(
+        loader: JavaPluginLoader,
+        description: PluginDescriptionFile,
+        dataFolder: File,
+        file: File
+    ) : super(
+        loader,
+        description,
+        dataFolder,
+        file
+    )
+    // endregion
 
 }
