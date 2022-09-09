@@ -1,0 +1,99 @@
+package net.insprill.cjm.placeholder
+
+import be.seeseemelk.mockbukkit.MockBukkit
+import be.seeseemelk.mockbukkit.ServerMock
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.fail
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.EnumSource
+
+class PlaceholdersTest {
+
+    private lateinit var server: ServerMock
+
+    @BeforeEach
+    fun setUp() {
+        server = MockBukkit.mock()
+    }
+
+    @AfterEach
+    fun teardown() {
+        MockBukkit.unmock()
+    }
+
+    @Test
+    fun stringName_NoDuplicates() {
+        val duplicates = Placeholders.values()
+            .map { it.stringName.lowercase() }
+            .groupingBy { it }
+            .eachCount()
+            .filter { it.value > 1 }
+
+        if (duplicates.isNotEmpty()) {
+            fail { "Found duplicate Placeholders: $duplicates" }
+        }
+    }
+
+    @ParameterizedTest
+    @EnumSource(Placeholders::class)
+    fun result_NotNull(placeholder: Placeholders) {
+        val player = server.addPlayer()
+
+        assertNotNull(placeholder.result.invoke(player))
+    }
+
+    @Test
+    fun fillPlaceholders_NoPlaceholders_SameString() {
+        val player = server.addPlayer()
+        val string = "A message that has no placeholders!"
+
+        assertEquals(string, Placeholders.fillPlaceholders(player, string))
+    }
+
+    @Test
+    fun fillPlaceholders_Placeholders_Fills() {
+        val player = server.addPlayer("Insprill")
+        @Suppress("DEPRECATION")
+        player.displayName = "SprillJ"
+        val string = "%displayname% (%name%) has joined! [#%uniquejoins%]"
+
+        val result = Placeholders.fillPlaceholders(player, string)
+
+        assertEquals("SprillJ (Insprill) has joined! [#1]", result)
+    }
+
+    @Test
+    fun fillPlaceholders_SingleList_Placeholders_Fills() {
+        val player = server.addPlayer("Insprill")
+        @Suppress("DEPRECATION")
+        player.displayName = "SprillJ"
+        val strings = mutableListOf("%displayname% (%name%) has joined! [#%uniquejoins%]")
+
+        Placeholders.fillPlaceholders(player, strings)
+
+        assertEquals(1, strings.size)
+        assertEquals("SprillJ (Insprill) has joined! [#1]", strings[0])
+    }
+
+    @Test
+    fun fillPlaceholders_MultiList_Placeholders_Fills() {
+        val player = server.addPlayer("Insprill")
+        @Suppress("DEPRECATION")
+        player.displayName = "SprillJ"
+        val strings = mutableListOf(
+            "%displayname% (%name%) has joined! [#%uniquejoins%]",
+            "%displayname% (%name%) has joined! [%uuid%]"
+        )
+
+        Placeholders.fillPlaceholders(player, strings)
+
+        assertEquals(2, strings.size)
+        assertEquals("SprillJ (Insprill) has joined! [#1]", strings[0])
+        assertEquals("SprillJ (Insprill) has joined! [${player.uniqueId}]", strings[1])
+    }
+
+}
