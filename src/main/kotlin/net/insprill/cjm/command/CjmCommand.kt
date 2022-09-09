@@ -41,6 +41,7 @@ class CjmCommand(private val manager: BukkitCommandManager, private val plugin: 
     @HelpCommand
     @Syntax("(page)")
     @CommandPermission("cjm.command.help")
+    @Description("{@@cjm.command.help.description}")
     @Suppress("UNUSED_PARAMETER")
     fun onHelp(sender: CommandSender, help: CommandHelp) {
         help.helpEntries.sortBy { it.command }
