@@ -12,7 +12,7 @@ import org.bukkit.event.EventPriority
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
 
-class LockLoginAuthHook(private val plugin: CustomJoinMessages, private val module: LockLoginModule) : AuthHook, EventListener {
+class LockLoginAuthHook(private val plugin: CustomJoinMessages) : AuthHook, EventListener {
 
     private val loggedInPlayers = HashSet<Player>()
 

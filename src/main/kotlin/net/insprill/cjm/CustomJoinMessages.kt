@@ -183,4 +183,8 @@ class CustomJoinMessages : JavaPlugin() {
         }
     }
 
+    public override fun getFile(): File {
+        return super.getFile()
+    }
+
 }

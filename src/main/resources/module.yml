@@ -1,6 +1,6 @@
 name: "CustomJoinMessages"
 version: "${version}"
 description: "Custom Join Messages' event listener."
-load: "PREPLUGIN"
-author: "Pierce Thompson"
+load: "POSTPLUGIN"
+author: "Insprill"
 loader_bukkit: "net.insprill.cjm.compatibility.locklogin.LockLoginModule"

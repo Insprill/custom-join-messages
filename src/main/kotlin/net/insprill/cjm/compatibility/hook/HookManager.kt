@@ -1,8 +1,11 @@
 package net.insprill.cjm.compatibility.hook
 
+import net.insprill.cjm.compatibility.Dependency
 import org.bukkit.entity.Player
 
 class HookManager(pluginHooks: List<PluginHook>) {
+
+    val hooks = pluginHooks.associateBy { hook -> Dependency.values().first { it.pluginHookClass == hook.javaClass } }
 
     val authHooks: List<AuthHook> = pluginHooks
         .filter { it.authHook != null }
@@ -12,7 +15,7 @@ class HookManager(pluginHooks: List<PluginHook>) {
         .filter { it.vanishHook != null }
         .map { it.vanishHook!! }
 
-    val jailHooks: List<JailHook> = pluginHooks
+    private val jailHooks: List<JailHook> = pluginHooks
         .filter { it.jailHook != null }
         .map { it.jailHook!! }
 
