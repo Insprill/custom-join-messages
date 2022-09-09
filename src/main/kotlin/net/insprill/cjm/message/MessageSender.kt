@@ -60,7 +60,7 @@ class MessageSender(private val plugin: CustomJoinMessages) {
                     continue
 
                 val messagePath = "$path.$hp"
-                if (!MessageCondition.checkAllConditions(plugin, msg, messagePath))
+                if (!MessageCondition.checkAllConditions(msg, messagePath))
                     continue
 
                 val radius = msg.config.getOrDefault("$messagePath.Radius", -1.0)
