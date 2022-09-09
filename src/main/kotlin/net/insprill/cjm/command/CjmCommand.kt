@@ -76,7 +76,7 @@ class CjmCommand(private val manager: BukkitCommandManager, private val plugin: 
     @CommandCompletion("@messageAction @onOffToggle @players")
     @CommandPermission("cjm.command.toggle")
     @Description("{@@cjm.command.toggle.description}")
-    fun onTarget(sender: CommandSender, action: MessageAction, @Optional toggle: String?, @Optional providedTarget: OfflinePlayer?) {
+    fun onToggle(sender: CommandSender, action: MessageAction, @Optional toggle: String?, @Optional providedTarget: OfflinePlayer?) {
         if (sender !is Player && providedTarget == null) {
             throw InvalidCommandArgument("{@@cjm.command.toggle.no-target}")
         }
