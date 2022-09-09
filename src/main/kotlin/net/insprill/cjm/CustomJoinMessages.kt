@@ -45,6 +45,7 @@ class CustomJoinMessages : JavaPlugin {
     lateinit var config: Yaml
     lateinit var updateChecker: UpdateChecker
     lateinit var commandManager: BukkitCommandManager
+    private lateinit var metrics: Metrics
 
     override fun onEnable() {
         if (!checkCompatible())
@@ -63,10 +64,12 @@ class CustomJoinMessages : JavaPlugin {
         // TODO: Rename to 'build.properties' once MockBukkit #626 is merged.
         val buildProps = Properties().apply { load(getResource("cjm.properties")) }
 
-        val metrics = Metrics(this, buildProps.getProperty("bstats.id").toInt())
-        metrics.addCustomChart(SimplePie("worldBasedMessages") {
-            config.getBoolean("World-Based-Messages.Enabled").toString()
-        })
+        if (!ServerEnvironment.isMockBukkit()) {
+            metrics = Metrics(this, buildProps.getProperty("bstats.id").toInt())
+            metrics.addCustomChart(SimplePie("worldBasedMessages") {
+                config.getBoolean("World-Based-Messages.Enabled").toString()
+            })
+        }
 
         val pluginHooks = getPluginHooks()
         hookManager = HookManager(pluginHooks)
@@ -86,7 +89,9 @@ class CustomJoinMessages : JavaPlugin {
         )
 
         messageTypes.forEach {
-            metrics.addCustomChart(SimplePie("message_type_" + it.name) { it.isEnabled.toString() })
+            if (!ServerEnvironment.isMockBukkit()) {
+                metrics.addCustomChart(SimplePie("message_type_" + it.name) { it.isEnabled.toString() })
+            }
             messageSender.registerType(it)
         }
 
