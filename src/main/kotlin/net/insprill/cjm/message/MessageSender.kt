@@ -3,6 +3,7 @@ package net.insprill.cjm.message
 import de.leonhard.storage.internal.FlatFile
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.types.MessageType
+import net.insprill.spigotutils.ServerEnvironment
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.permissions.Permission
@@ -20,6 +21,7 @@ class MessageSender(private val plugin: CustomJoinMessages) {
     }
 
     fun reloadPermissions(config: FlatFile) {
+        if (ServerEnvironment.isMockBukkit()) return // TODO: Remove once MockBukkit#627 is merged
         registeredPermissions.forEach { Bukkit.getPluginManager().removePermission(it) }
         registeredPermissions.clear()
         for (action in MessageAction.values()) {
