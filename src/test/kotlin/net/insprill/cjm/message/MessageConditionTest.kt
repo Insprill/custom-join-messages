@@ -36,22 +36,13 @@ class MessageConditionTest {
     }
 
     @Test
-    fun maxPlayers_LessThanZero_NoPlayers_Passes() {
-        val messageType = ChatMessage(plugin)
-
-        val result = MessageCondition.MAX_PLAYERS.checkCondition(messageType, "Public.Join.69")
-
-        assertTrue(result)
-    }
-
-    @Test
-    fun maxPlayers_GreaterThanZero_NoPlayers_Fails() {
+    fun maxPlayers_GreaterThanZero_NoPlayers_Passes() {
         val messageType = ChatMessage(plugin)
         messageType.config.set("Public.Join.69.Max-Players", 1)
 
         val result = MessageCondition.MAX_PLAYERS.checkCondition(messageType, "Public.Join.69")
 
-        assertFalse(result)
+        assertTrue(result)
     }
 
     @Test
@@ -62,7 +53,7 @@ class MessageConditionTest {
 
         val result = MessageCondition.MAX_PLAYERS.checkCondition(messageType, "Public.Join.69")
 
-        assertTrue(result)
+        assertFalse(result)
     }
 
     @Test
@@ -73,20 +64,11 @@ class MessageConditionTest {
 
         val result = MessageCondition.MAX_PLAYERS.checkCondition(messageType, "Public.Join.69")
 
-        assertTrue(result)
+        assertFalse(result)
     }
 
     @Test
     fun minPlayers_NotSet_NoPlayers_Passes() {
-        val messageType = ChatMessage(plugin)
-
-        val result = MessageCondition.MIN_PLAYERS.checkCondition(messageType, "Public.Join.69")
-
-        assertTrue(result)
-    }
-
-    @Test
-    fun minPlayers_LessThanZero_NoPlayers_Passes() {
         val messageType = ChatMessage(plugin)
 
         val result = MessageCondition.MIN_PLAYERS.checkCondition(messageType, "Public.Join.69")
@@ -112,11 +94,11 @@ class MessageConditionTest {
 
         val result = MessageCondition.MIN_PLAYERS.checkCondition(messageType, "Public.Join.69")
 
-        assertTrue(result)
+        assertFalse(result)
     }
 
     @Test
-    fun minPlayers_GreaterThanZero_MorePlayers_Fails() {
+    fun minPlayers_GreaterThanZero_MorePlayers_Passes() {
         val messageType = ChatMessage(plugin)
         messageType.config.set("Public.Join.69.Min-Players", 1)
         server.setPlayers(2)
@@ -147,7 +129,7 @@ class MessageConditionTest {
 
         val result = MessageCondition.checkAllConditions(messageType, "Public.Join.69")
 
-        assertTrue(result)
+        assertFalse(result)
     }
 
 }
