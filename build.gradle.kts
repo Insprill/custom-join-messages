@@ -21,6 +21,7 @@ repositories {
     maven("https://repo.essentialsx.net/releases/") // EssentialsX
     maven("https://repo.extendedclip.com/content/repositories/placeholderapi/") // PlaceholderAPI
     maven("https://repo.minebench.de/") // MineDown
+    maven("https://repo.papermc.io/repository/maven-public/") // MockBukkit
 }
 
 dependencies {
@@ -40,6 +41,11 @@ dependencies {
     implementation("net.insprill:spigot-utils:0.1.1")
     implementation("net.swiftzer.semver:semver:1.2.0")
     implementation("org.bstats:bstats-bukkit:3.0.0")
+
+    // Tests
+    testImplementation("com.github.seeseemelk:MockBukkit-v1.19:2.117.2")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
+    testImplementation(platform("org.junit:junit-bom:5.9.0"))
 }
 
 val extraDependencies = mapOf(
@@ -95,6 +101,16 @@ tasks {
     build {
         dependsOn(extraDeps)
         dependsOn(shadowJar)
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
 
