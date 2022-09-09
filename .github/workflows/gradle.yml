@@ -9,12 +9,6 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Set up JDK
-        uses: actions/setup-java@v3
-        with:
-          java-version: '18'
-          distribution: 'temurin'
-
       - name: Validate Gradle Wrapper
         uses: gradle/wrapper-validation-action@master
 
