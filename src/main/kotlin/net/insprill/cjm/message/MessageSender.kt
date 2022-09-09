@@ -46,6 +46,8 @@ class MessageSender(private val plugin: CustomJoinMessages) {
     fun trySendMessages(player: Player, action: MessageAction, vanishCheck: Boolean) {
         if (!action.canRun(plugin, player))
             return
+        if (!plugin.toggleHandler.isToggled(player, action))
+            return
         if (vanishCheck && plugin.hookManager.isVanished(player))
             return
         if (!plugin.config.getBoolean("Addons.Jail.Ignore-Jailed-Players") && plugin.hookManager.isJailed(player))
