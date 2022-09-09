@@ -2,6 +2,7 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocatio
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.io.ByteArrayOutputStream
 import java.net.URL
+import java.util.Properties
 
 plugins {
     kotlin("jvm") version "1.7.10"
@@ -71,10 +72,6 @@ tasks {
         dependsOn(reloc)
         archiveClassifier.set("")
         from("LICENSE")
-        manifest {
-            attributes["bStats-Id"] = project.property("bstats-id")
-            attributes["Spigot-Resource-Id"] = project.property("spigot-resource-id")
-        }
         minimize()
     }
 
@@ -82,6 +79,15 @@ tasks {
         filteringCharset = Charsets.UTF_8.name()
         filesMatching("plugin.yml") {
             expand("version" to version)
+        }
+        doLast {
+            File("$buildDir/resources/main/cjm.properties").bufferedWriter().use {
+                val p = Properties()
+                p["version"] = project.version
+                p["bstats.id"] = project.property("bstats.id")
+                p["spigot.resource.id"] = project.property("spigot.resource.id")
+                p.store(it, null)
+            }
         }
     }
 

@@ -33,7 +33,7 @@ import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
 import java.nio.file.Path
 import java.util.Collections
-import java.util.jar.JarFile
+import java.util.Properties
 
 class CustomJoinMessages : JavaPlugin() {
 
@@ -58,8 +58,10 @@ class CustomJoinMessages : JavaPlugin() {
         if (!migrateFromLegacyConfiguration())
             return
 
-        val manifest = JarFile(file).manifest.mainAttributes
-        val metrics = Metrics(this, manifest.getValue("bStats-Id").toInt())
+        // TODO: Rename to 'build.properties' once MockBukkit #626 is merged.
+        val buildProps = Properties().apply { load(getResource("cjm.properties")) }
+
+        val metrics = Metrics(this, buildProps.getProperty("bstats.id").toInt())
         metrics.addCustomChart(SimplePie("worldBasedMessages") {
             config.getBoolean("World-Based-Messages.Enabled").toString()
         })
@@ -88,7 +90,7 @@ class CustomJoinMessages : JavaPlugin() {
 
         registerCommands()
 
-        updateChecker = UpdateChecker(manifest.getValue("Spigot-Resource-Id").toInt(), this)
+        updateChecker = UpdateChecker(buildProps.getProperty("spigot.resource.id").toInt(), this)
         checkForUpdates()
     }
 
