@@ -14,6 +14,7 @@ import co.aikar.commands.annotation.HelpCommand
 import co.aikar.commands.annotation.Optional
 import co.aikar.commands.annotation.Subcommand
 import co.aikar.commands.annotation.Syntax
+import co.aikar.commands.bukkit.contexts.OnlinePlayer
 import co.aikar.locales.MessageKey
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.MessageAction
@@ -56,7 +57,7 @@ class CjmCommand(private val manager: BukkitCommandManager, private val plugin: 
     @Suppress("UNUSED_PARAMETER")
     fun onPreview(
         sender: CommandSender,
-        target: Player,
+        target: OnlinePlayer,
         messageType: net.insprill.cjm.message.types.MessageType,
         visibility: MessageVisibility,
         action: MessageAction,
@@ -68,7 +69,7 @@ class CjmCommand(private val manager: BukkitCommandManager, private val plugin: 
         }
 
         val randomKey = plugin.messageSender.getRandomKey(messageType.config, "$path.${messageType.key}") ?: return
-        messageType.handle(target, listOf(target), path, randomKey, MessageVisibility.PRIVATE)
+        messageType.handle(target.player, listOf(target.player), path, randomKey, MessageVisibility.PRIVATE)
     }
 
     @Subcommand("toggle|t")

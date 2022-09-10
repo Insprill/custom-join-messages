@@ -9,7 +9,6 @@ class CommandContext(private val plugin: CustomJoinMessages) {
 
     fun register(manager: BukkitCommandManager): Unit = manager.commandContexts.run {
         registerContext(MessageType::class.java) {
-            it.popFirstArg()
             plugin.messageSender.typeMap[it.popFirstArg().lowercase()] ?: throw InvalidCommandArgument()
         }
     }
