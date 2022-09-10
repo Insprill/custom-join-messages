@@ -57,7 +57,7 @@
 
 Custom Join Messages started off as the name suggests, but has since evolved into something far larger.
 
-#### Features
+### Features
 
 * Vanish Integration
     * Send messages when vanishing/unvanishing
