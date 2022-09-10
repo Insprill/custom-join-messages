@@ -1,6 +1,5 @@
 package net.insprill.cjm.compatibility.hook
 
-import net.insprill.spigotutils.ServerEnvironment
 import org.bukkit.entity.Player
 
 class HookManager(pluginHooks: List<PluginHook>) {
@@ -22,8 +21,7 @@ class HookManager(pluginHooks: List<PluginHook>) {
     }
 
     fun isVanished(player: Player): Boolean {
-        // TODO: Remove MockBukkit check when MockBukkit#628 is merged
-        return vanishHooks.any { it.isVanished(player) } || (!ServerEnvironment.isMockBukkit() && player.getMetadata("vanished").any { it.asBoolean() })
+        return vanishHooks.any { it.isVanished(player) } || player.getMetadata("vanished").any { it.asBoolean() }
     }
 
     fun isJailed(player: Player): Boolean {
