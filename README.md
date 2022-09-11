@@ -12,11 +12,9 @@
 
 <!-- PROJECT LOGO -->
 <br />
-<div align="center">
-
-<h3 align="center">Custom Join Messages</h3>
-
-  <p align="center">
+<div style="text-align: center;">
+  <h1>Custom Join Messages</h1>
+  <p>
     The most advanced Join/ Quit Message plugin on the market.
     <br />
     <br />
