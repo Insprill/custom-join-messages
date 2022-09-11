@@ -4,7 +4,9 @@ import be.seeseemelk.mockbukkit.MockBukkit
 import be.seeseemelk.mockbukkit.ServerMock
 import be.seeseemelk.mockbukkit.entity.PlayerMock
 import net.insprill.cjm.CustomJoinMessages
+import net.insprill.cjm.message.MessageAction
 import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Assertions.fail
@@ -197,6 +199,118 @@ class CjmCommandTest {
 
         assertTrue(player.nextMessage()!!.contains("A message with ID", true))
         assertTrue(player.nextMessage()!!.contains("usage", true))
+        player.assertNoMoreSaid()
+    }
+
+    @Test
+    fun execute_Toggle_FromConsole_NoTarget_Fails() {
+        server.dispatchCommand(server.consoleSender, "cjm toggle join off")
+
+        assertTrue(server.consoleSender.nextMessage()!!.contains("You must specify a target when running the command from console", true))
+        assertTrue(server.consoleSender.nextMessage()!!.contains("usage", true))
+        server.consoleSender.assertNoMoreSaid()
+    }
+
+    @Test
+    fun execute_Toggle_NoPermission_DoesntExecute() {
+        player.performCommand("cjm toggle")
+
+        player.assertSaid("§cI'm sorry, but you do not have permission to perform this command.")
+        player.assertNoMoreSaid()
+    }
+
+    @Test
+    fun execute_Toggle_NoArgs_Fails() {
+        player.addAttachment(plugin, "cjm.command.toggle", true)
+
+        player.performCommand("cjm toggle")
+
+        assertTrue(player.nextMessage()!!.contains("usage", true))
+    }
+
+    @Test
+    fun execute_Toggle_Toggles() {
+        player.addAttachment(plugin, "cjm.command.toggle", true)
+
+        player.performCommand("cjm toggle join")
+
+        assertTrue(player.nextMessage()!!.contains("Toggled join messages off!", true))
+        player.assertNoMoreSaid()
+        assertFalse(plugin.toggleHandler.isToggled(player, MessageAction.JOIN))
+
+        player.performCommand("cjm toggle join")
+
+        assertTrue(player.nextMessage()!!.contains("Toggled join messages on!", true))
+        player.assertNoMoreSaid()
+        assertTrue(plugin.toggleHandler.isToggled(player, MessageAction.JOIN))
+    }
+
+    @Test
+    fun execute_Toggle_Off_TogglesOff() {
+        player.addAttachment(plugin, "cjm.command.toggle", true)
+
+        player.performCommand("cjm toggle join off")
+
+        assertTrue(player.nextMessage()!!.contains("Toggled join messages off!", true))
+        player.assertNoMoreSaid()
+        assertFalse(plugin.toggleHandler.isToggled(player, MessageAction.JOIN))
+    }
+
+    @Test
+    fun execute_Toggle_On_TogglesOn() {
+        player.addAttachment(plugin, "cjm.command.toggle", true)
+
+        player.performCommand("cjm toggle join on")
+
+        assertTrue(player.nextMessage()!!.contains("Toggled join messages on!", true))
+        player.assertNoMoreSaid()
+        assertTrue(plugin.toggleHandler.isToggled(player, MessageAction.JOIN))
+    }
+
+    @Test
+    fun execute_Toggle_OtherPlayer() {
+        val player2 = server.addPlayer()
+
+        player.addAttachment(plugin, "cjm.command.toggle", true)
+
+        player.performCommand("cjm toggle join off ${player2.name}")
+
+        assertTrue(player.nextMessage()!!.contains("Toggled join messages off!", true))
+        player.assertNoMoreSaid()
+        assertTrue(plugin.toggleHandler.isToggled(player, MessageAction.JOIN))
+        assertFalse(plugin.toggleHandler.isToggled(player2, MessageAction.JOIN))
+    }
+
+    @Test
+    fun execute_Toggle_WrongType_Fails() {
+        player.addAttachment(plugin, "cjm.command.toggle", true)
+
+        player.performCommand("cjm toggle WRONG off")
+
+        assertTrue(player.nextMessage()!!.contains("Please specify one of", true))
+        assertTrue(player.nextMessage()!!.contains("usage", true))
+        player.assertNoMoreSaid()
+    }
+
+    @Test
+    @Disabled("MockBukkit hasn't implemented OfflinePlayer#hasPlayedBefore")
+    fun execute_Toggle_InvalidTarget_Fails() {
+        player.addAttachment(plugin, "cjm.command.toggle", true)
+
+        player.performCommand("cjm toggle join off thisNameIsTooLongToBeValid")
+
+        assertTrue(player.nextMessage()!!.contains("is not a valid username", true))
+        player.assertNoMoreSaid()
+    }
+
+    @Test
+    @Disabled("MockBukkit hasn't implemented OfflinePlayer#hasPlayedBefore")
+    fun execute_Toggle_OfflineTarget_Fails() {
+        player.addAttachment(plugin, "cjm.command.toggle", true)
+
+        player.performCommand("cjm toggle join off WRONG")
+
+        assertTrue(player.nextMessage()!!.contains("No player matching", true))
         player.assertNoMoreSaid()
     }
 
