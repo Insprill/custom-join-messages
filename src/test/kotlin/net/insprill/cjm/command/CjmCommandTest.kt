@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Assertions.fail
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 class CjmCommandTest {
@@ -80,9 +81,7 @@ class CjmCommandTest {
 
         player.performCommand("cjm preview")
 
-        val response = player.nextMessage()
-        assertNotNull(response)
-        assertTrue(response!!.contains("usage", true))
+        assertTrue(player.nextMessage()!!.contains("usage", true))
         player.assertNoMoreSaid()
     }
 
@@ -92,9 +91,112 @@ class CjmCommandTest {
 
         player.performCommand("cjm preview ${player.name}")
 
-        val response = player.nextMessage()
-        assertNotNull(response)
-        assertTrue(response!!.contains("usage", true))
+        assertTrue(player.nextMessage()!!.contains("usage", true))
+        player.assertNoMoreSaid()
+    }
+
+    @Test
+    fun execute_Preview_TwoArgs_Fails() {
+        player.addAttachment(plugin, "cjm.command.preview", true)
+
+        player.performCommand("cjm preview ${player.name} chat")
+
+        assertTrue(player.nextMessage()!!.contains("usage", true))
+        player.assertNoMoreSaid()
+    }
+
+    @Test
+    fun execute_Preview_ThreeArgs_Fails() {
+        player.addAttachment(plugin, "cjm.command.preview", true)
+
+        player.performCommand("cjm preview ${player.name} chat public")
+
+        assertTrue(player.nextMessage()!!.contains("usage", true))
+        player.assertNoMoreSaid()
+    }
+
+    @Test
+    fun execute_Preview_FourArgs_Fails() {
+        player.addAttachment(plugin, "cjm.command.preview", true)
+
+        player.performCommand("cjm preview ${player.name} chat public join")
+
+        assertTrue(player.nextMessage()!!.contains("usage", true))
+        player.assertNoMoreSaid()
+    }
+
+    @Test
+    @Disabled("MockBukkit #637")
+    fun execute_Preview() {
+        player.addAttachment(plugin, "cjm.command.preview", true)
+
+        player.performCommand("cjm preview ${player.name} chat public join 1")
+
+        assertTrue(player.nextMessage()!!.contains("joined", true))
+        player.assertNoMoreSaid()
+    }
+
+    @Test
+    fun execute_Preview_InvalidTarget_Fails() {
+        player.addAttachment(plugin, "cjm.command.preview", true)
+
+        player.performCommand("cjm preview thisNameIsTooLongToBeValid chat public join 1")
+
+        assertTrue(player.nextMessage()!!.contains("is not a valid username", true))
+        player.assertNoMoreSaid()
+    }
+
+    @Test
+    fun execute_Preview_OfflineTarget_Fails() {
+        player.addAttachment(plugin, "cjm.command.preview", true)
+
+        player.performCommand("cjm preview WRONG chat public join 1")
+
+        assertTrue(player.nextMessage()!!.contains("No player matching", true))
+        player.assertNoMoreSaid()
+    }
+
+    @Test
+    fun execute_Preview_WrongMessageType_Fails() {
+        player.addAttachment(plugin, "cjm.command.preview", true)
+
+        player.performCommand("cjm preview ${player.name} WRONG public join 1")
+
+        assertTrue(player.nextMessage()!!.contains("Unknown message type", true))
+        assertTrue(player.nextMessage()!!.contains("usage", true))
+        player.assertNoMoreSaid()
+    }
+
+    @Test
+    fun execute_Preview_WrongVisibility_Fails() {
+        player.addAttachment(plugin, "cjm.command.preview", true)
+
+        player.performCommand("cjm preview ${player.name} chat WRONG join 1")
+
+        assertTrue(player.nextMessage()!!.contains("Please specify one of", true))
+        assertTrue(player.nextMessage()!!.contains("usage", true))
+        player.assertNoMoreSaid()
+    }
+
+    @Test
+    fun execute_Preview_WrongAction_Fails() {
+        player.addAttachment(plugin, "cjm.command.preview", true)
+
+        player.performCommand("cjm preview ${player.name} chat public WRONG 1")
+
+        assertTrue(player.nextMessage()!!.contains("Please specify one of", true))
+        assertTrue(player.nextMessage()!!.contains("usage", true))
+        player.assertNoMoreSaid()
+    }
+
+    @Test
+    fun execute_Preview_WrongId_Fails() {
+        player.addAttachment(plugin, "cjm.command.preview", true)
+
+        player.performCommand("cjm preview ${player.name} chat public join 69")
+
+        assertTrue(player.nextMessage()!!.contains("A message with ID", true))
+        assertTrue(player.nextMessage()!!.contains("usage", true))
         player.assertNoMoreSaid()
     }
 
