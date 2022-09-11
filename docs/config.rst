@@ -43,5 +43,20 @@ The Plugin Config
         * ``SAME`` - Ungrouped worlds will be treated as if they're all one group.
         * ``INDIVIDUAL`` - Ungrouped worlds will be treated as if each worlds is its own group.
 
+* Update-Checker:
+   * **Description**: Settings related to the update checker.
+   * Enabled:
+      * **Default**: ``true``
+      * **Description**: Whether the update checker is enabled.
+   * Notifications:
+      * **Description**: Settings for how the update checker notifies you when there is an update.
+      * In-Game:
+         * **Default**: ``true``
+         * **Description**: Whether OPed players should get a chat message upon joining the server when an update is available.
+      * Console:
+         * **Default**: ``true``
+         * **Description**: Whether a message should be sent in console upon startup when an update is available.
+
+
 * Version:
    * **Description**: The version of the config. **DO NOT TOUCH THIS VALUE**.
