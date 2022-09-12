@@ -29,7 +29,7 @@ class BossbarMessage(private val plugin: CustomJoinMessages) : MessageType(plugi
             barFlags,
             countDown,
             showTime,
-            players.filter { visibility != MessageVisibility.PUBLIC || primaryPlayer != it }
+            players.filter { visibility != MessageVisibility.PUBLIC || primaryPlayer != it } // Don't send public message to the person joining
         )
 
         handleBar(barInfo)
