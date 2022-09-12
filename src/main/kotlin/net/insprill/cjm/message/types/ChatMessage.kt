@@ -16,7 +16,7 @@ class ChatMessage(plugin: CustomJoinMessages) : MessageType(plugin, "chat", "Mes
     }
 
     override fun handle(primaryPlayer: Player, players: List<Player>, chosenPath: String, visibility: MessageVisibility) {
-        val messages = config.getStringList(chosenPath)
+        val messages = config.getStringList("$chosenPath.Message")
         formatMessages(primaryPlayer, messages)
         for (message in messages.map { MineDown.parse(it) }) {
             for (player in players) {
