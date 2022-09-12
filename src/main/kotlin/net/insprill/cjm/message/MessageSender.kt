@@ -70,7 +70,7 @@ class MessageSender(private val plugin: CustomJoinMessages) {
                 val randomKey = getRandomKey(msg.config, "$messagePath.${msg.key}") ?: continue
                 val delay = msg.config.getLong("$messagePath.Delay")
                 Bukkit.getScheduler().runTaskLater(plugin, Runnable {
-                    msg.handle(player, players, path, randomKey, visibility)
+                    msg.handle(player, players, randomKey, visibility)
                 }, delay)
             }
         }

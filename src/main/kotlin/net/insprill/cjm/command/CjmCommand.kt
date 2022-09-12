@@ -69,7 +69,7 @@ class CjmCommand(private val manager: BukkitCommandManager, private val plugin: 
         }
 
         val randomKey = plugin.messageSender.getRandomKey(messageType.config, "$path.${messageType.key}") ?: return
-        messageType.handle(target.player, listOf(target.player), path, randomKey, MessageVisibility.PRIVATE)
+        messageType.handle(target.player, listOf(target.player), randomKey, MessageVisibility.PRIVATE)
     }
 
     @Subcommand("toggle|t")
