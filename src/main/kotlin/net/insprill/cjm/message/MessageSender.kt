@@ -96,11 +96,12 @@ class MessageSender(private val plugin: CustomJoinMessages) {
     }
 
     fun getRandomKey(config: FlatFile, path: String): String? {
-        if (config.getSection(path) == null) {
+        val section = config.getSection(path)
+        if (section == null || section.singleLayerKeySet().isEmpty()) {
             plugin.logger.severe("\"" + path + "\" in messages/" + config.file.name + " has no keys. Perhaps the messages indentation is wrong?")
             return null
         }
-        return "$path.${config.getSection(path).singleLayerKeySet().random()}"
+        return "$path.${section.singleLayerKeySet().random()}"
     }
 
     private fun getNearbyPlayers(player: Player, radius: Double, sameWorldOnly: Boolean): List<Player> {
