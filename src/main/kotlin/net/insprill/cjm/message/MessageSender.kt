@@ -7,7 +7,6 @@ import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.permissions.Permission
 import org.bukkit.permissions.PermissionDefault
-import kotlin.random.Random.Default.nextInt
 
 class MessageSender(private val plugin: CustomJoinMessages) {
 
@@ -101,9 +100,7 @@ class MessageSender(private val plugin: CustomJoinMessages) {
             plugin.logger.severe("\"" + path + "\" in messages/" + config.file.name + " has no keys. Perhaps the messages indentation is wrong?")
             return null
         }
-        val amount = config.getSection(path).singleLayerKeySet().size
-        val selectedMessage = nextInt(amount) + 1
-        return "$path.$selectedMessage"
+        return "$path.${config.getSection(path).singleLayerKeySet().random()}"
     }
 
     private fun getNearbyPlayers(player: Player, radius: Double, sameWorldOnly: Boolean): List<Player> {
