@@ -7,7 +7,7 @@ import org.bukkit.entity.Player
 
 class SoundMessage(private val plugin: CustomJoinMessages) : MessageType(plugin, "sound", "Sounds") {
 
-    override fun handle(primaryPlayer: Player, players: List<Player>, rootPath: String?, chosenPath: String, visibility: MessageVisibility) {
+    override fun handle(primaryPlayer: Player, players: List<Player>, chosenPath: String, visibility: MessageVisibility) {
         val global = config.getBoolean("$chosenPath.Global")
         val soundString = config.getString("$chosenPath.Sound")
         if (enumValues<Sound>().none { it.name == soundString }) {

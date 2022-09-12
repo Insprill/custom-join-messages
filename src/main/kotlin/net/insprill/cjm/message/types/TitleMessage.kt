@@ -9,7 +9,7 @@ import org.bukkit.entity.Player
 
 class TitleMessage(plugin: CustomJoinMessages) : MessageType(plugin, "title", "Messages") {
 
-    override fun handle(primaryPlayer: Player, players: List<Player>, rootPath: String?, chosenPath: String, visibility: MessageVisibility) {
+    override fun handle(primaryPlayer: Player, players: List<Player>, chosenPath: String, visibility: MessageVisibility) {
         val title = BaseComponent.toLegacyText(
             *MineDown.parse(
                 Placeholders.fillPlaceholders(primaryPlayer, config.getString("$chosenPath.Title")!!)

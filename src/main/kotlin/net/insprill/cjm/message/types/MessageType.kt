@@ -49,7 +49,6 @@ abstract class MessageType(
     abstract fun handle(
         primaryPlayer: Player,
         players: List<Player>,
-        rootPath: String?,
         chosenPath: String,
         visibility: MessageVisibility
     )

@@ -9,7 +9,7 @@ import org.bukkit.entity.Player
 
 class ActionbarMessage(plugin: CustomJoinMessages) : MessageType(plugin, "actionbar", "Messages") {
 
-    override fun handle(primaryPlayer: Player, players: List<Player>, rootPath: String?, chosenPath: String, visibility: MessageVisibility) {
+    override fun handle(primaryPlayer: Player, players: List<Player>, chosenPath: String, visibility: MessageVisibility) {
         var msg = config.getString("$chosenPath.Message")!!
         msg = fillPlaceholders(primaryPlayer, msg)
         val components = MineDown.parse(msg)

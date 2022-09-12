@@ -15,7 +15,7 @@ class ChatMessage(plugin: CustomJoinMessages) : MessageType(plugin, "chat", "Mes
         private const val CENTER_PREFIX = "center:"
     }
 
-    override fun handle(primaryPlayer: Player, players: List<Player>, rootPath: String?, chosenPath: String, visibility: MessageVisibility) {
+    override fun handle(primaryPlayer: Player, players: List<Player>, chosenPath: String, visibility: MessageVisibility) {
         val messages = config.getStringList(chosenPath)
         formatMessages(primaryPlayer, messages)
         for (message in messages.map { MineDown.parse(it) }) {
