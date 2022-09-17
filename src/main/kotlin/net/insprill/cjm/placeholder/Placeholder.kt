@@ -8,7 +8,7 @@ import net.milkbowl.vault.chat.Chat
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 
-enum class Placeholders(internal val stringName: String, internal val result: (Player) -> String) {
+enum class Placeholder(internal val stringName: String, internal val result: (Player) -> String) {
     DISPLAY_NAME("displayname", { it.customName ?: it.displayName }),
     NAME("name", { it.name }),
     PREFIX("prefix", { if (Dependency.VAULT.isEnabled) (Dependency.VAULT.clazz as Chat).getPlayerPrefix(it) ?: "" else "" }),

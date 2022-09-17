@@ -3,7 +3,7 @@ package net.insprill.cjm.message.types
 import de.themoep.minedown.MineDown
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.MessageVisibility
-import net.insprill.cjm.placeholder.Placeholders.Companion.fillPlaceholders
+import net.insprill.cjm.placeholder.Placeholder.Companion.fillPlaceholders
 import net.md_5.bungee.api.chat.BaseComponent
 import org.bukkit.Bukkit
 import org.bukkit.boss.BarColor
