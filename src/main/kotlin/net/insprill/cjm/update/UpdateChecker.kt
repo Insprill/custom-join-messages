@@ -13,7 +13,6 @@ import java.util.logging.Level
 class UpdateChecker(private val resourceId: Int, private val plugin: CustomJoinMessages) {
 
     companion object {
-        private const val USER_AGENT = "CustomJoinMessagesUpdateChecker"
         private const val REQUEST_URL = "https://api.spiget.org/v2/resources/%s/versions/latest"
         private const val RESOURCE_URL = "https://www.spigotmc.org/resources/%s/updates"
     }
@@ -30,7 +29,7 @@ class UpdateChecker(private val resourceId: Int, private val plugin: CustomJoinM
         Bukkit.getScheduler().runTaskAsynchronously(plugin, Runnable {
             try {
                 val conn = URL(REQUEST_URL.format(resourceId)).openConnection() as HttpURLConnection
-                conn.addRequestProperty("User-Agent", USER_AGENT)
+                conn.addRequestProperty("User-Agent", plugin.name + "UpdateChecker")
                 val body = String(conn.inputStream.readAllBytes(), StandardCharsets.UTF_8)
                 val versionData = Gson().fromJson(body, VersionData::class.java)
                 consumer.invoke(versionData)
