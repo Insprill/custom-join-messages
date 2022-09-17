@@ -84,15 +84,14 @@ class MessageSender(private val plugin: CustomJoinMessages) {
     }
 
     private fun getReceivingPlayers(sourcePlayer: Player, visibility: MessageVisibility, action: MessageAction, radius: Double): List<Player> {
-        return if (visibility == MessageVisibility.PUBLIC) {
-            val players = ArrayList(getNearbyPlayers(sourcePlayer, radius, plugin.config.getBoolean("World-Based-Messages.Enabled")))
-            if (action == MessageAction.QUIT && plugin.config.getBoolean("World-Based-Messages.Enabled")) {
-                players.remove(sourcePlayer)
-            }
-            players
-        } else {
-            listOf(sourcePlayer)
+        if (visibility != MessageVisibility.PUBLIC) {
+            return listOf(sourcePlayer)
         }
+        val players = ArrayList(getNearbyPlayers(sourcePlayer, radius, plugin.config.getBoolean("World-Based-Messages.Enabled")))
+        if (action == MessageAction.QUIT && plugin.config.getBoolean("World-Based-Messages.Enabled")) {
+            players.remove(sourcePlayer)
+        }
+        return players
     }
 
     fun getRandomKey(config: FlatFile, path: String): String? {
@@ -105,14 +104,13 @@ class MessageSender(private val plugin: CustomJoinMessages) {
     }
 
     private fun getNearbyPlayers(player: Player, radius: Double, sameWorldOnly: Boolean): List<Player> {
-        return if (radius < 1) {
-            if (!sameWorldOnly) {
-                ArrayList(Bukkit.getOnlinePlayers())
-            } else {
-                player.world.players
-            }
+        if (radius > 0) {
+            return player.getNearbyEntities(radius, radius, radius).filterIsInstance<Player>()
+        }
+        return if (!sameWorldOnly) {
+            ArrayList(Bukkit.getOnlinePlayers())
         } else {
-            player.getNearbyEntities(radius, radius, radius).filterIsInstance<Player>()
+            player.world.players
         }
     }
 
