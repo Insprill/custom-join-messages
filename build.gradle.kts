@@ -45,8 +45,8 @@ dependencies {
 
     // Tests
     testImplementation("com.github.seeseemelk:MockBukkit-v1.19:2.120.1")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
-    testImplementation(platform("org.junit:junit-bom:5.9.0"))
+    testImplementation("org.junit.jupiter:junit-jupiter:5.9.1")
+    testImplementation(platform("org.junit:junit-bom:5.9.1"))
 }
 
 val extraDependencies = mapOf(
