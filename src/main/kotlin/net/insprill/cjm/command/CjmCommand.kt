@@ -22,7 +22,6 @@ import net.insprill.cjm.message.MessageVisibility
 import org.bukkit.OfflinePlayer
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
-import java.util.Locale
 
 @CommandAlias("cjm|customjoinmessages")
 @Description("Base command for Custom Join Messages.")
@@ -31,11 +30,10 @@ class CjmCommand(private val manager: BukkitCommandManager, private val plugin: 
 
     fun updateLocale() {
         val requestedLang = plugin.config.getOrDefault("language", "en")!!.lowercase()
-        manager.locales.defaultLocale = if (!manager.supportedLanguages.any { it.language.equals(requestedLang) }) {
+        if (!manager.supportedLanguages.any { it.language.equals(requestedLang) }) {
             plugin.logger.severe("Unsupported language '$requestedLang'. Defaulting to 'en'. Please choose from one of the following: ${manager.supportedLanguages.map { it.language }}")
-            Locale.ENGLISH
         } else {
-            manager.supportedLanguages.first { it.language.equals(requestedLang) }
+            manager.locales.defaultLocale = manager.supportedLanguages.first { it.language.equals(requestedLang) }
         }
     }
 
