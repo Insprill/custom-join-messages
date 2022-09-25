@@ -80,14 +80,12 @@ class CjmCommand(private val manager: BukkitCommandManager, private val plugin: 
             throw InvalidCommandArgument("{@@cjm.command.toggle.no-target}")
         }
         val target = providedTarget ?: sender as Player
-        val toggledTo: Boolean
-        if (toggle != null) {
-            toggledTo = toggle == "on"
-            plugin.toggleHandler.setToggle(target, action, toggledTo)
+        val toggledTo = if (toggle != null) {
+            toggle == "on"
         } else {
-            toggledTo = !plugin.toggleHandler.isToggled(target, action)
-            plugin.toggleHandler.setToggle(target, action, toggledTo)
+            !plugin.toggleHandler.isToggled(target, action)
         }
+        plugin.toggleHandler.setToggle(target, action, toggledTo)
         sendMessage("cjm.command.toggle.${if (toggledTo) "on" else "off"}", MessageType.INFO, "%action%", action.name.lowercase())
     }
 
