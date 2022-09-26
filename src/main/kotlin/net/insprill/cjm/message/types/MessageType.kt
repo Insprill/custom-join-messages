@@ -42,7 +42,6 @@ abstract class MessageType(
      *
      * @param primaryPlayer Player joining/ leaving.
      * @param players       Everyone who should receive the message.
-     * @param rootPath      Root path of the chosen message.
      * @param chosenPath    Full path to the chosen message.
      * @param visibility    The visibility of the message.
      */
