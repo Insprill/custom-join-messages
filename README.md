@@ -99,7 +99,7 @@ Custom Join Messages started off as the name suggests, but has since evolved int
 Releases of CJM can be downloaded from SpigotMC [here][spigot-url].
 
 ### Snapshots
-Snapshot builds from each commit can be downloaded via GitHub Actions [here](https://github.com/Insprill/Custom-Join-Messages/actions/workflows/gradle.yml).
+Snapshot builds from each commit can be downloaded via GitHub Actions [here](https://nightly.link/Insprill/custom-join-messages/workflows/gradle/master).
 
 
 
