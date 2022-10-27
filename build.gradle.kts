@@ -44,7 +44,7 @@ dependencies {
     implementation("org.bstats:bstats-bukkit:3.0.0")
 
     // Tests
-    testImplementation("com.github.seeseemelk:MockBukkit-v1.19:2.129.0")
+    testImplementation("com.github.seeseemelk:MockBukkit-v1.19:2.131.0")
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.1")
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
 }
