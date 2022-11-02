@@ -6,6 +6,7 @@ import net.insprill.cjm.extension.StringExtension.replacePlaceholders
 import net.insprill.cjm.message.MessageVisibility
 import net.insprill.spigotutils.MinecraftVersion
 import net.md_5.bungee.api.ChatMessageType
+import net.md_5.bungee.api.chat.BaseComponent
 import org.bukkit.entity.Player
 import kotlin.math.abs
 
@@ -16,15 +17,8 @@ class ChatMessage(plugin: CustomJoinMessages) : MessageType(plugin, "chat", "Mes
     }
 
     override fun handle(primaryPlayer: Player, players: List<Player>, chosenPath: String, visibility: MessageVisibility) {
-        val messages = config.getStringList("$chosenPath.Message").map {
-            val str = it.replacePlaceholders(primaryPlayer)
-            if (str.startsWith(CENTER_PREFIX)) {
-                CenteredMessages.centerMessage(str.substring(CENTER_PREFIX.length))
-            } else {
-                str
-            }
-        }
-        for (message in messages.map { MineDown.parse(it) }) {
+        val messages = formatMessages(primaryPlayer, config.getStringList("$chosenPath.Message"))
+        for (message in messages) {
             for (player in players) {
                 if (MinecraftVersion.isAtLeast(MinecraftVersion.v1_9_0)) {
                     player.spigot().sendMessage(ChatMessageType.CHAT, *message)
@@ -32,6 +26,16 @@ class ChatMessage(plugin: CustomJoinMessages) : MessageType(plugin, "chat", "Mes
                     player.spigot().sendMessage(*message)
                 }
             }
+        }
+    }
+
+    private fun formatMessages(primaryPlayer: Player, strings: List<String>): List<Array<BaseComponent>> {
+        return strings.map {
+            var str = it.replacePlaceholders(primaryPlayer)
+            if (str.startsWith(CENTER_PREFIX)) {
+                str = CenteredMessages.centerMessage(str.substring(CENTER_PREFIX.length))
+            }
+            MineDown.parse(str)
         }
     }
 
