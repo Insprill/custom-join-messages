@@ -5,8 +5,8 @@ import org.bukkit.entity.Player
 
 object ListExtension {
 
-    fun MutableList<String>.replacePlaceholders(player: Player) = apply {
-        this.replaceAll { it.replacePlaceholders(player) }
+    fun List<String>.replacePlaceholders(player: Player): List<String> {
+        return this.map { it.replacePlaceholders(player) }
     }
 
 }

@@ -2,7 +2,7 @@ package net.insprill.cjm.message.types
 
 import de.themoep.minedown.MineDown
 import net.insprill.cjm.CustomJoinMessages
-import net.insprill.cjm.extension.ListExtension.replacePlaceholders
+import net.insprill.cjm.extension.StringExtension.replacePlaceholders
 import net.insprill.cjm.message.MessageVisibility
 import net.insprill.spigotutils.MinecraftVersion
 import net.md_5.bungee.api.ChatMessageType
@@ -16,12 +16,12 @@ class ChatMessage(plugin: CustomJoinMessages) : MessageType(plugin, "chat", "Mes
     }
 
     override fun handle(primaryPlayer: Player, players: List<Player>, chosenPath: String, visibility: MessageVisibility) {
-        val messages = config.getStringList("$chosenPath.Message").replacePlaceholders(primaryPlayer)
-        messages.replaceAll {
-            if (it.startsWith(CENTER_PREFIX)) {
-                CenteredMessages.centerMessage(it.substring(CENTER_PREFIX.length))
+        val messages = config.getStringList("$chosenPath.Message").map {
+            val str = it.replacePlaceholders(primaryPlayer)
+            if (str.startsWith(CENTER_PREFIX)) {
+                CenteredMessages.centerMessage(str.substring(CENTER_PREFIX.length))
             } else {
-                it
+                str
             }
         }
         for (message in messages.map { MineDown.parse(it) }) {

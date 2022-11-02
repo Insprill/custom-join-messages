@@ -73,10 +73,10 @@ class PlaceholderTest {
         player.displayName = "SprillJ"
         val strings = mutableListOf("%displayname% (%name%) has joined! [#%uniquejoins%]")
 
-        strings.replacePlaceholders(player)
+        val newStrings = strings.replacePlaceholders(player)
 
-        assertEquals(1, strings.size)
-        assertEquals("SprillJ (Insprill) has joined! [#1]", strings[0])
+        assertEquals(1, newStrings.size)
+        assertEquals("SprillJ (Insprill) has joined! [#1]", newStrings[0])
     }
 
     @Test
@@ -89,11 +89,11 @@ class PlaceholderTest {
             "%displayname% (%name%) has joined! [%uuid%]"
         )
 
-        strings.replacePlaceholders(player)
+        val newStrings = strings.replacePlaceholders(player)
 
-        assertEquals(2, strings.size)
-        assertEquals("SprillJ (Insprill) has joined! [#1]", strings[0])
-        assertEquals("SprillJ (Insprill) has joined! [${player.uniqueId}]", strings[1])
+        assertEquals(2, newStrings.size)
+        assertEquals("SprillJ (Insprill) has joined! [#1]", newStrings[0])
+        assertEquals("SprillJ (Insprill) has joined! [${player.uniqueId}]", newStrings[1])
     }
 
 }
