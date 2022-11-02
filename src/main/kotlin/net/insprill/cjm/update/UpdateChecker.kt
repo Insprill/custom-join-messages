@@ -2,6 +2,7 @@ package net.insprill.cjm.update
 
 import com.google.gson.Gson
 import net.insprill.cjm.CustomJoinMessages
+import net.insprill.spigotutils.ServerEnvironment
 import net.swiftzer.semver.SemVer
 import org.bukkit.Bukkit
 import org.bukkit.plugin.Plugin
@@ -26,6 +27,8 @@ class UpdateChecker(private val resourceId: Int, private val plugin: CustomJoinM
     }
 
     fun getVersion(consumer: (VersionData) -> Unit) {
+        if (ServerEnvironment.isMockBukkit())
+            return
         Bukkit.getScheduler().runTaskAsynchronously(plugin, Runnable {
             try {
                 val conn = URL(REQUEST_URL.format(resourceId)).openConnection() as HttpURLConnection
