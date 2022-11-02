@@ -2,8 +2,8 @@ package net.insprill.cjm.message.types
 
 import de.themoep.minedown.MineDown
 import net.insprill.cjm.CustomJoinMessages
+import net.insprill.cjm.extension.ListExtension.replacePlaceholders
 import net.insprill.cjm.message.MessageVisibility
-import net.insprill.cjm.placeholder.Placeholder.Companion.fillPlaceholders
 import net.insprill.spigotutils.MinecraftVersion
 import net.md_5.bungee.api.ChatMessageType
 import org.bukkit.entity.Player
@@ -16,8 +16,14 @@ class ChatMessage(plugin: CustomJoinMessages) : MessageType(plugin, "chat", "Mes
     }
 
     override fun handle(primaryPlayer: Player, players: List<Player>, chosenPath: String, visibility: MessageVisibility) {
-        val messages = config.getStringList("$chosenPath.Message").toMutableList()
-        formatMessages(primaryPlayer, messages)
+        val messages = config.getStringList("$chosenPath.Message").replacePlaceholders(primaryPlayer)
+        messages.replaceAll {
+            if (it.startsWith(CENTER_PREFIX)) {
+                CenteredMessages.centerMessage(it.substring(CENTER_PREFIX.length))
+            } else {
+                it
+            }
+        }
         for (message in messages.map { MineDown.parse(it) }) {
             for (player in players) {
                 if (MinecraftVersion.isAtLeast(MinecraftVersion.v1_9_0)) {
@@ -25,17 +31,6 @@ class ChatMessage(plugin: CustomJoinMessages) : MessageType(plugin, "chat", "Mes
                 } else {
                     player.spigot().sendMessage(*message)
                 }
-            }
-        }
-    }
-
-    private fun formatMessages(primaryPlayer: Player, messages: MutableList<String>) {
-        fillPlaceholders(primaryPlayer, messages)
-        messages.replaceAll {
-            if (it.startsWith(CENTER_PREFIX)) {
-                CenteredMessages.centerMessage(it.substring(CENTER_PREFIX.length))
-            } else {
-                it
             }
         }
     }

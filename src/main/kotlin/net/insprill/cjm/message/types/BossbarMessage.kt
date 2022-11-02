@@ -2,8 +2,8 @@ package net.insprill.cjm.message.types
 
 import de.themoep.minedown.MineDown
 import net.insprill.cjm.CustomJoinMessages
+import net.insprill.cjm.extension.StringExtension.replacePlaceholders
 import net.insprill.cjm.message.MessageVisibility
-import net.insprill.cjm.placeholder.Placeholder.Companion.fillPlaceholders
 import net.md_5.bungee.api.chat.BaseComponent
 import org.bukkit.Bukkit
 import org.bukkit.boss.BarColor
@@ -15,7 +15,7 @@ import org.bukkit.scheduler.BukkitRunnable
 class BossbarMessage(private val plugin: CustomJoinMessages) : MessageType(plugin, "bossbar", "Messages") {
 
     override fun handle(primaryPlayer: Player, players: List<Player>, chosenPath: String, visibility: MessageVisibility) {
-        val msg = fillPlaceholders(primaryPlayer, config.getString("$chosenPath.Message")!!)
+        val msg = config.getString("$chosenPath.Message")!!.replacePlaceholders(primaryPlayer)
         val barColor = checkEnum(config.getString("$chosenPath.Bar-Color")!!, BarColor::class.java) ?: return
         val barStyle = checkEnum(config.getString("$chosenPath.Bar-Style")!!, BarStyle::class.java) ?: return
         val barFlags = config.getStringList("$chosenPath.Bar-Flags").mapNotNull { checkEnum(it, BarFlag::class.java) }.toTypedArray()

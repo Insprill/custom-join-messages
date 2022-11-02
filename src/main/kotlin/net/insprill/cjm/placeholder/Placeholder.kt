@@ -1,6 +1,5 @@
 package net.insprill.cjm.placeholder
 
-import me.clip.placeholderapi.PlaceholderAPI
 import net.insprill.cjm.compatibility.Dependency
 import net.milkbowl.vault.chat.Chat
 import org.bukkit.Bukkit
@@ -13,25 +12,4 @@ enum class Placeholder(internal val stringName: String, internal val result: (Pl
     SUFFIX("suffix", { if (Dependency.VAULT.isEnabled) (Dependency.VAULT.clazz as Chat).getPlayerSuffix(it) ?: "" else "" }),
     UNIQUE_JOINS("uniquejoins", { Bukkit.getOfflinePlayers().size.toString() }),
     UUID("uuid", { it.uniqueId.toString() }),
-    ;
-
-    companion object {
-
-        fun fillPlaceholders(player: Player, msg: String): String {
-            var newMessage = msg
-            for (placeholder in values()) {
-                newMessage = newMessage.replace("%${placeholder.stringName}%", placeholder.result.invoke(player))
-            }
-            if (Dependency.PAPI.isEnabled) {
-                newMessage = PlaceholderAPI.setPlaceholders(player, newMessage)
-            }
-            return newMessage
-        }
-
-        fun fillPlaceholders(player: Player, strings: MutableList<String>) {
-            strings.replaceAll { fillPlaceholders(player, it) }
-        }
-
-    }
-
 }
