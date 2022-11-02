@@ -2,6 +2,8 @@ package net.insprill.cjm.placeholder
 
 import be.seeseemelk.mockbukkit.MockBukkit
 import be.seeseemelk.mockbukkit.ServerMock
+import net.insprill.cjm.extension.ListExtension.replacePlaceholders
+import net.insprill.cjm.extension.StringExtension.replacePlaceholders
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
@@ -51,7 +53,7 @@ class PlaceholderTest {
         val player = server.addPlayer()
         val string = "A message that has no placeholders!"
 
-        assertEquals(string, Placeholder.fillPlaceholders(player, string))
+        assertEquals(string, string.replacePlaceholders(player))
     }
 
     @Test
@@ -61,9 +63,7 @@ class PlaceholderTest {
         player.displayName = "SprillJ"
         val string = "%displayname% (%name%) has joined! [#%uniquejoins%]"
 
-        val result = Placeholder.fillPlaceholders(player, string)
-
-        assertEquals("SprillJ (Insprill) has joined! [#1]", result)
+        assertEquals("SprillJ (Insprill) has joined! [#1]", string.replacePlaceholders(player))
     }
 
     @Test
@@ -73,7 +73,7 @@ class PlaceholderTest {
         player.displayName = "SprillJ"
         val strings = mutableListOf("%displayname% (%name%) has joined! [#%uniquejoins%]")
 
-        Placeholder.fillPlaceholders(player, strings)
+        strings.replacePlaceholders(player)
 
         assertEquals(1, strings.size)
         assertEquals("SprillJ (Insprill) has joined! [#1]", strings[0])
@@ -89,7 +89,7 @@ class PlaceholderTest {
             "%displayname% (%name%) has joined! [%uuid%]"
         )
 
-        Placeholder.fillPlaceholders(player, strings)
+        strings.replacePlaceholders(player)
 
         assertEquals(2, strings.size)
         assertEquals("SprillJ (Insprill) has joined! [#1]", strings[0])
