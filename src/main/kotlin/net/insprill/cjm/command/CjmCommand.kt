@@ -38,7 +38,7 @@ class CjmCommand(private val manager: BukkitCommandManager, private val plugin: 
     }
 
     @HelpCommand
-    @Syntax("(page)")
+    @Syntax("{@@cjm.command.help.syntax}")
     @CommandPermission("cjm.command.help")
     @Description("{@@cjm.command.help.description}")
     @Suppress("UNUSED_PARAMETER")
@@ -48,7 +48,7 @@ class CjmCommand(private val manager: BukkitCommandManager, private val plugin: 
     }
 
     @Subcommand("preview|p")
-    @Syntax("[target] [messageType] [visibility] [action] [messageId]")
+    @Syntax("{@@cjm.command.preview.syntax}")
     @CommandCompletion("@players @messageType @messageVisibility @messageAction @messageId")
     @CommandPermission("cjm.command.preview")
     @Description("{@@cjm.command.preview.description}")
@@ -71,7 +71,7 @@ class CjmCommand(private val manager: BukkitCommandManager, private val plugin: 
     }
 
     @Subcommand("toggle|t")
-    @Syntax("[action] (on/off) (target)")
+    @Syntax("{@@cjm.command.toggle.syntax}")
     @CommandCompletion("@messageAction @onOffToggle @players")
     @CommandPermission("cjm.command.toggle")
     @Description("{@@cjm.command.toggle.description}")
