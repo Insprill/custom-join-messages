@@ -60,7 +60,7 @@ Update-Checker:
   Enabled: true
   # Settings for notifications when an update is found.
   Notifications:
-    # Whether OPed users should get notified in-game when an update is available.
+    # Whether operators should get notified in-game when an update is available.
     In-Game: true
     # Whether a console message should be printed when an update is available.
     Console: true

@@ -25,7 +25,7 @@ class JoinEvent(private val plugin: CustomJoinMessages) : Listener {
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
-    fun onOpedPlayerJoin(e: PlayerJoinEvent) {
+    fun onOperatorJoin(e: PlayerJoinEvent) {
         if (!e.player.isOp)
             return
         if (!plugin.updateChecker.isEnabled(UpdateChecker.NotificationType.IN_GAME))

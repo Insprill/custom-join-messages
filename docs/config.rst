@@ -52,7 +52,7 @@ The Plugin Config
       * **Description**: Settings for how the update checker notifies you when there is an update.
       * In-Game:
          * **Default**: ``true``
-         * **Description**: Whether OPed players should get a chat message upon joining the server when an update is available.
+         * **Description**: Whether operators should get a chat message upon joining the server when an update is available.
       * Console:
          * **Default**: ``true``
          * **Description**: Whether a message should be sent in console upon startup when an update is available.
