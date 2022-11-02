@@ -58,6 +58,8 @@ World-Based-Messages:
 Update-Checker:
   # Whether the update checker is enabled.
   Enabled: true
+  # The date format used when displaying the release date of a new version.
+  Date-Format: "MM-dd-yyyy HH:mm"
   # Settings for notifications when an update is found.
   Notifications:
     # Whether operators should get notified in-game when an update is available.

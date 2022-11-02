@@ -48,6 +48,9 @@ The Plugin Config
    * Enabled:
       * **Default**: ``true``
       * **Description**: Whether the update checker is enabled.
+   * Date-Format:
+      * **Default**: ``MM-dd-yyyy HH:mm``
+      * **Description**: The date format used when displaying the release date of a new version.
    * Notifications:
       * **Description**: Settings for how the update checker notifies you when there is an update.
       * In-Game:

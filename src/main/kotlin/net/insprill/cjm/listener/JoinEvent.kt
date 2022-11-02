@@ -39,7 +39,7 @@ class JoinEvent(private val plugin: CustomJoinMessages) : Listener {
             val hover = plugin.commandManager.locales.getMessage(null, MessageKey.of("cjm.update-checker.in-game.hover"))
                 .format(
                     it.name,
-                    SimpleDateFormat("MM-dd-yyyy HH:mm").format(Date(it.releaseDate * 1000L)),
+                    SimpleDateFormat(plugin.config.getString("Update-Checker.Date-Format")).format(Date(it.releaseDate * 1000L)),
                     it.downloads,
                     it.rating.average
                 )
