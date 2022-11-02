@@ -8,32 +8,23 @@ import org.bukkit.entity.Player
 class SoundMessage(private val plugin: CustomJoinMessages) : MessageType(plugin, "sound", "Sounds") {
 
     override fun handle(primaryPlayer: Player, players: List<Player>, chosenPath: String, visibility: MessageVisibility) {
-        val global = config.getBoolean("$chosenPath.Global")
         val soundString = config.getString("$chosenPath.Sound")
         if (enumValues<Sound>().none { it.name == soundString }) {
             plugin.logger.severe("Sound $soundString doesn't exist!")
             return
         }
 
-        val sound = Sound.valueOf(soundString!!)
+        val sound = Sound.valueOf(soundString)
+        val volume = config.getOrDefault("$chosenPath.Volume", 1.0f)
+        val pitch = config.getOrDefault("$chosenPath.Pitch", 1.0f)
 
-        if (global) {
-            primaryPlayer.world.playSound(
-                primaryPlayer.location,
-                sound,
-                config.getDouble("$chosenPath.Volume").toFloat(),
-                config.getDouble("$chosenPath.Pitch").toFloat()
-            )
+        if (config.getBoolean("$chosenPath.Global")) {
+            primaryPlayer.world.playSound(primaryPlayer.location, sound, volume, pitch)
             return
         }
 
         for (player in players) {
-            player.playSound(
-                player.location,
-                sound,
-                config.getDouble("$chosenPath.Volume").toFloat(),
-                config.getDouble("$chosenPath.Pitch").toFloat()
-            )
+            player.playSound(player.location, sound, volume, pitch)
         }
     }
 }
