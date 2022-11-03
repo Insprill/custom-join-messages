@@ -4,17 +4,9 @@ import org.bukkit.entity.Player
 
 class HookManager(pluginHooks: List<PluginHook>) {
 
-    val authHooks: List<AuthHook> = pluginHooks
-        .filter { it.authHook != null }
-        .map { it.authHook!! }
-
-    val vanishHooks: List<VanishHook> = pluginHooks
-        .filter { it.vanishHook != null }
-        .map { it.vanishHook!! }
-
-    val jailHooks: List<JailHook> = pluginHooks
-        .filter { it.jailHook != null }
-        .map { it.jailHook!! }
+    val authHooks: List<AuthHook> = pluginHooks.mapNotNull { it.authHook }
+    val vanishHooks: List<VanishHook> = pluginHooks.mapNotNull { it.vanishHook }
+    val jailHooks: List<JailHook> = pluginHooks.mapNotNull { it.jailHook }
 
     fun isLoggedIn(player: Player): Boolean {
         return authHooks.isEmpty() || authHooks.any { it.isLoggedIn(player) }

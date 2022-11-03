@@ -29,8 +29,8 @@ import org.bukkit.entity.Player
 class CjmCommand(private val manager: BukkitCommandManager, private val plugin: CustomJoinMessages) : BaseCommand() {
 
     fun updateLocale() {
-        val requestedLang = plugin.config.getOrDefault("language", "en")!!.lowercase()
-        if (!manager.supportedLanguages.any { it.language.equals(requestedLang) }) {
+        val requestedLang = plugin.config.getOrDefault("language", "en")?.lowercase()
+        if (manager.supportedLanguages.none { it.language.equals(requestedLang) }) {
             plugin.logger.severe("Unsupported language '$requestedLang'. Defaulting to 'en'. Please choose from one of the following: ${manager.supportedLanguages.map { it.language }}")
         } else {
             manager.locales.defaultLocale = manager.supportedLanguages.first { it.language.equals(requestedLang) }

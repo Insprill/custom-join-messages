@@ -12,12 +12,12 @@ class TitleMessage(plugin: CustomJoinMessages) : MessageType(plugin, "title", "M
     override fun handle(primaryPlayer: Player, players: List<Player>, chosenPath: String, visibility: MessageVisibility) {
         val title = BaseComponent.toLegacyText(
             *MineDown.parse(
-                config.getString("$chosenPath.Title")!!.replacePlaceholders(primaryPlayer)
+                config.getString("$chosenPath.Title")?.replacePlaceholders(primaryPlayer)
             )
         )
         val subTitle = BaseComponent.toLegacyText(
             *MineDown.parse(
-                config.getString("$chosenPath.SubTitle")!!.replacePlaceholders(primaryPlayer)
+                config.getString("$chosenPath.SubTitle")?.replacePlaceholders(primaryPlayer)
             )
         )
         val fadeIn = config.getInt("$chosenPath.Fade-In")
