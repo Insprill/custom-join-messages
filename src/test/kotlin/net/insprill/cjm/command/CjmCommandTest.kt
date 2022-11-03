@@ -314,4 +314,12 @@ class CjmCommandTest {
         player.assertNoMoreSaid()
     }
 
+    @Test
+    fun execute_Reload_SendsNotice() {
+        player.performCommand("cjm reload")
+
+        assertNotNull(player.nextMessage())
+        player.assertNoMoreSaid()
+    }
+
 }
