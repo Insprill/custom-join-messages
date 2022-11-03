@@ -1,0 +1,12 @@
+Enabled: true
+Public:
+  Join:
+    1:
+      Messages:
+        1:
+          Message: "&a%name% &7has joined!"
+  Quit:
+    1:
+      Messages:
+        1:
+          Message: "&a%name% &7has left!"
