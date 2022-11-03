@@ -1,5 +1,5 @@
 package net.insprill.cjm.test
 
-import net.insprill.cjm.message.MessageVisibility
+import org.bukkit.entity.Player
 
-class MessageSentException() : RuntimeException()
+class MessageSentException(val chosenPath: String, val recipients: List<Player>) : RuntimeException()
