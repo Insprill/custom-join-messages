@@ -3,7 +3,6 @@ package net.insprill.cjm.command
 import co.aikar.commands.BaseCommand
 import co.aikar.commands.BukkitCommandManager
 import co.aikar.commands.CommandHelp
-import co.aikar.commands.CommandManager
 import co.aikar.commands.InvalidCommandArgument
 import co.aikar.commands.MessageType
 import co.aikar.commands.annotation.CommandAlias
@@ -44,6 +43,7 @@ class CjmCommand(private val manager: BukkitCommandManager, private val plugin: 
     @Suppress("UNUSED_PARAMETER")
     fun onHelp(sender: CommandSender, help: CommandHelp) {
         help.helpEntries.sortBy { it.command }
+        help.helpEntries.find { it.command == "cjm reload" }?.searchScore = -1
         help.showHelp()
     }
 
@@ -86,11 +86,19 @@ class CjmCommand(private val manager: BukkitCommandManager, private val plugin: 
             !plugin.toggleHandler.isToggled(target, action)
         }
         plugin.toggleHandler.setToggle(target, action, toggledTo)
-        sendMessage("cjm.command.toggle.${if (toggledTo) "on" else "off"}", MessageType.INFO, "%action%", action.name.lowercase())
+        manager.sendMessage(
+            sender,
+            MessageType.INFO,
+            MessageKey.of("cjm.command.toggle.${if (toggledTo) "on" else "off"}"),
+            "%action%",
+            action.name.lowercase()
+        )
     }
 
-    private fun sendMessage(key: String, type: MessageType, vararg placeholders: String) {
-        manager.sendMessage(CommandManager.getCurrentCommandIssuer(), type, MessageKey.of(key), *placeholders)
+    @Subcommand("reload")
+    @CommandPermission("cjm.command.reload")
+    fun onReload(sender: CommandSender) {
+        manager.sendMessage(sender, MessageType.INFO, MessageKey.of("cjm.command.reload.notice"))
     }
 
 }
