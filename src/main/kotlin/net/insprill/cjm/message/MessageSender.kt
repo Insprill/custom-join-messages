@@ -108,7 +108,8 @@ class MessageSender(private val plugin: CustomJoinMessages) {
 
     private fun getNearbyPlayers(player: Player, radius: Double, sameWorldOnly: Boolean): List<Player> {
         if (radius > 0) {
-            return player.getNearbyEntities(radius, radius, radius).filterIsInstance<Player>()
+            val curr = player.location
+            return player.world.players.filter { it.location.distance(curr) <= radius }
         }
         return if (!sameWorldOnly) {
             ArrayList(Bukkit.getOnlinePlayers())
