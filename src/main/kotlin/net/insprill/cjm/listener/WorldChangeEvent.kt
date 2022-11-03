@@ -5,6 +5,7 @@ import de.leonhard.storage.internal.FlatFile
 import de.leonhard.storage.internal.settings.ReloadSettings
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.MessageAction
+import net.insprill.cjm.util.EnumUtils.tryGetEnum
 import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
@@ -86,11 +87,7 @@ class WorldChangeEvent(private val plugin: CustomJoinMessages) : Listener {
         companion object {
             fun getMode(plugin: CustomJoinMessages): UngroupedMode? {
                 val modeStr = plugin.config.getString("World-Based-Messages.Ungrouped-Mode")
-                if (enumValues<UngroupedMode>().none { it.name == modeStr }) {
-                    plugin.logger.severe("Unknown Ungrouped-Mode '$modeStr'! Please choose from one of the following: ${enumValues<UngroupedMode>()}")
-                    return null
-                }
-                return UngroupedMode.valueOf(modeStr)
+                return tryGetEnum(plugin, modeStr, UngroupedMode::class)
             }
         }
     }

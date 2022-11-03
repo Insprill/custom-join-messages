@@ -2,19 +2,14 @@ package net.insprill.cjm.message.types
 
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.MessageVisibility
+import net.insprill.cjm.util.EnumUtils.tryGetEnum
 import org.bukkit.Sound
 import org.bukkit.entity.Player
 
 class SoundMessage(private val plugin: CustomJoinMessages) : MessageType(plugin, "sound", "Sounds") {
 
     override fun handle(primaryPlayer: Player, players: List<Player>, chosenPath: String, visibility: MessageVisibility) {
-        val soundString = config.getString("$chosenPath.Sound")
-        if (enumValues<Sound>().none { it.name == soundString }) {
-            plugin.logger.severe("Sound $soundString doesn't exist!")
-            return
-        }
-
-        val sound = Sound.valueOf(soundString)
+        val sound = tryGetEnum(plugin, config.getString("$chosenPath.Sound"), Sound::class) ?: return
         val volume = config.getOrDefault("$chosenPath.Volume", 1.0f)
         val pitch = config.getOrDefault("$chosenPath.Pitch", 1.0f)
 

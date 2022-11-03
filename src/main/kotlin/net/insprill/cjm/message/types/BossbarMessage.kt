@@ -4,6 +4,7 @@ import de.themoep.minedown.MineDown
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.extension.StringExtension.replacePlaceholders
 import net.insprill.cjm.message.MessageVisibility
+import net.insprill.cjm.util.EnumUtils.tryGetEnum
 import net.md_5.bungee.api.chat.BaseComponent
 import org.bukkit.Bukkit
 import org.bukkit.boss.BarColor
@@ -15,10 +16,10 @@ import org.bukkit.scheduler.BukkitRunnable
 class BossbarMessage(private val plugin: CustomJoinMessages) : MessageType(plugin, "bossbar", "Messages") {
 
     override fun handle(primaryPlayer: Player, players: List<Player>, chosenPath: String, visibility: MessageVisibility) {
-        val msg = config.getString("$chosenPath.Message")!!.replacePlaceholders(primaryPlayer)
-        val barColor = checkEnum(config.getString("$chosenPath.Bar-Color")!!, BarColor::class.java) ?: return
-        val barStyle = checkEnum(config.getString("$chosenPath.Bar-Style")!!, BarStyle::class.java) ?: return
-        val barFlags = config.getStringList("$chosenPath.Bar-Flags").mapNotNull { checkEnum(it, BarFlag::class.java) }.toTypedArray()
+        val msg = config.getString("$chosenPath.Message")?.replacePlaceholders(primaryPlayer)
+        val barColor = tryGetEnum(plugin, config.getString("$chosenPath.Bar-Color")!!, BarColor::class) ?: return
+        val barStyle = tryGetEnum(plugin, config.getString("$chosenPath.Bar-Style")!!, BarStyle::class) ?: return
+        val barFlags = config.getStringList("$chosenPath.Bar-Flags").mapNotNull { tryGetEnum(plugin, it, BarFlag::class) }.toTypedArray()
         val showTime = config.getLong("$chosenPath.Show-Time")
         val countDown = config.getOrDefault("$chosenPath.Count-Down", true)
 
@@ -60,14 +61,6 @@ class BossbarMessage(private val plugin: CustomJoinMessages) : MessageType(plugi
                 bossBar.removeAll()
             }, info.showTime)
         }
-    }
-
-    private inline fun <reified T : Enum<T>> checkEnum(str: String, type: Class<T>): T? {
-        if (enumValues<T>().none { it.name == str }) {
-            plugin.logger.severe("Unknown ${type.simpleName} '$str'! Please choose from one of the following: ${type.enumConstants.contentToString()}")
-            return null
-        }
-        return enumValueOf<T>(str)
     }
 
     class BarInfo(
