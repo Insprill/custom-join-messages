@@ -2,6 +2,7 @@ package net.insprill.cjm.message.type
 
 import be.seeseemelk.mockbukkit.MockBukkit
 import be.seeseemelk.mockbukkit.ServerMock
+import be.seeseemelk.mockbukkit.entity.PlayerMock
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.MessageVisibility
 import net.insprill.cjm.message.types.ChatMessage
@@ -14,12 +15,14 @@ class ChatMessageTest {
     private lateinit var plugin: CustomJoinMessages
     private lateinit var server: ServerMock
     private lateinit var chat: ChatMessage
+    private lateinit var player: PlayerMock
 
     @BeforeEach
     fun setUp() {
         server = MockBukkit.mock()
         plugin = MockBukkit.load(CustomJoinMessages::class.java)
         chat = ChatMessage(plugin)
+        player = server.addPlayer()
     }
 
     @AfterEach
@@ -28,33 +31,60 @@ class ChatMessageTest {
     }
 
     @Test
-    fun handle_SendsMessage() {
-        val player = server.addPlayer()
+    fun handle_SingletonList_SendsMessage() {
         chat.config.set("key.Message", listOf("Hello!"))
 
         chat.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
 
         player.assertSaid("Hello!")
+        player.assertNoMoreSaid()
+    }
+
+    @Test
+    fun handle_MultiList_SendsMessage() {
+        chat.config.set("key.Message", listOf("Hello!", "How're you?"))
+
+        chat.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
+
+        player.assertSaid("Hello!")
+        player.assertSaid("How're you?")
+        player.assertNoMoreSaid()
+    }
+
+    @Test
+    fun handle_NullMessage_DoesntSend() {
+        chat.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
+
+        player.assertNoMoreSaid()
+    }
+
+    @Test
+    fun handle_BlankMessage_DoesntSend() {
+        chat.config.set("key.Message", listOf(" "))
+
+        chat.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
+
+        player.assertNoMoreSaid()
     }
 
     @Test
     fun handle_FillsPlaceholders() {
-        val player = server.addPlayer()
         chat.config.set("key.Message", listOf("Hello %name%!"))
 
         chat.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
 
         player.assertSaid("Hello ${player.name}!")
+        player.assertNoMoreSaid()
     }
 
     @Test
     fun handle_InsertsColours() {
-        val player = server.addPlayer()
         chat.config.set("key.Message", listOf("&7Hello!"))
 
         chat.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
 
         player.assertSaid("§7Hello!")
+        player.assertNoMoreSaid()
     }
 
 }
