@@ -81,7 +81,7 @@ tasks {
             expand("version" to version)
         }
         doLast {
-            File("$buildDir/resources/main/cjm.properties").bufferedWriter().use {
+            File("$buildDir/resources/main/cjm.metadata").bufferedWriter().use {
                 val p = Properties()
                 p["version"] = project.version
                 p["bstats.id"] = project.property("bstats.id")

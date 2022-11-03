@@ -61,8 +61,7 @@ class CustomJoinMessages : JavaPlugin {
         if (!migrateFromLegacyConfiguration())
             return
 
-        // TODO: Rename to 'build.properties' once MockBukkit #626 is merged.
-        val buildProps = Properties().apply { load(getResource("cjm.properties")) }
+        val buildProps = Properties().apply { load(getResource("cjm.metadata")) }
 
         if (!ServerEnvironment.isMockBukkit()) {
             metrics = Metrics(this, buildProps.getProperty("bstats.id").toInt())
