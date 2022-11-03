@@ -7,6 +7,9 @@ import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.MessageVisibility
 import net.insprill.cjm.message.types.ChatMessage
 import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -64,6 +67,30 @@ class ChatMessageTest {
 
         chat.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
 
+        player.assertNoMoreSaid()
+    }
+
+    @Test
+    fun handle_Center_CentersMessage() {
+        chat.config.set("key.Message", listOf("center:Hello %name%!"))
+
+        chat.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
+
+        val message = player.nextMessage()
+        assertNotNull(message)
+        assertNotEquals(message, message?.trim())
+        player.assertNoMoreSaid()
+    }
+
+    @Test
+    fun handle_NoCenter_DoesntCenterMessage() {
+        chat.config.set("key.Message", listOf("Hello %name%!"))
+
+        chat.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
+
+        val message = player.nextMessage()
+        assertNotNull(message)
+        assertEquals(message, message?.trim())
         player.assertNoMoreSaid()
     }
 
