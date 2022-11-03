@@ -41,13 +41,13 @@ abstract class MessageType(
      * Called when a message should be sent.
      *
      * @param primaryPlayer Player joining/ leaving.
-     * @param players       Everyone who should receive the message.
+     * @param recipients       Everyone who should receive the message.
      * @param chosenPath    Full path to the chosen message.
      * @param visibility    The visibility of the message.
      */
     abstract fun handle(
         primaryPlayer: Player,
-        players: List<Player>,
+        recipients: List<Player>,
         chosenPath: String,
         visibility: MessageVisibility
     )

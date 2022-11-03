@@ -9,7 +9,7 @@ import org.bukkit.entity.Player
 
 class TitleMessage(plugin: CustomJoinMessages) : MessageType(plugin, "title", "Messages") {
 
-    override fun handle(primaryPlayer: Player, players: List<Player>, chosenPath: String, visibility: MessageVisibility) {
+    override fun handle(primaryPlayer: Player, recipients: List<Player>, chosenPath: String, visibility: MessageVisibility) {
         val titleStr = config.getString("$chosenPath.Title")?.replacePlaceholders(primaryPlayer)
         val subTitleStr = config.getString("$chosenPath.SubTitle")?.replacePlaceholders(primaryPlayer)
         if (titleStr.isNullOrBlank() || subTitleStr.isNullOrBlank()) return
@@ -20,7 +20,7 @@ class TitleMessage(plugin: CustomJoinMessages) : MessageType(plugin, "title", "M
         val stay = config.getInt("$chosenPath.Stay")
         val fadeOut = config.getInt("$chosenPath.Fade-Out")
 
-        for (player in players) {
+        for (player in recipients) {
             player.sendTitle(title, subTitle, fadeIn, stay, fadeOut)
         }
     }

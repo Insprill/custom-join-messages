@@ -15,7 +15,7 @@ import org.bukkit.scheduler.BukkitRunnable
 
 class BossbarMessage(private val plugin: CustomJoinMessages) : MessageType(plugin, "bossbar", "Messages") {
 
-    override fun handle(primaryPlayer: Player, players: List<Player>, chosenPath: String, visibility: MessageVisibility) {
+    override fun handle(primaryPlayer: Player, recipients: List<Player>, chosenPath: String, visibility: MessageVisibility) {
         val msg = config.getString("$chosenPath.Message")?.replacePlaceholders(primaryPlayer)
         if (msg.isNullOrBlank()) return
         val barColor = tryGetEnum(plugin, config.getString("$chosenPath.Bar-Color"), BarColor::class) ?: return
@@ -31,7 +31,7 @@ class BossbarMessage(private val plugin: CustomJoinMessages) : MessageType(plugi
             barFlags,
             countDown,
             showTime,
-            players.filter { visibility != MessageVisibility.PUBLIC || primaryPlayer != it } // Don't send public message to the person joining
+            recipients.filter { visibility != MessageVisibility.PUBLIC || primaryPlayer != it } // Don't send public message to the person joining
         )
 
         handleBar(barInfo)
