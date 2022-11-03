@@ -20,7 +20,7 @@ class WorldChangeEvent(private val plugin: CustomJoinMessages) : Listener {
         .createJson()
     private val groupPath = "World-Based-Messages.Groups"
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     fun onPlayerChangeWorld(e: PlayerTeleportEvent) {
         if (!plugin.config.getBoolean("World-Based-Messages.Enabled"))
             return
