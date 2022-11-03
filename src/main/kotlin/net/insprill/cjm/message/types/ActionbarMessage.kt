@@ -11,6 +11,7 @@ class ActionbarMessage(plugin: CustomJoinMessages) : MessageType(plugin, "action
 
     override fun handle(primaryPlayer: Player, players: List<Player>, chosenPath: String, visibility: MessageVisibility) {
         val msg = config.getString("$chosenPath.Message")?.replacePlaceholders(primaryPlayer)
+        if (msg.isNullOrBlank()) return
         val components = MineDown.parse(msg)
         for (player in players) {
             player.spigot().sendMessage(ChatMessageType.ACTION_BAR, *components)

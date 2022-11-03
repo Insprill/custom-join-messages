@@ -10,16 +10,12 @@ import org.bukkit.entity.Player
 class TitleMessage(plugin: CustomJoinMessages) : MessageType(plugin, "title", "Messages") {
 
     override fun handle(primaryPlayer: Player, players: List<Player>, chosenPath: String, visibility: MessageVisibility) {
-        val title = BaseComponent.toLegacyText(
-            *MineDown.parse(
-                config.getString("$chosenPath.Title")?.replacePlaceholders(primaryPlayer)
-            )
-        )
-        val subTitle = BaseComponent.toLegacyText(
-            *MineDown.parse(
-                config.getString("$chosenPath.SubTitle")?.replacePlaceholders(primaryPlayer)
-            )
-        )
+        val titleStr = config.getString("$chosenPath.Title")?.replacePlaceholders(primaryPlayer)
+        val subTitleStr = config.getString("$chosenPath.SubTitle")?.replacePlaceholders(primaryPlayer)
+        if (titleStr.isNullOrBlank() || subTitleStr.isNullOrBlank()) return
+
+        val title = BaseComponent.toLegacyText(*MineDown.parse(titleStr))
+        val subTitle = BaseComponent.toLegacyText(*MineDown.parse(subTitleStr))
         val fadeIn = config.getInt("$chosenPath.Fade-In")
         val stay = config.getInt("$chosenPath.Stay")
         val fadeOut = config.getInt("$chosenPath.Fade-Out")

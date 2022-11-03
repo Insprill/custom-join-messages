@@ -17,6 +17,7 @@ class BossbarMessage(private val plugin: CustomJoinMessages) : MessageType(plugi
 
     override fun handle(primaryPlayer: Player, players: List<Player>, chosenPath: String, visibility: MessageVisibility) {
         val msg = config.getString("$chosenPath.Message")?.replacePlaceholders(primaryPlayer)
+        if (msg.isNullOrBlank()) return
         val barColor = tryGetEnum(plugin, config.getString("$chosenPath.Bar-Color"), BarColor::class) ?: return
         val barStyle = tryGetEnum(plugin, config.getString("$chosenPath.Bar-Style"), BarStyle::class) ?: return
         val barFlags = config.getStringList("$chosenPath.Bar-Flags").mapNotNull { tryGetEnum(plugin, it, BarFlag::class) }.toTypedArray()
