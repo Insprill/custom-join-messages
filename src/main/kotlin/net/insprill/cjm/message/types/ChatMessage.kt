@@ -17,7 +17,7 @@ class ChatMessage(plugin: CustomJoinMessages) : MessageType(plugin, "chat", "Mes
     }
 
     override fun handle(primaryPlayer: Player, recipients: List<Player>, chosenPath: String, visibility: MessageVisibility) {
-        val messages = formatMessages(primaryPlayer, config.getStringList("$chosenPath.Message").filterNot { it.isNullOrBlank() })
+        val messages = formatMessages(primaryPlayer, config.getStringList(chosenPath).filterNot { it.isNullOrBlank() })
         for (message in messages) {
             for (player in recipients) {
                 if (MinecraftVersion.isAtLeast(MinecraftVersion.v1_9_0)) {

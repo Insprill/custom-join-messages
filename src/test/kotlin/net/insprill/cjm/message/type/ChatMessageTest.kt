@@ -35,7 +35,7 @@ class ChatMessageTest {
 
     @Test
     fun handle_SingletonList_SendsMessage() {
-        chat.config.set("key.Message", listOf("Hello!"))
+        chat.config.set("key", listOf("Hello!"))
 
         chat.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
 
@@ -45,7 +45,7 @@ class ChatMessageTest {
 
     @Test
     fun handle_MultiList_SendsMessage() {
-        chat.config.set("key.Message", listOf("Hello!", "How're you?"))
+        chat.config.set("key", listOf("Hello!", "How're you?"))
 
         chat.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
 
@@ -63,7 +63,7 @@ class ChatMessageTest {
 
     @Test
     fun handle_BlankMessage_DoesntSend() {
-        chat.config.set("key.Message", listOf(" "))
+        chat.config.set("key", listOf(" "))
 
         chat.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
 
@@ -72,7 +72,7 @@ class ChatMessageTest {
 
     @Test
     fun handle_Center_CentersMessage() {
-        chat.config.set("key.Message", listOf("center:Hello %name%!"))
+        chat.config.set("key", listOf("center:Hello %name%!"))
 
         chat.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
 
@@ -84,7 +84,7 @@ class ChatMessageTest {
 
     @Test
     fun handle_NoCenter_DoesntCenterMessage() {
-        chat.config.set("key.Message", listOf("Hello %name%!"))
+        chat.config.set("key", listOf("Hello %name%!"))
 
         chat.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
 
@@ -96,7 +96,7 @@ class ChatMessageTest {
 
     @Test
     fun handle_FillsPlaceholders() {
-        chat.config.set("key.Message", listOf("Hello %name%!"))
+        chat.config.set("key", listOf("Hello %name%!"))
 
         chat.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
 
@@ -106,7 +106,7 @@ class ChatMessageTest {
 
     @Test
     fun handle_InsertsColours() {
-        chat.config.set("key.Message", listOf("&7Hello!"))
+        chat.config.set("key", listOf("&7Hello!"))
 
         chat.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
 
