@@ -25,6 +25,10 @@ class MessageTypeMock(plugin: CustomJoinMessages) : MessageType(plugin, "mock", 
         assertTrue(results.isEmpty(), "Expected results to be empty!")
     }
 
+    fun clearResults() {
+        results.clear()
+    }
+
     override fun handle(primaryPlayer: Player, recipients: List<Player>, chosenPath: String, visibility: MessageVisibility) {
         results.add(Result(recipients, chosenPath))
     }

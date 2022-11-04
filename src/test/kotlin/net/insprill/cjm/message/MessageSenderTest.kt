@@ -34,7 +34,8 @@ class MessageSenderTest {
         messageSender = plugin.messageSender
         messageTypeMock = MessageTypeMock(plugin)
         messageSender.registerType(messageTypeMock)
-        player = server.addPlayer()
+        player = PlayerMock(server, "player")
+        server.playerList.addPlayer(player)
         // Wacky MockBukkit permissions go brr
         server.pluginManager.addPermission(Permission("cjm.default", PermissionDefault.TRUE))
     }
@@ -180,7 +181,8 @@ class MessageSenderTest {
 
     @Test
     fun trySendMessages_NoRadius_SendsToEveryone() {
-        val player2 = server.addPlayer()
+        val player2 = PlayerMock(server, "player2")
+        server.playerList.addPlayer(player2)
         player2.location = player.location.add(29_999_984.0, 0.0, 29_999_984.0)
 
         messageSender.trySendMessages(player, MessageAction.JOIN, true)
@@ -192,7 +194,8 @@ class MessageSenderTest {
     @Test
     fun trySendMessages_Radius_PlayerOutsideRadius_DoesntReceiveMessage() {
         messageTypeMock.config.set("Public.Join.1.Radius", 10.0)
-        val player2 = server.addPlayer()
+        val player2 = PlayerMock(server, "player2")
+        server.playerList.addPlayer(player2)
         player2.location = player.location.add(10.5, 0.0, 0.0)
 
         messageSender.trySendMessages(player, MessageAction.JOIN, true)
@@ -204,7 +207,8 @@ class MessageSenderTest {
     @Test
     fun trySendMessages_Radius_PlayerInsideRadius_ReceivesMessage() {
         messageTypeMock.config.set("Public.Join.1.Radius", 10.0)
-        val player2 = server.addPlayer()
+        val player2 = PlayerMock(server, "player2")
+        server.playerList.addPlayer(player2)
         player2.location = player.location.add(9.5, 0.0, 0.0)
 
         messageSender.trySendMessages(player, MessageAction.JOIN, true)
