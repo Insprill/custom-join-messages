@@ -46,7 +46,7 @@ class UpdateChecker(private val resourceId: Int, private val plugin: CustomJoinM
     data class VersionData(val downloads: Int, val rating: Rating, val name: String, val releaseDate: Long) {
 
         fun isNewer(plugin: Plugin): Boolean {
-            return SemVer.parse(name) > SemVer.parse(plugin.description.version.substringBefore("-"))
+            return SemVer.parse(name) > SemVer.parse(plugin.description.version.substringBefore('-'))
         }
 
         data class Rating(val count: Int, val average: Float)
