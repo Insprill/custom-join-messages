@@ -4,7 +4,6 @@ import de.themoep.minedown.MineDown
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.extension.replacePlaceholders
 import net.insprill.cjm.message.MessageVisibility
-import net.insprill.spigotutils.MinecraftVersion
 import net.md_5.bungee.api.ChatMessageType
 import net.md_5.bungee.api.chat.BaseComponent
 import org.bukkit.entity.Player
@@ -20,11 +19,7 @@ class ChatMessage(plugin: CustomJoinMessages) : MessageType(plugin, "chat", "Mes
         val messages = formatMessages(primaryPlayer, config.getStringList(chosenPath).filterNot { it.isNullOrBlank() })
         for (message in messages) {
             for (player in recipients) {
-                if (MinecraftVersion.isAtLeast(MinecraftVersion.v1_9_0)) {
-                    player.spigot().sendMessage(ChatMessageType.CHAT, *message)
-                } else {
-                    player.spigot().sendMessage(*message)
-                }
+                player.spigot().sendMessage(ChatMessageType.CHAT, *message)
             }
         }
     }
