@@ -315,7 +315,17 @@ class CjmCommandTest {
     }
 
     @Test
+    fun execute_Reload_NoPermission_DoesntSendNotice() {
+        player.performCommand("cjm reload")
+
+        player.assertSaid("§cI'm sorry, but you do not have permission to perform this command.")
+        player.assertNoMoreSaid()
+    }
+
+    @Test
     fun execute_Reload_SendsNotice() {
+        player.addAttachment(plugin, "cjm.command.reload", true)
+
         player.performCommand("cjm reload")
 
         assertNotNull(player.nextMessage())
