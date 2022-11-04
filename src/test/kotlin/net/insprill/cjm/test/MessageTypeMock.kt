@@ -26,7 +26,6 @@ class MessageTypeMock(plugin: CustomJoinMessages) : MessageType(plugin, "mock", 
     }
 
     override fun handle(primaryPlayer: Player, recipients: List<Player>, chosenPath: String, visibility: MessageVisibility) {
-        println(recipients.map { it.name })
         results.add(Result(recipients, chosenPath))
     }
 
