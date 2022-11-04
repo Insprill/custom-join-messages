@@ -54,7 +54,7 @@ class UpdateChecker(private val resourceId: Int, private val plugin: CustomJoinM
 
     enum class NotificationType(val configPath: String) {
         IN_GAME("Update-Checker.Notifications.In-Game"),
-        CONSOLE("Update-Checker.Notifications.Config")
+        CONSOLE("Update-Checker.Notifications.Console")
     }
 
 }
