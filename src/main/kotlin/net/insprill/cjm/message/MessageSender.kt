@@ -2,6 +2,7 @@ package net.insprill.cjm.message
 
 import de.leonhard.storage.internal.FlatFile
 import net.insprill.cjm.CustomJoinMessages
+import net.insprill.cjm.extension.getMessage
 import net.insprill.cjm.message.types.MessageType
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
@@ -100,7 +101,7 @@ class MessageSender(private val plugin: CustomJoinMessages) {
     fun getRandomKey(config: FlatFile, path: String): String? {
         val section = config.getSection(path)
         if (section == null || section.singleLayerKeySet().isEmpty()) {
-            plugin.logger.severe("\"" + path + "\" in messages/" + config.file.name + " has no keys. Perhaps the messages indentation is wrong?")
+            plugin.logger.severe(plugin.commandManager.getMessage("cjm.message-sender.no-keys", "%path%", path, "%config%", config.file.name))
             return null
         }
         return "$path.${section.singleLayerKeySet().random()}"

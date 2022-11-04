@@ -2,6 +2,7 @@ package net.insprill.cjm.update
 
 import com.google.gson.Gson
 import net.insprill.cjm.CustomJoinMessages
+import net.insprill.cjm.extension.getMessage
 import net.insprill.spigotutils.ServerEnvironment
 import net.swiftzer.semver.SemVer
 import org.bukkit.Bukkit
@@ -37,7 +38,7 @@ class UpdateChecker(private val resourceId: Int, private val plugin: CustomJoinM
                 val versionData = Gson().fromJson(body, VersionData::class.java)
                 consumer.invoke(versionData)
             } catch (exception: Exception) {
-                plugin.logger.log(Level.WARNING, "Unable to check for updates", exception)
+                plugin.logger.log(Level.WARNING, plugin.commandManager.getMessage("cjm.update-checker.console.unable-to-check"), exception)
             }
         })
     }

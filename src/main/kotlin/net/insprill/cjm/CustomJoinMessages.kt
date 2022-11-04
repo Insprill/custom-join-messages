@@ -12,6 +12,7 @@ import net.insprill.cjm.command.CommandContext
 import net.insprill.cjm.compatibility.Dependency
 import net.insprill.cjm.compatibility.hook.HookManager
 import net.insprill.cjm.compatibility.hook.PluginHook
+import net.insprill.cjm.extension.getMessage
 import net.insprill.cjm.listener.JoinEvent
 import net.insprill.cjm.listener.QuitEvent
 import net.insprill.cjm.listener.WorldChangeEvent
@@ -186,8 +187,10 @@ class CustomJoinMessages : JavaPlugin {
         updateChecker.getVersion {
             if (!it.isNewer(this))
                 return@getVersion
-            logger.warning("A new version of CustomJoinMessages is available (${it.name})!")
-            logger.warning("You can download it at ${updateChecker.getResourceUrl()}")
+            commandManager.getMessage(
+                "cjm.update-checker.console.text",
+                "%version%", it.name, "%url%", updateChecker.getResourceUrl()
+            ).split("\n").forEach { msg -> logger.warning(msg) }
         }
     }
 
