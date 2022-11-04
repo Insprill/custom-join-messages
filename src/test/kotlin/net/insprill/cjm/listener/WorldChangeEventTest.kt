@@ -5,7 +5,6 @@ import be.seeseemelk.mockbukkit.ServerMock
 import be.seeseemelk.mockbukkit.WorldMock
 import be.seeseemelk.mockbukkit.entity.PlayerMock
 import net.insprill.cjm.CustomJoinMessages
-import net.insprill.cjm.test.MessageSentException
 import net.insprill.cjm.test.MessageTypeMock
 import org.bukkit.Location
 import org.bukkit.World
@@ -15,14 +14,13 @@ import org.bukkit.permissions.PermissionDefault
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertDoesNotThrow
-import org.junit.jupiter.api.assertThrows
 
 class WorldChangeEventTest {
 
     private lateinit var server: ServerMock
     private lateinit var plugin: CustomJoinMessages
     private lateinit var player: PlayerMock
+    private lateinit var messageTypeMock: MessageTypeMock
     private lateinit var world: WorldMock
     private lateinit var world1: WorldMock
     private lateinit var world2: WorldMock
@@ -31,7 +29,8 @@ class WorldChangeEventTest {
     fun setUp() {
         server = MockBukkit.mock()
         plugin = MockBukkit.load(CustomJoinMessages::class.java)
-        plugin.messageSender.registerType(MessageTypeMock(plugin))
+        messageTypeMock = MessageTypeMock(plugin)
+        plugin.messageSender.registerType(messageTypeMock)
         plugin.config.set("World-Based-Messages.Enabled", true)
         player = server.addPlayer()
         world = server.addSimpleWorld("world")
@@ -51,9 +50,9 @@ class WorldChangeEventTest {
         plugin.config.set("World-Based-Messages.Ungrouped-Mode", "NONE")
         val event = PlayerTeleportEvent(player, loc(world1), loc(world2))
 
-        assertDoesNotThrow {
-            event.callEvent()
-        }
+        event.callEvent()
+
+        messageTypeMock.assertDoesntHaveResult()
     }
 
     @Test
@@ -61,9 +60,9 @@ class WorldChangeEventTest {
         plugin.config.set("World-Based-Messages.Ungrouped-Mode", "SAME")
         val event = PlayerTeleportEvent(player, loc(world1), loc(world2))
 
-        assertDoesNotThrow {
-            event.callEvent()
-        }
+        event.callEvent()
+
+        messageTypeMock.assertDoesntHaveResult()
     }
 
     @Test
@@ -71,9 +70,9 @@ class WorldChangeEventTest {
         plugin.config.set("World-Based-Messages.Ungrouped-Mode", "INDIVIDUAL")
         val event = PlayerTeleportEvent(player, loc(world1), loc(world2))
 
-        assertThrows<MessageSentException> {
-            event.callEvent()
-        }
+        event.callEvent()
+
+        messageTypeMock.assertHasResult()
     }
 
     @Test
@@ -81,9 +80,9 @@ class WorldChangeEventTest {
         plugin.config.set("World-Based-Messages.Ungrouped-Mode", "SAME")
         val event = PlayerTeleportEvent(player, loc(world), loc(world2))
 
-        assertThrows<MessageSentException> {
-            event.callEvent()
-        }
+        event.callEvent()
+
+        messageTypeMock.assertHasResult()
     }
 
     @Test
@@ -91,9 +90,9 @@ class WorldChangeEventTest {
         plugin.config.set("World-Based-Messages.Ungrouped-Mode", "NONE")
         val event = PlayerTeleportEvent(player, loc(world), loc(world2))
 
-        assertDoesNotThrow {
-            event.callEvent()
-        }
+        event.callEvent()
+
+        messageTypeMock.assertDoesntHaveResult()
     }
 
     private fun loc(world: World): Location {

@@ -5,8 +5,6 @@ import be.seeseemelk.mockbukkit.ServerMock
 import be.seeseemelk.mockbukkit.entity.PlayerMock
 import de.leonhard.storage.SimplixBuilder
 import net.insprill.cjm.CustomJoinMessages
-import net.insprill.cjm.message.types.MessageType
-import net.insprill.cjm.test.MessageSentException
 import net.insprill.cjm.test.MessageTypeMock
 import org.bukkit.metadata.FixedMetadataValue
 import org.bukkit.permissions.Permission
@@ -19,8 +17,6 @@ import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertDoesNotThrow
-import org.junit.jupiter.api.assertThrows
 import java.nio.file.Files
 
 class MessageSenderTest {
@@ -28,7 +24,7 @@ class MessageSenderTest {
     private lateinit var server: ServerMock
     private lateinit var plugin: CustomJoinMessages
     private lateinit var messageSender: MessageSender
-    private lateinit var messageTypeMock: MessageType
+    private lateinit var messageTypeMock: MessageTypeMock
     private lateinit var player: PlayerMock
 
     @BeforeEach
@@ -100,41 +96,45 @@ class MessageSenderTest {
 
     @Test
     fun trySendMessages_ToggledOn_MessageSent() {
-        assertThrows<MessageSentException> {
-            messageSender.trySendMessages(player, MessageAction.JOIN, false)
-        }
+        messageSender.trySendMessages(player, MessageAction.JOIN, false)
+
+        messageTypeMock.assertHasResult()
     }
 
     @Test
     fun trySendMessages_ToggledOff_NoMessageSent() {
         plugin.toggleHandler.setToggle(player, MessageAction.JOIN, false)
-        assertDoesNotThrow {
-            messageSender.trySendMessages(player, MessageAction.JOIN, false)
-        }
+
+        messageSender.trySendMessages(player, MessageAction.JOIN, false)
+
+        messageTypeMock.assertDoesntHaveResult()
     }
 
     @Test
     fun trySendMessages_NoVanishCheck_Vanished_MessageSent() {
         player.setMetadata("vanished", FixedMetadataValue(plugin, true))
-        assertThrows<MessageSentException> {
-            messageSender.trySendMessages(player, MessageAction.JOIN, false)
-        }
+
+        messageSender.trySendMessages(player, MessageAction.JOIN, false)
+
+        messageTypeMock.assertHasResult()
     }
 
     @Test
     fun trySendMessages_VanishCheck_Vanished_NoMessageSent() {
         player.setMetadata("vanished", FixedMetadataValue(plugin, true))
-        assertDoesNotThrow {
-            messageSender.trySendMessages(player, MessageAction.JOIN, true)
-        }
+
+        messageSender.trySendMessages(player, MessageAction.JOIN, true)
+
+        messageTypeMock.assertDoesntHaveResult()
     }
 
     @Test
     fun trySendMessages_MessageTypeDisabled_NoMessageSent() {
         messageTypeMock.config.set("Enabled", false)
-        assertDoesNotThrow {
-            messageSender.trySendMessages(player, MessageAction.JOIN, true)
-        }
+
+        messageSender.trySendMessages(player, MessageAction.JOIN, true)
+
+        messageTypeMock.assertDoesntHaveResult()
     }
 
     @Test
@@ -142,11 +142,10 @@ class MessageSenderTest {
         messageTypeMock.config.set("Public.Join.2.Messages.1.Message", "Yup")
         messageTypeMock.config.set("Public.Join.2.Permission", "cjm.2")
 
-        val exc = assertThrows<MessageSentException> {
-            messageSender.trySendMessages(player, MessageAction.JOIN, true)
-        }
+        messageSender.trySendMessages(player, MessageAction.JOIN, true)
 
-        assertEquals("Public.Join.1.Messages.1", exc.chosenPath)
+        messageTypeMock.assertHasResult()
+        assertEquals("Public.Join.1.Messages.1", messageTypeMock.result.chosenPath)
     }
 
     @Test
@@ -155,29 +154,28 @@ class MessageSenderTest {
         messageTypeMock.config.set("Public.Join.2.Permission", "cjm.2")
         player.addAttachment(plugin, "cjm.2", true)
 
-        val exc = assertThrows<MessageSentException> {
-            messageSender.trySendMessages(player, MessageAction.JOIN, true)
-        }
+        messageSender.trySendMessages(player, MessageAction.JOIN, true)
 
-        assertEquals("Public.Join.2.Messages.1", exc.chosenPath)
+        messageTypeMock.assertHasResult()
+        assertEquals("Public.Join.2.Messages.1", messageTypeMock.result.chosenPath)
     }
 
     @Test
     fun trySendMessages_HasNoPerms_NoMessageSent() {
         player.addAttachment(plugin, "cjm.default", false)
 
-        assertDoesNotThrow {
-            messageSender.trySendMessages(player, MessageAction.JOIN, true)
-        }
+        messageSender.trySendMessages(player, MessageAction.JOIN, true)
+
+        messageTypeMock.assertDoesntHaveResult()
     }
 
     @Test
     fun trySendMessages_ChecksMessageConditions() {
         messageTypeMock.config.set("Public.Join.2.Min-Players", 2)
 
-        assertDoesNotThrow {
-            messageSender.trySendMessages(player, MessageAction.JOIN, true)
-        }
+        messageSender.trySendMessages(player, MessageAction.JOIN, true)
+
+        messageTypeMock.assertDoesntHaveResult()
     }
 
     @Test
@@ -185,11 +183,10 @@ class MessageSenderTest {
         val player2 = server.addPlayer()
         player2.location = player.location.add(29_999_984.0, 0.0, 29_999_984.0)
 
-        val exc = assertThrows<MessageSentException> {
-            messageSender.trySendMessages(player, MessageAction.JOIN, true)
-        }
+        messageSender.trySendMessages(player, MessageAction.JOIN, true)
 
-        assertTrue(exc.recipients.contains(player2))
+        messageTypeMock.assertHasResult()
+        assertTrue(messageTypeMock.results.any { it.recipients.contains(player2) })
     }
 
     @Test
@@ -198,11 +195,10 @@ class MessageSenderTest {
         val player2 = server.addPlayer()
         player2.location = player.location.add(10.5, 0.0, 0.0)
 
-        val exc = assertThrows<MessageSentException> {
-            messageSender.trySendMessages(player, MessageAction.JOIN, true)
-        }
+        messageSender.trySendMessages(player, MessageAction.JOIN, true)
 
-        assertFalse(exc.recipients.contains(player2))
+        messageTypeMock.assertHasResult()
+        assertFalse(messageTypeMock.result.recipients.contains(player2))
     }
 
     @Test
@@ -211,35 +207,33 @@ class MessageSenderTest {
         val player2 = server.addPlayer()
         player2.location = player.location.add(9.5, 0.0, 0.0)
 
-        val exc = assertThrows<MessageSentException> {
-            messageSender.trySendMessages(player, MessageAction.JOIN, true)
-        }
+        messageSender.trySendMessages(player, MessageAction.JOIN, true)
 
-        assertTrue(exc.recipients.contains(player2))
+        messageTypeMock.assertHasResult()
+        assertTrue(messageTypeMock.results.any { it.recipients.contains(player2) })
     }
 
     @Test
     fun trySendMessages_Delay_LessThanOne_SendsImmediately() {
         messageTypeMock.config.set("Public.Join.1.Delay", 0)
 
-        assertThrows<MessageSentException> {
-            messageSender.trySendMessages(player, MessageAction.JOIN, true)
-        }
+        messageSender.trySendMessages(player, MessageAction.JOIN, true)
+
+        messageTypeMock.assertHasResult()
     }
 
     @Test
     fun trySendMessages_Delay_SendsAfterDelay() {
         messageTypeMock.config.set("Public.Join.1.Delay", 5)
 
-        assertDoesNotThrow {
-            messageSender.trySendMessages(player, MessageAction.JOIN, true)
-        }
+        messageSender.trySendMessages(player, MessageAction.JOIN, true)
+        messageTypeMock.assertDoesntHaveResult()
 
         server.scheduler.performTicks(4)
+        messageTypeMock.assertDoesntHaveResult()
 
-        assertThrows<MessageSentException> {
-            server.scheduler.performTicks(1)
-        }
+        server.scheduler.performTicks(1)
+        messageTypeMock.assertHasResult()
     }
 
     @Test
