@@ -12,6 +12,7 @@ import org.bukkit.event.player.PlayerTeleportEvent
 import org.bukkit.permissions.Permission
 import org.bukkit.permissions.PermissionDefault
 import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -29,10 +30,10 @@ class WorldChangeEventTest {
     fun setUp() {
         server = MockBukkit.mock()
         plugin = MockBukkit.load(CustomJoinMessages::class.java)
+        player = server.addPlayer()
         messageTypeMock = MessageTypeMock(plugin)
         plugin.messageSender.registerType(messageTypeMock)
         plugin.config.set("World-Based-Messages.Enabled", true)
-        player = server.addPlayer()
         world = server.addSimpleWorld("world")
         world1 = server.addSimpleWorld("world1")
         world2 = server.addSimpleWorld("world2")
@@ -93,6 +94,60 @@ class WorldChangeEventTest {
         event.callEvent()
 
         messageTypeMock.assertDoesntHaveResult()
+    }
+
+    @Test
+    fun onTeleport_DifferentWorld_SendsQuitMessage() {
+        val event = PlayerTeleportEvent(player, loc(world), loc(world2))
+
+        event.callEvent()
+
+        messageTypeMock.assertHasResult()
+        assertTrue(messageTypeMock.result.chosenPath.contains(".Quit.", true))
+    }
+
+    @Test
+    fun onTeleport_DifferentWorld_SendsJoinMessageLater() {
+        val event = PlayerTeleportEvent(player, loc(world), loc(world2))
+
+        event.callEvent()
+        messageTypeMock.clearResults()
+
+        server.scheduler.performTicks(9)
+        messageTypeMock.assertDoesntHaveResult()
+
+        server.scheduler.performTicks(1)
+        messageTypeMock.assertHasResult()
+        assertTrue(messageTypeMock.result.chosenPath.contains("Join."))
+    }
+
+    @Test
+    fun onTeleport_DifferentWorld_FirstVisit_SendsFirstJoinMessage() {
+        val event = PlayerTeleportEvent(player, loc(world), loc(world2))
+
+        event.callEvent()
+        messageTypeMock.clearResults()
+        server.scheduler.performTicks(10)
+
+        messageTypeMock.assertHasResult()
+        assertTrue(messageTypeMock.result.chosenPath.contains(".First-Join."))
+    }
+
+    @Test
+    fun onTeleport_DifferentWorld_SecondVisit_SendsJoinMessage() {
+        val event = PlayerTeleportEvent(player, loc(world), loc(world2))
+        event.callEvent()
+        val event2 = PlayerTeleportEvent(player, loc(world2), loc(world))
+        event2.callEvent()
+        server.scheduler.performTicks(10)
+        val event3 = PlayerTeleportEvent(player, loc(world), loc(world2))
+        event3.callEvent()
+        messageTypeMock.clearResults()
+
+        server.scheduler.performTicks(10)
+
+        messageTypeMock.assertHasResult()
+        assertTrue(messageTypeMock.result.chosenPath.contains(".Join."))
     }
 
     private fun loc(world: World): Location {

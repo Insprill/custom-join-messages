@@ -5,6 +5,11 @@ Public:
       Messages:
         1:
           Message: "&a%name% &7has joined!"
+  First-Join:
+    1:
+      Messages:
+        1:
+          Message: "&a%name% &7has joined!"
   Quit:
     1:
       Messages:
