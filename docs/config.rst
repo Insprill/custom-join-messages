@@ -3,7 +3,9 @@ The Plugin Config
 
 * language:
    * **Default**: ``en``
-   * **Description**: The language used for plugin messages. Your own languages can be added in the ``locale`` folder, and can be used by setting this to the name of the file without the extension.
+   * **Description**: The language used for plugin messages.
+   * **Supported Values**:
+      * ``en`` - English
 
 * Addons:
    * **Description**: Settings related to how CJM interacts with other plugins.
