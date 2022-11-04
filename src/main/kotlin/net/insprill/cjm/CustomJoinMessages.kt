@@ -26,6 +26,7 @@ import net.insprill.cjm.toggle.ToggleHandler
 import net.insprill.cjm.update.UpdateChecker
 import net.insprill.spigotutils.MinecraftVersion
 import net.insprill.spigotutils.ServerEnvironment
+import net.swiftzer.semver.SemVer
 import org.bstats.bukkit.Metrics
 import org.bstats.charts.SimplePie
 import org.bukkit.Bukkit
@@ -37,6 +38,7 @@ import java.io.File
 import java.nio.file.Path
 import java.util.Collections
 import java.util.Properties
+import kotlin.io.path.exists
 
 class CustomJoinMessages : JavaPlugin {
 
@@ -52,15 +54,16 @@ class CustomJoinMessages : JavaPlugin {
         if (!checkCompatible())
             return
 
-        config = SimplixBuilder.fromPath(Path.of("$dataFolder/config.yml"))
+        val configPath = Path.of("$dataFolder/config.yml")
+        if (!handleLegacyConfig(configPath))
+            return
+
+        config = SimplixBuilder.fromPath(configPath)
             .addInputStreamFromResource("config.yml")
             .setConfigSettings(ConfigSettings.PRESERVE_COMMENTS)
             .setDataType(DataType.SORTED)
             .createYaml()
         config.addDefaultsFromInputStream()
-
-        if (!migrateFromLegacyConfiguration())
-            return
 
         val buildProps = Properties().apply { load(getResource("cjm.metadata")) }
 
@@ -167,15 +170,22 @@ class CustomJoinMessages : JavaPlugin {
         commandManager.registerCommand(cjmCommand)
     }
 
-    private fun migrateFromLegacyConfiguration(): Boolean {
-        val version = config.getString("version")
-        if (!version.startsWith("1.") && !version.startsWith("2."))
+    private fun handleLegacyConfig(path: Path): Boolean {
+        if (!path.exists())
             return true
-        dataFolder.renameTo(File(dataFolder.parentFile, "$name-old"))
-        logger.severe("It appears you've recently upgraded to CJM 17 from an older version.")
-        logger.severe("Since the configuration has changed in layout, your old config folder has been renamed to \"$name-old\" and a new one has been generated.")
-        logger.severe("Please manually setup the new configuration and restart your server to re-enabled the plugin.")
-        onEnable()
+        val tmpConfig = SimplixBuilder.fromPath(path).createYaml()
+        val version = SemVer.parse(tmpConfig.getString("version"))
+        if (version.major >= 3)
+            return true
+        logger.severe("It appears you've recently upgraded to CJM ${this.description.version} from an older version.")
+        val renamedFile = File(dataFolder.parentFile, "$name-old")
+        if (dataFolder.renameTo(renamedFile)) {
+            logger.severe("Since the configuration has changed in layout, your old config folder has been renamed to \"$renamedFile\" and a new one has been generated.")
+            logger.severe("Please manually setup the new configuration and restart your server to re-enable the plugin.")
+            onEnable() // Generate new configs
+        } else {
+            logger.severe("Failed to rename old configuration folder. Place rename/remove it manually.")
+        }
         Bukkit.getPluginManager().disablePlugin(this)
         return false
     }
