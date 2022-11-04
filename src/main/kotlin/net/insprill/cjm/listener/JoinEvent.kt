@@ -16,7 +16,7 @@ class JoinEvent(private val plugin: CustomJoinMessages) : Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     fun onPlayerJoin(e: PlayerJoinEvent) {
-        e.joinMessage = ""
+        e.joinMessage = null
         val action = if (e.player.hasPlayedBefore()) MessageAction.JOIN else MessageAction.FIRST_JOIN
         plugin.messageSender.trySendMessages(e.player, action, true)
     }
