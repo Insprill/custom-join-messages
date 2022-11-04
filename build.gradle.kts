@@ -114,6 +114,13 @@ tasks {
     }
 }
 
+configurations {
+    configurations.testImplementation.get().apply {
+        extendsFrom(configurations.compileOnly.get())
+        exclude("org.spigotmc", "spigot-api")
+    }
+}
+
 java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(17))
