@@ -4,7 +4,6 @@ import co.aikar.commands.BaseCommand
 import co.aikar.commands.BukkitCommandManager
 import co.aikar.commands.CommandHelp
 import co.aikar.commands.InvalidCommandArgument
-import co.aikar.commands.MessageType
 import co.aikar.commands.annotation.CommandAlias
 import co.aikar.commands.annotation.CommandCompletion
 import co.aikar.commands.annotation.CommandPermission
@@ -16,6 +15,7 @@ import co.aikar.commands.annotation.Syntax
 import co.aikar.commands.bukkit.contexts.OnlinePlayer
 import co.aikar.locales.MessageKey
 import net.insprill.cjm.CustomJoinMessages
+import net.insprill.cjm.extension.sendInfo
 import net.insprill.cjm.message.MessageAction
 import net.insprill.cjm.message.MessageVisibility
 import org.bukkit.OfflinePlayer
@@ -86,19 +86,13 @@ class CjmCommand(private val manager: BukkitCommandManager, private val plugin: 
             !plugin.toggleHandler.isToggled(target, action)
         }
         plugin.toggleHandler.setToggle(target, action, toggledTo)
-        manager.sendMessage(
-            sender,
-            MessageType.INFO,
-            MessageKey.of("cjm.command.toggle.${if (toggledTo) "on" else "off"}"),
-            "%action%",
-            action.name.lowercase()
-        )
+        manager.sendInfo(sender, "cjm.command.toggle.${if (toggledTo) "on" else "off"}", "%action%", action.name.lowercase())
     }
 
     @Subcommand("reload")
     @CommandPermission("cjm.command.reload")
     fun onReload(sender: CommandSender) {
-        manager.sendMessage(sender, MessageType.INFO, MessageKey.of("cjm.command.reload.notice"))
+        manager.sendInfo(sender, "cjm.command.reload.notice")
     }
 
 }
