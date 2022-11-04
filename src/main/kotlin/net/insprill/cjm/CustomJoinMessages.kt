@@ -108,7 +108,7 @@ class CustomJoinMessages : JavaPlugin {
         }
 
         if (MinecraftVersion.isOlderThan(MinecraftVersion.v1_9_0)) {
-            logger.severe("Custom Join Messages only supports 1.9+ servers! (https://howoldisminecraft188.today/)")
+            logger.severe("Custom Join Messages only supports 1.9+ servers! Please downgrade to CJM 16 for 1.8.x support. (https://howoldisminecraft188.today/)")
             Bukkit.getPluginManager().disablePlugin(this)
             return false
         }
