@@ -128,7 +128,6 @@ class CjmCommandTest {
     }
 
     @Test
-    @Disabled("MockBukkit #637")
     fun execute_Preview() {
         player.addAttachment(plugin, "cjm.command.preview", true)
 
@@ -293,24 +292,24 @@ class CjmCommandTest {
     }
 
     @Test
-    @Disabled("MockBukkit hasn't implemented OfflinePlayer#hasPlayedBefore")
     fun execute_Toggle_InvalidTarget_Fails() {
         player.addAttachment(plugin, "cjm.command.toggle", true)
 
         player.performCommand("cjm toggle join off thisNameIsTooLongToBeValid")
 
         assertTrue(player.nextMessage()!!.contains("is not a valid username", true))
+        assertTrue(player.nextMessage()!!.contains("usage", true))
         player.assertNoMoreSaid()
     }
 
     @Test
-    @Disabled("MockBukkit hasn't implemented OfflinePlayer#hasPlayedBefore")
     fun execute_Toggle_OfflineTarget_Fails() {
         player.addAttachment(plugin, "cjm.command.toggle", true)
 
         player.performCommand("cjm toggle join off WRONG")
 
         assertTrue(player.nextMessage()!!.contains("No player matching", true))
+        assertTrue(player.nextMessage()!!.contains("usage", true))
         player.assertNoMoreSaid()
     }
 
