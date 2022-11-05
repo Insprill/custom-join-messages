@@ -100,7 +100,7 @@ Custom Join Messages is a feature-packed plugin for handling all join and quit n
 Releases of CJM can be downloaded from SpigotMC [here][spigot-url].
 
 ### Snapshots
-Snapshot builds from each commit can be downloaded via GitHub Actions [here](https://nightly.link/Insprill/custom-join-messages/workflows/gradle/master).
+Builds from the latest commit can be downloaded via GitHub Actions [here](https://nightly.link/Insprill/custom-join-messages/workflows/gradle/master).
 
 
 
@@ -138,6 +138,16 @@ If you're new to contributing to open-source projects, you can follow [this](htt
 
 Distributed under the GNU General Public License v3.0.  
 See [LICENSE][license-url] for more information.
+
+
+
+
+<!-- Statistics -->
+## Statistics
+
+Statistics are collected through [bStats](https://bstats.org/plugin/bukkit/Custom%20Join%20Messages/6346),
+an open-source service that collects anonymous data for Minecraft software. You can opt out in `plugins/bStats/config.yml`.
+![Statistics](https://bstats.org/signatures/bukkit/Custom%20Join%20Messages.svg)
 
 
 
