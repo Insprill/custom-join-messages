@@ -7,6 +7,8 @@ import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.MessageAction
 import net.insprill.cjm.util.EnumUtils.tryGetEnum
 import org.bukkit.Bukkit
+import org.bukkit.World
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
@@ -33,15 +35,7 @@ class WorldChangeEvent(private val plugin: CustomJoinMessages) : Listener {
         if (isSameGroup(toWorld.name, fromWorld.name))
             return
 
-        val groupName = getGroupName(toWorld.name)
-
-        val uuid = e.player.uniqueId.toString()
-        val groupPlayers = visitedWorldsConfig.getStringList(groupName)
-        val hasJoinedWorldBefore = groupPlayers.contains(uuid)
-        if (!hasJoinedWorldBefore) {
-            groupPlayers.add(uuid)
-            visitedWorldsConfig[groupName] = groupPlayers
-        }
+        val hasJoinedWorldBefore = saveVisitedWorld(e.player, toWorld)
 
         plugin.messageSender.trySendMessages(e.player, MessageAction.QUIT, true)
 
@@ -52,6 +46,18 @@ class WorldChangeEvent(private val plugin: CustomJoinMessages) : Listener {
                 true
             )
         }, 10L)
+    }
+
+    fun saveVisitedWorld(player: Player, world: World): Boolean {
+        val groupName = getGroupName(world.name)
+        val uuid = player.uniqueId.toString()
+        val groupPlayers = visitedWorldsConfig.getStringList(groupName)
+        val hasJoinedWorldBefore = groupPlayers.contains(uuid)
+        if (!hasJoinedWorldBefore) {
+            groupPlayers.add(uuid)
+            visitedWorldsConfig[groupName] = groupPlayers
+        }
+        return hasJoinedWorldBefore
     }
 
     private fun isSameGroup(toName: String, fromName: String): Boolean {

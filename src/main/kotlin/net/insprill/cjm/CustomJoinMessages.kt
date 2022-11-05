@@ -48,6 +48,7 @@ class CustomJoinMessages : JavaPlugin {
     lateinit var config: Yaml
     lateinit var updateChecker: UpdateChecker
     lateinit var commandManager: BukkitCommandManager
+    lateinit var worldChangeEvent: WorldChangeEvent
     private lateinit var metrics: Metrics
 
     override fun onEnable() {
@@ -143,7 +144,8 @@ class CustomJoinMessages : JavaPlugin {
         }
 
         Bukkit.getPluginManager().registerEvents(QuitEvent(this), this)
-        Bukkit.getPluginManager().registerEvents(WorldChangeEvent(this), this)
+        worldChangeEvent = WorldChangeEvent(this)
+        Bukkit.getPluginManager().registerEvents(worldChangeEvent, this)
 
         for (listener in hookManager.vanishHooks.filterIsInstance<Listener>()) {
             if (!config.getBoolean("Addons.Vanish.Fake-Messages.Enabled"))

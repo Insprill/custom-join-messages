@@ -137,11 +137,9 @@ class WorldChangeEventTest {
     fun onTeleport_DifferentWorld_SecondVisit_SendsJoinMessage() {
         val event = PlayerTeleportEvent(player, loc(world), loc(world2))
         event.callEvent()
+        server.scheduler.performTicks(10)
         val event2 = PlayerTeleportEvent(player, loc(world2), loc(world))
         event2.callEvent()
-        server.scheduler.performTicks(10)
-        val event3 = PlayerTeleportEvent(player, loc(world), loc(world2))
-        event3.callEvent()
         messageTypeMock.clearResults()
 
         server.scheduler.performTicks(10)

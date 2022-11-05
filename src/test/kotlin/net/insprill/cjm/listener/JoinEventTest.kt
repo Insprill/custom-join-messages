@@ -64,6 +64,13 @@ class JoinEventTest {
     }
 
     @Test
+    fun onPlayerJoin_MarksWorldAsJoined() {
+        val player = server.addPlayer()
+
+        assertTrue(plugin.worldChangeEvent.saveVisitedWorld(player, player.world))
+    }
+
+    @Test
     fun onPlayerJoin_ClearsDefaultMessage() {
         server.addPlayer()
 
