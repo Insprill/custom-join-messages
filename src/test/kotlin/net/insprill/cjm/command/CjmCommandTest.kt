@@ -6,12 +6,12 @@ import be.seeseemelk.mockbukkit.entity.PlayerMock
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.MessageAction
 import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Assertions.fail
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 class CjmCommandTest {
@@ -33,6 +33,26 @@ class CjmCommandTest {
     @AfterEach
     fun teardown() {
         MockBukkit.unmock()
+    }
+
+    @Test
+    fun updateLocale_ValidLocale() {
+        plugin.config.set("language", "fr")
+        val command = plugin.commandManager.getRootCommand("cjm").defCommand as CjmCommand
+
+        command.updateLocale()
+
+        assertEquals("fr", plugin.commandManager.locales.defaultLocale.language)
+    }
+
+    @Test
+    fun updateLocale_InvalidLocale_Resets() {
+        plugin.config.set("language", "french-toast")
+        val command = plugin.commandManager.getRootCommand("cjm").defCommand as CjmCommand
+
+        command.updateLocale()
+
+        assertEquals("en", plugin.commandManager.locales.defaultLocale.language)
     }
 
     @Test
