@@ -130,13 +130,13 @@ java {
 fun getFullVersion(): String {
     val version = project.property("version")!! as String
     return if (version.contains("-SNAPSHOT")) {
-        "$version+rev.${getGitHash()}"
+        "$version+rev.${getGitRevision()}"
     } else {
         version
     }
 }
 
-fun getGitHash(): String {
+fun getGitRevision(): String {
     val stdout = ByteArrayOutputStream()
     exec {
         commandLine("git", "rev-parse", "--verify", "--short", "HEAD")
