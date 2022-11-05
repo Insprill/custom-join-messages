@@ -53,7 +53,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Custom Join Messages started off as the name suggests, but has since evolved into something far larger.
+Custom Join Messages is a feature-packed plugin for handling all join and quit notifications.
 
 ### Features
 
@@ -79,6 +79,7 @@ Custom Join Messages started off as the name suggests, but has since evolved int
 
 * Advanced Formatting
     * All messages support HEX colours and gradients
+    * All messages support [PlaceholderAPI](https://www.spigotmc.org/resources/6245/) placeholders
     * Chat messages can perform actions when clicked
     * Chat messages can show text when hovered over
     * Formatting is done with an intuitive Markdown-like syntax
