@@ -11,7 +11,6 @@
 
 
 <!-- PROJECT LOGO -->
-<br />
 <div align="center">
   <h1>Custom Join Messages</h1>
   <p>
