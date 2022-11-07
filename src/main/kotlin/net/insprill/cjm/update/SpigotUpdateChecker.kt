@@ -1,11 +1,11 @@
 package net.insprill.cjm.update
 
 import com.google.gson.JsonParser
+import net.insprill.cjm.CustomJoinMessages
 import java.net.HttpURLConnection
 import java.net.URL
 import java.nio.charset.StandardCharsets
 import java.util.Properties
-import net.insprill.cjm.CustomJoinMessages
 
 class SpigotUpdateChecker(metadata: Properties, private val plugin: CustomJoinMessages) : UpdateChecker(plugin) {
 

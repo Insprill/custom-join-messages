@@ -23,8 +23,6 @@ import net.insprill.cjm.message.types.ChatMessage
 import net.insprill.cjm.message.types.SoundMessage
 import net.insprill.cjm.message.types.TitleMessage
 import net.insprill.cjm.toggle.ToggleHandler
-import net.insprill.cjm.update.ModrinthUpdateChecker
-import net.insprill.cjm.update.SpigotUpdateChecker
 import net.insprill.cjm.update.UpdateChecker
 import net.insprill.spigotutils.MinecraftVersion
 import net.insprill.spigotutils.ServerEnvironment
@@ -68,10 +66,10 @@ class CustomJoinMessages : JavaPlugin {
             .createYaml()
         config.addDefaultsFromInputStream()
 
-        val buildProps = Properties().apply { load(getResource("cjm.metadata")) }
+        val metadata = Properties().apply { load(getResource("cjm.metadata")) }
 
         if (!ServerEnvironment.isMockBukkit()) {
-            metrics = Metrics(this, buildProps.getProperty("bstats.id").toInt())
+            metrics = Metrics(this, metadata.getProperty("bstats.id").toInt())
             metrics.addCustomChart(SimplePie("worldBasedMessages") {
                 config.getBoolean("World-Based-Messages.Enabled").toString()
             })
@@ -103,11 +101,8 @@ class CustomJoinMessages : JavaPlugin {
 
         registerCommands()
 
-        updateChecker = if (buildProps["build.target-platform"] == "spigot") {
-            SpigotUpdateChecker(buildProps, this)
-        } else {
-            ModrinthUpdateChecker(buildProps, this)
-        }
+        val platform = UpdateChecker.Platform.valueOf((metadata["build.target-platform"] as String).uppercase())
+        updateChecker = platform.factory.invoke(metadata, this)
         checkForUpdates()
     }
 
