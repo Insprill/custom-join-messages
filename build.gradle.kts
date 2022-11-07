@@ -131,24 +131,6 @@ java {
     }
 }
 
-fun getFullVersion(): String {
-    val version = property("version")!! as String
-    return if (version.contains("-SNAPSHOT")) {
-        "$version+rev.${getGitRevision()}"
-    } else {
-        version
-    }
-}
-
-fun getGitRevision(): String {
-    val stdout = ByteArrayOutputStream()
-    exec {
-        commandLine("git", "rev-parse", "--verify", "--short", "HEAD")
-        standardOutput = stdout
-    }
-    return stdout.toString().trim()
-}
-
 modrinth {
     changelog.set(readChangelog(project.version as String))
     token.set(findProperty("modrinthToken") as String?)
@@ -156,6 +138,7 @@ modrinth {
     versionType.set("release")
     uploadFile.set(tasks.shadowJar.get())
     loaders.addAll("spigot", "paper")
+    syncBodyFrom.set(file("README.md").readText())
     gameVersions.addAll(
         "1.9.0",
         "1.9.1",
@@ -196,7 +179,26 @@ modrinth {
         "1.19.0",
         "1.19.1",
         "1.19.2",
+        "1.19.3",
     )
+}
+
+fun getFullVersion(): String {
+    val version = property("version")!! as String
+    return if (version.contains("-SNAPSHOT")) {
+        "$version+rev.${getGitRevision()}"
+    } else {
+        version
+    }
+}
+
+fun getGitRevision(): String {
+    val stdout = ByteArrayOutputStream()
+    exec {
+        commandLine("git", "rev-parse", "--verify", "--short", "HEAD")
+        standardOutput = stdout
+    }
+    return stdout.toString().trim()
 }
 
 fun readChangelog(version: String): String {
