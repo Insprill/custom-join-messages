@@ -2,6 +2,8 @@ package net.insprill.cjm.listener
 
 import co.aikar.locales.MessageKey
 import de.themoep.minedown.MineDown
+import java.text.SimpleDateFormat
+import java.util.Date
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.MessageAction
 import net.insprill.cjm.update.UpdateChecker
@@ -9,8 +11,6 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
-import java.text.SimpleDateFormat
-import java.util.Date
 
 class JoinEvent(private val plugin: CustomJoinMessages) : Listener {
 
@@ -28,19 +28,18 @@ class JoinEvent(private val plugin: CustomJoinMessages) : Listener {
             return
         if (!plugin.updateChecker.isEnabled(UpdateChecker.NotificationType.IN_GAME))
             return
-        plugin.updateChecker.getVersion {
-            if (!it.isNewer(plugin))
-                return@getVersion
-
+        plugin.updateChecker.checkForUpdates { data, platform ->
             val text = plugin.commandManager.locales.getMessage(null, MessageKey.of("cjm.update-checker.in-game.text"))
-                .format(it.name)
-            val hover = plugin.commandManager.locales.getMessage(null, MessageKey.of("cjm.update-checker.in-game.hover"))
-                .format(
-                    it.name,
-                    SimpleDateFormat(plugin.config.getString("Update-Checker.Date-Format")).format(Date(it.releaseDate * 1000L)),
-                    it.downloads,
-                    it.rating.average
-                )
+                .format(data.version)
+
+            val date = SimpleDateFormat(plugin.config.getString("Update-Checker.Date-Format")).format(Date(data.releaseDateSeconds * 1000L))
+            val hover = if (platform == UpdateChecker.Platform.SPIGOT) {
+                plugin.commandManager.locales.getMessage(null, MessageKey.of("cjm.update-checker.in-game.hover.spigot"))
+                    .format(data.version, date, data.downloads, data.rating?.average)
+            } else {
+                plugin.commandManager.locales.getMessage(null, MessageKey.of("cjm.update-checker.in-game.hover.modrinth"))
+                    .format(data.version, date, data.downloads)
+            }
 
             e.player.spigot().sendMessage(
                 *MineDown.parse(

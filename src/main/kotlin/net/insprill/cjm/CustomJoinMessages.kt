@@ -23,6 +23,8 @@ import net.insprill.cjm.message.types.ChatMessage
 import net.insprill.cjm.message.types.SoundMessage
 import net.insprill.cjm.message.types.TitleMessage
 import net.insprill.cjm.toggle.ToggleHandler
+import net.insprill.cjm.update.ModrinthUpdateChecker
+import net.insprill.cjm.update.SpigotUpdateChecker
 import net.insprill.cjm.update.UpdateChecker
 import net.insprill.spigotutils.MinecraftVersion
 import net.insprill.spigotutils.ServerEnvironment
@@ -101,7 +103,11 @@ class CustomJoinMessages : JavaPlugin {
 
         registerCommands()
 
-        updateChecker = UpdateChecker(buildProps.getProperty("spigot.resource.id").toInt(), this)
+        updateChecker = if (buildProps["build.target-platform"] == "spigot") {
+            SpigotUpdateChecker(buildProps, this)
+        } else {
+            ModrinthUpdateChecker(buildProps, this)
+        }
         checkForUpdates()
     }
 
@@ -196,12 +202,10 @@ class CustomJoinMessages : JavaPlugin {
         if (!updateChecker.isEnabled(UpdateChecker.NotificationType.CONSOLE))
             return
 
-        updateChecker.getVersion {
-            if (!it.isNewer(this))
-                return@getVersion
+        updateChecker.checkForUpdates { data, _ ->
             commandManager.getMessage(
                 "cjm.update-checker.console.text",
-                "%version%", it.name, "%url%", updateChecker.getResourceUrl()
+                "%version%", data.version, "%url%", updateChecker.getResourceUrl()
             ).split("\n").forEach { msg -> logger.warning(msg) }
         }
     }

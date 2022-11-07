@@ -89,6 +89,7 @@ tasks {
                 p["bstats.id"] = project.property("bstats.id")
                 p["spigot.resource.id"] = project.property("spigot.resource.id")
                 p["modrinth.project.id"] = project.property("modrinth.project.id")
+                p["platform"] = project.property("build.target-platform")
                 p.store(it, null)
             }
         }
