@@ -22,7 +22,14 @@ class EnumUtilsTest {
 
     @Test
     fun tryGetEnum_Invalid_ReturnsNull() {
-        val result = EnumUtils.tryGetEnum(null, "enum_value_two", TestEnum::class)
+        val result = EnumUtils.tryGetEnum(null, "ENUM_VALUE_TWO", TestEnum::class)
+
+        assertNull(result)
+    }
+
+    @Test
+    fun tryGetEnum_Null_ReturnsNull() {
+        val result = EnumUtils.tryGetEnum(null, null, TestEnum::class)
 
         assertNull(result)
     }
