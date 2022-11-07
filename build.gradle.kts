@@ -135,7 +135,7 @@ modrinth {
     changelog.set(readChangelog(project.version as String))
     token.set(findProperty("modrinthToken") as String?)
     projectId.set(property("modrinth.project.id") as String)
-    versionType.set("release")
+    versionType.set(getModrinthVersionType())
     uploadFile.set(tasks.shadowJar.get())
     loaders.addAll("spigot", "paper")
     syncBodyFrom.set(file("README.md").readText())
@@ -199,6 +199,17 @@ fun getGitRevision(): String {
         standardOutput = stdout
     }
     return stdout.toString().trim()
+}
+
+fun getModrinthVersionType(): String {
+    val ver = (version as String).toLowerCase()
+    return if (ver.contains("snapshot")) {
+        "alpha"
+    } else if (ver.contains("rc.")) {
+        "beta"
+    } else {
+        "release"
+    }
 }
 
 fun readChangelog(version: String): String {
