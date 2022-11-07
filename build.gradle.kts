@@ -6,6 +6,7 @@ import java.util.Properties
 
 plugins {
     kotlin("jvm") version "1.7.20"
+    id("com.modrinth.minotaur") version "2.4.5"
     id("com.github.johnrengelman.shadow") version "7.1.2"
     id("com.rikonardo.papermake") version "1.0.4"
 }
@@ -84,9 +85,10 @@ tasks {
         doLast {
             File("$buildDir/resources/main/cjm.metadata").bufferedWriter().use {
                 val p = Properties()
-                p["version"] = project.version
+                p["version"] = version
                 p["bstats.id"] = project.property("bstats.id")
                 p["spigot.resource.id"] = project.property("spigot.resource.id")
+                p["modrinth.project.id"] = project.property("modrinth.project.id")
                 p.store(it, null)
             }
         }
@@ -129,7 +131,7 @@ java {
 }
 
 fun getFullVersion(): String {
-    val version = project.property("version")!! as String
+    val version = property("version")!! as String
     return if (version.contains("-SNAPSHOT")) {
         "$version+rev.${getGitRevision()}"
     } else {
@@ -144,4 +146,72 @@ fun getGitRevision(): String {
         standardOutput = stdout
     }
     return stdout.toString().trim()
+}
+
+modrinth {
+    changelog.set(readChangelog(project.version as String))
+    token.set(property("modrinthToken") as String)
+    projectId.set(property("modrinth.project.id") as String)
+    versionType.set("release")
+    uploadFile.set(tasks.shadowJar.get())
+    loaders.addAll("spigot", "paper")
+    gameVersions.addAll(
+        "1.9.0",
+        "1.9.1",
+        "1.9.2",
+        "1.9.3",
+        "1.9.4",
+        "1.10.0",
+        "1.10.1",
+        "1.10.2",
+        "1.11.0",
+        "1.11.1",
+        "1.11.2",
+        "1.12.0",
+        "1.12.1",
+        "1.12.2",
+        "1.13.0",
+        "1.13.1",
+        "1.13.2",
+        "1.14.0",
+        "1.14.1",
+        "1.14.2",
+        "1.14.3",
+        "1.14.4",
+        "1.15.0",
+        "1.15.1",
+        "1.15.2",
+        "1.16.0",
+        "1.16.1",
+        "1.16.2",
+        "1.16.3",
+        "1.16.4",
+        "1.16.5",
+        "1.17.0",
+        "1.17.1",
+        "1.18.0",
+        "1.18.1",
+        "1.18.2",
+        "1.19.0",
+        "1.19.1",
+        "1.19.2",
+    )
+}
+
+fun readChangelog(version: String): String {
+    val lines = file("CHANGELOG.txt").readLines()
+    val out = StringBuilder()
+    var inVersion = false
+    for (line in lines) {
+        if (line.endsWith("$version:")) {
+            inVersion = true
+            continue
+        }
+        if (line.isBlank())
+            break
+        if (inVersion) {
+            out.append(line).append("\n")
+        }
+    }
+    return out.toString()
 }
