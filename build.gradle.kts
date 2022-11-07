@@ -151,7 +151,7 @@ fun getGitRevision(): String {
 
 modrinth {
     changelog.set(readChangelog(project.version as String))
-    token.set(property("modrinthToken") as String)
+    token.set(findProperty("modrinthToken") as String?)
     projectId.set(property("modrinth.project.id") as String)
     versionType.set("release")
     uploadFile.set(tasks.shadowJar.get())
