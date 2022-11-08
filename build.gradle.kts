@@ -5,7 +5,7 @@ import java.net.URL
 import java.util.Properties
 
 plugins {
-    kotlin("jvm") version "1.7.20"
+    kotlin("jvm") version "1.7.21"
     id("com.modrinth.minotaur") version "2.4.5"
     id("com.github.johnrengelman.shadow") version "7.1.2"
     id("com.rikonardo.papermake") version "1.0.4"
