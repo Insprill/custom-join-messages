@@ -5,7 +5,6 @@ import net.insprill.spigotutils.ServerEnvironment
 import net.swiftzer.semver.SemVer
 import org.bukkit.Bukkit
 import org.bukkit.plugin.Plugin
-import java.util.Properties
 
 abstract class UpdateChecker(private val plugin: CustomJoinMessages) {
 
@@ -45,9 +44,9 @@ abstract class UpdateChecker(private val plugin: CustomJoinMessages) {
         CONSOLE("Update-Checker.Notifications.Console")
     }
 
-    enum class Platform(val factory: (Properties, CustomJoinMessages) -> UpdateChecker) {
-        SPIGOT({ metadata, plugin -> SpigotUpdateChecker(metadata, plugin) }),
-        MODRINTH({ metadata, plugin -> ModrinthUpdateChecker(metadata, plugin) }),
+    enum class Platform(val factory: (CustomJoinMessages) -> UpdateChecker) {
+        SPIGOT({ SpigotUpdateChecker(it) }),
+        MODRINTH({ ModrinthUpdateChecker(it) }),
     }
 
 }

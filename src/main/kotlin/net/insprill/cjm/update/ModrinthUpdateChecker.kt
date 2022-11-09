@@ -1,28 +1,26 @@
 package net.insprill.cjm.update
 
 import com.google.gson.JsonParser
-import net.insprill.cjm.CustomJoinMessages
 import java.net.HttpURLConnection
 import java.net.URL
 import java.nio.charset.StandardCharsets
 import java.time.LocalDateTime
 import java.time.ZoneOffset
-import java.util.Properties
+import net.insprill.cjm.CustomJoinMessages
+import net.insprill.cjm.modrinthProjectId
 
-class ModrinthUpdateChecker(metadata: Properties, private val plugin: CustomJoinMessages) : UpdateChecker(plugin) {
-
-    private val projectId = metadata["modrinth.project.id"] as String
+class ModrinthUpdateChecker(private val plugin: CustomJoinMessages) : UpdateChecker(plugin) {
 
     override fun getPlatform(): Platform {
         return Platform.MODRINTH
     }
 
     override fun getResourceUrl(): String {
-        return RESOURCE_URL.format(projectId)
+        return RESOURCE_URL.format(modrinthProjectId)
     }
 
     override fun getLatestVersion(): VersionData {
-        val conn = URL(REQUEST_URL.format(projectId)).openConnection() as HttpURLConnection
+        val conn = URL(REQUEST_URL.format(modrinthProjectId)).openConnection() as HttpURLConnection
         conn.addRequestProperty("User-Agent", plugin.name + "UpdateChecker")
         val body = String(conn.inputStream.readAllBytes(), StandardCharsets.UTF_8)
         return parseVersion(body)

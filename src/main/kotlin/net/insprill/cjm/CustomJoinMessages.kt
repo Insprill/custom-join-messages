@@ -37,7 +37,6 @@ import org.bukkit.plugin.java.JavaPluginLoader
 import java.io.File
 import java.nio.file.Path
 import java.util.Collections
-import java.util.Properties
 import kotlin.io.path.exists
 
 class CustomJoinMessages : JavaPlugin {
@@ -66,10 +65,8 @@ class CustomJoinMessages : JavaPlugin {
             .createYaml()
         config.addDefaultsFromInputStream()
 
-        val metadata = Properties().apply { load(getResource("cjm.metadata")) }
-
         if (!ServerEnvironment.isMockBukkit()) {
-            metrics = Metrics(this, metadata.getProperty("bstats.id").toInt())
+            metrics = Metrics(this, bStatsId.toInt())
             metrics.addCustomChart(SimplePie("worldBasedMessages") {
                 config.getBoolean("World-Based-Messages.Enabled").toString()
             })
@@ -101,8 +98,8 @@ class CustomJoinMessages : JavaPlugin {
 
         registerCommands()
 
-        val platform = UpdateChecker.Platform.valueOf((metadata["build.target-platform"] as String).uppercase())
-        updateChecker = platform.factory.invoke(metadata, this)
+        val platform = UpdateChecker.Platform.valueOf(targetPlatform.uppercase())
+        updateChecker = platform.factory.invoke(this)
         checkForUpdates()
     }
 

@@ -2,14 +2,14 @@ package net.insprill.cjm.update
 
 import com.google.gson.JsonParser
 import net.insprill.cjm.CustomJoinMessages
+import net.insprill.cjm.spigotResourceId
 import java.net.HttpURLConnection
 import java.net.URL
 import java.nio.charset.StandardCharsets
-import java.util.Properties
 
-class SpigotUpdateChecker(metadata: Properties, private val plugin: CustomJoinMessages) : UpdateChecker(plugin) {
+class SpigotUpdateChecker(private val plugin: CustomJoinMessages) : UpdateChecker(plugin) {
 
-    private val projectId = metadata["spigot.resource.id"] as String
+    private val projectId = spigotResourceId
 
     override fun getPlatform(): Platform {
         return Platform.SPIGOT

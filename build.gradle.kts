@@ -2,10 +2,10 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocatio
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.io.ByteArrayOutputStream
 import java.net.URL
-import java.util.Properties
 
 plugins {
     kotlin("jvm") version "1.7.21"
+    id("net.kyori.blossom") version "1.3.1"
     id("com.modrinth.minotaur") version "2.4.5"
     id("com.github.johnrengelman.shadow") version "7.1.2"
     id("com.rikonardo.papermake") version "1.0.4"
@@ -82,17 +82,6 @@ tasks {
         filesMatching("plugin.yml") {
             expand("version" to version)
         }
-        doLast {
-            File("$buildDir/resources/main/cjm.metadata").bufferedWriter().use {
-                val p = Properties()
-                p["version"] = version
-                p["bstats.id"] = project.property("bstats.id")
-                p["spigot.resource.id"] = project.property("spigot.resource.id")
-                p["modrinth.project.id"] = project.property("modrinth.project.id")
-                p["build.target-platform"] = project.property("build.target-platform")
-                p.store(it, null)
-            }
-        }
     }
 
     val extraDeps = register("downloadExtraDependencies") {
@@ -129,6 +118,18 @@ java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(17))
     }
+}
+
+blossom {
+    val metadata = "src/main/kotlin/net/insprill/cjm/Metadata.kt"
+    fun repl(token: String, value: Any?) {
+        replaceToken("\"{$token}\"", "\"$value\"", metadata)
+    }
+    repl("version", version)
+    repl("bstats.id", project.property("bstats.id"))
+    repl("spigot.resource.id", project.property("spigot.resource.id"))
+    repl("modrinth.project.id", project.property("modrinth.project.id"))
+    repl("build.target-platform", project.property("build.target-platform"))
 }
 
 modrinth {
