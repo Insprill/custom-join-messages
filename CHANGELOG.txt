@@ -1,6 +1,6 @@
 CJM 17.0.0:
 - Reformatted configuration files. Your old config will be renamed and a new one will be generated.
-- Added support for formatting messages with MineDown. It may be different from what you're used to, so please check out the wiki.
+- Added support for formatting messages with MineDown. It may differ from what you're used to, so please check out the wiki.
 - Added support for world-based messages.
 - Added bossbar messages.
 - Added sound "messages".
@@ -11,6 +11,7 @@ CJM 17.0.0:
 - Added 'Max-Players' config option.
 - Fixed HEX colour codes not working on 1.17-1.19.x.
 - Removed support for 1.8.x servers.
+- Removed support for syncing toggle status via MySQL.
 - Removed the "cjm debug" command.
 - Removed the "cjm joindate" command.
 - Removed the "cjm reload" command.
