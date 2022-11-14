@@ -139,7 +139,7 @@ modrinth {
     versionType.set(getModrinthVersionType())
     uploadFile.set(tasks.shadowJar.get())
     loaders.addAll("spigot", "paper")
-    syncBodyFrom.set(file("README.md").readText())
+    syncBodyFrom.set(file("modrinth_page.md").readText())
     gameVersions.addAll(
         "1.9.0",
         "1.9.1",
