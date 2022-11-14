@@ -96,9 +96,10 @@ Custom Join Messages is a feature-packed plugin for handling all join and quit n
 <!-- DOWNLOAD -->
 ## Download
 ### Releases
-Releases of CJM can be downloaded from SpigotMC [here][spigot-url].
+Releases of CJM can be downloaded from [Modrinth][modrinth-url] (recommended) or [SpigotMC][spigot-url].
 
 ### Snapshots
+Like living on the edge?
 Builds from the latest commit can be downloaded via GitHub Actions [here](https://nightly.link/Insprill/custom-join-messages/workflows/gradle/master).
 
 
@@ -132,15 +133,6 @@ If you're new to contributing to open-source projects, you can follow [this](htt
 
 
 
-<!-- LICENSE -->
-## License
-
-Distributed under the GNU General Public License v3.0.  
-See [LICENSE][license-url] for more information.
-
-
-
-
 <!-- Statistics -->
 ## Statistics
 
@@ -151,13 +143,21 @@ an open-source service that collects anonymous data for Minecraft software. You 
 
 
 
+<!-- LICENSE -->
+## License
+
+Distributed under the GNU General Public License v3.0.  
+See [LICENSE][license-url] for more information.
+
+
+
+
 <!-- SUPPORT -->
 ## Support
 
 For support, please join my [Discord Server][discord-url].  
 Once you join, you can ask your question in the `#community-support` channel.  
-Note that this is all done in my free time and support is *not* guaranteed.  
-**Do not ask questions via the issue tracker.**
+**Please note that support is done purely in my free time and is *not* guaranteed.**
 
 
 
@@ -168,6 +168,7 @@ Note that this is all done in my free time and support is *not* guaranteed.
 [bstats-servers-url]: https://bstats.org/plugin/bukkit/Custom%20Join%20Messages/6346
 [spigot-rating-shield]: https://img.shields.io/spiget/rating/71608.svg?style=for-the-badge
 [spigot-url]: https://www.spigotmc.org/resources/71608
+[modrinth-url]: https://modrinth.com/plugin/custom-join-messages
 [contributors-shield]: https://img.shields.io/github/contributors/Insprill/Custom-Join-Messages.svg?style=for-the-badge
 [contributors-url]: https://github.com/Insprill/Custom-Join-Messages/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/Insprill/Custom-Join-Messages.svg?style=for-the-badge
