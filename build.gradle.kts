@@ -2,6 +2,7 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocatio
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.io.ByteArrayOutputStream
 import java.net.URL
+import java.util.concurrent.Executors
 
 plugins {
     kotlin("jvm") version "1.7.21"
@@ -87,14 +88,19 @@ tasks {
     val extraDeps = register("downloadExtraDependencies") {
         val libsDir = File("libs")
         libsDir.mkdirs()
+        val ex = Executors.newCachedThreadPool()
         for (entry in extraDependencies) {
             val file = File(libsDir, entry.key)
             if (file.exists())
                 continue
-            println("Downloading ${entry.key} from ${entry.value}")
-            URL(entry.value).openStream().use { s -> file.outputStream().use { it.write(s.readBytes()) } }
-            println("Successfully downloaded ${entry.key} to ${file.path}")
+            ex.submit {
+                println("Downloading ${entry.key} from ${entry.value}")
+                URL(entry.value).openStream().use { s -> file.outputStream().use { it.write(s.readBytes()) } }
+                println("Successfully downloaded ${entry.key} to ${file.path}")
+            }
         }
+        ex.shutdown()
+        ex.awaitTermination(10, TimeUnit.SECONDS)
     }
 
     build {
