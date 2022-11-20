@@ -1,4 +1,4 @@
-[![bStats Servers][bstats-servers-shield]][bstats-servers-url]
+[![bStats Servers][bstats-servers-shield]][bstats-url]
 [![Rating][spigot-rating-shield]][spigot-url]
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
@@ -136,9 +136,10 @@ If you're new to contributing to open-source projects, you can follow [this](htt
 <!-- Statistics -->
 ## Statistics
 
-Statistics are collected through [bStats](https://bstats.org/plugin/bukkit/Custom%20Join%20Messages/6346),
+Statistics are collected through [bStats][bstats-url],
 an open-source service that collects anonymous data for Minecraft software. You can opt out in `plugins/bStats/config.yml`.
-![Statistics](https://bstats.org/signatures/bukkit/Custom%20Join%20Messages.svg)
+
+[![Statistics](https://bstats.org/signatures/bukkit/Custom%20Join%20Messages.svg)][bstats-url]
 
 
 
@@ -164,8 +165,9 @@ Once you join, you can ask your question in the `#community-support` channel.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[bstats-servers-svg]: https://bstats.org/signatures/bukkit/Custom%20Join%20Messages.svg
 [bstats-servers-shield]: https://img.shields.io/bstats/servers/6346.svg?style=for-the-badge
-[bstats-servers-url]: https://bstats.org/plugin/bukkit/Custom%20Join%20Messages/6346
+[bstats-url]: https://bstats.org/plugin/bukkit/Custom%20Join%20Messages/6346
 [spigot-rating-shield]: https://img.shields.io/spiget/rating/71608.svg?style=for-the-badge
 [spigot-url]: https://www.spigotmc.org/resources/71608
 [modrinth-url]: https://modrinth.com/plugin/custom-join-messages

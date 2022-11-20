@@ -68,9 +68,10 @@ For usage instructions, check out the [wiki](https://cjm.insprill.net/).
 <!-- Statistics -->
 ## Statistics
 
-Statistics are collected through [bStats](https://bstats.org/plugin/bukkit/Custom%20Join%20Messages/6346),
+Statistics are collected through [bStats][bstats-url],
 an open-source service that collects anonymous data for Minecraft software. You can opt out in `plugins/bStats/config.yml`.
-![Statistics](https://bstats.org/signatures/bukkit/Custom%20Join%20Messages.svg)
+
+[![Statistics](https://bstats.org/signatures/bukkit/Custom%20Join%20Messages.svg)][bstats-url]
 
 
 
@@ -96,6 +97,8 @@ Once you join, you can ask your question in the `#community-support` channel.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[bstats-servers-svg]: https://bstats.org/signatures/bukkit/Custom%20Join%20Messages.svg
+[bstats-url]: https://bstats.org/plugin/bukkit/Custom%20Join%20Messages/6346
 [license-url]: https://github.com/Insprill/Custom-Join-Messages/blob/master/LICENSE
 [discord-shield]: https://img.shields.io/discord/626995215558901771?color=%235663F7&label=Discord&style=for-the-badge
 [discord-url]: https://discord.gg/SH7VyYtuC2
