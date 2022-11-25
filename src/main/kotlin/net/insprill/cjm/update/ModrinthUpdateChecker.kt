@@ -1,13 +1,13 @@
 package net.insprill.cjm.update
 
 import com.google.gson.JsonParser
+import net.insprill.cjm.CustomJoinMessages
+import net.insprill.cjm.modrinthProjectId
 import java.net.HttpURLConnection
 import java.net.URL
 import java.nio.charset.StandardCharsets
-import java.time.LocalDateTime
+import java.time.Instant
 import java.time.ZoneOffset
-import net.insprill.cjm.CustomJoinMessages
-import net.insprill.cjm.modrinthProjectId
 
 class ModrinthUpdateChecker(private val plugin: CustomJoinMessages) : UpdateChecker(plugin) {
 
@@ -30,7 +30,7 @@ class ModrinthUpdateChecker(private val plugin: CustomJoinMessages) : UpdateChec
         val obj = JsonParser.parseString(json).asJsonArray[0].asJsonObject
         val versionNumber = obj.get("version_number").asString
         val downloads = obj.get("downloads").asInt
-        val datePublished = LocalDateTime.parse(obj.get("date_published").asString).toEpochSecond(ZoneOffset.UTC)
+        val datePublished = Instant.parse(obj.get("date_published").asString).atZone(ZoneOffset.UTC).toEpochSecond()
         return VersionData(versionNumber, downloads, null, datePublished)
     }
 
