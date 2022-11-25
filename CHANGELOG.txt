@@ -1,3 +1,6 @@
+CJM 17.x.x:
+- Fixed the Modrinth update checker not parsing responses correctly.
+
 CJM 17.0.0:
 - Reformatted configuration files. Your old config will be renamed and a new one will be generated.
 - Added support for formatting messages with MineDown. It may differ from what you're used to, so please check out the wiki.
