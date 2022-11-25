@@ -27,7 +27,7 @@ class ModrinthUpdateChecker(private val plugin: CustomJoinMessages) : UpdateChec
     }
 
     private fun parseVersion(json: String): VersionData {
-        val obj = JsonParser.parseString(json).asJsonObject
+        val obj = JsonParser.parseString(json).asJsonArray[0].asJsonObject
         val versionNumber = obj.get("version_number").asString
         val downloads = obj.get("downloads").asInt
         val datePublished = LocalDateTime.parse(obj.get("date_published").asString).toEpochSecond(ZoneOffset.UTC)
