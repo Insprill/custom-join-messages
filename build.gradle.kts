@@ -5,7 +5,7 @@ import java.net.URL
 import java.util.concurrent.Executors
 
 plugins {
-    kotlin("jvm") version "1.7.21"
+    kotlin("jvm") version "1.7.22"
     id("net.kyori.blossom") version "1.3.1"
     id("com.modrinth.minotaur") version "2.4.5"
     id("com.github.johnrengelman.shadow") version "7.1.2"
