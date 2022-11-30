@@ -1,20 +1,17 @@
 {
-    "extends": [
-        "config:base"
-    ],
-    "baseBranches": [
-        "develop"
-    ],
-    "packageRules": [
-        {
-            "matchUpdateTypes": [
-                "minor",
-                "patch"
-            ],
-            "matchCurrentVersion": "!/^0/",
-            "automerge": true
-        }
-    ],
-    "automergeType": "branch",
-    "dependencyDashboard": false
+  "extends": [
+    "config:base",
+    "schedule:monthly"
+  ],
+  "packageRules": [
+    {
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "automerge": true
+    }
+  ],
+  "automergeType": "branch",
+  "dependencyDashboard": false
 }
