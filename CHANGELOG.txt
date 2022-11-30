@@ -1,4 +1,4 @@
-CJM 17.x.x:
+CJM 17.0.1:
 - Fixed the Modrinth update checker not parsing responses correctly.
 
 CJM 17.0.0:
