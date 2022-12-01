@@ -9,7 +9,7 @@ import net.md_5.bungee.api.chat.BaseComponent
 import org.bukkit.entity.Player
 import kotlin.math.abs
 
-class ChatMessage(private val plugin: CustomJoinMessages) : MessageType(plugin, "chat", "Messages") {
+class ChatMessage(plugin: CustomJoinMessages) : MessageType(plugin, "chat", "Messages") {
 
     companion object {
         private const val CENTER_PREFIX = "center:"
@@ -18,7 +18,6 @@ class ChatMessage(private val plugin: CustomJoinMessages) : MessageType(plugin, 
     override fun handle(primaryPlayer: Player, recipients: List<Player>, chosenPath: String, visibility: MessageVisibility) {
         val messages = formatMessages(primaryPlayer, config.getStringList(chosenPath).filterNot { it.isNullOrBlank() })
         for (message in messages) {
-            plugin.server.spigot().broadcast(*message)
             for (player in recipients) {
                 player.spigot().sendMessage(ChatMessageType.CHAT, *message)
             }
