@@ -95,6 +95,35 @@ class ChatMessageTest {
     }
 
     @Test
+    fun handle_PublicMessage_SendsToConsole() {
+        chat.config.set("key", listOf("Hello!"))
+
+        chat.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
+
+        server.consoleSender.assertSaid("Hello!")
+        server.consoleSender.assertNoMoreSaid()
+    }
+
+    @Test
+    fun handle_PrivateMessage_DoesntSendToConsole() {
+        chat.config.set("key", listOf("Hello!"))
+
+        chat.handle(player, listOf(player), "key", MessageVisibility.PRIVATE)
+
+        server.consoleSender.assertNoMoreSaid()
+    }
+
+    @Test
+    fun handle_PublicMessage_ConsoleDisabled_DoesntSendToConsole() {
+        chat.config.set("key", listOf("Hello!"))
+        chat.config.set("Public.Send-To-Console", false)
+
+        chat.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
+
+        server.consoleSender.assertNoMoreSaid()
+    }
+
+    @Test
     fun handle_FillsPlaceholders() {
         chat.config.set("key", listOf("Hello %name%!"))
 

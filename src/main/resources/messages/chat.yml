@@ -2,6 +2,8 @@
 Enabled: true
 
 Public:
+  # Whether public chat messages should be sent to the server's console.
+  Send-To-Console: true
   First-Join:
     1:
       Permission: cjm.default
