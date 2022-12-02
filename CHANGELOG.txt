@@ -1,3 +1,6 @@
+CJM 17.x.x:
+- Added an option to send public chat messages to console.
+
 CJM 17.0.1:
 - Fixed the Modrinth update checker not parsing responses correctly.
 
