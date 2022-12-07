@@ -37,7 +37,7 @@ dependencies {
     compileOnly("net.essentialsx:EssentialsX:2.19.7")
 
     // Internal
-    compileOnly("org.spigotmc:spigot-api:1.19.2-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc:spigot-api:1.19.3-R0.1-SNAPSHOT")
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
     implementation("com.github.simplix-softworks:simplixstorage:3.2.5")
     implementation("de.themoep:minedown:1.7.1-SNAPSHOT")
@@ -186,6 +186,7 @@ modrinth {
         "1.19",
         "1.19.1",
         "1.19.2",
+        "1.19.3",
     )
 }
 
