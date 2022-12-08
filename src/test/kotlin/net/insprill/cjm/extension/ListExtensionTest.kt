@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-class ListExtension {
+class ListExtensionTest {
 
     private lateinit var server: ServerMock
     private lateinit var player: PlayerMock

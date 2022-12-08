@@ -12,7 +12,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
-class StringExtension {
+class StringExtensionTest {
 
     private lateinit var server: ServerMock
     private lateinit var player: PlayerMock
@@ -70,7 +70,7 @@ class StringExtension {
         }
 
         override fun onRequest(player: OfflinePlayer?, params: String): String? {
-            if (params.equals("placeholder_mock")) {
+            if (params == "placeholder_mock") {
                 return "mimus polyglottos"
             }
             return null
