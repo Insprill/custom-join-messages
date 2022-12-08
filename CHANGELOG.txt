@@ -1,5 +1,7 @@
-CJM 17.x.x:
+CJM 17.1.0:
+- Added support for 1.19.3 (no changes required, already compatible).
 - Added an option to send public chat messages to console.
+- Fixed VelocityVanish not being a soft-dependency.
 
 CJM 17.0.1:
 - Fixed the Modrinth update checker not parsing responses correctly.
