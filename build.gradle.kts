@@ -74,6 +74,7 @@ tasks {
     shadowJar {
         dependsOn(reloc)
         archiveClassifier.set("")
+        exclude("META-INF/**")
         from("LICENSE")
         minimize()
     }
