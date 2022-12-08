@@ -8,9 +8,8 @@ import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
-import org.bukkit.event.Listener
 
-class SuperVanishVanishHook(override val plugin: CustomJoinMessages) : VanishHook, Listener {
+class SuperVanishVanishHook(override val plugin: CustomJoinMessages) : VanishHook {
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     fun onVanishToggle(e: PlayerVanishStateChangeEvent) {

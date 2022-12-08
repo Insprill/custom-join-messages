@@ -3,8 +3,9 @@ package net.insprill.cjm.compatibility.hook
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.MessageAction
 import org.bukkit.entity.Player
+import org.bukkit.event.Listener
 
-interface VanishHook {
+interface VanishHook : Listener {
 
     val plugin: CustomJoinMessages
 

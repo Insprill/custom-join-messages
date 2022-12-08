@@ -6,9 +6,8 @@ import net.insprill.cjm.compatibility.hook.VanishHook
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
-import org.bukkit.event.Listener
 
-class EssentialsVanishHook(override val plugin: CustomJoinMessages, private val essHook: EssentialsHook) : VanishHook, Listener {
+class EssentialsVanishHook(override val plugin: CustomJoinMessages, private val essHook: EssentialsHook) : VanishHook {
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     fun onVanish(e: VanishStatusChangeEvent) {
