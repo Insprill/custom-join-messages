@@ -1,20 +1,5 @@
 {
   "extends": [
-    "config:base",
-    "schedule:monthly"
-  ],
-  "baseBranches": [
-    "develop"
-  ],
-  "packageRules": [
-    {
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
-      ],
-      "automerge": true
-    }
-  ],
-  "automergeType": "branch",
-  "dependencyDashboard": false
+    "github>Insprill/renovate-config:automerge-develop"
+  ]
 }
