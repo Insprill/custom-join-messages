@@ -26,8 +26,9 @@ class SpigotUpdateChecker(private val plugin: CustomJoinMessages) : UpdateChecke
         return parseVersion(body)
     }
 
+    @Suppress("DEPRECATION") // Legacy :/
     private fun parseVersion(json: String): VersionData {
-        val obj = JsonParser.parseString(json).asJsonObject
+        val obj = JsonParser().parse(json).asJsonObject
         val versionNumber = obj.get("name").asString
         val downloads = obj.get("downloads").asInt
         val ratingCount = obj.get("rating").asJsonObject.get("count").asInt

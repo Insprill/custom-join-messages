@@ -26,8 +26,9 @@ class ModrinthUpdateChecker(private val plugin: CustomJoinMessages) : UpdateChec
         return parseVersion(body)
     }
 
+    @Suppress("DEPRECATION") // Legacy :/
     private fun parseVersion(json: String): VersionData {
-        val obj = JsonParser.parseString(json).asJsonArray[0].asJsonObject
+        val obj = JsonParser().parse(json).asJsonArray[0].asJsonObject
         val versionNumber = obj.get("version_number").asString
         val downloads = obj.get("downloads").asInt
         val datePublished = Instant.parse(obj.get("date_published").asString).atZone(ZoneOffset.UTC).toEpochSecond()
