@@ -61,11 +61,13 @@ class CustomJoinMessages : JavaPlugin {
         if (!handleLegacyConfig(configPath))
             return
 
+        var cnfgLoaded = false
         config = SimplixBuilder.fromPath(configPath)
             .addInputStreamFromResource("config.yml")
             .setConfigSettings(ConfigSettings.PRESERVE_COMMENTS)
             .setDataType(DataType.SORTED)
             .reloadCallback {
+                if (!cnfgLoaded) return@reloadCallback
                 var formatterType = it.getEnum("formatting.formatter", FormatterType::class.java)
                 val formatterCompatResult = formatterType.isCompatible.invoke()
                 if (!formatterCompatResult.status) {
@@ -75,7 +77,9 @@ class CustomJoinMessages : JavaPlugin {
                 this.formatter = formatterType.formatter
             }
             .createYaml()
-        config.addDefaultsFromInputStream()
+            .addDefaultsFromInputStream()
+        cnfgLoaded = true
+        config.forceReload()
 
         if (!ServerEnvironment.isMockBukkit()) {
             metrics = Metrics(this, bStatsId.toInt())
