@@ -13,6 +13,8 @@ import net.insprill.cjm.compatibility.Dependency
 import net.insprill.cjm.compatibility.hook.HookManager
 import net.insprill.cjm.compatibility.hook.PluginHook
 import net.insprill.cjm.extension.getMessage
+import net.insprill.cjm.formatting.Formatter
+import net.insprill.cjm.formatting.FormatterType
 import net.insprill.cjm.listener.JoinEvent
 import net.insprill.cjm.listener.QuitEvent
 import net.insprill.cjm.listener.WorldChangeEvent
@@ -48,6 +50,7 @@ class CustomJoinMessages : JavaPlugin {
     lateinit var updateChecker: UpdateChecker
     lateinit var commandManager: BukkitCommandManager
     lateinit var worldChangeEvent: WorldChangeEvent
+    lateinit var formatter: Formatter
     private lateinit var metrics: Metrics
 
     override fun onEnable() {
@@ -62,6 +65,15 @@ class CustomJoinMessages : JavaPlugin {
             .addInputStreamFromResource("config.yml")
             .setConfigSettings(ConfigSettings.PRESERVE_COMMENTS)
             .setDataType(DataType.SORTED)
+            .reloadCallback {
+                var formatterType = it.getEnum("formatting.formatter", FormatterType::class.java)
+                val formatterCompatResult = formatterType.isCompatible.invoke()
+                if (!formatterCompatResult.status) {
+                    logger.severe(formatterCompatResult.message)
+                    formatterType = FormatterType.MINEDOWN
+                }
+                this.formatter = formatterType.formatter
+            }
             .createYaml()
         config.addDefaultsFromInputStream()
 
@@ -69,6 +81,9 @@ class CustomJoinMessages : JavaPlugin {
             metrics = Metrics(this, bStatsId.toInt())
             metrics.addCustomChart(SimplePie("worldBasedMessages") {
                 config.getBoolean("World-Based-Messages.Enabled").toString()
+            })
+            metrics.addCustomChart(SimplePie("config_formatting_formatter") {
+                config.getEnum("formatting.formatter", FormatterType::class.java).prettyName
             })
         }
 

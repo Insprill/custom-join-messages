@@ -2,8 +2,6 @@ package net.insprill.cjm.listener
 
 import co.aikar.locales.MessageKey
 import de.themoep.minedown.MineDown
-import java.text.SimpleDateFormat
-import java.util.Date
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.MessageAction
 import net.insprill.cjm.update.UpdateChecker
@@ -11,6 +9,8 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
+import java.text.SimpleDateFormat
+import java.util.Date
 
 class JoinEvent(private val plugin: CustomJoinMessages) : Listener {
 

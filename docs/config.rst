@@ -29,6 +29,19 @@ The Plugin Config
             * **Default**: ``true``
             * **Description**: Whether messages should be sent from jailed players. **Only works with EssentialsX and CMI.**
 
+* Formatting
+   * **Description**: Settings related to how text is formatted.
+   * Formatter:
+      * **Default**: ``MINEDOWN``
+      * **Description**:
+        Which formatter should be used to format text. You can choose from the following:
+
+        * ``MINEDOWN``
+        * ``MINIMESSAGE``
+        * ``LEGACY``
+
+        For more information about formatting, check the :ref:`formatting` page.
+
 * World-Based-Messages:
    * **Description**: Settings for world-based messages. If enabled, messages will be sent when changing worlds, excluding changing dimensions of the same world.
    * Enabled:

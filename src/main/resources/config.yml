@@ -31,6 +31,15 @@ Addons:
     # If false, no messages will be sent for players who are in Jail.
     Ignore-Jailed-Players: false
 
+# Settings for formatting text.
+formatting:
+  # Which formatter should be used to format text. You can choose from the following:
+  # - MINEDOWN
+  # - MINIMESSAGE
+  # - LEGACY
+  # For more information on formatting and what each option does, check out the wiki (https://cjm.insprill.net/en/latest/formatting.html).
+  formatter: MINEDOWN
+
 # If true, messages will be sent when players change worlds instead
 # of only when they join the server. This also only sends messages to players who are in the same world.
 # The Overworld, Nether, and End all count as the same world.

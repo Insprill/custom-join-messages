@@ -1,6 +1,5 @@
 package net.insprill.cjm.message.types
 
-import de.themoep.minedown.MineDown
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.extension.replacePlaceholders
 import net.insprill.cjm.message.MessageVisibility
@@ -25,7 +24,7 @@ class BossbarMessage(private val plugin: CustomJoinMessages) : MessageType(plugi
         val countDown = config.getOrDefault("$chosenPath.Count-Down", true)
 
         val barInfo = BarInfo(
-            BaseComponent.toLegacyText(*MineDown.parse(msg)),
+            BaseComponent.toLegacyText(*plugin.formatter.format(msg)),
             barColor,
             barStyle,
             barFlags,

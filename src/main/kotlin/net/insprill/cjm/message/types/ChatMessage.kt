@@ -1,6 +1,5 @@
 package net.insprill.cjm.message.types
 
-import de.themoep.minedown.MineDown
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.extension.replacePlaceholders
 import net.insprill.cjm.message.MessageVisibility
@@ -35,7 +34,7 @@ class ChatMessage(private val plugin: CustomJoinMessages) : MessageType(plugin, 
             if (str.startsWith(CENTER_PREFIX)) {
                 str = CenteredMessages.centerMessage(str.substring(CENTER_PREFIX.length))
             }
-            MineDown.parse(str)
+            plugin.formatter.format(str)
         }
     }
 
