@@ -160,7 +160,7 @@ class CustomJoinMessages : JavaPlugin {
         worldChangeEvent = WorldChangeEvent(this)
         Bukkit.getPluginManager().registerEvents(worldChangeEvent, this)
 
-        for (listener in hookManager.vanishHooks.filterIsInstance<Listener>()) {
+        for (listener in hookManager.vanishHooks) {
             if (!config.getBoolean("Addons.Vanish.Fake-Messages.Enabled"))
                 continue
             Bukkit.getPluginManager().registerEvents(listener, this)
