@@ -100,7 +100,7 @@ Releases of CJM can be downloaded from [Modrinth][modrinth-url] (recommended) or
 
 ### Snapshots
 Like living on the edge?
-Builds from the latest commit can be downloaded via GitHub Actions [here](https://nightly.link/Insprill/custom-join-messages/workflows/gradle/master).
+Builds from the latest commit can be downloaded via GitHub Actions [here](https://nightly.link/Insprill/custom-join-messages/workflows/gradle/develop).
 
 
 
