@@ -33,11 +33,14 @@ Custom Join Messages is a feature-packed plugin for handling all join and quit n
     * Sounds
 
 * Advanced Formatting
-    * All messages support HEX colours and gradients
     * All messages support [PlaceholderAPI](https://www.spigotmc.org/resources/6245/) placeholders
-    * Chat messages can perform actions when clicked
-    * Chat messages can show text when hovered over
-    * Formatting is done with an intuitive Markdown-like syntax
+    * Supports multiple different formatters to fit your needs
+        * [MineDown](https://github.com/Phoenix616/MineDown)
+        * [MiniMessage](https://docs.adventure.kyori.net/minimessage/index.html) ([Paper](https://papermc.io/) only)
+        * [Legacy](https://minecraft.fandom.com/wiki/Formatting_codes)
+    * All messages support HEX colours
+    * All messages support gradients when using MineDown or MiniMessage
+    * Chat messages support hover/click actions when using MineDown or MiniMessage
 
 * Permission Based Messages
     * Send different messages based on what permissions a user has
