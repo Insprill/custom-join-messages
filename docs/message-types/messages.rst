@@ -1,5 +1,5 @@
-The Message Config
-==================
+Message Type Configuration
+==========================
 
 Messages are very flexible and can be configured in a variety of ways.
 All message types follow the same basic structure:

@@ -1,5 +1,5 @@
-Actionbar Config
-================
+Actionbar Messages
+==================
 
 Example
 -------

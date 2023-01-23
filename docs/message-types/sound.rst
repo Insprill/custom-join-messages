@@ -1,5 +1,5 @@
-Sound Config
-============
+Sound "Messages"
+================
 
 Example
 -------

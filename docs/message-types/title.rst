@@ -1,5 +1,5 @@
-Title Config
-============
+Title Messages
+==============
 
 Example
 --------------

@@ -1,5 +1,5 @@
-The Plugin Config
-=================
+config.yml
+==========
 
 * language:
    * **Default**: ``en``

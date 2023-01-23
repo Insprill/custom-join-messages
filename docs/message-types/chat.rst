@@ -1,5 +1,5 @@
-Chat Config
-===========
+Chat Messages
+=============
 
 Example
 -------
@@ -16,7 +16,7 @@ Parameters
 ----------
 
 Chat messages don't have any message-specific parameters. The messages are simply added as a list directly under the index.
-All lines will be sent at once, but in order.
+All lines will be sent at once, in order.
 
 
 Clickable & Hoverable Messages
