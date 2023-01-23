@@ -27,7 +27,7 @@ class MessageSender(private val plugin: CustomJoinMessages) {
                 val path = visibility.configSection + "." + action.configSection
                 for (key in config.singleLayerKeySet(path)) {
                     val permission = config.getString("$path.$key.Permission") ?: continue
-                    if (Bukkit.getPluginManager().getPermission(permission) == null) {
+                    if (Bukkit.getPluginManager().getPermission(permission) == null && permission != "cjm.default") {
                         Bukkit.getPluginManager().addPermission(Permission(permission, PermissionDefault.FALSE))
                     }
                     registeredPermissions.add(permission)
