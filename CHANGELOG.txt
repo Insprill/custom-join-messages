@@ -1,5 +1,6 @@
 CJM 17.2.0:
 - Added an option to change the text formatter. More information on the wiki.
+- Fixed a possible bug where player wouldn't be granted the cjm.default permission.
 
 CJM 17.1.1:
 - Fixed an error in the update checker on < 1.17 servers.
