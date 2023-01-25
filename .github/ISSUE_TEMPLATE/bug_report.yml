@@ -14,7 +14,7 @@ body:
     attributes:
       label: CJM Version
       description: The full plugin version. "latest" is not a version.
-      placeholder: 17.1.1
+      placeholder: 17.2.0
     validations:
       required: true
 
@@ -54,7 +54,7 @@ body:
   - type: textarea
     attributes:
       label: Additional Information
-      description: Anything else you'd like to provide to help us solve the issue. This includes screenshots, videos.
+      description: Anything else you'd like to provide to help us solve the issue. This includes screenshots and videos.
     validations:
       required: false
 
