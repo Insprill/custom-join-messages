@@ -3,6 +3,7 @@ package net.insprill.cjm
 import be.seeseemelk.mockbukkit.MockBukkit
 import be.seeseemelk.mockbukkit.ServerMock
 import de.leonhard.storage.SimplixBuilder
+import net.insprill.cjm.util.TestUtils.setFinalField
 import net.insprill.spigotutils.MinecraftVersion
 import net.insprill.spigotutils.ServerEnvironment
 import net.swiftzer.semver.SemVer
@@ -13,9 +14,7 @@ import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import sun.misc.Unsafe
 import java.io.File
-import kotlin.reflect.KClass
 
 class CustomJoinMessagesTest {
 
@@ -144,17 +143,6 @@ class CustomJoinMessagesTest {
         assertFalse(movedFile.exists())
 
         assertTrue(plugin.isEnabled)
-    }
-
-    private fun setFinalField(clazz: KClass<*>, fieldName: String, value: Any) {
-        val unsafeField = Unsafe::class.java.getDeclaredField("theUnsafe")
-        unsafeField.isAccessible = true
-        val unsafe = unsafeField.get(null) as Unsafe
-
-        val ourField = clazz.java.getDeclaredField(fieldName)
-        val staticFieldBase = unsafe.staticFieldBase(ourField)
-        val staticFieldOffset = unsafe.staticFieldOffset(ourField)
-        unsafe.putObject(staticFieldBase, staticFieldOffset, value)
     }
 
 }
