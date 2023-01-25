@@ -40,7 +40,20 @@ class SoundMessageTest {
         sound.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
 
         assertEquals(1, player.heardSounds.size)
-        player.assertSoundHeard(Sound.AMBIENT_CAVE)
+        player.assertSoundHeard(Sound.AMBIENT_CAVE) { e -> e.location == player.location }
+    }
+
+    @Test
+    fun handle_Global_SendsMessage_CorrectLocation() {
+        sound.config.set("key.Sound", Sound.AMBIENT_CAVE.name)
+        sound.config.set("key.Global", true)
+        val player2 = server.addPlayer()
+        player2.teleport(player2.location.add(10.0, 0.0, 0.0))
+
+        sound.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
+
+        assertEquals(1, player.heardSounds.size)
+        player2.assertSoundHeard(Sound.AMBIENT_CAVE) { e -> e.location == player.location }
     }
 
     @Test
