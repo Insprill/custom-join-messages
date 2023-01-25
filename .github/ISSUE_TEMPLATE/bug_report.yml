@@ -1,0 +1,71 @@
+name: Bug Report
+description: File a bug report
+labels: [ "Type: Bug", "Status: Needs Triage" ]
+body:
+  - type: input
+    attributes:
+      label: Server Version
+      description: The server software and version CJM is installed on.
+      placeholder: Paper 1.19.3 build 384
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: CJM Version
+      description: The full plugin version. "latest" is not a version.
+      placeholder: 17.1.1
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Describe the Bug
+      description: What happens?
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Expected Behavior
+      description: What is supposed to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Steps to Reproduce
+      description: What needs to be done in order to reproduce the issue.
+      placeholder: |
+        Step 1: ...
+        Step 2: ...
+        Step 3: ...
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: Server Logs
+      description: Please post your server's `latest.log` uploaded to https://mclo.gs/. Do not upload them to pastebin as they may contain sensitive information!
+      placeholder: https://mclo.gs/AUuT3Hc
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Additional Information
+      description: Anything else you'd like to provide to help us solve the issue. This includes screenshots, videos.
+    validations:
+      required: false
+
+  - type: checkboxes
+    attributes:
+      label: Checklist
+      description: Let's make sure this report is valid
+      options:
+        - label: I am running the latest version of the plugin
+          required: true
+        - label: I have read the wiki to ensure it's not a configuration issue
+          required: true
+        - label: I ticked all of the boxes without actually reading them
+          required: false

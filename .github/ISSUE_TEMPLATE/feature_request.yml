@@ -1,0 +1,29 @@
+name: Feature Request
+description: Request a new feature to be added
+labels: [ "Type: Feature Request", "Status: Needs Triage" ]
+body:
+  - type: textarea
+    attributes:
+      label: Describe the Feature
+      description: What should be added?
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Provide Reasoning
+      description: Why should this be added?
+    validations:
+      required: true
+
+  - type: checkboxes
+    attributes:
+      label: Checklist
+      description: Let's make sure this request is valid
+      options:
+        - label: I have searched the [issue tracker](https://github.com/Insprill/custom-join-messages/issues) to ensure there are no similar feature requests
+          required: true
+        - label: I have read the wiki to ensure this isn't already possible
+          required: true
+        - label: I ticked all of the boxes without actually reading them
+          required: false
