@@ -134,10 +134,10 @@ blossom {
     fun repl(token: String, value: Any?) {
         replaceToken("\"{$token}\"", "\"$value\"", metadata)
     }
-    repl("version", version)
     repl("bstats.id", project.property("bstats.id"))
     repl("spigot.resource.id", project.property("spigot.resource.id"))
     repl("modrinth.project.id", project.property("modrinth.project.id"))
+    repl("build.version", version)
     repl("build.target-platform", project.property("build.target-platform"))
 }
 
