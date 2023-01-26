@@ -37,7 +37,7 @@ formatting:
   # - MINEDOWN
   # - MINIMESSAGE
   # - LEGACY
-  # For more information on formatting and what each option does, check out the wiki (https://cjm.insprill.net/en/latest/formatting.html).
+  # For more information on formatting and what each option does, check out the wiki (https://cjm.insprill.net/en/latest/writing-messages/formatting.html).
   formatter: MINEDOWN
 
 # If true, messages will be sent when players change worlds instead
