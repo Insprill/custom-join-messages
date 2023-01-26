@@ -4,6 +4,7 @@ Formatting
 ==========
 
 CJM offers the unique ability to choose which formatter you'd like to use for formatting messages.
+The formatter you want to use must be set in the :ref:`config.yml`.
 It currently has three options:
 
 * MineDown_

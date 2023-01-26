@@ -1,3 +1,5 @@
+.. _config.yml:
+
 config.yml
 ==========
 
@@ -40,7 +42,7 @@ config.yml
         * ``MINIMESSAGE``
         * ``LEGACY``
 
-        For more information about formatting, check the :ref:`formatting` page.
+        All options are case-sensitive. For more information about formatting, check the :ref:`formatting` page.
 
 * World-Based-Messages:
    * **Description**: Settings for world-based messages. If enabled, messages will be sent when changing worlds, excluding changing dimensions of the same world.
@@ -57,6 +59,8 @@ config.yml
         * ``NONE`` - No messages will be sent when entering/exiting ungrouped worlds.
         * ``SAME`` - Ungrouped worlds will be treated as if they're all one group.
         * ``INDIVIDUAL`` - Ungrouped worlds will be treated as if each worlds is its own group.
+
+        All options are case-sensitive.
 
 * Update-Checker:
    * **Description**: Settings related to the update checker.
