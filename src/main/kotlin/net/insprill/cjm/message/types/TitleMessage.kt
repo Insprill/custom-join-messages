@@ -9,8 +9,8 @@ import org.bukkit.entity.Player
 class TitleMessage(private val plugin: CustomJoinMessages) : MessageType(plugin, "title", "Messages") {
 
     override fun handle(primaryPlayer: Player, recipients: List<Player>, chosenPath: String, visibility: MessageVisibility) {
-        val titleStr = config.getString("$chosenPath.Title")?.replacePlaceholders(primaryPlayer)
-        val subTitleStr = config.getString("$chosenPath.SubTitle")?.replacePlaceholders(primaryPlayer)
+        val titleStr = config.getString("$chosenPath.Title")?.replacePlaceholders(plugin, primaryPlayer)
+        val subTitleStr = config.getString("$chosenPath.SubTitle")?.replacePlaceholders(plugin, primaryPlayer)
         if (titleStr.isNullOrBlank() || subTitleStr.isNullOrBlank()) return
 
         val title = BaseComponent.toLegacyText(*plugin.formatter.format(titleStr))

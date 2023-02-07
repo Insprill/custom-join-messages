@@ -30,7 +30,7 @@ class ChatMessage(private val plugin: CustomJoinMessages) : MessageType(plugin, 
 
     private fun formatMessages(primaryPlayer: Player, strings: List<String>): List<Array<BaseComponent>> {
         return strings.map {
-            var str = it.replacePlaceholders(primaryPlayer)
+            var str = it.replacePlaceholders(plugin, primaryPlayer)
             if (str.startsWith(CENTER_PREFIX)) {
                 str = CenteredMessages.centerMessage(str.substring(CENTER_PREFIX.length))
             }

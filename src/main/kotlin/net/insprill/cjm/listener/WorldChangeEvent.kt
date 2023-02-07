@@ -14,6 +14,7 @@ import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerTeleportEvent
 import java.nio.file.Path
+import java.util.UUID
 
 class WorldChangeEvent(private val plugin: CustomJoinMessages) : Listener {
 
@@ -21,6 +22,11 @@ class WorldChangeEvent(private val plugin: CustomJoinMessages) : Listener {
         .setReloadSettings(ReloadSettings.MANUALLY)
         .createJson()
     private val groupPath = "World-Based-Messages.Groups"
+    private val playerWorlds = HashMap<UUID, Pair<String, String>>()
+
+    fun getWorlds(player: UUID): Pair<String, String>? {
+        return playerWorlds[player]
+    }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     fun onPlayerChangeWorld(e: PlayerTeleportEvent) {
@@ -34,6 +40,8 @@ class WorldChangeEvent(private val plugin: CustomJoinMessages) : Listener {
 
         if (isSameGroup(toWorld.name, fromWorld.name))
             return
+
+        playerWorlds[e.player.uniqueId] = fromWorld.name to toWorld.name
 
         val hasJoinedWorldBefore = saveVisitedWorld(e.player, toWorld)
 

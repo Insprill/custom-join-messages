@@ -12,6 +12,9 @@ import org.bukkit.event.player.PlayerTeleportEvent
 import org.bukkit.permissions.Permission
 import org.bukkit.permissions.PermissionDefault
 import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -146,6 +149,29 @@ class WorldChangeEventTest {
 
         messageTypeMock.assertHasResult()
         assertTrue(messageTypeMock.result.chosenPath.contains(".Join."))
+    }
+
+    @Test
+    fun getWorlds_NeverTeleported_Null() {
+        assertNull(plugin.worldChangeEvent.getWorlds(player.uniqueId))
+    }
+
+    @Test
+    fun getWorlds_SameWorld_Null() {
+        PlayerTeleportEvent(player, loc(world1), loc(world1)).callEvent()
+
+        assertNull(plugin.worldChangeEvent.getWorlds(player.uniqueId))
+    }
+
+    @Test
+    fun getWorlds_DifferentWorld_DifferentName() {
+        PlayerTeleportEvent(player, loc(world1), loc(world2)).callEvent()
+
+        val worlds = plugin.worldChangeEvent.getWorlds(player.uniqueId)
+
+        assertNotNull(worlds)
+        assertEquals(world1.name, worlds?.first)
+        assertEquals(world2.name, worlds?.second)
     }
 
     private fun loc(world: World): Location {

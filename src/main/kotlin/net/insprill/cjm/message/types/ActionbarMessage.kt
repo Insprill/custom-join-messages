@@ -9,7 +9,7 @@ import org.bukkit.entity.Player
 class ActionbarMessage(private val plugin: CustomJoinMessages) : MessageType(plugin, "actionbar", "Messages") {
 
     override fun handle(primaryPlayer: Player, recipients: List<Player>, chosenPath: String, visibility: MessageVisibility) {
-        val msg = config.getString("$chosenPath.Message")?.replacePlaceholders(primaryPlayer)
+        val msg = config.getString("$chosenPath.Message")?.replacePlaceholders(plugin, primaryPlayer)
         if (msg.isNullOrBlank()) return
         val components = plugin.formatter.format(msg)
         for (player in recipients) {
