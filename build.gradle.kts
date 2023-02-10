@@ -1,6 +1,5 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
 import org.jetbrains.kotlin.cli.common.toBooleanLenient
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.net.URL
 import java.util.concurrent.Executors
 
@@ -61,7 +60,11 @@ val extraDependencies = mapOf(
 )
 
 tasks {
-    withType<KotlinCompile> {
+    kotlin {
+        jvmToolchain(17)
+    }
+
+    compileKotlin {
         kotlinOptions.jvmTarget = "1.8"
     }
 
@@ -121,12 +124,6 @@ configurations {
     configurations.testImplementation.get().apply {
         extendsFrom(configurations.compileOnly.get())
         exclude("org.spigotmc", "spigot-api")
-    }
-}
-
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
 
