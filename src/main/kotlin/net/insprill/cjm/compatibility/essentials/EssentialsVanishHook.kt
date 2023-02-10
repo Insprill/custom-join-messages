@@ -11,7 +11,7 @@ class EssentialsVanishHook(override val plugin: CustomJoinMessages, private val 
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     fun onVanish(e: VanishStatusChangeEvent) {
-        handleToggle(e.affected.base, e.value)
+        handleToggle(e.controller.base, e.value)
     }
 
     override fun isVanished(player: Player): Boolean {

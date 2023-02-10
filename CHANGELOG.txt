@@ -1,3 +1,6 @@
+CJM 17.x.y:
+- Fixed EssentialsX vanish message showing the person who executed the command, not the person who was vanished.
+
 CJM 17.2.0:
 - Added an option to change the text formatter. More information on the wiki.
 - Fixed a possible bug where players wouldn't be granted the cjm.default permission.
