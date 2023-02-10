@@ -1,19 +1,20 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
+import org.jetbrains.kotlin.cli.common.toBooleanLenient
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import java.io.ByteArrayOutputStream
 import java.net.URL
 import java.util.concurrent.Executors
 
 plugins {
     kotlin("jvm") version "1.7.22"
     id("net.kyori.blossom") version "1.3.1"
+    id("org.ajoberstar.grgit") version "5.0.0"
     id("com.modrinth.minotaur") version "2.4.5"
     id("com.github.johnrengelman.shadow") version "7.1.2"
     id("com.rikonardo.papermake") version "1.0.4"
 }
 
 group = "net.insprill"
-version = getFullVersion()
+version = "${project.version}${versionMetadata()}"
 
 repositories {
     mavenCentral()
@@ -145,7 +146,7 @@ modrinth {
     changelog.set(readChangelog(project.version as String))
     token.set(findProperty("modrinthToken") as String?)
     projectId.set(property("modrinth.project.id") as String)
-    versionType.set(getModrinthVersionType())
+    versionType.set("release")
     uploadFile.set(tasks.shadowJar.get())
     loaders.addAll("spigot", "paper", "purpur")
     syncBodyFrom.set(file("modrinth_page.md").readText())
@@ -193,33 +194,24 @@ modrinth {
     )
 }
 
-fun getFullVersion(): String {
-    val version = property("version")!! as String
-    return if (version.contains("-SNAPSHOT")) {
-        "$version+rev.${getGitRevision()}"
-    } else {
-        version
+fun versionMetadata(): String {
+    if (property("version.metadata").toString().toBooleanLenient() == false) {
+        return ""
     }
-}
 
-fun getGitRevision(): String {
-    val stdout = ByteArrayOutputStream()
-    exec {
-        commandLine("git", "rev-parse", "--verify", "--short", "HEAD")
-        standardOutput = stdout
+    val buildId = System.getenv("GITHUB_RUN_NUMBER")
+    if (buildId != null) {
+        return "+build.${buildId}"
     }
-    return stdout.toString().trim()
-}
 
-fun getModrinthVersionType(): String {
-    val ver = (version as String).toLowerCase()
-    return if (ver.contains("snapshot")) {
-        "alpha"
-    } else if (ver.contains("rc.")) {
-        "beta"
-    } else {
-        "release"
+    val head = grgit.head()
+    var id = head.abbreviatedId
+
+    if (!grgit.status().isClean) {
+        id += "-dirty"
     }
+
+    return "+rev.${id}"
 }
 
 fun readChangelog(version: String): String {
