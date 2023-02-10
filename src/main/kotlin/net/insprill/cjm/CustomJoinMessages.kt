@@ -32,12 +32,12 @@ import net.swiftzer.semver.SemVer
 import org.bstats.bukkit.Metrics
 import org.bstats.charts.SimplePie
 import org.bukkit.Bukkit
-import org.bukkit.event.Listener
 import org.bukkit.plugin.PluginDescriptionFile
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.plugin.java.JavaPluginLoader
 import java.io.File
 import java.nio.file.Path
+import java.nio.file.Paths
 import java.util.Collections
 import kotlin.io.path.exists
 
@@ -57,7 +57,7 @@ class CustomJoinMessages : JavaPlugin {
         if (!checkCompatible())
             return
 
-        val configPath = Path.of("$dataFolder/config.yml")
+        val configPath = Paths.get("$dataFolder/config.yml")
         if (!handleLegacyConfig(configPath))
             return
 
@@ -216,7 +216,7 @@ class CustomJoinMessages : JavaPlugin {
         updateChecker.checkForUpdates { data, _ ->
             commandManager.getMessage(
                 "cjm.update-checker.console.text",
-                "%version%", data.version, "%url%", updateChecker.getResourceUrl()
+                "%version%", data.version, "%url%", updateChecker.resourceUrl
             ).split("\n").forEach { msg -> logger.warning(msg) }
         }
     }

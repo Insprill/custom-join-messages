@@ -3,41 +3,22 @@ package net.insprill.cjm.update
 import com.google.gson.JsonParser
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.modrinthProjectId
-import java.net.HttpURLConnection
-import java.net.URL
-import java.nio.charset.StandardCharsets
 import java.time.Instant
 import java.time.ZoneOffset
 
-class ModrinthUpdateChecker(private val plugin: CustomJoinMessages) : UpdateChecker(plugin) {
+class ModrinthUpdateChecker(plugin: CustomJoinMessages) : UpdateChecker(plugin) {
 
-    override fun getPlatform(): Platform {
-        return Platform.MODRINTH
-    }
-
-    override fun getResourceUrl(): String {
-        return RESOURCE_URL.format(modrinthProjectId)
-    }
-
-    override fun getLatestVersion(): VersionData {
-        val conn = URL(REQUEST_URL.format(modrinthProjectId)).openConnection() as HttpURLConnection
-        conn.addRequestProperty("User-Agent", plugin.name + "UpdateChecker")
-        val body = String(conn.inputStream.readAllBytes(), StandardCharsets.UTF_8)
-        return parseVersion(body)
-    }
+    override val platform = Platform.MODRINTH
+    override val resourceUrl = "https://modrinth.com/plugin/%s".format(modrinthProjectId)
+    override val requestUrl = "https://api.modrinth.com/v2/project/%s/version".format(modrinthProjectId)
 
     @Suppress("DEPRECATION") // Legacy :/
-    private fun parseVersion(json: String): VersionData {
+    override fun parseVersion(json: String): VersionData {
         val obj = JsonParser().parse(json).asJsonArray[0].asJsonObject
         val versionNumber = obj.get("version_number").asString
         val downloads = obj.get("downloads").asInt
         val datePublished = Instant.parse(obj.get("date_published").asString).atZone(ZoneOffset.UTC).toEpochSecond()
         return VersionData(versionNumber, downloads, null, datePublished)
-    }
-
-    companion object {
-        private const val REQUEST_URL = "https://api.modrinth.com/v2/project/%s/version"
-        private const val RESOURCE_URL = "https://modrinth.com/plugin/%s"
     }
 
 }

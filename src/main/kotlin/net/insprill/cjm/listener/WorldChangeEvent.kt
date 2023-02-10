@@ -13,11 +13,11 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerTeleportEvent
-import java.nio.file.Path
+import java.nio.file.Paths
 
 class WorldChangeEvent(private val plugin: CustomJoinMessages) : Listener {
 
-    private val visitedWorldsConfig: FlatFile = SimplixBuilder.fromPath(Path.of("${plugin.dataFolder}/data/worlds.json"))
+    private val visitedWorldsConfig: FlatFile = SimplixBuilder.fromPath(Paths.get("${plugin.dataFolder}/data/worlds.json"))
         .setReloadSettings(ReloadSettings.MANUALLY)
         .createJson()
     private val groupPath = "World-Based-Messages.Groups"

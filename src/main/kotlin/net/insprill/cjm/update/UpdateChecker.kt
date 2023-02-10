@@ -5,6 +5,7 @@ import net.insprill.spigotutils.ServerEnvironment
 import net.swiftzer.semver.SemVer
 import org.bukkit.Bukkit
 import org.bukkit.plugin.Plugin
+import java.net.URL
 
 abstract class UpdateChecker(private val plugin: CustomJoinMessages) {
 
@@ -12,11 +13,18 @@ abstract class UpdateChecker(private val plugin: CustomJoinMessages) {
         return plugin.config.getBoolean("Update-Checker.Enabled") && plugin.config.getBoolean(type.configPath)
     }
 
-    abstract fun getPlatform(): Platform
+    abstract val platform: Platform
+    abstract val resourceUrl: String
+    abstract val requestUrl: String
 
-    abstract fun getResourceUrl(): String
+    private fun getLatestVersion(): VersionData {
+        val conn = URL(requestUrl).openConnection()
+        conn.addRequestProperty("User-Agent", plugin.name + "UpdateChecker")
+        val body = conn.inputStream.use { String(it.readBytes(), Charsets.UTF_8) }
+        return parseVersion(body)
+    }
 
-    abstract fun getLatestVersion(): VersionData
+    protected abstract fun parseVersion(json: String): VersionData
 
     fun checkForUpdates(consumer: (VersionData, Platform) -> Unit) {
         if (ServerEnvironment.isMockBukkit())
@@ -25,7 +33,7 @@ abstract class UpdateChecker(private val plugin: CustomJoinMessages) {
             val latestVersion = getLatestVersion()
             if (!latestVersion.isNewer(plugin))
                 return@Runnable
-            consumer.invoke(latestVersion, getPlatform())
+            consumer.invoke(latestVersion, platform)
         })
     }
 

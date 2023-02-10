@@ -7,7 +7,7 @@ import de.leonhard.storage.internal.settings.DataType
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.MessageVisibility
 import org.bukkit.entity.Player
-import java.nio.file.Path
+import java.nio.file.Paths
 
 abstract class MessageType(
     plugin: CustomJoinMessages,
@@ -24,7 +24,7 @@ abstract class MessageType(
     /**
      * @return The [FlatFile] associated with the message type.
      */
-    val config: FlatFile = SimplixBuilder.fromPath(Path.of("${plugin.dataFolder}/messages/$name.yml"))
+    val config: FlatFile = SimplixBuilder.fromPath(Paths.get("${plugin.dataFolder}/messages/$name.yml"))
         .addInputStreamFromResource("messages/$name.yml")
         .setConfigSettings(ConfigSettings.PRESERVE_COMMENTS)
         .setDataType(DataType.SORTED)

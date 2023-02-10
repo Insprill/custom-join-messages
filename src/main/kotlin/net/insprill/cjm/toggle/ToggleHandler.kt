@@ -6,11 +6,11 @@ import de.leonhard.storage.internal.settings.ReloadSettings
 import net.insprill.cjm.message.MessageAction
 import org.bukkit.OfflinePlayer
 import org.bukkit.plugin.Plugin
-import java.nio.file.Path
+import java.nio.file.Paths
 
 class ToggleHandler(plugin: Plugin) {
 
-    private val toggleConfig: FlatFile = SimplixBuilder.fromPath(Path.of("${plugin.dataFolder}/data/toggles.json"))
+    private val toggleConfig: FlatFile = SimplixBuilder.fromPath(Paths.get("${plugin.dataFolder}/data/toggles.json"))
         .setReloadSettings(ReloadSettings.MANUALLY)
         .createJson()
 

@@ -43,7 +43,7 @@ class JoinEvent(private val plugin: CustomJoinMessages) : Listener {
 
             e.player.spigot().sendMessage(
                 *MineDown.parse(
-                    "[$text](${plugin.updateChecker.getResourceUrl()} $hover)"
+                    "[$text](${plugin.updateChecker.resourceUrl} $hover)"
                 )
             )
         }
