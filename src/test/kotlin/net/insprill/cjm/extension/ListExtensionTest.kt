@@ -3,7 +3,6 @@ package net.insprill.cjm.extension
 import be.seeseemelk.mockbukkit.MockBukkit
 import be.seeseemelk.mockbukkit.ServerMock
 import be.seeseemelk.mockbukkit.entity.PlayerMock
-import net.insprill.cjm.CustomJoinMessages
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
@@ -13,12 +12,10 @@ class ListExtensionTest {
 
     private lateinit var server: ServerMock
     private lateinit var player: PlayerMock
-    private lateinit var plugin: CustomJoinMessages
 
     @BeforeEach
     fun setUp() {
         server = MockBukkit.mock()
-        plugin = MockBukkit.load(CustomJoinMessages::class.java)
         player = server.addPlayer("Insprill")
     }
 
@@ -33,7 +30,7 @@ class ListExtensionTest {
         player.displayName = "SprillJ"
         val strings = listOf("%displayname% (%name%) has joined! [#%uniquejoins%]")
 
-        val newStrings = strings.replacePlaceholders(plugin, player)
+        val newStrings = strings.replacePlaceholders(player)
 
         Assertions.assertEquals(1, newStrings.size)
         Assertions.assertEquals("SprillJ (Insprill) has joined! [#1]", newStrings[0])
@@ -48,7 +45,7 @@ class ListExtensionTest {
             "%displayname% (%name%) has joined! [%uuid%]"
         )
 
-        val newStrings = strings.replacePlaceholders(plugin, player)
+        val newStrings = strings.replacePlaceholders(player)
 
         Assertions.assertEquals(2, newStrings.size)
         Assertions.assertEquals("SprillJ (Insprill) has joined! [#1]", newStrings[0])

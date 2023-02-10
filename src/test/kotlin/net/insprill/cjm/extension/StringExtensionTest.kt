@@ -5,7 +5,6 @@ import be.seeseemelk.mockbukkit.ServerMock
 import be.seeseemelk.mockbukkit.entity.PlayerMock
 import me.clip.placeholderapi.PlaceholderAPIPlugin
 import me.clip.placeholderapi.expansion.PlaceholderExpansion
-import net.insprill.cjm.CustomJoinMessages
 import org.bukkit.OfflinePlayer
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions
@@ -16,13 +15,11 @@ import org.junit.jupiter.api.Test
 class StringExtensionTest {
 
     private lateinit var server: ServerMock
-    private lateinit var plugin: CustomJoinMessages
     private lateinit var player: PlayerMock
 
     @BeforeEach
     fun setUp() {
         server = MockBukkit.mock()
-        plugin = MockBukkit.load(CustomJoinMessages::class.java)
         player = server.addPlayer("Insprill")
     }
 
@@ -36,7 +33,7 @@ class StringExtensionTest {
         val player = server.addPlayer()
         val string = "A message that has no placeholders!"
 
-        Assertions.assertEquals(string, string.replacePlaceholders(plugin, player))
+        Assertions.assertEquals(string, string.replacePlaceholders(player))
     }
 
     @Test
@@ -45,7 +42,7 @@ class StringExtensionTest {
         player.displayName = "SprillJ"
         val string = "%displayname% (%name%) has joined! [#%uniquejoins%]"
 
-        Assertions.assertEquals("SprillJ (Insprill) has joined! [#1]", string.replacePlaceholders(plugin, player))
+        Assertions.assertEquals("SprillJ (Insprill) has joined! [#1]", string.replacePlaceholders(player))
     }
 
     @Test
@@ -55,7 +52,7 @@ class StringExtensionTest {
         PlaceholderExpansionMock().register()
         val string = "A wild %placeholder_mock% has joined!"
 
-        Assertions.assertEquals("A wild mimus polyglottos has joined!", string.replacePlaceholders(plugin, player))
+        Assertions.assertEquals("A wild mimus polyglottos has joined!", string.replacePlaceholders(player))
     }
 
     class PlaceholderExpansionMock : PlaceholderExpansion() {
