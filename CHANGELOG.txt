@@ -1,4 +1,4 @@
-CJM 17.x.y:
+CJM 17.2.1:
 - Fixed some incompatibilities with Java 8.
 - Fixed EssentialsX vanish message showing the person who executed the command, not the person who was vanished.
 
