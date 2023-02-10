@@ -5,10 +5,10 @@ import java.net.URL
 import java.util.concurrent.Executors
 
 plugins {
-    kotlin("jvm") version "1.7.22"
+    kotlin("jvm") version "1.8.10"
     id("net.kyori.blossom") version "1.3.1"
     id("org.ajoberstar.grgit") version "5.0.0"
-    id("com.modrinth.minotaur") version "2.4.5"
+    id("com.modrinth.minotaur") version "2.6.0"
     id("com.github.johnrengelman.shadow") version "7.1.2"
     id("com.rikonardo.papermake") version "1.0.4"
 }
@@ -44,14 +44,14 @@ dependencies {
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
     implementation("com.github.simplix-softworks:simplixstorage:3.2.5")
     implementation("de.themoep:minedown:1.7.1-SNAPSHOT")
-    implementation("net.insprill:spigot-utils:0.2.1")
+    implementation("net.insprill:spigot-utils:0.2.2")
     implementation("net.swiftzer.semver:semver:1.2.0")
     implementation("org.bstats:bstats-bukkit:3.0.0")
 
     // Tests
-    testImplementation("com.github.seeseemelk:MockBukkit-v1.19:2.137.0")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.9.1")
-    testImplementation(platform("org.junit:junit-bom:5.9.1"))
+    testImplementation("com.github.seeseemelk:MockBukkit-v1.19:2.144.5")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
+    testImplementation(platform("org.junit:junit-bom:5.9.2"))
 }
 
 val extraDependencies = mapOf(
