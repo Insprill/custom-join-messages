@@ -7,8 +7,8 @@ import net.insprill.cjm.spigotResourceId
 class SpigotUpdateChecker(plugin: CustomJoinMessages) : UpdateChecker(plugin) {
 
     override val platform = Platform.SPIGOT
-    override val resourceUrl = "https://modrinth.com/plugin/%s".format(spigotResourceId)
-    override val requestUrl = "https://api.modrinth.com/v2/project/%s/version".format(spigotResourceId)
+    override val resourceUrl = "https://www.spigotmc.org/resources/%s/updates".format(spigotResourceId)
+    override val requestUrl = "https://api.spiget.org/v2/resources/%s/versions/latest".format(spigotResourceId)
 
     @Suppress("DEPRECATION") // Legacy :/
     override fun parseVersion(json: String): VersionData {
