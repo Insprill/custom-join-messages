@@ -1,3 +1,6 @@
+CJM 17.x.x:
+- Fixed player visited worlds being updated when world-based messages are disabled.
+
 CJM 17.2.2:
 - Fixed Spigot update checker URL.
 

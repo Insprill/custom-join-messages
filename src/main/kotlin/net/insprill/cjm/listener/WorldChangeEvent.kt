@@ -22,9 +22,12 @@ class WorldChangeEvent(private val plugin: CustomJoinMessages) : Listener {
         .createJson()
     private val groupPath = "World-Based-Messages.Groups"
 
+    private val isEnabled: Boolean
+        get() = plugin.config.getBoolean("World-Based-Messages.Enabled")
+
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     fun onPlayerChangeWorld(e: PlayerTeleportEvent) {
-        if (!plugin.config.getBoolean("World-Based-Messages.Enabled"))
+        if (!isEnabled)
             return
 
         val fromWorld = e.from.world ?: return
@@ -49,6 +52,8 @@ class WorldChangeEvent(private val plugin: CustomJoinMessages) : Listener {
     }
 
     fun saveVisitedWorld(player: Player, world: World): Boolean {
+        if (!isEnabled)
+            return false
         val groupName = getGroupName(world.name)
         val uuid = player.uniqueId.toString()
         val groupPlayers = visitedWorldsConfig.getStringList(groupName)
