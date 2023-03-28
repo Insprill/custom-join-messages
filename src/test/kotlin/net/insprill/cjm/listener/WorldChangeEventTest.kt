@@ -30,10 +30,10 @@ class WorldChangeEventTest {
     fun setUp() {
         server = MockBukkit.mock()
         plugin = MockBukkit.load(CustomJoinMessages::class.java)
+        plugin.config.set("World-Based-Messages.Enabled", true)
         player = server.addPlayer()
         messageTypeMock = MessageTypeMock(plugin)
         plugin.messageSender.registerType(messageTypeMock)
-        plugin.config.set("World-Based-Messages.Enabled", true)
         world = server.addSimpleWorld("world")
         world1 = server.addSimpleWorld("world1")
         world2 = server.addSimpleWorld("world2")

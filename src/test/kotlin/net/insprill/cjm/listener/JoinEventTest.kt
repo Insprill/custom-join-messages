@@ -10,6 +10,7 @@ import org.bukkit.metadata.FixedMetadataValue
 import org.bukkit.permissions.Permission
 import org.bukkit.permissions.PermissionDefault
 import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -64,10 +65,19 @@ class JoinEventTest {
     }
 
     @Test
-    fun onPlayerJoin_MarksWorldAsJoined() {
+    fun onPlayerJoin_WorldBasedMessagesEnabled_MarksWorldAsJoined() {
+        plugin.config.set("World-Based-Messages.Enabled", true)
+
         val player = server.addPlayer()
 
         assertTrue(plugin.worldChangeEvent.saveVisitedWorld(player, player.world))
+    }
+
+    @Test
+    fun onPlayerJoin_WorldBasedMessagesDisabled_DoesntMarkWorldAsJoined() {
+        val player = server.addPlayer()
+
+        assertFalse(plugin.worldChangeEvent.saveVisitedWorld(player, player.world))
     }
 
     @Test
