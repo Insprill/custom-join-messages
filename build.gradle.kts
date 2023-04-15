@@ -1,15 +1,14 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
-import org.jetbrains.kotlin.cli.common.toBooleanLenient
 import java.net.URL
 import java.util.concurrent.Executors
+import org.jetbrains.kotlin.cli.common.toBooleanLenient
 
 plugins {
-    kotlin("jvm") version "1.8.10"
+    kotlin("jvm") version "1.8.20"
     id("net.kyori.blossom") version "1.3.1"
     id("org.ajoberstar.grgit") version "5.0.0"
-    id("com.modrinth.minotaur") version "2.6.0"
-    id("com.github.johnrengelman.shadow") version "7.1.2"
-    id("com.rikonardo.papermake") version "1.0.4"
+    id("com.modrinth.minotaur") version "2.7.5"
+    id("com.github.johnrengelman.shadow") version "8.1.1"
+    id("com.rikonardo.papermake") version "1.0.6"
 }
 
 group = "net.insprill"
@@ -37,9 +36,9 @@ dependencies {
     compileOnly("net.essentialsx:EssentialsX:2.19.7")
 
     // Internal
-    compileOnly("org.spigotmc:spigot-api:1.19.3-R0.1-SNAPSHOT")
-    compileOnly("net.kyori:adventure-text-minimessage:4.12.0")
-    compileOnly("net.kyori:adventure-text-serializer-gson:4.12.0")
+    compileOnly("org.spigotmc:spigot-api:1.19.4-R0.1-SNAPSHOT")
+    compileOnly("net.kyori:adventure-text-minimessage:4.13.1")
+    compileOnly("net.kyori:adventure-text-serializer-gson:4.13.1")
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
     implementation("com.github.simplix-softworks:simplixstorage:3.2.5")
     implementation("de.themoep:minedown:1.7.1-SNAPSHOT")
@@ -48,15 +47,18 @@ dependencies {
     implementation("org.bstats:bstats-bukkit:3.0.0")
 
     // Tests
-    testImplementation("com.github.seeseemelk:MockBukkit-v1.19:2.144.5")
+    testImplementation("com.github.seeseemelk:MockBukkit-v1.19:2.145.2")
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
     testImplementation(platform("org.junit:junit-bom:5.9.2"))
 }
 
 val extraDependencies = mapOf(
-    Pair("CMI-API.jar", "https://github.com/Zrips/CMI-API/releases/download/8.7.8.2/CMIAPI8.7.8.2.jar"),
+    Pair("CMI-API.jar", "https://github.com/Zrips/CMI-API/releases/download/9.3.1.5/CMIAPI9.3.1.5.jar"),
     Pair("VanishNoPacket.jar", "https://mediafiles.forgecdn.net/files/3661/454/VanishNoPacket.jar"),
-    Pair("VelocityVanish.jar", "https://github.com/Syrent/VelocityVanish/releases/download/v3.6.1/VelocityVanish.v3.6.1.jar"),
+    Pair(
+        "VelocityVanish.jar",
+        "https://github.com/Syrent/VelocityVanish/releases/download/v3.18.1/VelocityVanish.v3.18.1.jar"
+    ),
 )
 
 tasks {
@@ -72,14 +74,10 @@ tasks {
         enabled = false
     }
 
-    val reloc = task<ConfigureShadowRelocation>("relocateShadowJar") {
-        target = shadowJar.get()
-        prefix = "net.insprill.cjm.libs"
-    }
-
     shadowJar {
-        dependsOn(reloc)
         archiveClassifier.set("")
+        isEnableRelocation = true
+        relocationPrefix = "net.insprill.cjm.libs"
         exclude("META-INF/**")
         from("LICENSE")
         minimize()

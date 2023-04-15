@@ -6,6 +6,11 @@ import de.leonhard.storage.SimplixBuilder
 import de.leonhard.storage.Yaml
 import de.leonhard.storage.internal.settings.ConfigSettings
 import de.leonhard.storage.internal.settings.DataType
+import java.io.File
+import java.nio.file.Path
+import java.nio.file.Paths
+import java.util.Collections
+import kotlin.io.path.exists
 import net.insprill.cjm.command.CjmCommand
 import net.insprill.cjm.command.CommandCompletion
 import net.insprill.cjm.command.CommandContext
@@ -32,16 +37,9 @@ import net.swiftzer.semver.SemVer
 import org.bstats.bukkit.Metrics
 import org.bstats.charts.SimplePie
 import org.bukkit.Bukkit
-import org.bukkit.plugin.PluginDescriptionFile
 import org.bukkit.plugin.java.JavaPlugin
-import org.bukkit.plugin.java.JavaPluginLoader
-import java.io.File
-import java.nio.file.Path
-import java.nio.file.Paths
-import java.util.Collections
-import kotlin.io.path.exists
 
-class CustomJoinMessages : JavaPlugin {
+open class CustomJoinMessages : JavaPlugin() {
 
     lateinit var messageSender: MessageSender
     lateinit var hookManager: HookManager
@@ -220,21 +218,5 @@ class CustomJoinMessages : JavaPlugin {
             ).split("\n").forEach { msg -> logger.warning(msg) }
         }
     }
-
-    // region MockBukkit Constructors
-    constructor() : super()
-
-    constructor(
-        loader: JavaPluginLoader,
-        description: PluginDescriptionFile,
-        dataFolder: File,
-        file: File
-    ) : super(
-        loader,
-        description,
-        dataFolder,
-        file
-    )
-    // endregion
 
 }
