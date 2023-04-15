@@ -70,7 +70,8 @@ open class CustomJoinMessages : JavaPlugin() {
                 val formatterCompatResult = formatterType.isCompatible.invoke()
                 if (!formatterCompatResult.status) {
                     logger.severe(formatterCompatResult.message)
-                    formatterType = FormatterType.MINEDOWN
+                    formatterType = FormatterType.LEGACY
+                    logger.severe("Falling back to $formatterType")
                 }
                 this.formatter = formatterType.formatter
             }

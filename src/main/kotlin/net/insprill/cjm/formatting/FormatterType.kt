@@ -6,7 +6,12 @@ enum class FormatterType(
     val prettyName: String,
     val isCompatible: () -> (CompatibilityResult)
 ) {
-    MINEDOWN(MinedownFormatter(), "Minedown", { CompatibilityResult.NONE }),
+    MINEDOWN(MinedownFormatter(), "Minedown", {
+        CompatibilityResult(
+            MinedownFormatter.isCompatible(),
+            "You must be running 1.12.2+ to use the Minedown formatter!"
+        )
+    }),
     MINIMESSAGE(
         MiniMessageFormatter(),
         "MiniMessage",
