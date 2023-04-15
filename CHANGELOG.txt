@@ -1,5 +1,10 @@
-CJM 17.x.x:
+CJM 17.2.3:
+- Fixed a warning when loading on 1.19.4 servers.
 - Fixed player visited worlds being updated when world-based messages are disabled.
+- Fixed the MiniMessage formatter sometimes trying to load on incompatible servers.
+- Fixed the Minedown formatter being allowed to be selected on servers older than 1.12.2.
+- Fixed an error when logging chat messages to console on servers older than 1.12.2.
+- The legacy formatter is now the default.
 
 CJM 17.2.2:
 - Fixed Spigot update checker URL.
