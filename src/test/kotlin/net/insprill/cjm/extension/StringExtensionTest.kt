@@ -46,7 +46,7 @@ class StringExtensionTest {
     }
 
     @Test
-    @Disabled("MockBukkit requires a special constructor")
+    @Disabled("MockBukkit requires a non-final main class")
     fun replacePlaceholders_WithPapiPlaceholders_Fills() {
         MockBukkit.load(PlaceholderAPIPlugin::class.java)
         PlaceholderExpansionMock().register()
