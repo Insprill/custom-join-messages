@@ -38,7 +38,7 @@ formatting:
   # - MINIMESSAGE
   # - LEGACY
   # For more information on formatting and what each option does, check out the wiki (https://cjm.insprill.net/en/latest/writing-messages/formatting.html).
-  formatter: MINEDOWN
+  formatter: LEGACY
 
 # If true, messages will be sent when players change worlds instead
 # of only when they join the server. This also only sends messages to players who are in the same world.
