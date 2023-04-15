@@ -1,8 +1,5 @@
 package net.insprill.cjm.formatting
 
-import net.insprill.spigotutils.MinecraftVersion
-import net.insprill.spigotutils.ServerEnvironment
-
 @Suppress("unused")
 enum class FormatterType(
     val formatter: Formatter,
@@ -11,10 +8,11 @@ enum class FormatterType(
 ) {
     MINEDOWN(MinedownFormatter(), "Minedown", { CompatibilityResult.NONE }),
     MINIMESSAGE(
-        MiniMessageFormatter(), "MiniMessage",
+        MiniMessageFormatter(),
+        "MiniMessage",
         {
             CompatibilityResult(
-                ServerEnvironment.isPaper() && MinecraftVersion.isAtLeast(MinecraftVersion.v1_18_2),
+                MiniMessageFormatter.isCompatible(),
                 "You must be running Paper 1.18.2+ to use the MiniMessage formatter!"
             )
         }),

@@ -1,5 +1,7 @@
 package net.insprill.cjm.formatting
 
+import net.insprill.spigotutils.MinecraftVersion
+import net.insprill.spigotutils.ServerEnvironment
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer
 import net.md_5.bungee.api.chat.BaseComponent
@@ -8,18 +10,29 @@ import org.bukkit.Bukkit
 
 class MiniMessageFormatter : Formatter {
 
-    private val gsonSerializer: GsonComponentSerializer
+    private val gsonSerializer: GsonComponentSerializer?
 
     init {
-        @Suppress("DEPRECATION")
-        val unsafe = Bukkit.getUnsafe()
-        val clazz = unsafe::class.java
-        gsonSerializer = clazz.getMethod("gsonComponentSerializer").invoke(unsafe) as GsonComponentSerializer
+        if (isCompatible()) {
+            @Suppress("DEPRECATION")
+            val unsafe = Bukkit.getUnsafe()
+            val clazz = unsafe::class.java
+            gsonSerializer = clazz.getMethod("gsonComponentSerializer").invoke(unsafe) as GsonComponentSerializer
+        } else {
+            gsonSerializer = null
+        }
     }
 
     override fun format(str: String): Array<BaseComponent> {
-        val json = gsonSerializer.serialize(MiniMessage.miniMessage().deserialize(str))
+        if (!isCompatible()) throw IllegalStateException("MiniMessageFormatter isn't compatible with this server!")
+        val json = gsonSerializer?.serialize(MiniMessage.miniMessage().deserialize(str))
         return ComponentSerializer.parse(json)
+    }
+
+    companion object {
+        fun isCompatible(): Boolean {
+            return ServerEnvironment.isPaper() && MinecraftVersion.isAtLeast(MinecraftVersion.v1_18_2)
+        }
     }
 
 }
