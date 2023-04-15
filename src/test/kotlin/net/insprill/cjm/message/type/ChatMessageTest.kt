@@ -100,7 +100,7 @@ class ChatMessageTest {
 
         chat.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
 
-        server.consoleSender.assertSaid("Hello!")
+        server.consoleSender.assertSaid("§fHello!")
         server.consoleSender.assertNoMoreSaid()
     }
 
