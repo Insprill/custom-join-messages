@@ -14,12 +14,12 @@ class SoundMessage(private val plugin: CustomJoinMessages) : MessageType(plugin,
         val pitch = config.getOrDefault("$chosenPath.Pitch", 1.0f)
 
         if (config.getBoolean("$chosenPath.Global")) {
+            for (player in recipients) {
+                player.playSound(player.location, sound, volume, pitch)
+            }
+        } else {
             primaryPlayer.world.playSound(primaryPlayer.location, sound, volume, pitch)
-            return
         }
 
-        for (player in recipients) {
-            player.playSound(player.location, sound, volume, pitch)
-        }
     }
 }
