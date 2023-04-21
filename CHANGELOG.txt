@@ -1,3 +1,6 @@
+CJM 17.2.4:
+- Fixed the global sound toggle being backwards.
+
 CJM 17.2.3:
 - Fixed a warning when loading on 1.19.4 servers.
 - Fixed player visited worlds being updated when world-based messages are disabled.
