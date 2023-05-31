@@ -1,6 +1,6 @@
+import org.jetbrains.kotlin.cli.common.toBooleanLenient
 import java.net.URL
 import java.util.concurrent.Executors
-import org.jetbrains.kotlin.cli.common.toBooleanLenient
 
 plugins {
     kotlin("jvm") version "1.8.21"
@@ -211,7 +211,7 @@ fun versionMetadata(): String {
 }
 
 fun readChangelog(version: String): String {
-    val lines = file("CHANGELOG.txt").readLines()
+    val lines = file("CHANGELOG.md").readLines()
     val out = StringBuilder()
     var inVersion = false
     for (line in lines) {
@@ -219,9 +219,9 @@ fun readChangelog(version: String): String {
             inVersion = true
             continue
         }
-        if (line.isBlank())
-            break
         if (inVersion) {
+            if (line.isBlank())
+                break
             out.append(line).append("\n")
         }
     }

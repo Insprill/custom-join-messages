@@ -1,7 +1,10 @@
-CJM 17.2.4:
+# Changelog
+
+## 17.2.4:
 - Fixed the global sound toggle being backwards.
 
-CJM 17.2.3:
+
+## 17.2.3:
 - Fixed a warning when loading on 1.19.4 servers.
 - Fixed player visited worlds being updated when world-based messages are disabled.
 - Fixed the MiniMessage formatter sometimes trying to load on incompatible servers.
@@ -9,29 +12,36 @@ CJM 17.2.3:
 - Fixed an error when logging chat messages to console on servers older than 1.12.2.
 - The legacy formatter is now the default.
 
-CJM 17.2.2:
+
+## 17.2.2:
 - Fixed Spigot update checker URL.
 
-CJM 17.2.1:
+
+## 17.2.1:
 - Fixed some incompatibilities with Java 8.
 - Fixed EssentialsX vanish message showing the person who executed the command, not the person who was vanished.
 
-CJM 17.2.0:
+
+## 17.2.0:
 - Added an option to change the text formatter. More information on the wiki.
 - Fixed a possible bug where players wouldn't be granted the cjm.default permission.
 
-CJM 17.1.1:
+
+## 17.1.1:
 - Fixed an error in the update checker on < 1.17 servers.
 
-CJM 17.1.0:
+
+## 17.1.0:
 - Added support for 1.19.3 (no changes required, already compatible).
 - Added an option to send public chat messages to console.
 - Fixed VelocityVanish not being a soft-dependency.
 
-CJM 17.0.1:
+
+## 17.0.1:
 - Fixed the Modrinth update checker not parsing responses correctly.
 
-CJM 17.0.0:
+
+## 17.0.0:
 - Reformatted configuration files. Your old config will be renamed and a new one will be generated.
 - Added support for formatting messages with MineDown. It may differ from what you're used to, so please check out the wiki.
 - Added support for world-based messages.
