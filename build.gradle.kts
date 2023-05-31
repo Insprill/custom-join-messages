@@ -3,7 +3,7 @@ import java.util.concurrent.Executors
 import org.jetbrains.kotlin.cli.common.toBooleanLenient
 
 plugins {
-    kotlin("jvm") version "1.8.20"
+    kotlin("jvm") version "1.8.21"
     id("net.kyori.blossom") version "1.3.1"
     id("org.ajoberstar.grgit") version "5.0.0"
     id("com.modrinth.minotaur") version "2.7.5"
@@ -32,7 +32,7 @@ dependencies {
     compileOnly("com.github.MilkBowl:VaultAPI:1.7.1") { isTransitive = false }
     compileOnly("com.github.MyzelYam:SuperVanish:6.2.12") { isTransitive = false }
     compileOnly("fr.xephi:authme:5.6.0-SNAPSHOT")
-    compileOnly("me.clip:placeholderapi:2.11.2")
+    compileOnly("me.clip:placeholderapi:2.11.3")
     compileOnly("net.essentialsx:EssentialsX:2.19.7")
 
     // Internal
@@ -40,24 +40,24 @@ dependencies {
     compileOnly("net.kyori:adventure-text-minimessage:4.13.1")
     compileOnly("net.kyori:adventure-text-serializer-gson:4.13.1")
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
-    implementation("com.github.simplix-softworks:simplixstorage:3.2.5")
+    implementation("com.github.simplix-softworks:simplixstorage:3.2.6")
     implementation("de.themoep:minedown:1.7.1-SNAPSHOT")
     implementation("net.insprill:spigot-utils:0.2.2")
-    implementation("net.swiftzer.semver:semver:1.2.0")
-    implementation("org.bstats:bstats-bukkit:3.0.0")
+    implementation("net.swiftzer.semver:semver:1.3.0")
+    implementation("org.bstats:bstats-bukkit:3.0.2")
 
     // Tests
-    testImplementation("com.github.seeseemelk:MockBukkit-v1.19:2.145.2")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
-    testImplementation(platform("org.junit:junit-bom:5.9.2"))
+    testImplementation("com.github.seeseemelk:MockBukkit-v1.19:3.1.0")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.9.3")
+    testImplementation(platform("org.junit:junit-bom:5.9.3"))
 }
 
 val extraDependencies = mapOf(
-    Pair("CMI-API.jar", "https://github.com/Zrips/CMI-API/releases/download/9.3.1.5/CMI-API9.3.1.5.jar"),
+    Pair("CMI-API.jar", "https://github.com/Zrips/CMI-API/releases/download/9.5.0.8/CMI-API9.5.0.8.jar"),
     Pair("VanishNoPacket.jar", "https://mediafiles.forgecdn.net/files/3661/454/VanishNoPacket.jar"),
     Pair(
         "VelocityVanish.jar",
-        "https://github.com/Syrent/VelocityVanish/releases/download/v3.18.1/VelocityVanish.v3.18.1.jar"
+        "https://github.com/Syrent/VelocityVanish/releases/download/v3.18.2/VelocityVanish.v3.18.2.jar"
     ),
 )
 
