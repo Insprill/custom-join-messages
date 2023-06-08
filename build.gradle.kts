@@ -6,7 +6,7 @@ plugins {
     kotlin("jvm") version "1.8.21"
     id("net.kyori.blossom") version "1.3.1"
     id("org.ajoberstar.grgit") version "5.0.0"
-    id("com.modrinth.minotaur") version "2.7.5"
+    id("com.modrinth.minotaur") version "2.8.0"
     id("com.github.johnrengelman.shadow") version "8.1.1"
     id("com.rikonardo.papermake") version "1.0.6"
 }
@@ -30,13 +30,13 @@ dependencies {
     // Plugins
     compileOnly(fileTree("libs")) // No Maven repos :/
     compileOnly("com.github.MilkBowl:VaultAPI:1.7.1") { isTransitive = false }
-    compileOnly("com.github.MyzelYam:SuperVanish:6.2.12") { isTransitive = false }
+    compileOnly("com.github.MyzelYam:SuperVanish:6.2.16") { isTransitive = false }
     compileOnly("fr.xephi:authme:5.6.0-SNAPSHOT")
     compileOnly("me.clip:placeholderapi:2.11.3")
-    compileOnly("net.essentialsx:EssentialsX:2.19.7")
+    compileOnly("net.essentialsx:EssentialsX:2.20.0")
 
     // Internal
-    compileOnly("org.spigotmc:spigot-api:1.19.4-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc:spigot-api:1.20-R0.1-SNAPSHOT")
     compileOnly("net.kyori:adventure-text-minimessage:4.13.1")
     compileOnly("net.kyori:adventure-text-serializer-gson:4.13.1")
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
