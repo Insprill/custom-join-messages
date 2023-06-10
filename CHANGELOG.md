@@ -1,10 +1,15 @@
 # Changelog
 
+## 17.3.0:
+
+- Added support for 1.20 (no changes required, already compatible).
+
 ## 17.2.4:
+
 - Fixed the global sound toggle being backwards.
 
-
 ## 17.2.3:
+
 - Fixed a warning when loading on 1.19.4 servers.
 - Fixed player visited worlds being updated when world-based messages are disabled.
 - Fixed the MiniMessage formatter sometimes trying to load on incompatible servers.

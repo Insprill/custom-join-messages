@@ -91,17 +91,24 @@ See [LICENSE][license-url] for more information.
 <!-- SUPPORT -->
 ## Support
 
-For support, please join my [Discord Server][discord-url].  
-Once you join, you can ask your question in the `#community-support` channel.  
-**Please note that support is done purely in my free time and is *not* guaranteed.**
+For support, please subscribe to my [Patreon][patreon-url] and join my [Discord Server][discord-url].  
+Note that support is *only* granted to my Patreons!  
+Once you've joined and subscribed, you can ask questions in the `#support` channel.
 
 
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
 [bstats-servers-svg]: https://bstats.org/signatures/bukkit/Custom%20Join%20Messages.svg
+
 [bstats-url]: https://bstats.org/plugin/bukkit/Custom%20Join%20Messages/6346
+
 [license-url]: https://github.com/Insprill/Custom-Join-Messages/blob/master/LICENSE
+
 [discord-shield]: https://img.shields.io/discord/626995215558901771?color=%235663F7&label=Discord&style=for-the-badge
-[discord-url]: https://discord.gg/SH7VyYtuC2
+
+[discord-url]: https://discord.gg/vjQ3F2XDTc
+
+[patreon-url]: https://www.patreon.com/insprill
