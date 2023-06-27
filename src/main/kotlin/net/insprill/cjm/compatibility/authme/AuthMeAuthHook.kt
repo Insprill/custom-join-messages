@@ -5,6 +5,7 @@ import fr.xephi.authme.events.LoginEvent
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.compatibility.hook.AuthHook
 import net.insprill.cjm.message.MessageAction
+import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
@@ -21,7 +22,6 @@ class AuthMeAuthHook(private val plugin: CustomJoinMessages) : AuthHook {
 
     @EventHandler(priority = EventPriority.MONITOR)
     fun onLogin(e: LoginEvent) {
-        loggedInPlayers.add(e.player)
         handleJoin(e.player)
     }
 
@@ -29,7 +29,6 @@ class AuthMeAuthHook(private val plugin: CustomJoinMessages) : AuthHook {
     fun onJoin(e: PlayerJoinEvent) {
         e.joinMessage = ""
         if (AuthMeApi.getInstance().isUnrestricted(e.player)) {
-            loggedInPlayers.add(e.player)
             handleJoin(e.player)
         }
     }
@@ -42,7 +41,7 @@ class AuthMeAuthHook(private val plugin: CustomJoinMessages) : AuthHook {
 
     @EventHandler(priority = EventPriority.MONITOR)
     fun onQuit(e: PlayerQuitEvent) {
-        loggedInPlayers.remove(e.player)
+        Bukkit.getScheduler().runTaskLater(plugin, Runnable { loggedInPlayers.remove(e.player) }, 1L)
     }
 
 }
