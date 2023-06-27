@@ -2,7 +2,7 @@
 
 ## 17.3.0:
 
-- Added support for 1.20 (no changes required, already compatible).
+- Added support for 1.20/1.20.1 (no changes required, already compatible).
 - Fixed quit messages not working with AuthMe.
 
 ## 17.2.4:
