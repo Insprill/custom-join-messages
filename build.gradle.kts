@@ -36,9 +36,9 @@ dependencies {
     compileOnly("net.essentialsx:EssentialsX:2.20.0")
 
     // Internal
-    compileOnly("org.spigotmc:spigot-api:1.20-R0.1-SNAPSHOT")
-    compileOnly("net.kyori:adventure-text-minimessage:4.13.1")
-    compileOnly("net.kyori:adventure-text-serializer-gson:4.13.1")
+    compileOnly("org.spigotmc:spigot-api:1.20.1-R0.1-SNAPSHOT")
+    compileOnly("net.kyori:adventure-text-minimessage:4.14.0")
+    compileOnly("net.kyori:adventure-text-serializer-gson:4.14.0")
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
     implementation("com.github.simplix-softworks:simplixstorage:3.2.6")
     implementation("de.themoep:minedown:1.7.1-SNAPSHOT")
