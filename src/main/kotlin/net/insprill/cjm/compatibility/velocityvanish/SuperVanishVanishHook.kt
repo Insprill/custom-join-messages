@@ -25,11 +25,15 @@ class VelocityVanishVanishHook(override val plugin: CustomJoinMessages) : Vanish
 
     @EventHandler(priority = EventPriority.MONITOR)
     fun onVanish(e: PostVanishEvent) {
+        if (!e.sendQuitMessage)
+            return
         handleToggle(e.player, true)
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
     fun onUnvanish(e: PostUnVanishEvent) {
+        if (!e.sendJoinMessage)
+            return
         handleToggle(e.player, false)
     }
 

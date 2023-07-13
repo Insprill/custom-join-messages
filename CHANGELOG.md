@@ -1,5 +1,9 @@
 # Changelog
 
+## 17.x.x:
+
+- Fixed fake join/quit messages sending when they shouldn't when using VelocityVanish.
+
 ## 17.3.0:
 
 - Added support for 1.20/1.20.1 (no changes required, already compatible).
