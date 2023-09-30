@@ -1,0 +1,9 @@
+package net.insprill.cjm;
+
+public class BuildParameters {
+    public static final String BSTATS_ID = "{{ bstatsId }}";
+    public static final String SPIGOT_RESOURCE_ID = "{{ spigotResourceId }}";
+    public static final String MODRINTH_PROJECT_ID = "{{ modrinthProjectId }}";
+    public static final String VERSION = "{{ buildVersion }}";
+    public static final String TARGET_PLATFORM = "{{ buildTargetPlatform }}";
+}

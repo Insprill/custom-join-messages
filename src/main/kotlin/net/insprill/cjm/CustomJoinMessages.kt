@@ -81,7 +81,7 @@ open class CustomJoinMessages : JavaPlugin() {
         config.forceReload()
 
         if (!ServerEnvironment.isMockBukkit()) {
-            metrics = Metrics(this, bStatsId.toInt())
+            metrics = Metrics(this, BuildParameters.BSTATS_ID.toInt())
             metrics.addCustomChart(SimplePie("worldBasedMessages") {
                 config.getBoolean("World-Based-Messages.Enabled").toString()
             })
@@ -116,7 +116,7 @@ open class CustomJoinMessages : JavaPlugin() {
 
         registerCommands()
 
-        val platform = UpdateChecker.Platform.valueOf(targetPlatform.uppercase())
+        val platform = UpdateChecker.Platform.valueOf(BuildParameters.TARGET_PLATFORM.uppercase())
         updateChecker = platform.factory.invoke(this)
         checkForUpdates()
     }

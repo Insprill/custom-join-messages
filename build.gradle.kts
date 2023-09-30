@@ -3,10 +3,10 @@ import java.net.URL
 import java.util.concurrent.Executors
 
 plugins {
-    kotlin("jvm") version "1.9.0"
-    id("net.kyori.blossom") version "1.3.1"
+    kotlin("jvm") version "1.9.10"
+    id("net.kyori.blossom") version "2.1.0"
     id("org.ajoberstar.grgit") version "5.0.0"
-    id("com.modrinth.minotaur") version "2.8.3"
+    id("com.modrinth.minotaur") version "2.8.4"
     id("com.github.johnrengelman.shadow") version "8.1.1"
     id("com.rikonardo.papermake") version "1.0.6"
 }
@@ -32,11 +32,11 @@ dependencies {
     compileOnly("com.github.MilkBowl:VaultAPI:1.7.1") { isTransitive = false }
     compileOnly("com.github.MyzelYam:SuperVanish:6.2.16") { isTransitive = false }
     compileOnly("fr.xephi:authme:5.6.0-SNAPSHOT")
-    compileOnly("me.clip:placeholderapi:2.11.3")
+    compileOnly("me.clip:placeholderapi:2.11.4")
     compileOnly("net.essentialsx:EssentialsX:2.20.1")
 
     // Internal
-    compileOnly("org.spigotmc:spigot-api:1.20.1-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc:spigot-api:1.20.2-R0.1-SNAPSHOT")
     compileOnly("net.kyori:adventure-text-minimessage:4.14.0")
     compileOnly("net.kyori:adventure-text-serializer-gson:4.14.0")
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
@@ -47,7 +47,7 @@ dependencies {
     implementation("org.bstats:bstats-bukkit:3.0.2")
 
     // Tests
-    testImplementation("com.github.seeseemelk:MockBukkit-v1.20:3.19.1")
+    testImplementation("com.github.seeseemelk:MockBukkit-v1.20:3.24.1")
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
 }
@@ -125,16 +125,18 @@ configurations {
     }
 }
 
-blossom {
-    val metadata = "src/main/kotlin/net/insprill/cjm/Metadata.kt"
-    fun repl(token: String, value: Any?) {
-        replaceToken("\"{$token}\"", "\"$value\"", metadata)
+sourceSets {
+    main {
+        blossom {
+            javaSources {
+                property("bstatsId", project.property("bstats.id") as String)
+                property("spigotResourceId", project.property("spigot.resource.id") as String)
+                property("modrinthProjectId", project.property("modrinth.project.id") as String)
+                property("buildVersion", version as String)
+                property("buildTargetPlatform", project.property("build.target-platform") as String)
+            }
+        }
     }
-    repl("bstats.id", project.property("bstats.id"))
-    repl("spigot.resource.id", project.property("spigot.resource.id"))
-    repl("modrinth.project.id", project.property("modrinth.project.id"))
-    repl("build.version", version)
-    repl("build.target-platform", project.property("build.target-platform"))
 }
 
 modrinth {
