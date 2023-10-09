@@ -81,7 +81,7 @@ Custom Join Messages is a feature-packed plugin for handling all join and quit n
     * Supports multiple different formatters to fit your needs
         * [MineDown](https://github.com/Phoenix616/MineDown)
         * [MiniMessage](https://docs.adventure.kyori.net/minimessage/index.html) ([Paper](https://papermc.io/) only)
-        * [Legacy](https://minecraft.fandom.com/wiki/Formatting_codes)
+        * [Legacy](https://minecraft.wiki/w/Formatting_codes)
     * All messages support HEX colors
     * All messages support gradients when using MineDown or MiniMessage
     * Chat messages support hover/click actions when using MineDown or MiniMessage

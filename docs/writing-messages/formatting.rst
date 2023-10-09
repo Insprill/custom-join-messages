@@ -46,8 +46,8 @@ It also has support for three special styles of HEX colors, being ``{#000000}``,
 .. _MineDown Syntax: https://github.com/Phoenix616/MineDown#syntax
 .. _MiniMessage: https://docs.adventure.kyori.net/minimessage/index.html
 .. _MiniMessage Syntax: https://docs.adventure.kyori.net/minimessage/format.html
-.. _Legacy: https://minecraft.fandom.com/wiki/Formatting_codes
-.. _Legacy Syntax: https://minecraft.fandom.com/wiki/Formatting_codes
+.. _Legacy: https://minecraft.wiki/w/Formatting_codes
+.. _Legacy Syntax: https://minecraft.wiki/w/Formatting_codes
 
 .. _Markdown: https://www.markdownguide.org/getting-started/#what-is-markdown
 .. _Paper: https://github.com/PaperMC/Paper
