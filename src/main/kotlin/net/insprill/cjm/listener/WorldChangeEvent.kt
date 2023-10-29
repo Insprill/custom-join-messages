@@ -12,8 +12,10 @@ import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
+import org.bukkit.event.player.PlayerQuitEvent
 import org.bukkit.event.player.PlayerTeleportEvent
 import java.nio.file.Paths
+import kotlin.math.ceil
 
 class WorldChangeEvent(private val plugin: CustomJoinMessages) : Listener {
 
@@ -24,6 +26,10 @@ class WorldChangeEvent(private val plugin: CustomJoinMessages) : Listener {
 
     private val isEnabled: Boolean
         get() = plugin.config.getBoolean("World-Based-Messages.Enabled")
+    private val minimumWorldTime: Int
+        get() = plugin.config.getInt("World-Based-Messages.Minimum-World-Time")
+
+    private val worldJoinTimes = HashMap<String, Long>()
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     fun onPlayerChangeWorld(e: PlayerTeleportEvent) {
@@ -38,17 +44,42 @@ class WorldChangeEvent(private val plugin: CustomJoinMessages) : Listener {
         if (isSameGroup(toWorld.name, fromWorld.name))
             return
 
-        val hasJoinedWorldBefore = saveVisitedWorld(e.player, toWorld)
+        if (!checkTime(e.player))
+            return
 
-        plugin.messageSender.trySendMessages(e.player, MessageAction.QUIT, true)
+        worldJoinTimes[e.player.uniqueId.toString()] = System.currentTimeMillis()
+
+        trySendLater(e.player, toWorld)
+    }
+
+    private fun trySendLater(player: Player, toWorld: World) {
+        val hasJoinedWorldBefore = saveVisitedWorld(player, toWorld)
+
+        plugin.messageSender.trySendMessages(player, MessageAction.QUIT, true)
 
         CrossPlatformScheduler.runDelayed(plugin, {
+            if (!checkTime(player))
+                return@runDelayed
             plugin.messageSender.trySendMessages(
-                e.player,
+                player,
                 if (hasJoinedWorldBefore) MessageAction.JOIN else MessageAction.FIRST_JOIN,
                 true
             )
-        }, 10L)
+        }, ceil(minimumWorldTime / 50.0f).toLong() + 10L)
+    }
+
+    private fun checkTime(player: Player): Boolean {
+        val uuid = player.uniqueId.toString()
+        val time = System.currentTimeMillis()
+        return time - worldJoinTimes.getOrDefault(uuid, 0) >= minimumWorldTime
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    fun onPlayerQuit(e: PlayerQuitEvent) {
+        if (!isEnabled)
+            return
+
+        worldJoinTimes.remove(e.player.uniqueId.toString())
     }
 
     fun saveVisitedWorld(player: Player, world: World): Boolean {

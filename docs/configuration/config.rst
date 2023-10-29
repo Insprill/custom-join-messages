@@ -61,6 +61,9 @@ config.yml
         * ``INDIVIDUAL`` - Ungrouped worlds will be treated as if each worlds is its own group.
 
         All options are case-sensitive.
+   * Minimum-World-Time:
+      * **Default**: ``0``
+      * **Description**: The minimum amount of time a player has to be in a world before a message is sent, in milliseconds. If a player is in a world for less than this amount of time, no message will be sent.
 
 * Update-Checker:
    * **Description**: Settings related to the update checker.

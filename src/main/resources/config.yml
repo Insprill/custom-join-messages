@@ -65,6 +65,11 @@ World-Based-Messages:
   #  SAME - Worlds will be treated as if they're in one group.
   #  INDIVIDUAL - Worlds will be treated as if they're all in their own groups.
   Ungrouped-Mode: INDIVIDUAL
+  # The amount of time, in milliseconds, that a player must be in a world
+  # before a message is sent for them joining/quitting. Join messages will always
+  # be delayed by at least this amount of time when changing worlds. Quit messages will be
+  # sent immediately, assuming the player has been in the world for at least this amount of time.
+  Minimum-World-Time: 0
 
 # Settings for the plugins update checker.
 Update-Checker:
