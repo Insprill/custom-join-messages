@@ -107,6 +107,19 @@ class WorldChangeEventTest {
     }
 
     @Test
+    fun onTeleport_DifferentWorld_BelowTimeout_DoesntSendQuitMessage() {
+        plugin.config.set("World-Based-Messages.Minimum-World-Time", 1000)
+        PlayerTeleportEvent(player, loc(world2), loc(world)).callEvent()
+        messageTypeMock.clearResults()
+
+        val event = PlayerTeleportEvent(player, loc(world), loc(world2))
+
+        event.callEvent()
+
+        messageTypeMock.assertDoesntHaveResult()
+    }
+
+    @Test
     fun onTeleport_DifferentWorld_SendsJoinMessageLater() {
         val event = PlayerTeleportEvent(player, loc(world), loc(world2))
 
@@ -119,6 +132,22 @@ class WorldChangeEventTest {
         server.scheduler.performTicks(1)
         messageTypeMock.assertHasResult()
         assertTrue(messageTypeMock.result.chosenPath.contains("Join."))
+    }
+
+    @Test
+    fun onTeleport_DifferentWorld_BelowTimeout_DoesntSendJoinMessage() {
+        plugin.config.set("World-Based-Messages.Minimum-World-Time", 1000)
+        PlayerTeleportEvent(player, loc(world2), loc(world)).callEvent()
+        messageTypeMock.clearResults()
+
+        val event = PlayerTeleportEvent(player, loc(world), loc(world2))
+
+        event.callEvent()
+        messageTypeMock.clearResults()
+
+        server.scheduler.performTicks(10)
+
+        messageTypeMock.assertDoesntHaveResult()
     }
 
     @Test
