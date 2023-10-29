@@ -1,72 +1,113 @@
 # Changelog
 
-## 17.3.1:
+All notable changes to this project will be documented in this file.
 
-- Fixed fake join/quit messages sending when they shouldn't when using VelocityVanish.
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## 17.3.0:
 
-- Added support for 1.20/1.20.1 (no changes required, already compatible).
-- Fixed quit messages not working with AuthMe.
+## 17.3.1 - 2023-08-18
 
-## 17.2.4:
+### Fixed
+- Fake join/quit messages sending when they shouldn't when using VelocityVanish.
 
-- Fixed the global sound toggle being backwards.
 
-## 17.2.3:
+## 17.3.0 - 2023-06-27
 
-- Fixed a warning when loading on 1.19.4 servers.
-- Fixed player visited worlds being updated when world-based messages are disabled.
-- Fixed the MiniMessage formatter sometimes trying to load on incompatible servers.
-- Fixed the Minedown formatter being allowed to be selected on servers older than 1.12.2.
-- Fixed an error when logging chat messages to console on servers older than 1.12.2.
+### Added
+- Support for 1.20/1.20.1 (no changes required, already compatible).
+
+### Fixed
+- Quit messages not working with AuthMe.
+
+
+## 17.2.4 - 2023-04-21
+
+### Fixed
+- The global sound toggle being backwards.
+
+
+## 17.2.3 - 2023-04-15
+
+### Fixed
+- A warning when loading on 1.19.4 servers.
+- Player visited worlds being updated when world-based messages are disabled.
+- The MiniMessage formatter sometimes trying to load on incompatible servers.
+- The MineDown formatter being allowed to be selected on servers older than 1.12.2.
+- An error when logging chat messages to console on servers older than 1.12.2.
+
+### Changed
 - The legacy formatter is now the default.
 
 
-## 17.2.2:
-- Fixed Spigot update checker URL.
+## 17.2.2 - 2023-02-10
+
+### Fixed
+- The Spigot update checker URL.
 
 
-## 17.2.1:
-- Fixed some incompatibilities with Java 8.
-- Fixed EssentialsX vanish message showing the person who executed the command, not the person who was vanished.
+## 17.2.1 - 2023-02-10
+
+### Fixed
+- Some incompatibilities with Java 8.
+- EssentialsX vanish message showing the person who executed the command, not the person who was vanished.
 
 
-## 17.2.0:
-- Added an option to change the text formatter. More information on the wiki.
-- Fixed a possible bug where players wouldn't be granted the cjm.default permission.
+## 17.2.0 - 2023-01-25
+
+### Added
+- An option to change the text formatter. More information on the wiki.
+
+### Fixed
+- A possible bug where players wouldn't be granted the cjm.default permission.
 
 
-## 17.1.1:
-- Fixed an error in the update checker on < 1.17 servers.
+## 17.1.1 - 2023-01-13
+
+### Fixed
+- An error in the update checker on < 1.17 servers.
 
 
-## 17.1.0:
-- Added support for 1.19.3 (no changes required, already compatible).
-- Added an option to send public chat messages to console.
+## 17.1.0 - 2022-12-08
+
+### Added
+- Support for 1.19.3 (no changes required, already compatible).
+- An option to send public chat messages to console.
+
+### Fixed
 - Fixed VelocityVanish not being a soft-dependency.
 
 
-## 17.0.1:
+## 17.0.1 - 2022-11-30
+
+### Fixed
 - Fixed the Modrinth update checker not parsing responses correctly.
 
 
-## 17.0.0:
+## 17.0.0 - 2022-11-14
+
+### Changed
 - Reformatted configuration files. Your old config will be renamed and a new one will be generated.
-- Added support for formatting messages with MineDown. It may differ from what you're used to, so please check out the wiki.
-- Added support for world-based messages.
-- Added bossbar messages.
-- Added sound "messages".
-- Added automatic config reloading. Once changes are saved, they will be automatically picked up.
-- Added option to not send messages for jailed players (Only supports EssentialsX and CMI jails).
-- Added support for VelocityVanish, and EssentialsX's vanish.
-- Added 'Min-Players' config option.
-- Added 'Max-Players' config option.
+
+### Added
+- Support for formatting messages with MineDown. It may differ from what you're used to, so please check out the wiki.
+- Support for world-based messages.
+- Bossbar messages.
+- Sound "messages".
+- Automatic config reloading. Once changes are saved, they will be automatically picked up.
+- Option to not send messages for jailed players (Only supports EssentialsX and CMI jails).
+- Support for VelocityVanish, and EssentialsX's vanish.
+- The 'Min-Players' config option.
+- The 'Max-Players' config option.
+
+### Fixed
 - Fixed HEX colour codes not working on 1.17-1.19.x.
-- Removed support for 1.8.x servers.
-- Removed support for syncing toggle status via MySQL.
-- Removed the "cjm debug" command.
-- Removed the "cjm joindate" command.
-- Removed the "cjm reload" command.
-- Removed the "cjm version" command.
-- Removed support for tellraw formatted JSON messages. Please use the MineDown format instead.
+
+### Removed
+- Ssupport for 1.8.x servers.
+- Support for syncing toggle status via MySQL.
+- The "cjm debug" command.
+- The "cjm joindate" command.
+- The "cjm reload" command.
+- The "cjm version" command.
+- Support for tellraw formatted JSON messages. Please use the MineDown format instead.

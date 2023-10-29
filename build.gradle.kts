@@ -220,15 +220,16 @@ fun readChangelog(version: String): String {
     val out = StringBuilder()
     var inVersion = false
     for (line in lines) {
-        if (line.endsWith("$version:")) {
+        if (line.startsWith("## $version - ")) {
             inVersion = true
             continue
         }
         if (inVersion) {
-            if (line.isBlank())
+            if (line.startsWith("## ")) {
                 break
+            }
             out.append(line).append("\n")
         }
     }
-    return out.toString()
+    return out.toString().trim()
 }
