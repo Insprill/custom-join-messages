@@ -40,14 +40,14 @@ dependencies {
     compileOnly("net.kyori:adventure-text-minimessage:4.14.0")
     compileOnly("net.kyori:adventure-text-serializer-gson:4.14.0")
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
-    implementation("com.github.simplix-softworks:simplixstorage:3.2.6")
+    implementation("com.github.simplix-softworks:simplixstorage:3.2.7")
     implementation("de.themoep:minedown:1.7.1-SNAPSHOT")
     implementation("net.insprill:spigot-utils:0.2.2")
     implementation("net.swiftzer.semver:semver:1.3.0")
     implementation("org.bstats:bstats-bukkit:3.0.2")
 
     // Tests
-    testImplementation("com.github.seeseemelk:MockBukkit-v1.20:3.24.1")
+    testImplementation("com.github.seeseemelk:MockBukkit-v1.20:3.42.0")
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
 }
