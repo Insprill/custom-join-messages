@@ -85,6 +85,7 @@ class WorldChangeEvent(private val plugin: CustomJoinMessages) : Listener {
     fun saveVisitedWorld(player: Player, world: World): Boolean {
         if (!isEnabled)
             return false
+        worldJoinTimes[player.uniqueId.toString()] = System.currentTimeMillis()
         val groupName = getGroupName(world.name)
         val uuid = player.uniqueId.toString()
         val groupPlayers = visitedWorldsConfig.getStringList(groupName)
