@@ -2,4 +2,4 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.5.0"
 }
 
-rootProject.name = "Custom-Join-Messages"
+rootProject.name = "custom-join-messages"
