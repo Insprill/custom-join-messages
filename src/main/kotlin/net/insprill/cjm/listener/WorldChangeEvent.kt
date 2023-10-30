@@ -44,18 +44,14 @@ class WorldChangeEvent(private val plugin: CustomJoinMessages) : Listener {
         if (isSameGroup(toWorld.name, fromWorld.name))
             return
 
-        if (!checkTime(e.player))
-            return
-
-        worldJoinTimes[e.player.uniqueId.toString()] = System.currentTimeMillis()
-
         trySendLater(e.player, toWorld)
     }
 
     private fun trySendLater(player: Player, toWorld: World) {
         val hasJoinedWorldBefore = saveVisitedWorld(player, toWorld)
 
-        plugin.messageSender.trySendMessages(player, MessageAction.QUIT, true)
+        if (checkTime(player))
+            plugin.messageSender.trySendMessages(player, MessageAction.QUIT, true)
 
         CrossPlatformScheduler.runDelayed(plugin, {
             if (!checkTime(player))
@@ -85,9 +81,9 @@ class WorldChangeEvent(private val plugin: CustomJoinMessages) : Listener {
     fun saveVisitedWorld(player: Player, world: World): Boolean {
         if (!isEnabled)
             return false
-        worldJoinTimes[player.uniqueId.toString()] = System.currentTimeMillis()
-        val groupName = getGroupName(world.name)
         val uuid = player.uniqueId.toString()
+        worldJoinTimes[uuid] = System.currentTimeMillis()
+        val groupName = getGroupName(world.name)
         val groupPlayers = visitedWorldsConfig.getStringList(groupName)
         val hasJoinedWorldBefore = groupPlayers.contains(uuid)
         if (!hasJoinedWorldBefore) {
