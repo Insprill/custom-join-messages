@@ -17,9 +17,10 @@ class JoinEvent(private val plugin: CustomJoinMessages) : Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     fun onPlayerJoin(e: PlayerJoinEvent) {
         e.joinMessage = null
+        if (!plugin.worldChangeEvent.isEnabled)
+            return;
         val action = if (e.player.hasPlayedBefore()) MessageAction.JOIN else MessageAction.FIRST_JOIN
         plugin.messageSender.trySendMessages(e.player, action, true)
-        plugin.worldChangeEvent.saveVisitedWorld(e.player, e.player.world)
     }
 
     @EventHandler(priority = EventPriority.MONITOR)

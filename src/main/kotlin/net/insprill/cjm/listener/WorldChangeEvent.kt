@@ -12,6 +12,7 @@ import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
+import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
 import org.bukkit.event.player.PlayerTeleportEvent
 import java.nio.file.Paths
@@ -24,12 +25,20 @@ class WorldChangeEvent(private val plugin: CustomJoinMessages) : Listener {
         .createJson()
     private val groupPath = "World-Based-Messages.Groups"
 
-    private val isEnabled: Boolean
+    val isEnabled: Boolean
         get() = plugin.config.getBoolean("World-Based-Messages.Enabled")
     private val minimumWorldTime: Int
         get() = plugin.config.getInt("World-Based-Messages.Minimum-World-Time")
 
     private val worldJoinTimes = HashMap<String, Long>()
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    fun onPlayerJoin(e: PlayerJoinEvent) {
+        if (!isEnabled)
+            return
+
+        onPlayerChangeWorld(PlayerTeleportEvent(e.player, e.player.location, e.player.location, PlayerTeleportEvent.TeleportCause.UNKNOWN))
+    }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     fun onPlayerChangeWorld(e: PlayerTeleportEvent) {
