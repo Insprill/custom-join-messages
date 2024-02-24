@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## 17.3.2 - 2024-02-24
+
+### Fixed
+- An error when trying to read player locales on non-Paper 1.20.2+ servers.
+
+
 ## 17.3.1 - 2023-08-18
 
 ### Fixed
