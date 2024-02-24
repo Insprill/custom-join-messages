@@ -24,6 +24,9 @@ class LegacyFormatter : Formatter {
                 }
             }
         }
+        // TextComponent.fromText prefixes everything with an empty component which is annoying,
+        // and we need an array anyway for compatibility with other formatters.
+        @Suppress("DEPRECATION")
         return TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', workingStr))
     }
 

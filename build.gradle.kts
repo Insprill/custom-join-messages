@@ -5,8 +5,8 @@ import java.util.concurrent.Executors
 plugins {
     kotlin("jvm") version "1.9.10"
     id("net.kyori.blossom") version "2.1.0"
-    id("org.ajoberstar.grgit") version "5.0.0"
-    id("com.modrinth.minotaur") version "2.8.4"
+    id("org.ajoberstar.grgit") version "5.2.2"
+    id("com.modrinth.minotaur") version "2.8.7"
     id("com.github.johnrengelman.shadow") version "8.1.1"
     id("com.rikonardo.papermake") version "1.0.6"
 }
@@ -31,14 +31,15 @@ dependencies {
     compileOnly(fileTree("libs")) // No Maven repos :/
     compileOnly("com.github.MilkBowl:VaultAPI:1.7.1") { isTransitive = false }
     compileOnly("com.github.MyzelYam:SuperVanish:6.2.16") { isTransitive = false }
+    compileOnly("com.github.Syrent:VelocityVanish:3.27.2")
     compileOnly("fr.xephi:authme:5.6.0-SNAPSHOT")
-    compileOnly("me.clip:placeholderapi:2.11.4")
+    compileOnly("me.clip:placeholderapi:2.11.5")
     compileOnly("net.essentialsx:EssentialsX:2.20.1")
 
     // Internal
-    compileOnly("org.spigotmc:spigot-api:1.20.2-R0.1-SNAPSHOT")
-    compileOnly("net.kyori:adventure-text-minimessage:4.14.0")
-    compileOnly("net.kyori:adventure-text-serializer-gson:4.14.0")
+    compileOnly("org.spigotmc:spigot-api:1.20.4-R0.1-SNAPSHOT")
+    compileOnly("net.kyori:adventure-text-minimessage:4.16.0")
+    compileOnly("net.kyori:adventure-text-serializer-gson:4.16.0")
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
     implementation("com.github.simplix-softworks:simplixstorage:3.2.7")
     implementation("de.themoep:minedown:1.7.1-SNAPSHOT")
@@ -47,18 +48,14 @@ dependencies {
     implementation("org.bstats:bstats-bukkit:3.0.2")
 
     // Tests
-    testImplementation("com.github.seeseemelk:MockBukkit-v1.20:3.42.0")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
+    testImplementation("com.github.seeseemelk:MockBukkit-v1.20:3.76.1")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
+    testImplementation(platform("org.junit:junit-bom:5.10.2"))
 }
 
 val extraDependencies = mapOf(
-    Pair("CMI-API.jar", "https://github.com/Zrips/CMI-API/releases/download/9.5.0.8/CMI-API9.5.0.8.jar"),
+    Pair("CMI-API.jar", "https://github.com/Zrips/CMI-API/releases/download/9.6.5.0/CMI-API9.6.5.0.jar"),
     Pair("VanishNoPacket.jar", "https://mediafiles.forgecdn.net/files/3661/454/VanishNoPacket.jar"),
-    Pair(
-        "VelocityVanish.jar",
-        "https://github.com/Syrent/VelocityVanish/releases/download/3.21.1/VelocityVanish-3.21.1-all.jar"
-    ),
 )
 
 tasks {
