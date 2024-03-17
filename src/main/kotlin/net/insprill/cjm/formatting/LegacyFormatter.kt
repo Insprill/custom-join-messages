@@ -8,8 +8,8 @@ import java.util.regex.Pattern
 
 class LegacyFormatter : Formatter {
 
-    val hexPattern = Pattern.compile("#[a-fA-F\\d]{6}")
-    val formattedHexPattern = Pattern.compile("[?:{<&]?#[a-fA-F\\d]{6}[}>]?")
+    private val hexPattern = Pattern.compile("#[a-fA-F\\d]{6}")
+    private val formattedHexPattern = Pattern.compile("[?:{<&]?#[a-fA-F\\d]{6}[}>]?")
 
     override fun format(str: String): Array<BaseComponent> {
         var workingStr = str
