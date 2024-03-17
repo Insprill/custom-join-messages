@@ -1,6 +1,5 @@
 package net.insprill.cjm.message.types
 
-import kotlin.math.abs
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.extension.replacePlaceholders
 import net.insprill.cjm.message.MessageVisibility
@@ -8,6 +7,7 @@ import net.md_5.bungee.api.ChatMessageType
 import net.md_5.bungee.api.chat.BaseComponent
 import net.md_5.bungee.api.chat.TextComponent
 import org.bukkit.entity.Player
+import kotlin.math.abs
 
 class ChatMessage(private val plugin: CustomJoinMessages) : MessageType(plugin, "chat", "Messages") {
 
@@ -16,7 +16,7 @@ class ChatMessage(private val plugin: CustomJoinMessages) : MessageType(plugin, 
     }
 
     override fun handle(primaryPlayer: Player, recipients: List<Player>, chosenPath: String, visibility: MessageVisibility) {
-        val messages = formatMessages(primaryPlayer, config.getStringList(chosenPath).filterNot { it.isNullOrBlank() })
+        val messages = formatMessages(primaryPlayer, config.getStringList(chosenPath).map { it ?: "" })
         for (message in messages) {
             for (player in recipients) {
                 player.spigot().sendMessage(ChatMessageType.CHAT, *message)

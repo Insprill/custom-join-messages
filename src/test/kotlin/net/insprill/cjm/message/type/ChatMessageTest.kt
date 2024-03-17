@@ -55,19 +55,47 @@ class ChatMessageTest {
     }
 
     @Test
-    fun handle_NullMessage_DoesntSend() {
+    fun handle_NullMessageKey_DoesntSend() {
         chat.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
 
         player.assertNoMoreSaid()
     }
 
     @Test
-    fun handle_BlankMessage_DoesntSend() {
+    fun handle_EmptyMessage_Sends() {
+        chat.config.set("key", listOf(""))
+
+        chat.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
+
+        player.assertSaid("")
+    }
+
+    @Test
+    fun handle_BlankMessage_Sends() {
         chat.config.set("key", listOf(" "))
 
         chat.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
 
-        player.assertNoMoreSaid()
+        player.assertSaid(" ")
+    }
+
+    @Test
+    fun handle_NullMessageAlone_Sends() {
+        chat.config.set("key", listOf(null))
+
+        chat.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
+
+        player.assertSaid("")
+    }
+
+    @Test
+    fun handle_NullMessageWithNonNull_Sends() {
+        chat.config.set("key", listOf("howdy", null))
+
+        chat.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
+
+        player.assertSaid("howdy")
+        player.assertSaid("")
     }
 
     @Test
