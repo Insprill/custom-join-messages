@@ -41,6 +41,11 @@ class MiniMessageFormatterTest {
         assertEquals("§x§0§0§A§F§5§CHowdy!", format("<#00af5c>Howdy!"))
     }
 
+    @Test
+    fun format_LegacyColors() {
+        assertEquals("§f§aHello,§f §b§lworld!", format("&aHello,&r &b&lworld!"))
+    }
+
     private fun format(string: String): String {
         return TextComponent.toLegacyText(*formatter.format(string))
     }
