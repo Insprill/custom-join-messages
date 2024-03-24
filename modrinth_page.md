@@ -94,6 +94,7 @@ See [LICENSE][license-url] for more information.
 For support, please subscribe to my [Patreon][patreon-url] and join my [Discord Server][discord-url].  
 Note that support is *only* granted to my Patreons!  
 Once you've joined and subscribed, you can ask questions in the `#support` channel.
+If you have an issue, feel free to report it on [the issue tracker][issues-url].
 
 
 
@@ -112,3 +113,5 @@ Once you've joined and subscribed, you can ask questions in the `#support` chann
 [discord-url]: https://discord.gg/vjQ3F2XDTc
 
 [patreon-url]: https://www.patreon.com/insprill
+
+[issues-url]: https://github.com/Insprill/custom-join-messages/issues
