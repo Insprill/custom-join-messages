@@ -138,7 +138,7 @@ open class CustomJoinMessages : JavaPlugin() {
 
     private fun getPluginHooks(): List<PluginHook> {
         val hooks = ArrayList<PluginHook>()
-        for (dependency in Dependency.values()) {
+        for (dependency in Dependency.entries) {
             if (!dependency.isEnabled)
                 continue
             val hook = dependency.pluginHookClass?.getConstructor(javaClass)?.newInstance(this) ?: continue

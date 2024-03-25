@@ -22,8 +22,8 @@ class MessageSender(private val plugin: CustomJoinMessages) {
     fun reloadPermissions(config: FlatFile) {
         registeredPermissions.forEach { Bukkit.getPluginManager().removePermission(it) }
         registeredPermissions.clear()
-        for (action in MessageAction.values()) {
-            for (visibility in MessageVisibility.values()) {
+        for (action in MessageAction.entries) {
+            for (visibility in MessageVisibility.entries) {
                 val path = visibility.configSection + "." + action.configSection
                 for (key in config.singleLayerKeySet(path)) {
                     val permission = config.getString("$path.$key.Permission") ?: continue
@@ -52,7 +52,7 @@ class MessageSender(private val plugin: CustomJoinMessages) {
             return
         if (!plugin.config.getBoolean("Addons.Jail.Ignore-Jailed-Players") && plugin.hookManager.isJailed(player))
             return
-        for (visibility in MessageVisibility.values().filter { it.supports(action) }) {
+        for (visibility in MessageVisibility.entries.filter { it.supports(action) }) {
             for (msg in typeMap.values.filter { it.isEnabled }) {
                 val path = visibility.configSection + "." + action.configSection
 

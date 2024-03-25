@@ -20,7 +20,7 @@ enum class MessageCondition(private val condition: (MessageType, String) -> Bool
 
     companion object {
         fun checkAllConditions(msg: MessageType, messagePath: String): Boolean {
-            return values().all { it.checkCondition(msg, messagePath) }
+            return entries.toTypedArray().all { it.checkCondition(msg, messagePath) }
         }
     }
 

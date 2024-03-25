@@ -29,7 +29,7 @@ class PlaceholderTest {
 
     @Test
     fun stringName_NoDuplicates() {
-        val duplicates = Placeholder.values()
+        val duplicates = Placeholder.entries
             .map { it.stringName.lowercase() }
             .groupingBy { it }
             .eachCount()

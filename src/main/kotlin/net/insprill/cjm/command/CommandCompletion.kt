@@ -16,10 +16,10 @@ class CommandCompletion(private val plugin: CustomJoinMessages) {
             plugin.messageSender.typeMap.keys
         }
         registerAsyncCompletion("messageVisibility") {
-            MessageVisibility.values().map { it.name.lowercase() }
+            MessageVisibility.entries.map { it.name.lowercase() }
         }
         registerAsyncCompletion("messageAction") {
-            MessageAction.values().map { it.name.lowercase() }
+            MessageAction.entries.map { it.name.lowercase() }
         }
         registerAsyncCompletion("messageId") {
             val messageType = it.getContextValue(MessageType::class.java)

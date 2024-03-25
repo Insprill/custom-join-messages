@@ -182,7 +182,7 @@ class ChatMessage(private val plugin: CustomJoinMessages) : MessageType(plugin, 
 
             companion object {
                 fun getDefaultFontInfo(c: Char): DefaultFontInfo {
-                    for (dFI in DefaultFontInfo.values()) {
+                    for (dFI in entries) {
                         if (dFI.character == c) return dFI
                     }
                     return DEFAULT

@@ -51,7 +51,7 @@ class ToggleHandlerTest {
 
         toggleHandler.setToggle(player, action, false)
 
-        for (value in MessageAction.values()) {
+        for (value in MessageAction.entries) {
             assertEquals(value != action, toggleHandler.isToggled(player, value))
         }
     }

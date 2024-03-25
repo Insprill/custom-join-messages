@@ -49,8 +49,8 @@ class MessageSenderTest {
     fun reloadPermissions_RegistersAllPermissions() {
         val file = Files.createTempFile("config", ".yml").toFile()
         val config = SimplixBuilder.fromFile(file).createYaml()
-        for (action in MessageAction.values()) {
-            for (visibility in MessageVisibility.values()) {
+        for (action in MessageAction.entries) {
+            for (visibility in MessageVisibility.entries) {
                 val path = visibility.configSection + "." + action.configSection
                 for (i in 1..10) {
                     config.set("$path.$i.Permission", "cjm.$action.$visibility.$i")
@@ -60,8 +60,8 @@ class MessageSenderTest {
 
         messageSender.reloadPermissions(config)
 
-        for (action in MessageAction.values()) {
-            for (visibility in MessageVisibility.values()) {
+        for (action in MessageAction.entries) {
+            for (visibility in MessageVisibility.entries) {
                 for (i in 1..10) {
                     assertNotNull(server.pluginManager.getPermission("cjm.$action.$visibility.$i"))
                 }
@@ -73,8 +73,8 @@ class MessageSenderTest {
     fun reloadPermissions_UnregistersPermissions() {
         val file = Files.createTempFile("config", ".yml").toFile()
         val config = SimplixBuilder.fromFile(file).createYaml()
-        for (action in MessageAction.values()) {
-            for (visibility in MessageVisibility.values()) {
+        for (action in MessageAction.entries) {
+            for (visibility in MessageVisibility.entries) {
                 val path = visibility.configSection + "." + action.configSection
                 for (i in 1..10) {
                     config.set("$path.$i.Permission", "cjm.$action.$visibility.$i")
@@ -86,8 +86,8 @@ class MessageSenderTest {
         config.clear()
         messageSender.reloadPermissions(config)
 
-        for (action in MessageAction.values()) {
-            for (visibility in MessageVisibility.values()) {
+        for (action in MessageAction.entries) {
+            for (visibility in MessageVisibility.entries) {
                 for (i in 1..10) {
                     assertNull(server.pluginManager.getPermission("cjm.$action.$visibility.$i"))
                 }
