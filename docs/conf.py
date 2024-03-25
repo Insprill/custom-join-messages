@@ -18,7 +18,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'Custom Join Messages'
-copyright = '2022, Pierce Thompson'
+copyright = '2024, Pierce Thompson'
 author = 'Pierce Thompson'
 
 # The full version, including alpha/beta/rc tags
