@@ -4,6 +4,7 @@ import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.MessageVisibility
 import net.insprill.cjm.message.types.MessageType
 import org.bukkit.entity.Player
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 
@@ -13,7 +14,7 @@ class MessageTypeMock(plugin: CustomJoinMessages) : MessageType(plugin, "mock", 
 
     val result
         get() = run {
-            assertTrue(results.size == 1)
+            assertEquals(1, results.size)
             results.first()
         }
 
