@@ -1,6 +1,5 @@
 package net.insprill.cjm.formatting
 
-@Suppress("unused")
 enum class FormatterType(
     val formatter: Formatter,
     val prettyName: String,
