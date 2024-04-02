@@ -141,6 +141,9 @@ open class CustomJoinMessages : JavaPlugin() {
         for (dependency in Dependency.entries) {
             if (!dependency.isEnabled)
                 continue
+            if (!dependency.isVersionCompatible(this))
+                continue
+
             val hook = dependency.pluginHookClass?.getConstructor(javaClass)?.newInstance(this) ?: continue
             hooks.add(hook)
         }

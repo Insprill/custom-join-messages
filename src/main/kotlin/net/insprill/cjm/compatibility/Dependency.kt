@@ -8,11 +8,18 @@ import net.insprill.cjm.compatibility.supervanish.SuperVanishHook
 import net.insprill.cjm.compatibility.vanishnopacket.VanishNoPacketHook
 import net.insprill.cjm.compatibility.velocityvanish.VelocityVanishHook
 import net.insprill.cjm.util.ServiceProviderUtils.getRegisteredServiceProvider
+import net.swiftzer.semver.SemVer
 import org.bukkit.Bukkit
+import org.bukkit.plugin.Plugin
 
-enum class Dependency(private val pluginName: String, val pluginHookClass: Class<out PluginHook?>? = null, val clazz: Any? = null) {
+enum class Dependency(
+    private val pluginName: String,
+    val pluginHookClass: Class<out PluginHook?>? = null,
+    val clazz: Any? = null,
+    private val minVersion: SemVer? = null
+) {
     AUTH_ME("AuthMe", AuthMeHook::class.java),
-    CMI("CMI", CmiHook::class.java),
+    CMI("CMI", CmiHook::class.java, minVersion = SemVer(9, 7, 0)), // 9.7.0.0 moved the VanishAction class
     ESSENTIALS("Essentials", EssentialsHook::class.java),
     PAPI("PlaceholderAPI"),
     PREMIUM_VANISH("PremiumVanish", SuperVanishHook::class.java),
@@ -23,5 +30,26 @@ enum class Dependency(private val pluginName: String, val pluginHookClass: Class
     ;
 
     val isEnabled get() = Bukkit.getPluginManager().isPluginEnabled(pluginName)
+
+    fun isVersionCompatible(cjm: Plugin): Boolean {
+        if (minVersion != null) {
+            val version = Bukkit.getPluginManager()
+                .getPlugin(pluginName)
+                ?.description
+                ?.version
+                ?.replace("""\.\d+$""".toRegex(), "")
+                ?: return true
+            val semVersion = SemVer.parseOrNull(version)
+            if (semVersion == null) {
+                cjm.logger.warning("Failed to parse version of $pluginName ($version)! Enabling support anyways, although it may be broken!")
+                return true
+            }
+            if (semVersion < minVersion) {
+                cjm.logger.severe("$pluginName is outdated! Please update it to at least $minVersion to use its integration with CJM.")
+                return false
+            }
+        }
+        return true
+    }
 
 }
