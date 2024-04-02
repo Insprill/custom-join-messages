@@ -54,7 +54,7 @@ dependencies {
 }
 
 val extraDependencies = mapOf(
-    Pair("CMI-API.jar", "https://github.com/Zrips/CMI-API/releases/download/9.6.5.0/CMI-API9.6.5.0.jar"),
+    Pair("CMI-API.jar", "https://github.com/Zrips/CMI-API/releases/download/9.7.0.1/CMI-API9.7.0.1.jar"),
     Pair("VanishNoPacket.jar", "https://mediafiles.forgecdn.net/files/3661/454/VanishNoPacket.jar"),
 )
 

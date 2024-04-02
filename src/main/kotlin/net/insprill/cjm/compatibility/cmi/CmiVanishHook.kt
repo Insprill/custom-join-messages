@@ -1,6 +1,6 @@
 package net.insprill.cjm.compatibility.cmi
 
-import com.Zrips.CMI.commands.list.vanishedit
+import com.Zrips.CMI.Modules.Vanish.VanishAction
 import com.Zrips.CMI.events.CMIPlayerUnVanishEvent
 import com.Zrips.CMI.events.CMIPlayerVanishEvent
 import net.insprill.cjm.CustomJoinMessages
@@ -22,7 +22,7 @@ class CmiVanishHook(override val plugin: CustomJoinMessages, private val cmiHook
     }
 
     override fun isVanished(player: Player): Boolean {
-        return cmiHook.getUser(player).vanish.`is`(vanishedit.VanishAction.isVanished)
+        return cmiHook.getUser(player).vanish.`is`(VanishAction.isVanished)
     }
 
 }
