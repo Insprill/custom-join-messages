@@ -2,6 +2,7 @@ package net.insprill.cjm.compatibility
 
 import be.seeseemelk.mockbukkit.MockBukkit
 import be.seeseemelk.mockbukkit.ServerMock
+import net.insprill.cjm.CustomJoinMessages
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -11,10 +12,12 @@ import org.junit.jupiter.api.Test
 class DependencyTest {
 
     private lateinit var server: ServerMock
+    private lateinit var cjm: CustomJoinMessages
 
     @BeforeEach
     fun setUp() {
         server = MockBukkit.mock()
+        cjm = MockBukkit.load(CustomJoinMessages::class.java)
     }
 
     @AfterEach
@@ -39,6 +42,32 @@ class DependencyTest {
         MockBukkit.createMockPlugin("Vault")
 
         assertTrue(Dependency.VAULT.isEnabled)
+    }
+
+    @Test
+    fun noMinVersion_IsCompatible() {
+        assertTrue(Dependency.PAPI.isVersionCompatible(cjm))
+    }
+
+    @Test
+    fun minVersion_InvalidVersion_IsCompatible() {
+        MockBukkit.createMockPlugin("PlaceholderAPI", "1.2.3")
+
+        assertTrue(Dependency.PAPI.isVersionCompatible(cjm))
+    }
+
+    @Test
+    fun cmiVersion_Minimum_IsCompatible() {
+        MockBukkit.createMockPlugin("CMI", "9.7.0")
+
+        assertTrue(Dependency.CMI.isVersionCompatible(cjm))
+    }
+
+    @Test
+    fun cmiVersion_LessThanMinimum_IsNotCompatible() {
+        MockBukkit.createMockPlugin("CMI", "9.6.9")
+
+        assertFalse(Dependency.CMI.isVersionCompatible(cjm))
     }
 
 }
