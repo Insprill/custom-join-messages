@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## 17.4.1 - 2024-04-03
+
+### Fixed
+
+- Compatibility with CMI versions newer than 9.7.0.0. Older CMI versions are no longer supported.
+
+
 ## 17.4.0 - 2024-03-17
 
 ### Added
