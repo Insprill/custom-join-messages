@@ -53,6 +53,8 @@ class MessageSender(private val plugin: CustomJoinMessages) {
         if (!plugin.config.getBoolean("Addons.Jail.Ignore-Jailed-Players") && plugin.hookManager.isJailed(player))
             return
         for (visibility in MessageVisibility.entries.filter { it.supports(action) }) {
+            if (visibility == MessageVisibility.PRIVATE && !vanishCheck)
+                continue // Don't send private messages if the player is unvanishing
             for (msg in typeMap.values.filter { it.isEnabled }) {
                 val path = visibility.configSection + "." + action.configSection
 
