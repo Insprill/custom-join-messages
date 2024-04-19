@@ -1,5 +1,6 @@
 package net.insprill.cjm.compatibility
 
+import net.insprill.cjm.compatibility.advancedvanish.AdvancedVanishHook
 import net.insprill.cjm.compatibility.authme.AuthMeHook
 import net.insprill.cjm.compatibility.cmi.CmiHook
 import net.insprill.cjm.compatibility.essentials.EssentialsHook
@@ -18,6 +19,7 @@ enum class Dependency(
     val clazz: Any? = null,
     private val minVersion: SemVer? = null
 ) {
+    ADVANCED_VANISH("AdvancedVanish", AdvancedVanishHook::class.java),
     AUTH_ME("AuthMe", AuthMeHook::class.java),
     CMI("CMI", CmiHook::class.java, minVersion = SemVer(9, 7, 0)), // 9.7.0.0 moved the VanishAction class
     ESSENTIALS("Essentials", EssentialsHook::class.java),
