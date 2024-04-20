@@ -8,21 +8,43 @@ import net.insprill.cjm.compatibility.hook.VanishHook
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
+import org.bukkit.event.player.PlayerQuitEvent
 
 class AdvancedVanishVanishHook(override val plugin: CustomJoinMessages) : VanishHook {
 
+    private var isHandlingQuit = false
+    private var wasLastPlayerVanished = false
+
+    @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
+    fun onPlayerQuitLowest(e: PlayerQuitEvent) {
+        wasLastPlayerVanished = isVanished(e.player) // Before setting isHandlingQuit
+        isHandlingQuit = true
+    }
+
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    fun onVanishToggle(e: PlayerVanishEvent) {
+    fun onPlayerQuitMonitor(e: PlayerQuitEvent) {
+        isHandlingQuit = false
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    fun onPlayerVanish(e: PlayerVanishEvent) {
+        if (e.onJoin) return
         handleToggle(e.player, true)
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    fun onVanishToggle(e: PlayerUnVanishEvent) {
+    fun onPlayerUnvanish(e: PlayerUnVanishEvent) {
+        if (isHandlingQuit)
+            return
         handleToggle(e.player, false)
     }
 
     override fun isVanished(player: Player): Boolean {
-        return AdvancedVanishAPI.INSTANCE.isPlayerVanished(player)
+        return if (isHandlingQuit) {
+            wasLastPlayerVanished
+        } else {
+            AdvancedVanishAPI.INSTANCE.isPlayerVanished(player)
+        }
     }
 
 }
