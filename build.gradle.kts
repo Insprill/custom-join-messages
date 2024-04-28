@@ -192,7 +192,7 @@ modrinth {
     changelog.set(readChangelog(project.version as String))
     token.set(System.getenv("MODRINTH_API_TOKEN") ?: findProperty("modrinthToken") as String?)
     projectId.set(property("modrinth.project.id") as String)
-    versionType.set("release")
+    versionType.set(if ((findProperty("build.is-release") as String? ?: "true").toBoolean()) "release" else "alpha")
     uploadFile.set(tasks.shadowJar.get())
     loaders.addAll("spigot", "paper", "purpur")
     syncBodyFrom.set(file("modrinth_page.md").readText())
@@ -203,7 +203,7 @@ hangarPublish {
     publications.register("plugin") {
         version = project.version as String
         id = "Custom-Join-Messages"
-        channel = "Release"
+        channel = if ((findProperty("build.is-release") as String? ?: "true").toBoolean()) "Release" else "Snapshot"
         changelog = readChangelog(project.version as String)
         apiKey = System.getenv("HANGAR_API_TOKEN") ?: findProperty("hangarToken") as String?
         pages {

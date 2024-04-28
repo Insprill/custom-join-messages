@@ -1,0 +1,41 @@
+name: Publish
+
+on:
+  push:
+    branches: [ master, develop ]
+    tags: [ v* ]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v2
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Set Environment Variables
+        run: |
+          echo "IS_RELEASE_BUILD=${{ github.ref_type == 'tag' }}" >> $GITHUB_ENV
+          echo "IS_DEV_BUILD=${{ github.ref_type != 'tag' }}" >> $GITHUB_ENV
+
+      - name: Update Resource Pages
+        env:
+          HANGAR_API_TOKEN: ${{ secrets.HANGAR_API_TOKEN }}
+          MODRINTH_API_TOKEN: ${{ secrets.MODRINTH_API_TOKEN }}
+        run: ./gradlew modrinthSyncBody syncAllPagesToHangar
+
+      - name: Publish to Hangar
+        env:
+          HANGAR_API_TOKEN: ${{ secrets.HANGAR_API_TOKEN }}
+        run: ./gradlew build publishPluginPublicationToHangar -Pversion.metadata=${{ env.IS_DEV_BUILD }} -Pbuild.is-release=${{ env.IS_RELEASE_BUILD }} -Pbuild.target-platform=hangar
+
+      - name: Publish to Modrinth
+        if: ${{ env.IS_RELEASE_BUILD == 'true' }}
+        env:
+          MODRINTH_API_TOKEN: ${{ secrets.MODRINTH_API_TOKEN }}
+        run: ./gradlew build modrinth -Pversion.metadata=${{ env.IS_DEV_BUILD }} -Pbuild.is-release=${{ env.IS_RELEASE_BUILD }} -Pbuild.target-platform=modrinth
