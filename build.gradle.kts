@@ -18,7 +18,7 @@ version = "${project.version}${versionMetadata()}"
 repositories {
     mavenCentral()
     maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/") // Spigot-API
-    maven("https://jitpack.io") // SimplixStorage, SuperVanish, Vault
+    maven("https://jitpack.io") // AdvancedVanish, SimplixStorage, SuperVanish, VanishNoPacket, Vault
     maven("https://repo.aikar.co/content/groups/aikar/") // ACF
     maven("https://repo.codemc.org/repository/maven-public/") // AuthMe
     maven("https://repo.essentialsx.net/releases/") // EssentialsX
@@ -30,9 +30,11 @@ repositories {
 dependencies {
     // Plugins
     compileOnly(fileTree("libs")) // No Maven repos :/
+    compileOnly("com.github.mbax:VanishNoPacket:3.22")
     compileOnly("com.github.MilkBowl:VaultAPI:1.7.1") { isTransitive = false }
     compileOnly("com.github.MyzelYam:SuperVanish:6.2.16") { isTransitive = false }
     compileOnly("com.github.Syrent:VelocityVanish:3.27.2")
+    compileOnly("com.github.quantiom:AdvancedVanish:v1.2.6")
     compileOnly("fr.xephi:authme:5.6.0-SNAPSHOT")
     compileOnly("me.clip:placeholderapi:2.11.5")
     compileOnly("net.essentialsx:EssentialsX:2.20.1")
@@ -55,9 +57,7 @@ dependencies {
 }
 
 val extraDependencies = mapOf(
-    Pair("AdvancedVanish.jar", "https://github.com/quantiom/AdvancedVanish/releases/download/v1.2.6/AdvancedVanish.jar"),
     Pair("CMI-API.jar", "https://github.com/Zrips/CMI-API/releases/download/9.7.0.1/CMI-API9.7.0.1.jar"),
-    Pair("VanishNoPacket.jar", "https://mediafiles.forgecdn.net/files/3661/454/VanishNoPacket.jar"),
 )
 
 tasks {
