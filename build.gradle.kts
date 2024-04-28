@@ -238,7 +238,7 @@ fun readChangelog(version: String): String {
     val out = StringBuilder()
     var inVersion = false
     for (line in lines) {
-        if (line.startsWith("## $version - ")) {
+        if (line.startsWith("## [$version] - ")) {
             inVersion = true
             continue
         }
