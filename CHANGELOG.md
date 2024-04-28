@@ -6,6 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [17.5.0] - 2024-04-28
+
+Custom Join Messages is now published on [Hangar](https://hangar.papermc.io/Insprill/Custom-Join-Messages)!
+
+### Added
+
+- Support for 1.20.5 (no changes needed).
+- Support for [Advanced Vanish](https://www.spigotmc.org/resources/86036/).
+
+### Fixed
+
+- Private messages being sent when unvanishing.
+
+
 ## 17.4.1 - 2024-04-03
 
 ### Fixed
@@ -135,3 +149,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The "cjm reload" command.
 - The "cjm version" command.
 - Support for tellraw formatted JSON messages. Please use the MineDown format instead.
+
+
+<!-- Diffs -->
+[Unreleased]: https://github.com/Insprill/custom-join-messages/compare/master...develop
+[17.5.0]: https://github.com/Insprill/intellectual/compare/5765a505...v17.5.0
