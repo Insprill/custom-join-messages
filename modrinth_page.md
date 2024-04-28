@@ -55,7 +55,7 @@ Custom Join Messages is a feature-packed plugin for handling all join and quit n
 <!-- DOWNLOAD -->
 ## Snapshots
 Like living on the edge?
-Builds from the latest git commit can be downloaded via GitHub Actions [here](https://nightly.link/Insprill/custom-join-messages/workflows/gradle/master).
+Builds from the latest commit can be downloaded via the [Snapshot Hangar channel][hangar-versions-url] or [GitHub Actions][github-actions-url].
 
 
 
@@ -100,18 +100,12 @@ If you have an issue, feel free to report it on [the issue tracker][issues-url].
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-
 [bstats-servers-svg]: https://bstats.org/signatures/bukkit/Custom%20Join%20Messages.svg
-
 [bstats-url]: https://bstats.org/plugin/bukkit/Custom%20Join%20Messages/6346
-
+[github-actions-url]: https://nightly.link/Insprill/custom-join-messages/workflows/gradle/develop
+[hangar-versions-url]: https://hangar.papermc.io/Insprill/Custom-Join-Messages/versions
 [license-url]: https://github.com/Insprill/Custom-Join-Messages/blob/master/LICENSE
-
 [discord-shield]: https://img.shields.io/discord/626995215558901771?color=%235663F7&label=Discord&style=for-the-badge
-
 [discord-url]: https://discord.gg/vjQ3F2XDTc
-
 [patreon-url]: https://www.patreon.com/insprill
-
 [issues-url]: https://github.com/Insprill/custom-join-messages/issues
