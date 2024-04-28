@@ -223,11 +223,6 @@ fun versionMetadata(): String {
         return ""
     }
 
-    val buildId = System.getenv("GITHUB_RUN_NUMBER")
-    if (buildId != null) {
-        return "+build.${buildId}"
-    }
-
     val head = grgit.head()
     var id = head.abbreviatedId
 
