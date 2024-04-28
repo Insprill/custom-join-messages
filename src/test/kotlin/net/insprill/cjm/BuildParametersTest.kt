@@ -30,8 +30,12 @@ class BuildParametersTest {
     }
 
     @Test
-    fun targetPlatform_SpigotOrModrinth() {
-        assertTrue(BuildParameters.TARGET_PLATFORM == "spigot" || BuildParameters.TARGET_PLATFORM == "modrinth")
+    fun targetPlatform_ValidPlatform() {
+        assertTrue(
+            BuildParameters.TARGET_PLATFORM == "hangar"
+                    || BuildParameters.TARGET_PLATFORM == "modrinth"
+                    || BuildParameters.TARGET_PLATFORM == "spigot"
+        )
     }
 
 }

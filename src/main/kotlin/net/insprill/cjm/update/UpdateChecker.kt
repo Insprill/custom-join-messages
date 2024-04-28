@@ -27,7 +27,7 @@ abstract class UpdateChecker(private val plugin: CustomJoinMessages) {
     protected abstract fun parseVersion(json: String): VersionData
 
     fun checkForUpdates(consumer: (VersionData, Platform) -> Unit) {
-        if (ServerEnvironment.isMockBukkit())
+        if (ServerEnvironment.isMockBukkit() || requestUrl.isBlank())
             return
         Bukkit.getScheduler().runTaskAsynchronously(plugin, Runnable {
             val latestVersion = getLatestVersion()
@@ -53,8 +53,9 @@ abstract class UpdateChecker(private val plugin: CustomJoinMessages) {
     }
 
     enum class Platform(val factory: (CustomJoinMessages) -> UpdateChecker) {
-        SPIGOT({ SpigotUpdateChecker(it) }),
+        HANGAR({ HangarUpdateChecker(it) }),
         MODRINTH({ ModrinthUpdateChecker(it) }),
+        SPIGOT({ SpigotUpdateChecker(it) }),
     }
 
 }
