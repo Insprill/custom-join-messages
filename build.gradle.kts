@@ -249,5 +249,10 @@ fun readChangelog(version: String): String {
             out.append(line).append("\n")
         }
     }
+
+    if (out.isBlank()) {
+        out.append("[${grgit.head().abbreviatedId}](${grgit.remote.list().first().url}/commit/${grgit.head().id}): ${grgit.head().fullMessage}")
+    }
+
     return out.toString().trim()
 }
