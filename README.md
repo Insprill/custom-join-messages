@@ -99,11 +99,11 @@ Custom Join Messages is a feature-packed plugin for handling all join and quit n
 <!-- DOWNLOAD -->
 ## Download
 ### Releases
-Releases of CJM can be downloaded from [Modrinth][modrinth-url] (recommended) or [SpigotMC][spigot-url].
+Releases of CJM can be downloaded from [Modrinth][modrinth-url] (recommended), [Hangar][hangar-url], or [SpigotMC][spigot-url].
 
 ### Snapshots
 Like living on the edge?
-Builds from the latest commit can be downloaded via GitHub Actions [here](https://nightly.link/Insprill/custom-join-messages/workflows/gradle/develop).
+Builds from the latest commit can be downloaded via the [Snapshot Hangar channel][hangar-versions-url] or [GitHub Actions][github-actions-url].
 
 
 
@@ -172,8 +172,11 @@ Once you join, you can ask your question in the `#community-support` channel.
 [bstats-servers-shield]: https://img.shields.io/bstats/servers/6346.svg?style=for-the-badge
 [bstats-url]: https://bstats.org/plugin/bukkit/Custom%20Join%20Messages/6346
 [spigot-rating-shield]: https://img.shields.io/spiget/rating/71608.svg?style=for-the-badge
-[spigot-url]: https://www.spigotmc.org/resources/71608
+[github-actions-url]: https://nightly.link/Insprill/custom-join-messages/workflows/gradle/develop
+[hangar-url]: https://hangar.papermc.io/Insprill/Custom-Join-Messages
+[hangar-versions-url]: https://hangar.papermc.io/Insprill/Custom-Join-Messages/versions
 [modrinth-url]: https://modrinth.com/plugin/custom-join-messages
+[spigot-url]: https://www.spigotmc.org/resources/71608
 [contributors-shield]: https://img.shields.io/github/contributors/Insprill/Custom-Join-Messages.svg?style=for-the-badge
 [contributors-url]: https://github.com/Insprill/Custom-Join-Messages/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/Insprill/Custom-Join-Messages.svg?style=for-the-badge
