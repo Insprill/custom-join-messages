@@ -3,12 +3,12 @@ import java.net.URL
 import java.util.concurrent.Executors
 
 plugins {
-    kotlin("jvm") version "1.9.10"
-    id("net.kyori.blossom") version "2.1.0"
+    kotlin("jvm") version "1.9.23"
     id("org.ajoberstar.grgit") version "5.2.2"
+    id("net.kyori.blossom") version "2.1.0"
+    id("io.github.goooler.shadow") version "8.1.7"
     id("com.modrinth.minotaur") version "2.8.7"
     id("io.papermc.hangar-publish-plugin") version "0.1.2"
-    id("com.github.johnrengelman.shadow") version "8.1.1"
     id("com.rikonardo.papermake") version "1.0.6"
 }
 
@@ -38,7 +38,7 @@ dependencies {
     compileOnly("net.essentialsx:EssentialsX:2.20.1")
 
     // Internal
-    compileOnly("org.spigotmc:spigot-api:1.20.4-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc:spigot-api:1.20.5-R0.1-SNAPSHOT")
     compileOnly("net.kyori:adventure-text-minimessage:4.16.0")
     compileOnly("net.kyori:adventure-text-serializer-gson:4.16.0")
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
@@ -62,7 +62,7 @@ val extraDependencies = mapOf(
 
 tasks {
     kotlin {
-        jvmToolchain(17)
+        jvmToolchain(21)
     }
 
     compileKotlin {
