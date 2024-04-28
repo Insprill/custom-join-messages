@@ -27,8 +27,8 @@ enum class Dependency(
     PREMIUM_VANISH("PremiumVanish", SuperVanishHook::class.java),
     SUPER_VANISH("SuperVanish", SuperVanishHook::class.java),
     VANISH_NO_PACKET("VanishNoPacket", VanishNoPacketHook::class.java),
-    VELOCITY_VANISH("VelocityVanish", VelocityVanishHook::class.java),
     VAULT("Vault", null, getRegisteredServiceProvider("net.milkbowl.vault.chat.Chat")?.provider),
+    VELOCITY_VANISH("VelocityVanish", VelocityVanishHook::class.java),
     ;
 
     val isEnabled get() = Bukkit.getPluginManager().isPluginEnabled(pluginName)

@@ -6,6 +6,7 @@ author: Insprill
 description: The most advanced custom join messages plugin on the market.
 
 softdepend:
+  - AdvancedVanish
   - AuthMe
   - CMI
   - Essentials
