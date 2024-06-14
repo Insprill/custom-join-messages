@@ -5,6 +5,7 @@ import kotlin.reflect.KClass
 
 object TestUtils {
 
+    @Suppress("DEPRECATION") // Works for now, will fix it if it breaks
     fun setFinalField(clazz: KClass<*>, fieldName: String, value: Any) {
         val unsafeField = Unsafe::class.java.getDeclaredField("theUnsafe")
         unsafeField.isAccessible = true
