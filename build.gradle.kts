@@ -40,7 +40,7 @@ dependencies {
     compileOnly("net.essentialsx:EssentialsX:2.20.1")
 
     // Internal
-    compileOnly("org.spigotmc:spigot-api:1.20.5-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc:spigot-api:1.21-R0.1-SNAPSHOT")
     compileOnly("net.kyori:adventure-text-minimessage:4.16.0")
     compileOnly("net.kyori:adventure-text-serializer-gson:4.16.0")
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
