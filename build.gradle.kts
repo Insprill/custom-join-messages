@@ -25,6 +25,7 @@ repositories {
     maven("https://repo.extendedclip.com/content/repositories/placeholderapi/") // PlaceholderAPI
     maven("https://repo.minebench.de/") // MineDown
     maven("https://repo.papermc.io/repository/maven-public/") // MockBukkit
+    maven("https://repo.sayandev.org/snapshots") // SayanVanish
 }
 
 dependencies {
@@ -38,6 +39,7 @@ dependencies {
     compileOnly("fr.xephi:authme:5.6.0-SNAPSHOT")
     compileOnly("me.clip:placeholderapi:2.11.5")
     compileOnly("net.essentialsx:EssentialsX:2.20.1")
+    compileOnly("org.sayandev:sayanvanish-bukkit:1.1.0")
 
     // Internal
     compileOnly("org.spigotmc:spigot-api:1.21-R0.1-SNAPSHOT")

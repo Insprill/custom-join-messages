@@ -25,6 +25,7 @@ enum class Dependency(
     ESSENTIALS("Essentials", EssentialsHook::class.java),
     PAPI("PlaceholderAPI"),
     PREMIUM_VANISH("PremiumVanish", SuperVanishHook::class.java),
+    SAYAN_VANISH("SayanVanish"),
     SUPER_VANISH("SuperVanish", SuperVanishHook::class.java),
     VANISH_NO_PACKET("VanishNoPacket", VanishNoPacketHook::class.java),
     VAULT("Vault", null, getRegisteredServiceProvider("net.milkbowl.vault.chat.Chat")?.provider),
