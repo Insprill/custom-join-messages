@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [17.6.0] - 2024-06-15
+
+### Added
+
+- Support for 1.20.6 and 1.21 (no changes needed).
+- Support for [SayanVanish](https://modrinth.com/plugin/sayanvanish).
+
+### Fixed
+
+- A harmless warning at startup when using AdvancedVanish.
+
+
 ## [17.5.0] - 2024-04-28
 
 Custom Join Messages is now published on [Hangar](https://hangar.papermc.io/Insprill/Custom-Join-Messages)!
