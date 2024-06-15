@@ -12,6 +12,7 @@ softdepend:
   - Essentials
   - PlaceholderAPI
   - PremiumVanish
+  - SayanVanish
   - SuperVanish
   - VanishNoPacket
   - Vault

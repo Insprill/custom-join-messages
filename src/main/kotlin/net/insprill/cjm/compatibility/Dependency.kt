@@ -19,6 +19,8 @@ enum class Dependency(
     val clazz: Any? = null,
     private val minVersion: SemVer? = null
 ) {
+    // Make sure all dependencies are added to the
+    // `softdepend` list in the plugin.yml!
     ADVANCED_VANISH("AdvancedVanish", AdvancedVanishHook::class.java),
     AUTH_ME("AuthMe", AuthMeHook::class.java),
     CMI("CMI", CmiHook::class.java, minVersion = SemVer(9, 7, 0)), // 9.7.0.0 moved the VanishAction class
