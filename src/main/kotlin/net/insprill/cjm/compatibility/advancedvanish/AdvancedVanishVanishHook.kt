@@ -22,7 +22,7 @@ class AdvancedVanishVanishHook(override val plugin: CustomJoinMessages) : Vanish
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    fun onPlayerQuitMonitor(e: PlayerQuitEvent) {
+    fun onPlayerQuitMonitor(@Suppress("UNUSED_PARAMETER") e: PlayerQuitEvent) {
         isHandlingQuit = false
     }
 
