@@ -34,7 +34,7 @@ abstract class MessageType(
     /**
      * @return Whether this MessageType is enabled.
      */
-    val isEnabled: Boolean
+    open val isEnabled: Boolean
         get() = config.getBoolean("Enabled")
 
     /**
