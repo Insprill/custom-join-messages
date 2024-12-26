@@ -1,7 +1,5 @@
 package net.insprill.cjm.message
 
-import be.seeseemelk.mockbukkit.MockBukkit
-import be.seeseemelk.mockbukkit.ServerMock
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.compatibility.hook.AuthHook
 import net.insprill.cjm.compatibility.hook.HookManager
@@ -16,6 +14,8 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.EnumSource
+import org.mockbukkit.mockbukkit.MockBukkit
+import org.mockbukkit.mockbukkit.ServerMock
 
 class MessageActionTest {
 

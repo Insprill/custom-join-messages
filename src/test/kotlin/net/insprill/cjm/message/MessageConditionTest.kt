@@ -1,7 +1,5 @@
 package net.insprill.cjm.message
 
-import be.seeseemelk.mockbukkit.MockBukkit
-import be.seeseemelk.mockbukkit.ServerMock
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.types.ChatMessage
 import org.junit.jupiter.api.AfterEach
@@ -9,6 +7,8 @@ import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.mockbukkit.mockbukkit.MockBukkit
+import org.mockbukkit.mockbukkit.ServerMock
 
 class MessageConditionTest {
 

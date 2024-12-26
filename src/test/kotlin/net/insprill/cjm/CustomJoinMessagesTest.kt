@@ -1,7 +1,5 @@
 package net.insprill.cjm
 
-import be.seeseemelk.mockbukkit.MockBukkit
-import be.seeseemelk.mockbukkit.ServerMock
 import de.leonhard.storage.SimplixBuilder
 import net.insprill.cjm.util.TestUtils.setFinalField
 import net.insprill.spigotutils.MinecraftVersion
@@ -15,6 +13,8 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
+import org.mockbukkit.mockbukkit.MockBukkit
+import org.mockbukkit.mockbukkit.ServerMock
 import java.io.File
 
 class CustomJoinMessagesTest {

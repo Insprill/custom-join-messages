@@ -1,8 +1,5 @@
 package net.insprill.cjm.placeholder
 
-import be.seeseemelk.mockbukkit.MockBukkit
-import be.seeseemelk.mockbukkit.ServerMock
-import be.seeseemelk.mockbukkit.entity.PlayerMock
 import net.kyori.adventure.text.Component
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -12,6 +9,9 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.fail
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.EnumSource
+import org.mockbukkit.mockbukkit.ServerMock
+import org.mockbukkit.mockbukkit.MockBukkit
+import org.mockbukkit.mockbukkit.entity.PlayerMock
 
 class PlaceholderTest {
 

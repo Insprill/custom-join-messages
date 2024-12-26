@@ -1,8 +1,5 @@
 package net.insprill.cjm.message
 
-import be.seeseemelk.mockbukkit.MockBukkit
-import be.seeseemelk.mockbukkit.ServerMock
-import be.seeseemelk.mockbukkit.entity.PlayerMock
 import de.leonhard.storage.SimplixBuilder
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.test.MessageTypeMock
@@ -17,6 +14,9 @@ import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.mockbukkit.mockbukkit.ServerMock
+import org.mockbukkit.mockbukkit.MockBukkit
+import org.mockbukkit.mockbukkit.entity.PlayerMock
 import java.nio.file.Files
 
 class MessageSenderTest {

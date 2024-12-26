@@ -1,7 +1,5 @@
 package net.insprill.cjm.toggle
 
-import be.seeseemelk.mockbukkit.MockBukkit
-import be.seeseemelk.mockbukkit.ServerMock
 import net.insprill.cjm.message.MessageAction
 import org.bukkit.plugin.Plugin
 import org.junit.jupiter.api.AfterEach
@@ -12,6 +10,8 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.EnumSource
 import java.io.File
+import org.mockbukkit.mockbukkit.MockBukkit
+import org.mockbukkit.mockbukkit.ServerMock
 
 class ToggleHandlerTest {
 

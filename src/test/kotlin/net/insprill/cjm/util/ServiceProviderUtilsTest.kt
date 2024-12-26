@@ -1,6 +1,5 @@
 package net.insprill.cjm.util
 
-import be.seeseemelk.mockbukkit.MockBukkit
 import org.bukkit.Bukkit
 import org.bukkit.plugin.ServicePriority
 import org.junit.jupiter.api.AfterEach
@@ -9,6 +8,7 @@ import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.mockbukkit.mockbukkit.MockBukkit
 
 class ServiceProviderUtilsTest {
 

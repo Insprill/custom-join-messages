@@ -1,9 +1,5 @@
 package net.insprill.cjm.listener
 
-import be.seeseemelk.mockbukkit.MockBukkit
-import be.seeseemelk.mockbukkit.ServerMock
-import be.seeseemelk.mockbukkit.WorldMock
-import be.seeseemelk.mockbukkit.entity.PlayerMock
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.test.MessageTypeMock
 import org.bukkit.Location
@@ -15,6 +11,10 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.mockbukkit.mockbukkit.MockBukkit
+import org.mockbukkit.mockbukkit.ServerMock
+import org.mockbukkit.mockbukkit.entity.PlayerMock
+import org.mockbukkit.mockbukkit.world.WorldMock
 
 class WorldChangeEventTest {
 

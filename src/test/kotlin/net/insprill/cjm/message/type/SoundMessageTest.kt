@@ -1,8 +1,5 @@
 package net.insprill.cjm.message.type
 
-import be.seeseemelk.mockbukkit.MockBukkit
-import be.seeseemelk.mockbukkit.ServerMock
-import be.seeseemelk.mockbukkit.entity.PlayerMock
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.MessageVisibility
 import net.insprill.cjm.message.types.SoundMessage
@@ -12,6 +9,9 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.mockbukkit.mockbukkit.MockBukkit
+import org.mockbukkit.mockbukkit.ServerMock
+import org.mockbukkit.mockbukkit.entity.PlayerMock
 
 class SoundMessageTest {
 
@@ -35,7 +35,7 @@ class SoundMessageTest {
 
     @Test
     fun handle_SendsMessage() {
-        sound.config.set("key.Sound", Sound.AMBIENT_CAVE.name)
+        sound.config.set("key.Sound", Sound.AMBIENT_CAVE.name())
 
         sound.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
 
@@ -45,7 +45,7 @@ class SoundMessageTest {
 
     @Test
     fun handle_Global_SendsMessage_CorrectLocation() {
-        sound.config.set("key.Sound", Sound.AMBIENT_CAVE.name)
+        sound.config.set("key.Sound", Sound.AMBIENT_CAVE.name())
         sound.config.set("key.Global", true)
         val player2 = server.addPlayer()
         player2.teleport(player2.location.add(10.0, 0.0, 0.0))
@@ -60,7 +60,7 @@ class SoundMessageTest {
 
     @Test
     fun handle_NonGlobal_SendsMessage_CorrectLocation() {
-        sound.config.set("key.Sound", Sound.AMBIENT_CAVE.name)
+        sound.config.set("key.Sound", Sound.AMBIENT_CAVE.name())
         sound.config.set("key.Global", false)
         val player2 = server.addPlayer()
         player2.teleport(player2.location.add(10.0, 0.0, 0.0))
