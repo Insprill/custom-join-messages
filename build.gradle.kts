@@ -1,12 +1,11 @@
-import org.jetbrains.kotlin.cli.common.toBooleanLenient
 import java.net.URL
 import java.util.concurrent.Executors
 
 plugins {
-    kotlin("jvm") version "1.9.23"
-    id("org.ajoberstar.grgit") version "5.2.2"
+    kotlin("jvm") version "2.1.0"
+    id("org.ajoberstar.grgit") version "5.3.0"
     id("net.kyori.blossom") version "2.1.0"
-    id("io.github.goooler.shadow") version "8.1.7"
+    id("com.gradleup.shadow") version "9.0.0-beta4"
     id("com.modrinth.minotaur") version "2.8.7"
     id("io.papermc.hangar-publish-plugin") version "0.1.2"
     id("com.rikonardo.papermake") version "1.0.6"
@@ -37,25 +36,26 @@ dependencies {
     compileOnly("com.github.Syrent:VelocityVanish:3.27.2")
     compileOnly("com.github.quantiom:AdvancedVanish:v1.2.6")
     compileOnly("fr.xephi:authme:5.6.0-SNAPSHOT")
-    compileOnly("me.clip:placeholderapi:2.11.5")
+    compileOnly("me.clip:placeholderapi:2.11.6")
     compileOnly("net.essentialsx:EssentialsX:2.20.1")
-    compileOnly("org.sayandev:sayanvanish-bukkit:1.1.0")
+    compileOnly("org.sayandev:sayanvanish-api:1.6.1")
+    compileOnly("org.sayandev:sayanvanish-bukkit:1.6.1")
 
     // Internal
-    compileOnly("org.spigotmc:spigot-api:1.21-R0.1-SNAPSHOT")
-    compileOnly("net.kyori:adventure-text-minimessage:4.16.0")
-    compileOnly("net.kyori:adventure-text-serializer-gson:4.16.0")
+    compileOnly("org.spigotmc:spigot-api:1.21.2-R0.1-SNAPSHOT")
+    compileOnly("net.kyori:adventure-text-minimessage:4.18.0")
+    compileOnly("net.kyori:adventure-text-serializer-gson:4.18.0")
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
     implementation("com.github.simplix-softworks:simplixstorage:3.2.7")
     implementation("de.themoep:minedown:1.7.1-SNAPSHOT")
     implementation("net.insprill:spigot-utils:0.2.2")
-    implementation("net.swiftzer.semver:semver:1.3.0")
-    implementation("org.bstats:bstats-bukkit:3.0.2")
+    implementation("net.swiftzer.semver:semver:2.0.0")
+    implementation("org.bstats:bstats-bukkit:3.1.0")
 
     // Tests
     testImplementation("com.github.seeseemelk:MockBukkit-v1.20:3.80.0")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
-    testImplementation(platform("org.junit:junit-bom:5.10.2"))
+    testImplementation("org.junit.jupiter:junit-jupiter:5.11.4")
+    testImplementation(platform("org.junit:junit-bom:5.11.4"))
 }
 
 val extraDependencies = mapOf(
@@ -77,7 +77,7 @@ tasks {
 
     shadowJar {
         archiveClassifier.set("")
-        isEnableRelocation = true
+        enableRelocation = true
         relocationPrefix = "net.insprill.cjm.libs"
         exclude("META-INF/**")
         from("LICENSE")
@@ -223,7 +223,7 @@ hangarPublish {
 }
 
 fun versionMetadata(): String {
-    if (property("version.metadata").toString().toBooleanLenient() == false) {
+    if (property("version.metadata").toString().toBoolean() == false) {
         return ""
     }
 

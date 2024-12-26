@@ -22,7 +22,7 @@ class SayanVanishVanishHook(override val plugin: CustomJoinMessages) : VanishHoo
     }
 
     override fun isVanished(player: Player): Boolean {
-        return SayanVanishAPI.getInstance().isVanished(player.uniqueId, true)
+        return SayanVanishAPI.getInstance().isVanished(player.uniqueId)
     }
 
 }
