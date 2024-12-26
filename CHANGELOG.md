@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [Unreleased]
+
+### Added
+
+- Support for 1.21.3/1.21.4.
+- Support for SayanVanish versions newer than v1.5.0.
+
+### Removed
+
+- Support for sounds messages on servers older than 1.12.
+
+
 ## [17.6.0] - 2024-06-15
 
 ### Added
@@ -165,4 +177,5 @@ Custom Join Messages is now published on [Hangar](https://hangar.papermc.io/Insp
 
 <!-- Diffs -->
 [Unreleased]: https://github.com/Insprill/custom-join-messages/compare/master...develop
+[17.6.0]: https://github.com/Insprill/intellectual/compare/v17.5.0...v17.6.0
 [17.5.0]: https://github.com/Insprill/intellectual/compare/5765a505...v17.5.0
