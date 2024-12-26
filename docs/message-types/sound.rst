@@ -18,7 +18,8 @@ Parameters
 
 Sound
 ^^^^^
-The sound to play. A full list of sounds can be found `Here <https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html>`_.
+The sound to play. A full list of sounds can be found `Here <https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html>`_, or they can be
+specified the vanilla way with namespaces. The minecraft namespace is assumed if none is specified.
 
 Volume
 ^^^^^^
