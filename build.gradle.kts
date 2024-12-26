@@ -42,7 +42,7 @@ dependencies {
     compileOnly("org.sayandev:sayanvanish-bukkit:1.6.1")
 
     // Internal
-    compileOnly("org.spigotmc:spigot-api:1.21.2-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc:spigot-api:1.21.4-R0.1-SNAPSHOT")
     compileOnly("net.kyori:adventure-text-minimessage:4.18.0")
     compileOnly("net.kyori:adventure-text-serializer-gson:4.18.0")
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
