@@ -30,7 +30,7 @@ Custom Join Messages is a feature-packed plugin for handling all join and quit n
     * Titles
     * Actionbar
     * Bossbar
-    * Sounds
+    * Sounds (1.12+)
 
 * Advanced Formatting
     * All messages support [PlaceholderAPI](https://www.spigotmc.org/resources/6245/) placeholders
