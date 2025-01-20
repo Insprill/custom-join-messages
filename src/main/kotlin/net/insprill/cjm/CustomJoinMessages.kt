@@ -180,7 +180,8 @@ open class CustomJoinMessages : JavaPlugin() {
         @Suppress("DEPRECATION")
         commandManager.run {
             enableUnstableAPI("help")
-            enableUnstableAPI("brigadier")
+            if (MinecraftVersion.isOlderThan(MinecraftVersion(20, 6)))
+                enableUnstableAPI("brigadier")
         }
 
         CommandContext(this).register(commandManager)
