@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.net.URI
 import java.util.concurrent.Executors
 
@@ -64,11 +65,11 @@ val extraDependencies = mapOf(
 
 tasks {
     kotlin {
+        // Compile against Java 21, compile to Java 8
         jvmToolchain(21)
-    }
-
-    compileKotlin {
-        kotlinOptions.jvmTarget = "1.8"
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_1_8)
+        }
     }
 
     jar {
