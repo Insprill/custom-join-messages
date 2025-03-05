@@ -2,10 +2,10 @@ import java.net.URL
 import java.util.concurrent.Executors
 
 plugins {
-    kotlin("jvm") version "2.1.0"
+    kotlin("jvm") version "2.1.10"
     id("org.ajoberstar.grgit") version "5.3.0"
     id("net.kyori.blossom") version "2.1.0"
-    id("com.gradleup.shadow") version "9.0.0-beta4"
+    id("com.gradleup.shadow") version "9.0.0-beta10"
     id("com.modrinth.minotaur") version "2.8.7"
     id("io.papermc.hangar-publish-plugin") version "0.1.2"
     id("com.rikonardo.papermake") version "1.0.6"
@@ -38,13 +38,13 @@ dependencies {
     compileOnly("fr.xephi:authme:5.6.0-SNAPSHOT")
     compileOnly("me.clip:placeholderapi:2.11.6")
     compileOnly("net.essentialsx:EssentialsX:2.20.1")
-    compileOnly("org.sayandev:sayanvanish-api:1.6.1")
-    compileOnly("org.sayandev:sayanvanish-bukkit:1.6.1")
+    compileOnly("org.sayandev:sayanvanish-api:1.6.3")
+    compileOnly("org.sayandev:sayanvanish-bukkit:1.6.3")
 
     // Internal
     compileOnly("org.spigotmc:spigot-api:1.21.4-R0.1-SNAPSHOT")
-    compileOnly("net.kyori:adventure-text-minimessage:4.18.0")
-    compileOnly("net.kyori:adventure-text-serializer-gson:4.18.0")
+    compileOnly("net.kyori:adventure-text-minimessage:4.19.0")
+    compileOnly("net.kyori:adventure-text-serializer-gson:4.19.0")
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
     implementation("com.github.simplix-softworks:simplixstorage:3.2.7")
     implementation("de.themoep:minedown:1.7.1-SNAPSHOT")
@@ -53,9 +53,9 @@ dependencies {
     implementation("org.bstats:bstats-bukkit:3.1.0")
 
     // Tests
-    testImplementation("org.mockbukkit.mockbukkit:mockbukkit-v1.21:4.21.0")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.11.4")
-    testImplementation(platform("org.junit:junit-bom:5.11.4"))
+    testImplementation("org.mockbukkit.mockbukkit:mockbukkit-v1.21:4.34.1")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.12.0")
+    testImplementation(platform("org.junit:junit-bom:5.12.0"))
 }
 
 val extraDependencies = mapOf(
