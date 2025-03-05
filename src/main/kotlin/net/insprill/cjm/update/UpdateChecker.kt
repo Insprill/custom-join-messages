@@ -5,7 +5,7 @@ import net.insprill.spigotutils.ServerEnvironment
 import net.swiftzer.semver.SemVer
 import org.bukkit.Bukkit
 import org.bukkit.plugin.Plugin
-import java.net.URL
+import java.net.URI
 
 abstract class UpdateChecker(private val plugin: CustomJoinMessages) {
 
@@ -18,7 +18,7 @@ abstract class UpdateChecker(private val plugin: CustomJoinMessages) {
     abstract val requestUrl: String
 
     private fun getLatestVersion(): VersionData {
-        val conn = URL(requestUrl).openConnection()
+        val conn = URI.create(requestUrl).toURL().openConnection()
         conn.addRequestProperty("User-Agent", plugin.name + "UpdateChecker")
         val body = conn.inputStream.use { String(it.readBytes(), Charsets.UTF_8) }
         return parseVersion(body)

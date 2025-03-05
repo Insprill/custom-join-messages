@@ -1,4 +1,4 @@
-import java.net.URL
+import java.net.URI
 import java.util.concurrent.Executors
 
 plugins {
@@ -101,7 +101,7 @@ tasks {
                 continue
             ex.submit {
                 println("Downloading ${entry.key} from ${entry.value}")
-                URL(entry.value).openStream().use { s -> file.outputStream().use { it.write(s.readBytes()) } }
+                URI.create(entry.value).toURL().openStream().use { s -> file.outputStream().use { it.write(s.readBytes()) } }
                 println("Successfully downloaded ${entry.key} to ${file.path}")
             }
         }
