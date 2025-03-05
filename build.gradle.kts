@@ -60,7 +60,7 @@ dependencies {
 }
 
 val extraDependencies = mapOf(
-    Pair("CMI-API.jar", "https://github.com/Zrips/CMI-API/releases/download/9.7.4.1/CMIAPI-9.7.4.1.jar "),
+    Pair("CMI-API.jar", "https://github.com/Zrips/CMI-API/releases/download/9.7.4.1/CMIAPI-9.7.4.1.jar"),
 )
 
 tasks {
