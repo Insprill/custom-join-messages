@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Title messages not being sent if either the primary title or subtitle are blank.
 - Command warning during startup on 1.20.6+ servers.
 
 
