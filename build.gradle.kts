@@ -49,7 +49,7 @@ dependencies {
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
     implementation("com.github.simplix-softworks:simplixstorage:3.2.7")
     implementation("de.themoep:minedown:1.7.1-SNAPSHOT")
-    implementation("net.insprill:spigot-utils:0.2.2")
+    implementation("net.insprill:spigot-utils:0.5.0")
     implementation("net.swiftzer.semver:semver:2.0.0")
     implementation("org.bstats:bstats-bukkit:3.1.0")
 

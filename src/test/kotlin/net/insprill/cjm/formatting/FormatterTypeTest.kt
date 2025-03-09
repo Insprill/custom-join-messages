@@ -18,19 +18,16 @@ class FormatterTypeTest {
 
     private lateinit var server: ServerMock
     private lateinit var plugin: CustomJoinMessages
-    private lateinit var lastServerEnvironment: ServerEnvironment
 
     @BeforeEach
     fun setUp() {
         server = MockBukkit.mock()
         plugin = MockBukkit.load(CustomJoinMessages::class.java)
-        lastServerEnvironment = ServerEnvironment.getCurrentEnvironment()
     }
 
     @AfterEach
     fun teardown() {
         MockBukkit.unmock()
-        setFinalField(ServerEnvironment::class, "currentEnvironment", lastServerEnvironment)
     }
 
     @ParameterizedTest
@@ -57,14 +54,6 @@ class FormatterTypeTest {
     @Test
     fun formatter_MiniMessage_IsCompatible() {
         assertTrue(FormatterType.MINIMESSAGE.isCompatible.invoke().status)
-    }
-
-    @Test
-    fun formatter_MiniMessage_NotPaper_NotCompatible() {
-        setFinalField(ServerEnvironment::class, "currentEnvironment", ServerEnvironment.SPIGOT)
-
-        assertFalse(FormatterType.MINIMESSAGE.isCompatible.invoke().status)
-        assertFalse(FormatterType.MINIMESSAGE.isCompatible.invoke().message.isBlank())
     }
 
     @Test

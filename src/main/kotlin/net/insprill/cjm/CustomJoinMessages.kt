@@ -122,7 +122,7 @@ open class CustomJoinMessages : JavaPlugin() {
     }
 
     private fun checkCompatible(): Boolean {
-        if (!ServerEnvironment.isSpigot()) {
+        if (!ServerEnvironment.isSpigot() && !ServerEnvironment.isPaper()) {
             logger.severe("Custom Join Messages only works on Spigot, or forks of Spigot like Paper! Please upgrade to one of the two.")
             Bukkit.getPluginManager().disablePlugin(this)
             return false

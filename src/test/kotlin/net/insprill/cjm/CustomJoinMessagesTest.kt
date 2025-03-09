@@ -21,20 +21,17 @@ class CustomJoinMessagesTest {
 
     private lateinit var server: ServerMock
     private lateinit var lastMinecraftVersion: MinecraftVersion
-    private lateinit var lastServerEnvironment: ServerEnvironment
 
     @BeforeEach
     fun setUp() {
         server = MockBukkit.mock()
         lastMinecraftVersion = MinecraftVersion.getCurrentVersion()
-        lastServerEnvironment = ServerEnvironment.getCurrentEnvironment()
     }
 
     @AfterEach
     fun teardown() {
         MockBukkit.unmock()
         setFinalField(MinecraftVersion::class, "currentVersion", lastMinecraftVersion)
-        setFinalField(ServerEnvironment::class, "currentEnvironment", lastServerEnvironment)
     }
 
     @Test
