@@ -23,6 +23,9 @@ class BossbarMessage(private val plugin: CustomJoinMessages) : MessageType(plugi
         val showTime = config.getLong("$chosenPath.Show-Time")
         val countDown = config.getOrDefault("$chosenPath.Count-Down", true)
 
+        val finalRecipients = recipients.filter { visibility != MessageVisibility.PUBLIC || primaryPlayer != it } // Don't send public message to the person joining
+        if (finalRecipients.isEmpty()) return
+
         val barInfo = BarInfo(
             BaseComponent.toLegacyText(*plugin.formatter.format(msg)),
             barColor,
@@ -30,7 +33,7 @@ class BossbarMessage(private val plugin: CustomJoinMessages) : MessageType(plugi
             barFlags,
             countDown,
             showTime,
-            recipients.filter { visibility != MessageVisibility.PUBLIC || primaryPlayer != it } // Don't send public message to the person joining
+            finalRecipients
         )
 
         handleBar(barInfo)
