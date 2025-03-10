@@ -203,7 +203,7 @@ modrinth {
     projectId.set(property("modrinth.project.id") as String)
     versionType.set(if ((findProperty("build.is-release") as String? ?: "true").toBoolean()) "release" else "alpha")
     uploadFile.set(tasks.shadowJar.get())
-    loaders.addAll("spigot", "paper", "purpur")
+    loaders.addAll("spigot", "paper", "folia", "purpur")
     syncBodyFrom.set(file("modrinth_page.md").readText())
     gameVersions.addAll(*minecraftVersions)
 }
