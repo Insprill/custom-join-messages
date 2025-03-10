@@ -93,6 +93,12 @@ Custom Join Messages is a feature-packed plugin for handling all join and quit n
     * Radius
     * Min/Max Online Players
 
+* Supports All Platforms
+    * Spigot
+    * Paper
+    * Folia
+    * Purpur
+    * Most other forks
 
 
 
