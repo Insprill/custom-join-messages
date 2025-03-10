@@ -43,7 +43,7 @@ dependencies {
     compileOnly("org.sayandev:sayanvanish-bukkit:1.6.3") { isTransitive = false }
 
     // Internal
-    compileOnly("org.spigotmc:spigot-api:1.21.4-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
     compileOnly("net.kyori:adventure-text-minimessage:4.19.0")
     compileOnly("net.kyori:adventure-text-serializer-gson:4.19.0")
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
@@ -123,7 +123,6 @@ tasks {
 configurations {
     configurations.testImplementation.get().apply {
         extendsFrom(configurations.compileOnly.get())
-        exclude("org.spigotmc", "spigot-api")
     }
 }
 

@@ -2,9 +2,9 @@ package net.insprill.cjm.update
 
 import net.insprill.cjm.BuildParameters
 import net.insprill.cjm.CustomJoinMessages
+import net.insprill.cjm.util.CrossPlatformScheduler
 import net.insprill.spigotutils.ServerEnvironment
 import net.swiftzer.semver.SemVer
-import org.bukkit.Bukkit
 import java.net.URI
 
 abstract class UpdateChecker(private val plugin: CustomJoinMessages) {
@@ -29,7 +29,7 @@ abstract class UpdateChecker(private val plugin: CustomJoinMessages) {
     fun checkForUpdates(consumer: (VersionData, Platform) -> Unit) {
         if (ServerEnvironment.isMockBukkit() || requestUrl.isBlank())
             return
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, Runnable {
+        CrossPlatformScheduler.runAsync(plugin, Runnable {
             val latestVersion = getLatestVersion()
             if (!latestVersion.isNewer())
                 return@Runnable

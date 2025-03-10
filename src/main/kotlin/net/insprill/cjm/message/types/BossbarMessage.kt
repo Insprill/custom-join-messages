@@ -3,6 +3,7 @@ package net.insprill.cjm.message.types
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.extension.replacePlaceholders
 import net.insprill.cjm.message.MessageVisibility
+import net.insprill.cjm.util.CrossPlatformScheduler
 import net.insprill.cjm.util.EnumUtils.tryGetEnum
 import net.md_5.bungee.api.chat.BaseComponent
 import org.bukkit.Bukkit
@@ -10,7 +11,7 @@ import org.bukkit.boss.BarColor
 import org.bukkit.boss.BarFlag
 import org.bukkit.boss.BarStyle
 import org.bukkit.entity.Player
-import org.bukkit.scheduler.BukkitRunnable
+import org.bukkit.plugin.Plugin
 
 class BossbarMessage(private val plugin: CustomJoinMessages) : MessageType(plugin, "bossbar", "Messages") {
 
@@ -46,23 +47,27 @@ class BossbarMessage(private val plugin: CustomJoinMessages) : MessageType(plugi
         }
 
         if (info.countDown) {
-            class CountDown : BukkitRunnable() {
+            class CountDown : Runnable {
                 var progress = 1.0
+                private lateinit var cancelableTask: CrossPlatformScheduler.CancelableTask
+
+                fun start(plugin: Plugin) {
+                    cancelableTask = CrossPlatformScheduler.runAtFixedRate(plugin, this, 1, 1)
+                }
+
                 override fun run() {
                     progress -= 1 / info.showTime.toDouble()
                     if (progress < 0.0) {
                         bossBar.removeAll()
-                        cancel()
-                        return
+                        cancelableTask.cancel()
+                    } else {
+                        bossBar.progress = progress
                     }
-                    bossBar.progress = progress
                 }
             }
-            CountDown().runTaskTimer(plugin, 1, 1)
+            CountDown().start(plugin)
         } else {
-            Bukkit.getScheduler().runTaskLater(plugin, Runnable {
-                bossBar.removeAll()
-            }, info.showTime)
+            CrossPlatformScheduler.runDelayed(plugin, { bossBar.removeAll() }, info.showTime)
         }
     }
 

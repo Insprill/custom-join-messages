@@ -5,7 +5,7 @@ import fr.xephi.authme.events.LoginEvent
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.compatibility.hook.AuthHook
 import net.insprill.cjm.message.MessageAction
-import org.bukkit.Bukkit
+import net.insprill.cjm.util.CrossPlatformScheduler
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
@@ -41,7 +41,7 @@ class AuthMeAuthHook(private val plugin: CustomJoinMessages) : AuthHook {
 
     @EventHandler(priority = EventPriority.MONITOR)
     fun onQuit(e: PlayerQuitEvent) {
-        Bukkit.getScheduler().runTaskLater(plugin, Runnable { loggedInPlayers.remove(e.player) }, 1L)
+        CrossPlatformScheduler.runDelayed(plugin, { loggedInPlayers.remove(e.player) }, 1L)
     }
 
 }

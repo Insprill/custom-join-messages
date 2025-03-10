@@ -5,8 +5,8 @@ import de.leonhard.storage.internal.FlatFile
 import de.leonhard.storage.internal.settings.ReloadSettings
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.MessageAction
+import net.insprill.cjm.util.CrossPlatformScheduler
 import net.insprill.cjm.util.EnumUtils.tryGetEnum
-import org.bukkit.Bukkit
 import org.bukkit.World
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -42,7 +42,7 @@ class WorldChangeEvent(private val plugin: CustomJoinMessages) : Listener {
 
         plugin.messageSender.trySendMessages(e.player, MessageAction.QUIT, true)
 
-        Bukkit.getScheduler().runTaskLater(plugin, Runnable {
+        CrossPlatformScheduler.runDelayed(plugin, {
             plugin.messageSender.trySendMessages(
                 e.player,
                 if (hasJoinedWorldBefore) MessageAction.JOIN else MessageAction.FIRST_JOIN,

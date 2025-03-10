@@ -4,6 +4,7 @@ import de.leonhard.storage.internal.FlatFile
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.extension.getMessage
 import net.insprill.cjm.message.types.MessageType
+import net.insprill.cjm.util.CrossPlatformScheduler
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.permissions.Permission
@@ -76,7 +77,7 @@ class MessageSender(private val plugin: CustomJoinMessages) {
                 if (delay < 1) {
                     runnable.run()
                 } else {
-                    Bukkit.getScheduler().runTaskLater(plugin, runnable, delay)
+                    CrossPlatformScheduler.runDelayed(plugin, runnable, delay)
                 }
             }
         }
