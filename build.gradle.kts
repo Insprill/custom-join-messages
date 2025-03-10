@@ -31,16 +31,16 @@ repositories {
 dependencies {
     // Plugins
     compileOnly(fileTree("libs")) // No Maven repos :/
-    compileOnly("com.github.mbax:VanishNoPacket:3.22")
+    compileOnly("com.github.mbax:VanishNoPacket:3.22") { isTransitive = false }
     compileOnly("com.github.MilkBowl:VaultAPI:1.7.1") { isTransitive = false }
     compileOnly("com.github.MyzelYam:SuperVanish:6.2.16") { isTransitive = false }
-    compileOnly("com.github.Syrent:VelocityVanish:3.27.2")
-    compileOnly("com.github.quantiom:AdvancedVanish:v1.2.6")
-    compileOnly("fr.xephi:authme:5.6.0-SNAPSHOT")
-    compileOnly("me.clip:placeholderapi:2.11.6")
-    compileOnly("net.essentialsx:EssentialsX:2.20.1")
-    compileOnly("org.sayandev:sayanvanish-api:1.6.3")
-    compileOnly("org.sayandev:sayanvanish-bukkit:1.6.3")
+    compileOnly("com.github.Syrent:VelocityVanish:3.27.2") { isTransitive = false }
+    compileOnly("com.github.quantiom:AdvancedVanish:v1.2.6") { isTransitive = false }
+    compileOnly("fr.xephi:authme:5.6.0-SNAPSHOT") { isTransitive = false }
+    compileOnly("me.clip:placeholderapi:2.11.6") { isTransitive = false }
+    compileOnly("net.essentialsx:EssentialsX:2.20.1") { isTransitive = false }
+    compileOnly("org.sayandev:sayanvanish-api:1.6.3") { isTransitive = false }
+    compileOnly("org.sayandev:sayanvanish-bukkit:1.6.3") { isTransitive = false }
 
     // Internal
     compileOnly("org.spigotmc:spigot-api:1.21.4-R0.1-SNAPSHOT")
