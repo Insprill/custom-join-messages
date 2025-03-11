@@ -11,8 +11,8 @@ class SpigotUpdateChecker(plugin: CustomJoinMessages) : UpdateChecker(plugin) {
     override val requestUrl = "https://api.spiget.org/v2/resources/%s/versions/latest".format(BuildParameters.SPIGOT_RESOURCE_ID)
 
     @Suppress("DEPRECATION") // Legacy :/
-    override fun parseVersion(json: String): VersionData {
-        val obj = JsonParser().parse(json).asJsonObject
+    override fun parseVersion(body: String): VersionData {
+        val obj = JsonParser().parse(body).asJsonObject
         val versionNumber = obj["name"].asString
         val downloads = obj["downloads"].asInt
         val ratingCount = obj["rating"].asJsonObject["count"].asInt

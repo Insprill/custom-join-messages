@@ -5,7 +5,6 @@ import net.insprill.cjm.CustomJoinMessages
 import net.insprill.spigotutils.ServerEnvironment
 import net.swiftzer.semver.SemVer
 import org.bukkit.Bukkit
-import org.bukkit.plugin.Plugin
 import java.net.URI
 
 abstract class UpdateChecker(private val plugin: CustomJoinMessages) {
@@ -25,7 +24,7 @@ abstract class UpdateChecker(private val plugin: CustomJoinMessages) {
         return parseVersion(body)
     }
 
-    protected abstract fun parseVersion(json: String): VersionData
+    protected abstract fun parseVersion(body: String): VersionData
 
     fun checkForUpdates(consumer: (VersionData, Platform) -> Unit) {
         if (ServerEnvironment.isMockBukkit() || requestUrl.isBlank())

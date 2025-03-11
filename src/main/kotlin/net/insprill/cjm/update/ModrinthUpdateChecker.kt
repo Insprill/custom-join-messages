@@ -13,8 +13,8 @@ class ModrinthUpdateChecker(plugin: CustomJoinMessages) : UpdateChecker(plugin) 
     override val requestUrl = "https://api.modrinth.com/v2/project/%s/version".format(BuildParameters.MODRINTH_PROJECT_ID)
 
     @Suppress("DEPRECATION") // Legacy :/
-    override fun parseVersion(json: String): VersionData {
-        val obj = JsonParser().parse(json).asJsonArray[0].asJsonObject
+    override fun parseVersion(body: String): VersionData {
+        val obj = JsonParser().parse(body).asJsonArray[0].asJsonObject
         val versionNumber = obj["version_number"].asString
         val downloads = obj["downloads"].asInt
         val datePublished = Instant.parse(obj["date_published"].asString).atZone(ZoneOffset.UTC).toEpochSecond()

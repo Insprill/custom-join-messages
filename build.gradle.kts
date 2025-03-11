@@ -132,8 +132,9 @@ sourceSets {
         blossom {
             javaSources {
                 property("bstatsId", project.property("bstats.id") as String)
-                property("spigotResourceId", project.property("spigot.resource.id") as String)
+                property("hangarProjectId", project.property("hangar.project.id") as String)
                 property("modrinthProjectId", project.property("modrinth.project.id") as String)
+                property("spigotResourceId", project.property("spigot.resource.id") as String)
                 property("buildVersion", version as String)
                 property("buildTargetPlatform", project.property("build.target-platform") as String)
             }

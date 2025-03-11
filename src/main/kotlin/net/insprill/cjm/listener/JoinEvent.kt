@@ -33,12 +33,18 @@ class JoinEvent(private val plugin: CustomJoinMessages) : Listener {
                 .format(data.version)
 
             val date = SimpleDateFormat(plugin.config.getString("Update-Checker.Date-Format")).format(Date(data.releaseDateSeconds * 1000L))
-            val hover = if (platform == UpdateChecker.Platform.SPIGOT) {
-                plugin.commandManager.locales.getMessage(null, MessageKey.of("cjm.update-checker.in-game.hover.spigot"))
-                    .format(data.version, date, data.downloads, data.rating?.average)
-            } else {
-                plugin.commandManager.locales.getMessage(null, MessageKey.of("cjm.update-checker.in-game.hover.modrinth"))
-                    .format(data.version, date, data.downloads)
+            val hover = when (platform) {
+                net.insprill.cjm.update.UpdateChecker.Platform.HANGAR ->
+                    plugin.commandManager.locales.getMessage(null, MessageKey.of("cjm.update-checker.in-game.hover.hangar"))
+                        .format(data.version)
+
+                net.insprill.cjm.update.UpdateChecker.Platform.MODRINTH ->
+                    plugin.commandManager.locales.getMessage(null, MessageKey.of("cjm.update-checker.in-game.hover.modrinth"))
+                        .format(data.version, date, data.downloads)
+
+                net.insprill.cjm.update.UpdateChecker.Platform.SPIGOT ->
+                    plugin.commandManager.locales.getMessage(null, MessageKey.of("cjm.update-checker.in-game.hover.spigot"))
+                        .format(data.version, date, data.downloads, data.rating?.average)
             }
 
             e.player.spigot().sendMessage(
