@@ -228,7 +228,7 @@ hangarPublish {
 }
 
 fun versionMetadata(): String {
-    if (property("version.metadata").toString().toBoolean() == false) {
+    if (!property("version.metadata").toString().toBoolean()) {
         return ""
     }
 
