@@ -1,5 +1,6 @@
 package net.insprill.cjm.update
 
+import net.insprill.cjm.BuildParameters
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.spigotutils.ServerEnvironment
 import net.swiftzer.semver.SemVer
@@ -31,7 +32,7 @@ abstract class UpdateChecker(private val plugin: CustomJoinMessages) {
             return
         Bukkit.getScheduler().runTaskAsynchronously(plugin, Runnable {
             val latestVersion = getLatestVersion()
-            if (!latestVersion.isNewer(plugin))
+            if (!latestVersion.isNewer())
                 return@Runnable
             consumer.invoke(latestVersion, platform)
         })
@@ -39,8 +40,8 @@ abstract class UpdateChecker(private val plugin: CustomJoinMessages) {
 
     data class VersionData(val version: String, val downloads: Int, val rating: Rating?, val releaseDateSeconds: Long) {
 
-        fun isNewer(plugin: Plugin): Boolean {
-            return SemVer.parse(version) > SemVer.parse(plugin.description.version.substringBefore('-'))
+        fun isNewer(): Boolean {
+            return SemVer.parse(version) > SemVer.parse(BuildParameters.VERSION.substringBefore('-'))
         }
 
         data class Rating(val count: Int, val average: Float)
