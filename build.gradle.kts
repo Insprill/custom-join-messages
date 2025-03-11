@@ -236,7 +236,7 @@ fun versionMetadata(): String {
     var id = head.abbreviatedId
 
     if (!grgit.status().isClean) {
-        id += "-dirty"
+        id += ".dirty"
     }
 
     return "+rev.${id}"

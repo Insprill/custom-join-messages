@@ -41,7 +41,7 @@ abstract class UpdateChecker(private val plugin: CustomJoinMessages) {
     data class VersionData(val version: String, val downloads: Int, val rating: Rating?, val releaseDateSeconds: Long) {
 
         fun isNewer(): Boolean {
-            return SemVer.parse(version) > SemVer.parse(BuildParameters.VERSION.substringBefore('-'))
+            return SemVer.parse(version) > SemVer.parse(BuildParameters.VERSION)
         }
 
         data class Rating(val count: Int, val average: Float)
