@@ -3,3 +3,5 @@ plugins {
 }
 
 rootProject.name = "custom-join-messages"
+
+include("paper")

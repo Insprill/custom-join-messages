@@ -43,7 +43,7 @@ dependencies {
     compileOnly("org.sayandev:sayanvanish-bukkit:1.6.3") { isTransitive = false }
 
     // Internal
-    compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc:spigot-api:1.21.4-R0.1-SNAPSHOT")
     compileOnly("net.kyori:adventure-text-minimessage:4.19.0")
     compileOnly("net.kyori:adventure-text-serializer-gson:4.19.0")
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
@@ -52,6 +52,9 @@ dependencies {
     implementation("net.insprill:spigot-utils:0.5.0")
     implementation("net.swiftzer.semver:semver:2.0.0")
     implementation("org.bstats:bstats-bukkit:3.1.0")
+
+    // Modules
+    implementation(project(":paper"))
 
     // Tests
     testImplementation("org.mockbukkit.mockbukkit:mockbukkit-v1.21:4.34.1")
@@ -123,6 +126,7 @@ tasks {
 configurations {
     configurations.testImplementation.get().apply {
         extendsFrom(configurations.compileOnly.get())
+        exclude("org.spigotmc", "spigot-api")
     }
 }
 
