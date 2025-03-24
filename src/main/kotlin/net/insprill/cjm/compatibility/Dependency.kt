@@ -8,6 +8,7 @@ import net.insprill.cjm.compatibility.hook.PluginHook
 import net.insprill.cjm.compatibility.supervanish.SuperVanishHook
 import net.insprill.cjm.compatibility.vanishnopacket.VanishNoPacketHook
 import net.insprill.cjm.compatibility.velocityvanish.VelocityVanishHook
+import net.insprill.cjm.compatibility.phoenix.PhoenixHook
 import net.insprill.cjm.util.ServiceProviderUtils.getRegisteredServiceProvider
 import net.swiftzer.semver.SemVer
 import org.bukkit.Bukkit
@@ -32,6 +33,7 @@ enum class Dependency(
     VANISH_NO_PACKET("VanishNoPacket", VanishNoPacketHook::class.java),
     VAULT("Vault", null, getRegisteredServiceProvider("net.milkbowl.vault.chat.Chat")?.provider),
     VELOCITY_VANISH("VelocityVanish", VelocityVanishHook::class.java),
+    PHOENIX("Phoenix", PhoenixHook::class.java),
     ;
 
     val isEnabled get() = Bukkit.getPluginManager().isPluginEnabled(pluginName)

@@ -18,6 +18,8 @@ softdepend:
   - VanishNoPacket
   - Vault
   - VelocityVanish
+  - Retention # Retention is the plugin loader for Phoenix
+  - Phoenix
 
 permissions:
   cjm.default:
