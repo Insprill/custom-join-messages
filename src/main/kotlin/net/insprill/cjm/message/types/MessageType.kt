@@ -4,6 +4,7 @@ import de.leonhard.storage.SimplixBuilder
 import de.leonhard.storage.internal.FlatFile
 import de.leonhard.storage.internal.settings.ConfigSettings
 import de.leonhard.storage.internal.settings.DataType
+import de.leonhard.storage.internal.settings.ReloadSettings
 import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.MessageVisibility
 import org.bukkit.entity.Player
@@ -28,7 +29,17 @@ abstract class MessageType(
         .addInputStreamFromResource("messages/$name.yml")
         .setConfigSettings(ConfigSettings.PRESERVE_COMMENTS)
         .setDataType(DataType.SORTED)
-        .reloadCallback { plugin.messageSender.reloadPermissions(it) }
+        .reloadCallback {
+            // Don't allow reloading from within the reload callback.
+            // https://github.com/Insprill/custom-join-messages/issues/65
+            val prevReloadSettings = it.reloadSettings
+            it.reloadSettings = ReloadSettings.MANUALLY
+            try {
+                plugin.messageSender.reloadPermissions(it)
+            } finally {
+                it.reloadSettings = prevReloadSettings
+            }
+        }
         .createYaml()
 
     /**

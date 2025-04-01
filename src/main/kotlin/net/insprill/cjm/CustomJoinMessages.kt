@@ -68,7 +68,7 @@ open class CustomJoinMessages : JavaPlugin() {
             .reloadCallback {
                 if (!cnfgLoaded) return@reloadCallback
                 // Don't allow reloading from within the reload callback.
-                // If we don't do this, calling #getEnum here can, in unknown cases, cause a stackoverflow.
+                // https://github.com/Insprill/custom-join-messages/issues/65
                 val prevReloadSettings = it.reloadSettings
                 it.reloadSettings = ReloadSettings.MANUALLY
                 var formatterType: FormatterType
