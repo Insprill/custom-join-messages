@@ -6,6 +6,7 @@ import de.leonhard.storage.SimplixBuilder
 import de.leonhard.storage.Yaml
 import de.leonhard.storage.internal.settings.ConfigSettings
 import de.leonhard.storage.internal.settings.DataType
+import de.leonhard.storage.internal.settings.ReloadSettings
 import java.io.File
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -66,12 +67,21 @@ open class CustomJoinMessages : JavaPlugin() {
             .setDataType(DataType.SORTED)
             .reloadCallback {
                 if (!cnfgLoaded) return@reloadCallback
-                var formatterType = it.getEnum("formatting.formatter", FormatterType::class.java)
-                val formatterCompatResult = formatterType.isCompatible.invoke()
-                if (!formatterCompatResult.status) {
-                    logger.severe(formatterCompatResult.message)
-                    formatterType = FormatterType.LEGACY
-                    logger.severe("Falling back to $formatterType")
+                // Don't allow reloading from within the reload callback.
+                // If we don't do this, calling #getEnum here can, in unknown cases, cause a stackoverflow.
+                val prevReloadSettings = it.reloadSettings
+                it.reloadSettings = ReloadSettings.MANUALLY
+                var formatterType: FormatterType
+                try {
+                    formatterType = it.getEnum("formatting.formatter", FormatterType::class.java)
+                    val formatterCompatResult = formatterType.isCompatible.invoke()
+                    if (!formatterCompatResult.status) {
+                        logger.severe(formatterCompatResult.message)
+                        formatterType = FormatterType.LEGACY
+                        logger.severe("Falling back to $formatterType")
+                    }
+                } finally {
+                    it.reloadSettings = prevReloadSettings
                 }
                 this.formatter = formatterType.formatter
             }
