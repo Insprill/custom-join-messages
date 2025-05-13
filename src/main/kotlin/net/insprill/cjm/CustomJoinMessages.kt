@@ -32,6 +32,7 @@ import net.insprill.cjm.message.types.SoundMessage
 import net.insprill.cjm.message.types.TitleMessage
 import net.insprill.cjm.toggle.ToggleHandler
 import net.insprill.cjm.update.UpdateChecker
+import net.insprill.cjm.util.FastOfflinePlayers
 import net.insprill.spigotutils.MinecraftVersion
 import net.insprill.spigotutils.ServerEnvironment
 import net.swiftzer.semver.SemVer
@@ -161,6 +162,8 @@ open class CustomJoinMessages : JavaPlugin() {
     }
 
     private fun registerListeners() {
+        Bukkit.getPluginManager().registerEvents(FastOfflinePlayers, this)
+
         var registeredAuthListener = false
         for (listener in hookManager.authHooks) {
             if (!config.getBoolean("Addons.Auth.Wait-For-Login"))
