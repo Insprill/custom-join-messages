@@ -3,10 +3,10 @@ import java.net.URI
 import java.util.concurrent.Executors
 
 plugins {
-    kotlin("jvm") version "2.1.20"
+    kotlin("jvm") version "2.1.21"
     id("org.ajoberstar.grgit") version "5.3.0"
     id("net.kyori.blossom") version "2.1.0"
-    id("com.gradleup.shadow") version "9.0.0-beta12"
+    id("com.gradleup.shadow") version "9.0.0-beta15"
     id("com.modrinth.minotaur") version "2.8.7"
     id("io.papermc.hangar-publish-plugin") version "0.1.3"
     id("com.rikonardo.papermake") version "1.0.6"
