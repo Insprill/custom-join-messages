@@ -53,9 +53,11 @@ class MessageSender(private val plugin: CustomJoinMessages) {
             return
         if (!plugin.config.getBoolean("Addons.Jail.Ignore-Jailed-Players") && plugin.hookManager.isJailed(player))
             return
-        for (visibility in MessageVisibility.entries.filter { it.supports(action) }) {
+        for (visibility in MessageVisibility.entries) {
             if (!vanishCheck && visibility == MessageVisibility.PRIVATE && !plugin.config.getBoolean("Addons.Vanish.Fake-Messages.Private-Messages"))
                 continue // Don't send private messages if the player is unvanishing
+            if (vanishCheck && visibility == MessageVisibility.PRIVATE && action == MessageAction.QUIT)
+                continue // Don't send private quit messages when actually quitting
             for (msg in typeMap.values.filter { it.isEnabled }) {
                 val path = visibility.configSection + "." + action.configSection
 
