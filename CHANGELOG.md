@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [17.9.0] - 2025-05-31
+
+### Added
+
+- A config option to send private messages when vanishing/unvanishing.
+
+### Changed
+
+- Optimized the `%uniquejoins%` placeholder.
+
+
 ## [17.8.0] - 2025-04-13
 
 ### Added
@@ -198,6 +209,8 @@ Custom Join Messages is now published on [Hangar](https://hangar.papermc.io/Insp
 
 <!-- Diffs -->
 [Unreleased]: https://github.com/Insprill/custom-join-messages/compare/master...develop
+[17.9.0]: https://github.com/Insprill/intellectual/compare/v17.8.0...v17.9.0
+[17.8.0]: https://github.com/Insprill/intellectual/compare/v17.7.1...v17.8.0
 [17.7.1]: https://github.com/Insprill/intellectual/compare/v17.7.0...v17.7.1
 [17.7.0]: https://github.com/Insprill/intellectual/compare/v17.6.0...v17.7.0
 [17.6.0]: https://github.com/Insprill/intellectual/compare/v17.5.0...v17.6.0
