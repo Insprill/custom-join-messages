@@ -193,6 +193,6 @@ Once you've subscribed and joined, you can ask questions in the `#support` chann
 [license-shield]: https://img.shields.io/github/license/Insprill/Custom-Join-Messages.svg?style=for-the-badge
 [license-url]: https://github.com/Insprill/Custom-Join-Messages/blob/master/LICENSE
 [discord-shield]: https://img.shields.io/discord/626995215558901771?color=%235663F7&label=Discord&style=for-the-badge
-[discord-url]: https://discord.gg/SH7VyYtuC2
+[discord-url]: https://discord.gg/vjQ3F2XDTc
 [patreon-url]: https://www.patreon.com/insprill
 [wiki-url]: https://cjm.insprill.net/
