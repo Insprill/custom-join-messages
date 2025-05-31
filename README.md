@@ -165,11 +165,10 @@ See [LICENSE][license-url] for more information.
 <!-- SUPPORT -->
 ## Support
 
-For support, please join my [Discord Server][discord-url].  
-Once you join, you can ask your question in the `#community-support` channel.  
-**Please note that support is done purely in my free time and is *not* guaranteed.**
-
-
+Found a bug? Want to request a feature? Head over to [the issue tracker][issues-url].\
+Unsure how something works? Check out the [wiki][wiki-url].\
+Still need personalized support? Subscribe to my [Patreon][patreon-url] and join my [Discord Server][discord-url].\
+Once you've subscribed and joined, you can ask questions in the `#support` channel.\
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
@@ -195,3 +194,5 @@ Once you join, you can ask your question in the `#community-support` channel.
 [license-url]: https://github.com/Insprill/Custom-Join-Messages/blob/master/LICENSE
 [discord-shield]: https://img.shields.io/discord/626995215558901771?color=%235663F7&label=Discord&style=for-the-badge
 [discord-url]: https://discord.gg/SH7VyYtuC2
+[patreon-url]: https://www.patreon.com/insprill
+[wiki-url]: https://cjm.insprill.net/

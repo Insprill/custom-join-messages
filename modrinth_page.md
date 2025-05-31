@@ -69,7 +69,7 @@ Builds from the latest commit can be downloaded via the [Snapshot Hangar channel
 <!-- USAGE -->
 ## Usage
 
-For usage instructions, check out the [wiki](https://cjm.insprill.net/).
+For usage instructions, check out the [wiki][wiki-url].
 
 
 
@@ -97,10 +97,10 @@ See [LICENSE][license-url] for more information.
 <!-- SUPPORT -->
 ## Support
 
-For support, please subscribe to my [Patreon][patreon-url] and join my [Discord Server][discord-url].  
-Note that support is *only* granted to my Patreons!  
-Once you've joined and subscribed, you can ask questions in the `#support` channel.
-If you have an issue, feel free to report it on [the issue tracker][issues-url].
+Found a bug? Want to request a feature? Head over to [the issue tracker][issues-url].\
+Unsure how something works? Check out the [wiki][wiki-url].\
+Still need personalized support? Subscribe to my [Patreon][patreon-url] and join my [Discord Server][discord-url].\
+Once you've subscribed and joined, you can ask questions in the `#support` channel.\
 
 
 
@@ -115,3 +115,4 @@ If you have an issue, feel free to report it on [the issue tracker][issues-url].
 [discord-url]: https://discord.gg/vjQ3F2XDTc
 [patreon-url]: https://www.patreon.com/insprill
 [issues-url]: https://github.com/Insprill/custom-join-messages/issues
+[wiki-url]: https://cjm.insprill.net/
