@@ -25,6 +25,8 @@ Addons:
     Fake-Messages:
       # Whether we should use our own messages.
       Enabled: true
+      # Whether to send private messages when vanishing/unvanishing.
+      Private-Messages: false
 
   # Settings for Jail plugins
   Jail:
