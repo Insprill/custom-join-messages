@@ -36,7 +36,7 @@ dependencies {
     compileOnly("com.github.MyzelYam:SuperVanish:6.2.16") { isTransitive = false }
     compileOnly("com.github.Syrent:VelocityVanish:3.27.2") { isTransitive = false }
     compileOnly("com.github.quantiom:AdvancedVanish:v1.2.6") { isTransitive = false }
-    compileOnly("fr.xephi:authme:5.6.0-SNAPSHOT") { isTransitive = false }
+    compileOnly("fr.xephi:authme:5.6.0") { isTransitive = false }
     compileOnly("me.clip:placeholderapi:2.11.6") { isTransitive = false }
     compileOnly("net.essentialsx:EssentialsX:2.21.0") { isTransitive = false }
     compileOnly("org.sayandev:sayanvanish-api:1.6.3") { isTransitive = false }
