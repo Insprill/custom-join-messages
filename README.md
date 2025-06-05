@@ -1,7 +1,6 @@
+[![Spigot Downloads][spigot-downloads-shield]][spigot-url]
 [![bStats Servers][bstats-servers-shield]][bstats-url]
-[![Rating][spigot-rating-shield]][spigot-url]
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
+[![Spigot Rating][spigot-rating-shield]][spigot-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![GNU License][license-shield]][license-url]
@@ -14,7 +13,7 @@
 <div align="center">
   <h1>Custom Join Messages</h1>
   <p>
-    The most advanced Join/ Quit Message plugin on the market.
+    The most feature-packed and highly customizable plugin for join/quit notifications on the market
     <br />
     <br />
     <a href="https://github.com/Insprill/Custom-Join-Messages/issues">Report Bug</a>
@@ -30,7 +29,7 @@
 <details>
   <summary>Table of Contents</summary>
   <ol>
-    <li><a href="#about-the-project">About The Project</a></li>
+    <li><a href="#features">Features</a></li>
     <li>
       <a href="#download">Download</a>
       <ul>
@@ -49,56 +48,55 @@
 
 
 
-<!-- ABOUT THE PROJECT -->
-## About The Project
+<!-- FEATURES -->
+## Features
 
-Custom Join Messages is a feature-packed plugin for handling all join and quit notifications.
-
-### Features
-
-* Vanish Integration
-    * Send messages when vanishing/unvanishing
-    * Supports most vanish plugins
-
-* Authentication Integration
-    * Only send messages once players have authenticated themselves
-
-* Jail Integration
-    * Don't send messages for jailed players
-
-* World-Based Messages
-    * Only send messages when changing world groups
-
-* Multiple Message Types
+* 📢 Multiple Message Types
     * Chat
     * Titles
     * Actionbar
     * Bossbar
     * Sounds (1.12+)
 
-* Advanced Formatting
-    * All messages support [PlaceholderAPI](https://www.spigotmc.org/resources/6245/) placeholders
-    * Supports multiple different formatters to fit your needs
-        * [MineDown](https://github.com/Phoenix616/MineDown)
-        * [MiniMessage](https://docs.adventure.kyori.net/minimessage/index.html) ([Paper](https://papermc.io/) only)
-        * [Legacy](https://minecraft.wiki/w/Formatting_codes)
+* 💬 Advanced Formatting
+    * All messages support [PlaceholderAPI][placeholderapi-url] placeholders
+    * All messages support different formatters to fit your needs
+        * [Legacy Color Codes][legacy-color-codes-url]
+        * [MiniMessage][minimessage-url] ([Paper][papermc-url] only)
+        * [MineDown][minedown-url]
     * All messages support HEX colors
     * All messages support gradients when using MineDown or MiniMessage
     * Chat messages support hover/click actions when using MineDown or MiniMessage
 
-* Permission-Based Messages
+* 🌎 World-Based Messages
+    * Treat a single server with multiple worlds as separate servers
+    * Customizable groups for what worlds count as the same "server"
+
+* 🗝️ Permission-Based Messages
     * Send different messages based on what permissions a user has
 
-* Message Conditions
+* 🎛️ Message Conditions
     * Radius
     * Min/Max Online Players
 
-* Supports All Platforms
-    * Spigot
-    * Paper
-    * Folia
-    * Purpur
+* 🔒 AuthMe Integration
+    * Only send messages once players have authenticated themselves
+
+* ⛓️ Jail Integration
+    * Don't send messages for jailed players
+    * Supports most jail plugins
+
+* 🥷 Vanish Integration
+    * Send messages when vanishing/unvanishing
+    * Supports most vanish plugins
+
+* 📜 Supports All Platforms
+    * [Spigot][spigotmc-url]
+    * [Paper][papermc-url]
+    * [Folia][folia-url]
+    * [Purpur][purpurmc-url]
     * Most other forks
+
 
 
 
@@ -109,7 +107,7 @@ Releases of CJM can be downloaded from [Modrinth][modrinth-url] (recommended), [
 
 ### Snapshots
 Like living on the edge?
-Builds from the latest commit can be downloaded via the [Snapshot Hangar channel][hangar-versions-url] or [GitHub Actions][github-actions-url].
+Builds from the latest commit can be downloaded via the [Snapshot Hangar channel][hangar-versions-url] or from [GitHub Actions][github-actions-url].
 
 
 
@@ -117,7 +115,7 @@ Builds from the latest commit can be downloaded via the [Snapshot Hangar channel
 <!-- USAGE -->
 ## Usage
 
-For usage instructions, check out the [wiki](https://cjm.insprill.net/).
+Unsure how something works? All documentation can be found on the [wiki][wiki-url].
 
 
 
@@ -145,11 +143,10 @@ If you're new to contributing to open-source projects, you can follow [this](htt
 <!-- Statistics -->
 ## Statistics
 
-Statistics are collected through [bStats][bstats-url],
-an open-source service that collects anonymous data for Minecraft software. You can opt out in `plugins/bStats/config.yml`.
-
 [![Statistics](https://bstats.org/signatures/bukkit/Custom%20Join%20Messages.svg)][bstats-url]
 
+Statistics are collected through [bStats][bstats-url],
+an open-source service that collects anonymous data for Minecraft software. You can opt out in `plugins/bStats/config.yml`.
 
 
 
@@ -182,10 +179,6 @@ Once you've subscribed and joined, you can ask questions in the `#support` chann
 [hangar-versions-url]: https://hangar.papermc.io/Insprill/Custom-Join-Messages/versions
 [modrinth-url]: https://modrinth.com/plugin/custom-join-messages
 [spigot-url]: https://www.spigotmc.org/resources/71608
-[contributors-shield]: https://img.shields.io/github/contributors/Insprill/Custom-Join-Messages.svg?style=for-the-badge
-[contributors-url]: https://github.com/Insprill/Custom-Join-Messages/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/Insprill/Custom-Join-Messages.svg?style=for-the-badge
-[forks-url]: https://github.com/Insprill/Custom-Join-Messages/network/members
 [stars-shield]: https://img.shields.io/github/stars/Insprill/Custom-Join-Messages.svg?style=for-the-badge
 [stars-url]: https://github.com/Insprill/Custom-Join-Messages/stargazers
 [issues-shield]: https://img.shields.io/github/issues/Insprill/Custom-Join-Messages.svg?style=for-the-badge
@@ -194,5 +187,14 @@ Once you've subscribed and joined, you can ask questions in the `#support` chann
 [license-url]: https://github.com/Insprill/Custom-Join-Messages/blob/master/LICENSE
 [discord-shield]: https://img.shields.io/discord/626995215558901771?color=%235663F7&label=Discord&style=for-the-badge
 [discord-url]: https://discord.gg/vjQ3F2XDTc
+[spigot-downloads-shield]: https://img.shields.io/spiget/downloads/71608?style=for-the-badge
 [patreon-url]: https://www.patreon.com/insprill
 [wiki-url]: https://cjm.insprill.net/
+[spigotmc-url]: https://www.spigotmc.org/
+[papermc-url]: https://papermc.io/
+[folia-url]: https://papermc.io/software/folia
+[purpurmc-url]: https://purpurmc.org/
+[placeholderapi-url]: https://hangar.papermc.io/HelpChat/PlaceholderAPI
+[minedown-url]: https://github.com/Phoenix616/MineDown#syntax
+[minimessage-url]: https://docs.advntr.dev/minimessage/index.html
+[legacy-color-codes-url]: https://minecraft.wiki/w/Formatting_codes#Color_codes

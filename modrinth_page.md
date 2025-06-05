@@ -1,67 +1,66 @@
 <!-- HEADER -->
 # Custom Join Messages
-The most advanced Join/ Quit Message plugin on the market.
+The most feature-packed and highly customizable plugin for join/quit notifications on the market
 
 
 
 
-<!-- ABOUT THE PROJECT -->
-## About The Project
+<!-- FEATURES -->
+## Features
 
-Custom Join Messages is a feature-packed plugin for handling all join and quit notifications.
-
-### Features
-
-* Vanish Integration
-    * Send messages when vanishing/unvanishing
-    * Supports most vanish plugins
-
-* Authentication Integration
-    * Only send messages once players have authenticated themselves
-
-* Jail Integration
-    * Don't send messages for jailed players
-
-* World-Based Messages
-    * Only send messages when changing world groups
-
-* Multiple Message Types
+* 📢 Multiple Message Types
     * Chat
     * Titles
     * Actionbar
     * Bossbar
     * Sounds (1.12+)
 
-* Advanced Formatting
-    * All messages support [PlaceholderAPI](https://www.spigotmc.org/resources/6245/) placeholders
-    * Supports multiple different formatters to fit your needs
-        * [MineDown](https://github.com/Phoenix616/MineDown)
-        * [MiniMessage](https://docs.adventure.kyori.net/minimessage/index.html) ([Paper](https://papermc.io/) only)
-        * [Legacy](https://minecraft.wiki/w/Formatting_codes)
+* 💬 Advanced Formatting
+    * All messages support [PlaceholderAPI][placeholderapi-url] placeholders
+    * All messages support different formatters to fit your needs
+        * [Legacy Color Codes][legacy-color-codes-url]
+        * [MiniMessage][minimessage-url] ([Paper][papermc-url] only)
+        * [MineDown][minedown-url]
     * All messages support HEX colors
     * All messages support gradients when using MineDown or MiniMessage
     * Chat messages support hover/click actions when using MineDown or MiniMessage
 
-* Permission-Based Messages
+* 🌎 World-Based Messages
+    * Treat a single server with multiple worlds as separate servers
+    * Customizable groups for what worlds count as the same "server"
+
+* 🗝️ Permission-Based Messages
     * Send different messages based on what permissions a user has
 
-* Message Conditions
+* 🎛️ Message Conditions
     * Radius
     * Min/Max Online Players
 
-* Supports All Platforms
-    * Spigot
-    * Paper
-    * Folia
-    * Purpur
+* 🔒 AuthMe Integration
+    * Only send messages once players have authenticated themselves
+
+* ⛓️ Jail Integration
+    * Don't send messages for jailed players
+    * Supports most jail plugins
+
+* 🥷 Vanish Integration
+    * Send messages when vanishing/unvanishing
+    * Supports most vanish plugins
+
+* 📜 Supports All Platforms
+    * [Spigot][spigotmc-url]
+    * [Paper][papermc-url]
+    * [Folia][folia-url]
+    * [Purpur][purpurmc-url]
     * Most other forks
+
 
 
 
 <!-- DOWNLOAD -->
 ## Snapshots
 Like living on the edge?
-Builds from the latest commit can be downloaded via the [Snapshot Hangar channel][hangar-versions-url] or [GitHub Actions][github-actions-url].
+Builds from the latest commit can be downloaded via the [Snapshot Hangar channel][hangar-versions-url] or from [GitHub Actions][github-actions-url].
 
 
 
@@ -69,7 +68,7 @@ Builds from the latest commit can be downloaded via the [Snapshot Hangar channel
 <!-- USAGE -->
 ## Usage
 
-For usage instructions, check out the [wiki][wiki-url].
+Unsure how something works? All documentation can be found on the [wiki][wiki-url].
 
 
 
@@ -77,19 +76,10 @@ For usage instructions, check out the [wiki][wiki-url].
 <!-- Statistics -->
 ## Statistics
 
-Statistics are collected through [bStats][bstats-url],
-an open-source service that collects anonymous data for Minecraft software. You can opt out in `plugins/bStats/config.yml`.
-
 [![Statistics](https://bstats.org/signatures/bukkit/Custom%20Join%20Messages.svg)][bstats-url]
 
-
-
-
-<!-- LICENSE -->
-## License
-
-Distributed under the GNU General Public License v3.0.  
-See [LICENSE][license-url] for more information.
+Statistics are collected through [bStats][bstats-url],
+an open-source service that collects anonymous data for Minecraft software. You can opt out in `plugins/bStats/config.yml`.
 
 
 
@@ -116,3 +106,11 @@ Once you've subscribed and joined, you can ask questions in the `#support` chann
 [patreon-url]: https://www.patreon.com/insprill
 [issues-url]: https://github.com/Insprill/custom-join-messages/issues
 [wiki-url]: https://cjm.insprill.net/
+[spigotmc-url]: https://www.spigotmc.org/
+[papermc-url]: https://papermc.io/
+[folia-url]: https://papermc.io/software/folia
+[purpurmc-url]: https://purpurmc.org/
+[placeholderapi-url]: https://hangar.papermc.io/HelpChat/PlaceholderAPI
+[minedown-url]: https://github.com/Phoenix616/MineDown#syntax
+[minimessage-url]: https://docs.advntr.dev/minimessage/index.html
+[legacy-color-codes-url]: https://minecraft.wiki/w/Formatting_codes#Color_codes
