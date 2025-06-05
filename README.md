@@ -56,7 +56,7 @@
     * Titles
     * Actionbar
     * Bossbar
-    * Sounds (1.12+)
+    * Sounds
 
 * 💬 Advanced Formatting
     * All messages support [PlaceholderAPI][placeholderapi-url] placeholders
