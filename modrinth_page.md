@@ -90,7 +90,7 @@ an open-source service that collects anonymous data for Minecraft software. You 
 Found a bug? Want to request a feature? Head over to [the issue tracker][issues-url].\
 Unsure how something works? Check out the [wiki][wiki-url].\
 Still need personalized support? Subscribe to my [Patreon][patreon-url] and join my [Discord Server][discord-url].\
-Once you've subscribed and joined, you can ask questions in the `#support` channel.\
+Once you've subscribed and joined, you can ask questions in the `#support` channel.
 
 
 
