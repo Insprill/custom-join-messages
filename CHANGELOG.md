@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [17.9.1] - 2025-06-06
+
+### Fixed
+
+- Sound messages not working on servers older than 1.21.3.
+
+
 ## [17.9.0] - 2025-05-31
 
 ### Added
@@ -209,6 +216,7 @@ Custom Join Messages is now published on [Hangar](https://hangar.papermc.io/Insp
 
 <!-- Diffs -->
 [Unreleased]: https://github.com/Insprill/custom-join-messages/compare/master...develop
+[17.9.1]: https://github.com/Insprill/intellectual/compare/v17.9.0...v17.9.1
 [17.9.0]: https://github.com/Insprill/intellectual/compare/v17.8.0...v17.9.0
 [17.8.0]: https://github.com/Insprill/intellectual/compare/v17.7.1...v17.8.0
 [17.7.1]: https://github.com/Insprill/intellectual/compare/v17.7.0...v17.7.1
