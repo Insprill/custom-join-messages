@@ -14,6 +14,9 @@ jobs:
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
+        with:
+          # https://github.com/gradle/actions/blob/main/docs/setup-gradle.md#using-the-cache-read-only
+          cache-read-only: ${{ github.ref != 'refs/heads/master' && github.ref != 'refs/heads/develop' && github.ref_type != 'tag' }}
 
       - name: Set Environment Variables
         run: |
