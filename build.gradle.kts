@@ -26,6 +26,7 @@ repositories {
     maven("https://repo.minebench.de/") // MineDown
     maven("https://repo.papermc.io/repository/maven-public/") // MockBukkit
     maven("https://repo.sayandev.org/snapshots") // SayanVanish
+    maven("https://maven.refinedev.xyz/public-repo") // Phoenix
 }
 
 dependencies {
@@ -41,6 +42,7 @@ dependencies {
     compileOnly("net.essentialsx:EssentialsX:2.21.1") { isTransitive = false }
     compileOnly("org.sayandev:sayanvanish-api:1.6.3") { isTransitive = false }
     compileOnly("org.sayandev:sayanvanish-bukkit:1.6.3") { isTransitive = false }
+    compileOnly("xyz.refinedev.phoenix:pxAPI:1.8.6") { isTransitive = false }
 
     // Internal
     compileOnly("org.spigotmc:spigot-api:1.21.5-R0.1-SNAPSHOT")
