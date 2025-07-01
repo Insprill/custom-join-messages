@@ -43,7 +43,7 @@ dependencies {
     compileOnly("org.sayandev:sayanvanish-bukkit:1.6.3") { isTransitive = false }
 
     // Internal
-    compileOnly("org.spigotmc:spigot-api:1.21.5-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc:spigot-api:1.21.7-R0.1-SNAPSHOT")
     compileOnly("net.kyori:adventure-text-minimessage:4.21.0")
     compileOnly("net.kyori:adventure-text-serializer-gson:4.21.0")
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
@@ -199,7 +199,9 @@ val minecraftVersions = arrayOf(
     "1.21.2",
     "1.21.3",
     "1.21.4",
-    "1.21.5"
+    "1.21.5",
+    "1.21.6",
+    "1.21.7"
 )
 
 modrinth {
