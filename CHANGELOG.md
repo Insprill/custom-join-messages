@@ -216,10 +216,10 @@ Custom Join Messages is now published on [Hangar](https://hangar.papermc.io/Insp
 
 <!-- Diffs -->
 [Unreleased]: https://github.com/Insprill/custom-join-messages/compare/master...develop
-[17.9.1]: https://github.com/Insprill/intellectual/compare/v17.9.0...v17.9.1
-[17.9.0]: https://github.com/Insprill/intellectual/compare/v17.8.0...v17.9.0
-[17.8.0]: https://github.com/Insprill/intellectual/compare/v17.7.1...v17.8.0
-[17.7.1]: https://github.com/Insprill/intellectual/compare/v17.7.0...v17.7.1
-[17.7.0]: https://github.com/Insprill/intellectual/compare/v17.6.0...v17.7.0
-[17.6.0]: https://github.com/Insprill/intellectual/compare/v17.5.0...v17.6.0
-[17.5.0]: https://github.com/Insprill/intellectual/compare/5765a505...v17.5.0
+[17.9.1]: https://github.com/Insprill/custom-join-messages/compare/v17.9.0...v17.9.1
+[17.9.0]: https://github.com/Insprill/custom-join-messages/compare/v17.8.0...v17.9.0
+[17.8.0]: https://github.com/Insprill/custom-join-messages/compare/v17.7.1...v17.8.0
+[17.7.1]: https://github.com/Insprill/custom-join-messages/compare/v17.7.0...v17.7.1
+[17.7.0]: https://github.com/Insprill/custom-join-messages/compare/v17.6.0...v17.7.0
+[17.6.0]: https://github.com/Insprill/custom-join-messages/compare/v17.5.0...v17.6.0
+[17.5.0]: https://github.com/Insprill/custom-join-messages/compare/5765a505...v17.5.0
