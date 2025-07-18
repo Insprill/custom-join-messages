@@ -35,7 +35,7 @@ dependencies {
     compileOnly("com.github.MilkBowl:VaultAPI:1.7.1") { isTransitive = false }
     compileOnly("com.github.MyzelYam:SuperVanish:6.2.19") { isTransitive = false }
     compileOnly("com.github.Syrent:VelocityVanish:3.27.2") { isTransitive = false }
-    compileOnly("com.github.quantiom:AdvancedVanish:v1.2.6") { isTransitive = false }
+    compileOnly("com.github.quantiom:AdvancedVanish:1.2.6") { isTransitive = false }
     compileOnly("fr.xephi:authme:5.6.0") { isTransitive = false }
     compileOnly("me.clip:placeholderapi:2.11.6") { isTransitive = false }
     compileOnly("net.essentialsx:EssentialsX:2.21.1") { isTransitive = false }
@@ -43,9 +43,9 @@ dependencies {
     compileOnly("org.sayandev:sayanvanish-bukkit:1.6.3") { isTransitive = false }
 
     // Internal
-    compileOnly("org.spigotmc:spigot-api:1.21.7-R0.1-SNAPSHOT")
-    compileOnly("net.kyori:adventure-text-minimessage:4.21.0")
-    compileOnly("net.kyori:adventure-text-serializer-gson:4.21.0")
+    compileOnly("org.spigotmc:spigot-api:1.21.8-R0.1-SNAPSHOT")
+    compileOnly("net.kyori:adventure-text-minimessage:4.23.0")
+    compileOnly("net.kyori:adventure-text-serializer-gson:4.23.0")
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
     implementation("com.github.simplix-softworks:simplixstorage:3.2.7")
     implementation("de.themoep:minedown:1.7.1-SNAPSHOT")
@@ -57,9 +57,9 @@ dependencies {
     implementation(project(":paper"))
 
     // Tests
-    testImplementation("org.mockbukkit.mockbukkit:mockbukkit-v1.21:4.50.0")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.13.0")
-    testImplementation(platform("org.junit:junit-bom:5.13.0"))
+    testImplementation("org.mockbukkit.mockbukkit:mockbukkit-v1.21:4.69.2")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.13.3")
+    testImplementation(platform("org.junit:junit-bom:5.13.3"))
 }
 
 val extraDependencies = mapOf(
@@ -201,7 +201,8 @@ val minecraftVersions = arrayOf(
     "1.21.4",
     "1.21.5",
     "1.21.6",
-    "1.21.7"
+    "1.21.7",
+    "1.21.8"
 )
 
 modrinth {
