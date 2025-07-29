@@ -57,14 +57,6 @@ The most feature-packed and highly customizable plugin for join/quit notificatio
 
 
 
-<!-- DOWNLOAD -->
-## Snapshots
-Like living on the edge?
-Builds from the latest commit can be downloaded via the [Snapshot Hangar channel][hangar-versions-url] or from [GitHub Actions][github-actions-url].
-
-
-
-
 <!-- USAGE -->
 ## Usage
 
@@ -97,8 +89,6 @@ Still need personalized support? Subscribe to my [Patreon][patreon-url] and join
 <!-- MARKDOWN LINKS & IMAGES -->
 [bstats-servers-svg]: https://bstats.org/signatures/bukkit/Custom%20Join%20Messages.svg
 [bstats-url]: https://bstats.org/plugin/bukkit/Custom%20Join%20Messages/6346
-[github-actions-url]: https://nightly.link/Insprill/custom-join-messages/workflows/gradle/develop
-[hangar-versions-url]: https://hangar.papermc.io/Insprill/Custom-Join-Messages/versions
 [license-url]: https://github.com/Insprill/Custom-Join-Messages/blob/master/LICENSE
 [discord-shield]: https://img.shields.io/discord/626995215558901771?color=%235663F7&label=Discord&style=for-the-badge
 [discord-url]: https://discord.gg/vjQ3F2XDTc
