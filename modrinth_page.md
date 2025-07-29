@@ -77,9 +77,8 @@ Unsure how something works? All documentation can be found on the [wiki][wiki-ur
 ## Statistics
 
 [![Statistics](https://bstats.org/signatures/bukkit/Custom%20Join%20Messages.svg)][bstats-url]
-
-Statistics are collected through [bStats][bstats-url],
-an open-source service that collects anonymous data for Minecraft software. You can opt out in `plugins/bStats/config.yml`.
+<sup>Statistics are collected through [bStats][bstats-url],
+an open-source service that collects anonymous data for Minecraft software. You can opt out in `plugins/bStats/config.yml`.</sup>
 
 
 
