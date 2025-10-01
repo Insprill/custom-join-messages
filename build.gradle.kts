@@ -3,11 +3,11 @@ import java.net.URI
 import java.util.concurrent.Executors
 
 plugins {
-    kotlin("jvm") version "2.2.0"
+    kotlin("jvm") version "2.2.20"
     id("org.ajoberstar.grgit") version "5.3.0"
     id("net.kyori.blossom") version "2.1.0"
-    id("com.gradleup.shadow") version "9.0.0-beta17"
-    id("com.modrinth.minotaur") version "2.8.7"
+    id("com.gradleup.shadow") version "9.2.2"
+    id("com.modrinth.minotaur") version "2.8.10"
     id("io.papermc.hangar-publish-plugin") version "0.1.3"
     id("com.rikonardo.papermake") version "1.0.6"
 }
@@ -38,14 +38,14 @@ dependencies {
     compileOnly("com.github.quantiom:AdvancedVanish:1.2.6") { isTransitive = false }
     compileOnly("fr.xephi:authme:5.6.0") { isTransitive = false }
     compileOnly("me.clip:placeholderapi:2.11.6") { isTransitive = false }
-    compileOnly("net.essentialsx:EssentialsX:2.21.1") { isTransitive = false }
+    compileOnly("net.essentialsx:EssentialsX:2.21.2") { isTransitive = false }
     compileOnly("org.sayandev:sayanvanish-api:1.6.3") { isTransitive = false }
     compileOnly("org.sayandev:sayanvanish-bukkit:1.6.3") { isTransitive = false }
 
     // Internal
-    compileOnly("org.spigotmc:spigot-api:1.21.8-R0.1-SNAPSHOT")
-    compileOnly("net.kyori:adventure-text-minimessage:4.23.0")
-    compileOnly("net.kyori:adventure-text-serializer-gson:4.23.0")
+    compileOnly("org.spigotmc:spigot-api:1.21.9-R0.1-SNAPSHOT")
+    compileOnly("net.kyori:adventure-text-minimessage:4.24.0")
+    compileOnly("net.kyori:adventure-text-serializer-gson:4.24.0")
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
     implementation("com.github.simplix-softworks:simplixstorage:3.2.7")
     implementation("de.themoep:minedown:1.7.1-SNAPSHOT")
@@ -63,7 +63,7 @@ dependencies {
 }
 
 val extraDependencies = mapOf(
-    Pair("CMI-API.jar", "https://github.com/Zrips/CMI-API/releases/download/9.7.4.1/CMIAPI-9.7.4.1.jar"),
+    Pair("CMI-API.jar", "https://github.com/Zrips/CMI-API/releases/download/9.7.14.3/CMI-API9.7.14.3.jar"),
 )
 
 tasks {
@@ -81,7 +81,7 @@ tasks {
 
     shadowJar {
         archiveClassifier.set("")
-        enableRelocation = true
+        enableAutoRelocation = true
         relocationPrefix = "net.insprill.cjm.libs"
         exclude("META-INF/**")
         from("LICENSE")
@@ -202,7 +202,8 @@ val minecraftVersions = arrayOf(
     "1.21.5",
     "1.21.6",
     "1.21.7",
-    "1.21.8"
+    "1.21.8",
+    "1.21.9"
 )
 
 modrinth {
