@@ -43,13 +43,13 @@ dependencies {
     compileOnly("org.sayandev:sayanvanish-bukkit:1.6.3") { isTransitive = false }
 
     // Internal
-    compileOnly("org.spigotmc:spigot-api:1.21.9-R0.1-SNAPSHOT")
-    compileOnly("net.kyori:adventure-text-minimessage:4.24.0")
-    compileOnly("net.kyori:adventure-text-serializer-gson:4.24.0")
+    compileOnly("org.spigotmc:spigot-api:1.21.10-R0.1-SNAPSHOT")
+    compileOnly("net.kyori:adventure-text-minimessage:4.25.0")
+    compileOnly("net.kyori:adventure-text-serializer-gson:4.25.0")
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
     implementation("com.github.simplix-softworks:simplixstorage:3.2.7")
     implementation("de.themoep:minedown:1.7.1-SNAPSHOT")
-    implementation("net.insprill:spigot-utils:0.5.0")
+    implementation("net.insprill:spigot-utils:0.5.1")
     implementation("net.swiftzer.semver:semver:2.1.0")
     implementation("org.bstats:bstats-bukkit:3.1.0")
 
@@ -203,7 +203,8 @@ val minecraftVersions = arrayOf(
     "1.21.6",
     "1.21.7",
     "1.21.8",
-    "1.21.9"
+    "1.21.9",
+    "1.21.10"
 )
 
 modrinth {
