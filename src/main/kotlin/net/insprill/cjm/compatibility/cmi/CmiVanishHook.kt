@@ -22,7 +22,7 @@ class CmiVanishHook(override val plugin: CustomJoinMessages, private val cmiHook
     }
 
     override fun isVanished(player: Player): Boolean {
-        return cmiHook.getUser(player).vanish.`is`(VanishAction.isVanished)
+        return cmiHook.getUser(player).vanish.getState(VanishAction.isVanished).`is`()
     }
 
 }
