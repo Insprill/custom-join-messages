@@ -7,6 +7,7 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockbukkit.mockbukkit.MockBukkit
@@ -23,9 +24,9 @@ class ChatMessageTest {
     @BeforeEach
     fun setUp() {
         server = MockBukkit.mock()
+        player = server.addPlayer() // Add before we load the plugin
         plugin = MockBukkit.load(CustomJoinMessages::class.java)
         chat = ChatMessage(plugin)
-        player = server.addPlayer()
     }
 
     @AfterEach
@@ -40,7 +41,7 @@ class ChatMessageTest {
         chat.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
 
         player.assertSaid("Hello!")
-        player.assertNoMoreSaid()
+        assertNull(player.nextMessage())
     }
 
     @Test
@@ -51,14 +52,14 @@ class ChatMessageTest {
 
         player.assertSaid("Hello!")
         player.assertSaid("How're you?")
-        player.assertNoMoreSaid()
+        assertNull(player.nextMessage())
     }
 
     @Test
     fun handle_NullMessageKey_DoesntSend() {
         chat.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
 
-        player.assertNoMoreSaid()
+        assertNull(player.nextMessage())
     }
 
     @Test
@@ -107,7 +108,7 @@ class ChatMessageTest {
         val message = player.nextMessage()
         assertNotNull(message)
         assertNotEquals(message, message?.trim())
-        player.assertNoMoreSaid()
+        assertNull(player.nextMessage())
     }
 
     @Test
@@ -119,7 +120,7 @@ class ChatMessageTest {
         val message = player.nextMessage()
         assertNotNull(message)
         assertEquals(message, message?.trim())
-        player.assertNoMoreSaid()
+        assertNull(player.nextMessage())
     }
 
     @Test
@@ -128,8 +129,8 @@ class ChatMessageTest {
 
         chat.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
 
-        server.consoleSender.assertSaid("§fHello!")
-        server.consoleSender.assertNoMoreSaid()
+        assertEquals("§fHello!", server.consoleSender.nextMessage())
+        assertNull(server.consoleSender.nextMessage())
     }
 
     @Test
@@ -138,7 +139,7 @@ class ChatMessageTest {
 
         chat.handle(player, listOf(player), "key", MessageVisibility.PRIVATE)
 
-        server.consoleSender.assertNoMoreSaid()
+        assertNull(server.consoleSender.nextMessage())
     }
 
     @Test
@@ -148,7 +149,7 @@ class ChatMessageTest {
 
         chat.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
 
-        server.consoleSender.assertNoMoreSaid()
+        assertNull(server.consoleSender.nextMessage())
     }
 
     @Test
@@ -157,8 +158,8 @@ class ChatMessageTest {
 
         chat.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
 
-        player.assertSaid("Hello ${player.name}!")
-        player.assertNoMoreSaid()
+        assertEquals("Hello ${player.name}!", player.nextMessage())
+        assertNull(player.nextMessage())
     }
 
     @Test
@@ -167,8 +168,8 @@ class ChatMessageTest {
 
         chat.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
 
-        player.assertSaid("§7Hello!")
-        player.assertNoMoreSaid()
+        assertEquals("§7Hello!", player.nextMessage())
+        assertNull(player.nextMessage())
     }
 
 }

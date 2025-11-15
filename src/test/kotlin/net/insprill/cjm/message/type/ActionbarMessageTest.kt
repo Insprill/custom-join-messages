@@ -4,6 +4,8 @@ import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.MessageVisibility
 import net.insprill.cjm.message.types.ActionbarMessage
 import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockbukkit.mockbukkit.MockBukkit
@@ -20,9 +22,9 @@ class ActionbarMessageTest {
     @BeforeEach
     fun setUp() {
         server = MockBukkit.mock()
+        player = server.addPlayer() // Add before we load the plugin
         plugin = MockBukkit.load(CustomJoinMessages::class.java)
         actionbar = ActionbarMessage(plugin)
-        player = server.addPlayer()
     }
 
     @AfterEach
@@ -36,15 +38,15 @@ class ActionbarMessageTest {
 
         actionbar.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
 
-        player.assertSaid("Hello!")
-        player.assertNoMoreSaid()
+        assertEquals("Hello!", player.nextMessage())
+        assertNull(player.nextMessage())
     }
 
     @Test
     fun handle_NullMessage_DoesntSend() {
         actionbar.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
 
-        player.assertNoMoreSaid()
+        assertNull(player.nextMessage())
     }
 
     @Test
@@ -53,7 +55,7 @@ class ActionbarMessageTest {
 
         actionbar.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
 
-        player.assertNoMoreSaid()
+        assertNull(player.nextMessage())
     }
 
     @Test
@@ -62,8 +64,8 @@ class ActionbarMessageTest {
 
         actionbar.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
 
-        player.assertSaid("Hello ${player.name}!")
-        player.assertNoMoreSaid()
+        assertEquals("Hello ${player.name}!", player.nextMessage())
+        assertNull(player.nextMessage())
     }
 
     @Test
@@ -72,8 +74,8 @@ class ActionbarMessageTest {
 
         actionbar.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
 
-        player.assertSaid("§7Hello!")
-        player.assertNoMoreSaid()
+        assertEquals("§7Hello!", player.nextMessage())
+        assertNull(player.nextMessage())
     }
 
 }

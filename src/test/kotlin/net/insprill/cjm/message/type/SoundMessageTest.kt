@@ -4,6 +4,7 @@ import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.MessageVisibility
 import net.insprill.cjm.message.types.SoundMessage
 import org.bukkit.Sound
+import org.bukkit.SoundCategory
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -23,9 +24,9 @@ class SoundMessageTest {
     @BeforeEach
     fun setUp() {
         server = MockBukkit.mock()
+        player = server.addPlayer() // Add before we load the plugin
         plugin = MockBukkit.load(CustomJoinMessages::class.java)
         sound = SoundMessage(plugin)
-        player = server.addPlayer()
     }
 
     @AfterEach
@@ -35,17 +36,20 @@ class SoundMessageTest {
 
     @Test
     fun handle_SendsMessage() {
-        sound.config.set("key.Sound", Sound.AMBIENT_CAVE.name())
+        sound.config.set("key.Sound", "AMBIENT_CAVE")
+        val player2 = server.addPlayer()
 
         sound.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
 
         assertEquals(1, player.heardSounds.size)
-        player.assertSoundHeard(Sound.AMBIENT_CAVE)
+        assertEquals(1, player2.heardSounds.size)
+        assertEquals("ambient.cave", player.heardSounds[0].sound)
+        assertEquals("ambient.cave", player2.heardSounds[0].sound)
     }
 
     @Test
     fun handle_Global_SendsMessage_CorrectLocation() {
-        sound.config.set("key.Sound", Sound.AMBIENT_CAVE.name())
+        sound.config.set("key.Sound", "AMBIENT_CAVE")
         sound.config.set("key.Global", true)
         val player2 = server.addPlayer()
         player2.teleport(player2.location.add(10.0, 0.0, 0.0))
@@ -54,13 +58,13 @@ class SoundMessageTest {
 
         assertEquals(1, player.heardSounds.size)
         assertEquals(1, player2.heardSounds.size)
-        player.assertSoundHeard(Sound.AMBIENT_CAVE) { e -> e.location == player.location }
-        player2.assertSoundHeard(Sound.AMBIENT_CAVE) { e -> e.location == player2.location }
+        assertEquals(player.location, player.heardSounds[0].location)
+        assertEquals(player2.location, player2.heardSounds[0].location)
     }
 
     @Test
     fun handle_NonGlobal_SendsMessage_CorrectLocation() {
-        sound.config.set("key.Sound", Sound.AMBIENT_CAVE.name())
+        sound.config.set("key.Sound", "AMBIENT_CAVE")
         sound.config.set("key.Global", false)
         val player2 = server.addPlayer()
         player2.teleport(player2.location.add(10.0, 0.0, 0.0))
@@ -69,8 +73,8 @@ class SoundMessageTest {
 
         assertEquals(1, player.heardSounds.size)
         assertEquals(1, player2.heardSounds.size)
-        player.assertSoundHeard(Sound.AMBIENT_CAVE) { e -> e.location == player.location }
-        player2.assertSoundHeard(Sound.AMBIENT_CAVE) { e -> e.location == player.location }
+        assertEquals(player.location, player.heardSounds[0].location)
+        assertEquals(player.location, player2.heardSounds[0].location)
     }
 
     @Test

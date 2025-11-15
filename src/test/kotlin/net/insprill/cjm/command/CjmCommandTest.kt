@@ -6,6 +6,7 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Assertions.fail
 import org.junit.jupiter.api.BeforeEach
@@ -23,11 +24,11 @@ class CjmCommandTest {
     @BeforeEach
     fun setUp() {
         server = MockBukkit.mock()
+        player = server.addPlayer() // Add before we load the plugin
         plugin = MockBukkit.load(CustomJoinMessages::class.java)
         plugin.commandManager.setDefaultExceptionHandler { _, _, _, _, t ->
             fail("Exception occurred while executing command", t)
         }
-        player = server.addPlayer()
     }
 
     @AfterEach
@@ -59,8 +60,8 @@ class CjmCommandTest {
     fun execute_NoArgs_NoPermission_DoesntExecute() {
         player.performCommand("cjm")
 
-        player.assertSaid("§cI'm sorry, but you do not have permission to perform this command.")
-        player.assertNoMoreSaid()
+        assertEquals("§cI'm sorry, but you do not have permission to perform this command.", player.nextMessage())
+        assertNull(player.nextMessage())
     }
 
     @Test
@@ -76,8 +77,8 @@ class CjmCommandTest {
     fun execute_Help_NoPermission_DoesntExecute() {
         player.performCommand("cjm help")
 
-        player.assertSaid("§cI'm sorry, but you do not have permission to perform this command.")
-        player.assertNoMoreSaid()
+        assertEquals("§cI'm sorry, but you do not have permission to perform this command.", player.nextMessage())
+        assertNull(player.nextMessage())
     }
 
     @Test
@@ -93,8 +94,8 @@ class CjmCommandTest {
     fun execute_Preview_NoPermission_DoesntExecute() {
         player.performCommand("cjm preview")
 
-        player.assertSaid("§cI'm sorry, but you do not have permission to perform this command.")
-        player.assertNoMoreSaid()
+        assertEquals("§cI'm sorry, but you do not have permission to perform this command.", player.nextMessage())
+        assertNull(player.nextMessage())
     }
 
     @Test
@@ -104,7 +105,7 @@ class CjmCommandTest {
         player.performCommand("cjm preview")
 
         assertTrue(player.nextMessage()!!.contains("usage", true))
-        player.assertNoMoreSaid()
+        assertNull(player.nextMessage())
     }
 
     @Test
@@ -114,7 +115,7 @@ class CjmCommandTest {
         player.performCommand("cjm preview ${player.name}")
 
         assertTrue(player.nextMessage()!!.contains("usage", true))
-        player.assertNoMoreSaid()
+        assertNull(player.nextMessage())
     }
 
     @Test
@@ -124,7 +125,7 @@ class CjmCommandTest {
         player.performCommand("cjm preview ${player.name} chat")
 
         assertTrue(player.nextMessage()!!.contains("usage", true))
-        player.assertNoMoreSaid()
+        assertNull(player.nextMessage())
     }
 
     @Test
@@ -134,7 +135,7 @@ class CjmCommandTest {
         player.performCommand("cjm preview ${player.name} chat public")
 
         assertTrue(player.nextMessage()!!.contains("usage", true))
-        player.assertNoMoreSaid()
+        assertNull(player.nextMessage())
     }
 
     @Test
@@ -144,7 +145,7 @@ class CjmCommandTest {
         player.performCommand("cjm preview ${player.name} chat public join")
 
         assertTrue(player.nextMessage()!!.contains("usage", true))
-        player.assertNoMoreSaid()
+        assertNull(player.nextMessage())
     }
 
     @Test
@@ -154,7 +155,7 @@ class CjmCommandTest {
         player.performCommand("cjm preview ${player.name} chat public join 1")
 
         assertTrue(player.nextMessage()!!.contains("joined", true))
-        player.assertNoMoreSaid()
+        assertNull(player.nextMessage())
     }
 
     @Test
@@ -164,7 +165,7 @@ class CjmCommandTest {
         player.performCommand("cjm preview thisNameIsTooLongToBeValid chat public join 1")
 
         assertTrue(player.nextMessage()!!.contains("is not a valid username", true))
-        player.assertNoMoreSaid()
+        assertNull(player.nextMessage())
     }
 
     @Test
@@ -174,7 +175,7 @@ class CjmCommandTest {
         player.performCommand("cjm preview WRONG chat public join 1")
 
         assertTrue(player.nextMessage()!!.contains("No player matching", true))
-        player.assertNoMoreSaid()
+        assertNull(player.nextMessage())
     }
 
     @Test
@@ -185,7 +186,7 @@ class CjmCommandTest {
 
         assertTrue(player.nextMessage()!!.contains("Unknown message type", true))
         assertTrue(player.nextMessage()!!.contains("usage", true))
-        player.assertNoMoreSaid()
+        assertNull(player.nextMessage())
     }
 
     @Test
@@ -196,7 +197,7 @@ class CjmCommandTest {
 
         assertTrue(player.nextMessage()!!.contains("Please specify one of", true))
         assertTrue(player.nextMessage()!!.contains("usage", true))
-        player.assertNoMoreSaid()
+        assertNull(player.nextMessage())
     }
 
     @Test
@@ -207,7 +208,7 @@ class CjmCommandTest {
 
         assertTrue(player.nextMessage()!!.contains("Please specify one of", true))
         assertTrue(player.nextMessage()!!.contains("usage", true))
-        player.assertNoMoreSaid()
+        assertNull(player.nextMessage())
     }
 
     @Test
@@ -218,7 +219,7 @@ class CjmCommandTest {
 
         assertTrue(player.nextMessage()!!.contains("A message with ID", true))
         assertTrue(player.nextMessage()!!.contains("usage", true))
-        player.assertNoMoreSaid()
+        assertNull(player.nextMessage())
     }
 
     @Test
@@ -227,15 +228,15 @@ class CjmCommandTest {
 
         assertTrue(server.consoleSender.nextMessage()!!.contains("You must specify a target when running the command from console", true))
         assertTrue(server.consoleSender.nextMessage()!!.contains("usage", true))
-        server.consoleSender.assertNoMoreSaid()
+        assertNull(server.consoleSender.nextMessage())
     }
 
     @Test
     fun execute_Toggle_NoPermission_DoesntExecute() {
         player.performCommand("cjm toggle")
 
-        player.assertSaid("§cI'm sorry, but you do not have permission to perform this command.")
-        player.assertNoMoreSaid()
+        assertEquals("§cI'm sorry, but you do not have permission to perform this command.", player.nextMessage())
+        assertNull(player.nextMessage())
     }
 
     @Test
@@ -254,13 +255,13 @@ class CjmCommandTest {
         player.performCommand("cjm toggle join")
 
         assertTrue(player.nextMessage()!!.contains("Toggled join messages off!", true))
-        player.assertNoMoreSaid()
+        assertNull(player.nextMessage())
         assertFalse(plugin.toggleHandler.isToggled(player, MessageAction.JOIN))
 
         player.performCommand("cjm toggle join")
 
         assertTrue(player.nextMessage()!!.contains("Toggled join messages on!", true))
-        player.assertNoMoreSaid()
+        assertNull(player.nextMessage())
         assertTrue(plugin.toggleHandler.isToggled(player, MessageAction.JOIN))
     }
 
@@ -271,7 +272,7 @@ class CjmCommandTest {
         player.performCommand("cjm toggle join off")
 
         assertTrue(player.nextMessage()!!.contains("Toggled join messages off!", true))
-        player.assertNoMoreSaid()
+        assertNull(player.nextMessage())
         assertFalse(plugin.toggleHandler.isToggled(player, MessageAction.JOIN))
     }
 
@@ -282,20 +283,21 @@ class CjmCommandTest {
         player.performCommand("cjm toggle join on")
 
         assertTrue(player.nextMessage()!!.contains("Toggled join messages on!", true))
-        player.assertNoMoreSaid()
+        assertNull(player.nextMessage())
         assertTrue(plugin.toggleHandler.isToggled(player, MessageAction.JOIN))
     }
 
     @Test
     fun execute_Toggle_OtherPlayer() {
         val player2 = server.addPlayer()
+        player.nextMessage()
 
         player.addAttachment(plugin, "cjm.command.toggle", true)
 
         player.performCommand("cjm toggle join off ${player2.name}")
 
         assertTrue(player.nextMessage()!!.contains("Toggled join messages off!", true))
-        player.assertNoMoreSaid()
+        assertNull(player.nextMessage())
         assertTrue(plugin.toggleHandler.isToggled(player, MessageAction.JOIN))
         assertFalse(plugin.toggleHandler.isToggled(player2, MessageAction.JOIN))
     }
@@ -308,7 +310,7 @@ class CjmCommandTest {
 
         assertTrue(player.nextMessage()!!.contains("Please specify one of", true))
         assertTrue(player.nextMessage()!!.contains("usage", true))
-        player.assertNoMoreSaid()
+        assertNull(player.nextMessage())
     }
 
     @Test
@@ -319,7 +321,7 @@ class CjmCommandTest {
 
         assertTrue(player.nextMessage()!!.contains("is not a valid username", true))
         assertTrue(player.nextMessage()!!.contains("usage", true))
-        player.assertNoMoreSaid()
+        assertNull(player.nextMessage())
     }
 
     @Test
@@ -330,15 +332,15 @@ class CjmCommandTest {
 
         assertTrue(player.nextMessage()!!.contains("No player matching", true))
         assertTrue(player.nextMessage()!!.contains("usage", true))
-        player.assertNoMoreSaid()
+        assertNull(player.nextMessage())
     }
 
     @Test
     fun execute_Reload_NoPermission_DoesntSendNotice() {
         player.performCommand("cjm reload")
 
-        player.assertSaid("§cI'm sorry, but you do not have permission to perform this command.")
-        player.assertNoMoreSaid()
+        assertEquals("§cI'm sorry, but you do not have permission to perform this command.", player.nextMessage())
+        assertNull(player.nextMessage())
     }
 
     @Test
@@ -348,7 +350,7 @@ class CjmCommandTest {
         player.performCommand("cjm reload")
 
         assertNotNull(player.nextMessage())
-        player.assertNoMoreSaid()
+        assertNull(player.nextMessage())
     }
 
 }
