@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 
-@Suppress("KotlinConstantConditions")
+@Suppress("KotlinConstantConditions", "SimplifyBooleanWithConstants")
 class BuildParametersTest {
 
     @Test
