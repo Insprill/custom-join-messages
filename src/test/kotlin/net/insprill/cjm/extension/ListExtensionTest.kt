@@ -28,12 +28,12 @@ class ListExtensionTest {
     fun replacePlaceholders_SingleList_Placeholders_Fills() {
         @Suppress("DEPRECATION")
         player.displayName = "SprillJ"
-        val strings = listOf("%displayname% (%name%) has joined! [#%uniquejoins%]")
+        val strings = listOf("%displayname% (%name%) has joined!")
 
         val newStrings = strings.replacePlaceholders(player)
 
         Assertions.assertEquals(1, newStrings.size)
-        Assertions.assertEquals("SprillJ (Insprill) has joined! [#1]", newStrings[0])
+        Assertions.assertEquals("SprillJ (Insprill) has joined!", newStrings[0])
     }
 
     @Test
@@ -41,14 +41,14 @@ class ListExtensionTest {
         @Suppress("DEPRECATION")
         player.displayName = "SprillJ"
         val strings = listOf(
-            "%displayname% (%name%) has joined! [#%uniquejoins%]",
+            "%displayname% (%name%) has joined!",
             "%displayname% (%name%) has joined! [%uuid%]"
         )
 
         val newStrings = strings.replacePlaceholders(player)
 
         Assertions.assertEquals(2, newStrings.size)
-        Assertions.assertEquals("SprillJ (Insprill) has joined! [#1]", newStrings[0])
+        Assertions.assertEquals("SprillJ (Insprill) has joined!", newStrings[0])
         Assertions.assertEquals("SprillJ (Insprill) has joined! [${player.uniqueId}]", newStrings[1])
     }
 

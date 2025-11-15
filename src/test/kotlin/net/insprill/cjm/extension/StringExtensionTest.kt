@@ -40,9 +40,9 @@ class StringExtensionTest {
     fun replacePlaceholders_WithPlaceholders_Fills() {
         @Suppress("DEPRECATION")
         player.displayName = "SprillJ"
-        val string = "%displayname% (%name%) has joined! [#%uniquejoins%]"
+        val string = "%displayname% (%name%) has joined!"
 
-        Assertions.assertEquals("SprillJ (Insprill) has joined! [#1]", string.replacePlaceholders(player))
+        Assertions.assertEquals("SprillJ (Insprill) has joined!", string.replacePlaceholders(player))
     }
 
     @Test

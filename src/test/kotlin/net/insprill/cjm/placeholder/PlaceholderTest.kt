@@ -1,5 +1,7 @@
 package net.insprill.cjm.placeholder
 
+import net.insprill.cjm.CustomJoinMessages
+import net.insprill.cjm.util.FastOfflinePlayers
 import net.kyori.adventure.text.Component
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -9,8 +11,8 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.fail
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.EnumSource
-import org.mockbukkit.mockbukkit.ServerMock
 import org.mockbukkit.mockbukkit.MockBukkit
+import org.mockbukkit.mockbukkit.ServerMock
 import org.mockbukkit.mockbukkit.entity.PlayerMock
 
 class PlaceholderTest {
@@ -20,6 +22,8 @@ class PlaceholderTest {
     @BeforeEach
     fun setUp() {
         server = MockBukkit.mock()
+        MockBukkit.load(CustomJoinMessages::class.java)
+        FastOfflinePlayers.reset()
     }
 
     @AfterEach
