@@ -40,7 +40,7 @@ class ChatMessageTest {
 
         chat.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
 
-        player.assertSaid("Hello!")
+        assertEquals("Hello!", player.nextMessage())
         assertNull(player.nextMessage())
     }
 
@@ -50,8 +50,8 @@ class ChatMessageTest {
 
         chat.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
 
-        player.assertSaid("Hello!")
-        player.assertSaid("How're you?")
+        assertEquals("Hello!", player.nextMessage())
+        assertEquals("How're you?", player.nextMessage())
         assertNull(player.nextMessage())
     }
 
@@ -68,7 +68,7 @@ class ChatMessageTest {
 
         chat.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
 
-        player.assertSaid("")
+        assertEquals("", player.nextMessage())
     }
 
     @Test
@@ -77,7 +77,7 @@ class ChatMessageTest {
 
         chat.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
 
-        player.assertSaid(" ")
+        assertEquals(" ", player.nextMessage())
     }
 
     @Test
@@ -86,7 +86,7 @@ class ChatMessageTest {
 
         chat.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
 
-        player.assertSaid("")
+        assertEquals("", player.nextMessage())
     }
 
     @Test
@@ -95,8 +95,8 @@ class ChatMessageTest {
 
         chat.handle(player, listOf(player), "key", MessageVisibility.PUBLIC)
 
-        player.assertSaid("howdy")
-        player.assertSaid("")
+        assertEquals("howdy", player.nextMessage())
+        assertEquals("", player.nextMessage())
     }
 
     @Test
