@@ -4,7 +4,6 @@ import net.swiftzer.semver.SemVer
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertDoesNotThrow
 
 @Suppress("KotlinConstantConditions", "SimplifyBooleanWithConstants")
 class BuildParametersTest {
@@ -26,7 +25,8 @@ class BuildParametersTest {
 
     @Test
     fun version_ValidSemVer() {
-        assertDoesNotThrow { SemVer.parse(BuildParameters.VERSION) }
+        // Cannot use assertDoesNotThrow here due to bytecode version mismatch
+        SemVer.parse(BuildParameters.VERSION)
     }
 
     @Test
