@@ -2,6 +2,7 @@ package net.insprill.cjm
 
 import de.leonhard.storage.SimplixBuilder
 import net.insprill.cjm.util.TestUtils.setFinalField
+import net.insprill.cjm.util.TestUtils.setEnumField
 import net.insprill.spigotutils.MinecraftVersion
 import net.insprill.spigotutils.ServerEnvironment
 import net.swiftzer.semver.SemVer
@@ -32,6 +33,8 @@ class CustomJoinMessagesTest {
     fun teardown() {
         MockBukkit.unmock()
         setFinalField(MinecraftVersion::class, "currentVersion", lastMinecraftVersion)
+        setEnumField(ServerEnvironment.SPIGOT, "isCurrentEnvironment", true)
+        setEnumField(ServerEnvironment.PAPER, "isCurrentEnvironment", true)
     }
 
     @Test
@@ -54,7 +57,8 @@ class CustomJoinMessagesTest {
 
     @Test
     fun onEnable_PlainBukkit_Disables() {
-        setFinalField(ServerEnvironment::class, "currentEnvironment", ServerEnvironment.BUKKIT)
+        setEnumField(ServerEnvironment.SPIGOT, "isCurrentEnvironment", false)
+        setEnumField(ServerEnvironment.PAPER, "isCurrentEnvironment", false)
 
         val plugin = MockBukkit.load(CustomJoinMessages::class.java)
 

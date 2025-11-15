@@ -1,6 +1,7 @@
 package net.insprill.cjm.util
 
 import sun.misc.Unsafe
+import java.lang.reflect.Field
 import kotlin.reflect.KClass
 
 object TestUtils {
@@ -15,6 +16,12 @@ object TestUtils {
         val staticFieldBase = unsafe.staticFieldBase(ourField)
         val staticFieldOffset = unsafe.staticFieldOffset(ourField)
         unsafe.putObject(staticFieldBase, staticFieldOffset, value)
+    }
+
+    fun <E : Enum<E>, V> setEnumField(enumValue: E, fieldName: String, newValue: V) {
+        val field: Field = enumValue.javaClass.getDeclaredField(fieldName)
+        field.isAccessible = true
+        field.set(enumValue, newValue)
     }
 
 }
