@@ -57,9 +57,11 @@ dependencies {
     implementation(project(":paper"))
 
     // Tests
-    testImplementation("org.mockbukkit.mockbukkit:mockbukkit-v1.21:4.69.2")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.13.3")
-    testImplementation(platform("org.junit:junit-bom:5.13.3"))
+    testImplementation("io.papermc.paper:paper-api:1.21.10-R0.1-SNAPSHOT")
+    testImplementation("org.mockbukkit.mockbukkit:mockbukkit-v1.21:4.98.0")
+    testImplementation(platform("org.junit:junit-bom:6.0.1"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 val extraDependencies = mapOf(
