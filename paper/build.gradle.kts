@@ -15,10 +15,10 @@ dependencies {
 
 tasks {
     kotlin {
-        // Compile against Java 21, compile to Java 17
+        // Compile against Java 21, compile to Java 8
         jvmToolchain(21)
         compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_17)
+            jvmTarget.set(JvmTarget.JVM_1_8)
         }
     }
 }
