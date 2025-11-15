@@ -23,7 +23,7 @@ enum class Dependency(
     // `softdepend` list in the plugin.yml!
     ADVANCED_VANISH("AdvancedVanish", AdvancedVanishHook::class.java),
     AUTH_ME("AuthMe", AuthMeHook::class.java),
-    CMI("CMI", CmiHook::class.java, minVersion = SemVer(9, 7, 0)), // 9.7.0.0 moved the VanishAction class
+    CMI("CMI", CmiHook::class.java, minVersion = SemVer(9, 7, 14)), // 9.7.14.3 added a new method to get vanished status
     ESSENTIALS("Essentials", EssentialsHook::class.java),
     PAPI("PlaceholderAPI"),
     PREMIUM_VANISH("PremiumVanish", SuperVanishHook::class.java),
@@ -42,8 +42,9 @@ enum class Dependency(
                 .getPlugin(pluginName)
                 ?.description
                 ?.version
-                ?.replace("""\.\d+$""".toRegex(), "")
-                ?: return true
+                ?.replace(Regex("^((?:[^.]+\\.){2}[^.]+)\\.[^.]+$"), "$1")
+            if (version == null)
+                return true
             val semVersion = SemVer.parseOrNull(version)
             if (semVersion == null) {
                 cjm.logger.warning("Failed to parse version of $pluginName ($version)! Enabling support anyways, although it may be broken!")

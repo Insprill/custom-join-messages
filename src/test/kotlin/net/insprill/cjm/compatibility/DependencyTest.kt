@@ -58,14 +58,14 @@ class DependencyTest {
 
     @Test
     fun cmiVersion_Minimum_IsCompatible() {
-        MockBukkit.createMockPlugin("CMI", "9.7.0")
+        MockBukkit.createMockPlugin("CMI", "9.7.14.3")
 
         assertTrue(Dependency.CMI.isVersionCompatible(cjm))
     }
 
     @Test
     fun cmiVersion_LessThanMinimum_IsNotCompatible() {
-        MockBukkit.createMockPlugin("CMI", "9.6.9")
+        MockBukkit.createMockPlugin("CMI", "9.7.13")
 
         assertFalse(Dependency.CMI.isVersionCompatible(cjm))
     }
