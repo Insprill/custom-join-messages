@@ -21,15 +21,16 @@ class MessageSender(private val plugin: CustomJoinMessages) {
     }
 
     fun reloadPermissions(config: FlatFile) {
-        registeredPermissions.forEach { Bukkit.getPluginManager().removePermission(it) }
+        val pm = Bukkit.getPluginManager()
+        registeredPermissions.forEach { pm.removePermission(it) }
         registeredPermissions.clear()
         for (action in MessageAction.entries) {
             for (visibility in MessageVisibility.entries) {
                 val path = visibility.configSection + "." + action.configSection
                 for (key in config.singleLayerKeySet(path)) {
                     val permission = config.getString("$path.$key.Permission") ?: continue
-                    if (Bukkit.getPluginManager().getPermission(permission) == null && permission != "cjm.default") {
-                        Bukkit.getPluginManager().addPermission(Permission(permission, PermissionDefault.FALSE))
+                    if (pm.getPermission(permission) == null && permission != "cjm.default") {
+                        pm.addPermission(Permission(permission, PermissionDefault.FALSE))
                     }
                     registeredPermissions.add(permission)
                 }
@@ -96,8 +97,9 @@ class MessageSender(private val plugin: CustomJoinMessages) {
         if (visibility != MessageVisibility.PUBLIC) {
             return listOf(sourcePlayer)
         }
-        val players = ArrayList(getNearbyPlayers(sourcePlayer, radius, plugin.config.getBoolean("World-Based-Messages.Enabled")))
-        if (action == MessageAction.QUIT && plugin.config.getBoolean("World-Based-Messages.Enabled")) {
+        val sameWorldOnly = plugin.config.getBoolean("World-Based-Messages.Enabled")
+        val players = ArrayList(getNearbyPlayers(sourcePlayer, radius, sameWorldOnly))
+        if (action == MessageAction.QUIT && sameWorldOnly) {
             players.remove(sourcePlayer)
         }
         return players
