@@ -2,7 +2,7 @@ name: Publish
 
 on:
   push:
-    branches: [ master, develop ]
+    branches: [ master ]
     tags: [ v* ]
 
 jobs:
@@ -16,7 +16,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           # https://github.com/gradle/actions/blob/main/docs/setup-gradle.md#using-the-cache-read-only
-          cache-read-only: ${{ github.ref != 'refs/heads/master' && github.ref != 'refs/heads/develop' && github.ref_type != 'tag' }}
+          cache-read-only: ${{ github.ref != 'refs/heads/master' && github.ref_type != 'tag' }}
 
       - name: Set Environment Variables
         run: |
@@ -30,7 +30,6 @@ jobs:
         run: ./gradlew modrinthSyncBody syncAllPagesToHangar
 
       - name: Publish to Hangar
-        if: ${{ github.ref != 'refs/heads/master' }} # Probably already uploaded by develop build, this will fail
         env:
           HANGAR_API_TOKEN: ${{ secrets.HANGAR_API_TOKEN }}
         run: ./gradlew build -x test publishPluginPublicationToHangar -Pversion.metadata=${{ env.IS_DEV_BUILD }} -Pbuild.is-release=${{ env.IS_RELEASE_BUILD }} -Pbuild.target-platform=hangar
