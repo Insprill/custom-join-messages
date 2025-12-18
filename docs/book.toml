@@ -1,0 +1,6 @@
+[book]
+title = "Custom Join Messages"
+authors = ["Insprill"]
+
+[output.html]
+git-repository-url = "https://github.com/Insprill/custom-join-messages"
