@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [17.10.0] - 2026-04-25
+
+### Added
+
+- Support for 26.1+
+
+
 ## [17.9.1] - 2025-06-06
 
 ### Fixed
@@ -215,7 +222,8 @@ Custom Join Messages is now published on [Hangar](https://hangar.papermc.io/Insp
 
 
 <!-- Diffs -->
-[Unreleased]: https://github.com/Insprill/custom-join-messages/compare/master...develop
+[Unreleased]: https://github.com/Insprill/custom-join-messages/compare/v17.10.0...master
+[17.10.0]: https://github.com/Insprill/custom-join-messages/compare/v17.9.1...v17.10.0
 [17.9.1]: https://github.com/Insprill/custom-join-messages/compare/v17.9.0...v17.9.1
 [17.9.0]: https://github.com/Insprill/custom-join-messages/compare/v17.8.0...v17.9.0
 [17.8.0]: https://github.com/Insprill/custom-join-messages/compare/v17.7.1...v17.8.0
