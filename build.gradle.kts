@@ -3,12 +3,12 @@ import java.net.URI
 import java.util.concurrent.Executors
 
 plugins {
-    kotlin("jvm") version "2.2.21"
+    kotlin("jvm") version "2.3.21"
     id("org.ajoberstar.grgit") version "5.3.3"
     id("net.kyori.blossom") version "2.2.0"
-    id("com.gradleup.shadow") version "9.2.2"
-    id("com.modrinth.minotaur") version "2.8.10"
-    id("io.papermc.hangar-publish-plugin") version "0.1.3"
+    id("com.gradleup.shadow") version "9.4.1"
+    id("com.modrinth.minotaur") version "2.9.0"
+    id("io.papermc.hangar-publish-plugin") version "0.1.4"
     id("com.rikonardo.papermake") version "1.0.6"
 }
 
@@ -16,7 +16,6 @@ group = "net.insprill"
 version = "${project.version}${versionMetadata()}"
 
 repositories {
-    mavenCentral()
     maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/") // Spigot-API
     maven("https://jitpack.io") // AdvancedVanish, SimplixStorage, SuperVanish, VanishNoPacket, Vault
     maven("https://repo.aikar.co/content/groups/aikar/") // ACF
@@ -43,35 +42,35 @@ dependencies {
     compileOnly("org.sayandev:sayanvanish-bukkit:1.6.3") { isTransitive = false }
 
     // Internal
-    compileOnly("org.spigotmc:spigot-api:1.21.11-R0.1-SNAPSHOT")
-    compileOnly("net.kyori:adventure-text-minimessage:4.25.0")
-    compileOnly("net.kyori:adventure-text-serializer-gson:4.25.0")
+    compileOnly("org.spigotmc:spigot-api:26.1.2-R0.1-SNAPSHOT")
+    compileOnly("net.kyori:adventure-text-minimessage:5.0.1")
+    compileOnly("net.kyori:adventure-text-serializer-gson:5.0.1")
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
     implementation("com.github.simplix-softworks:simplixstorage:3.2.7")
     implementation("de.themoep:minedown:1.7.1-SNAPSHOT")
-    implementation("net.insprill:spigot-utils:0.5.1")
+    implementation("net.insprill:spigot-utils:0.6.0")
     implementation("net.swiftzer.semver:semver:2.1.0")
-    implementation("org.bstats:bstats-bukkit:3.1.0")
+    implementation("org.bstats:bstats-bukkit:3.2.1")
 
     // Modules
     implementation(project(":paper"))
 
     // Tests
-    testImplementation("io.papermc.paper:paper-api:1.21.10-R0.1-SNAPSHOT")
-    testImplementation("org.mockbukkit.mockbukkit:mockbukkit-v1.21:4.98.0")
-    testImplementation(platform("org.junit:junit-bom:6.0.1"))
+    testImplementation("io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT")
+    testImplementation("org.mockbukkit.mockbukkit:mockbukkit-v1.21:4.108.0")
+    testImplementation(platform("org.junit:junit-bom:6.0.3"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 val extraDependencies = mapOf(
-    Pair("CMI-API.jar", "https://github.com/Zrips/CMI-API/releases/download/9.7.14.3/CMI-API9.7.14.3.jar"),
+    Pair("CMI-API.jar", "https://github.com/Zrips/CMI-API/releases/download/9.8.6.4/CMI-API9.8.6.4.jar"),
 )
 
 tasks {
     kotlin {
-        // Compile against Java 21, compile to Java 8
-        jvmToolchain(21)
+        // Compile against Java 25, compile to Java 8
+        jvmToolchain(25)
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_1_8)
         }

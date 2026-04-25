@@ -13,7 +13,7 @@ class CmiHook(plugin: CustomJoinMessages) : PluginHook {
     override val jailHook = CmiJailHook(this)
 
     fun getUser(player: Player): CMIUser {
-        return CMI.getInstance().playerManager.getUser(player)
+        return CMI.getInstance().playerManager.getUser(player)!!
     }
 
 }

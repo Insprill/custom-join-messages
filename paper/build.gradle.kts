@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    kotlin("jvm") version "2.2.21"
+    kotlin("jvm") version "2.3.21"
 }
 
 repositories {
@@ -9,14 +9,14 @@ repositories {
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.21.10-R0.1-SNAPSHOT")
-    implementation("net.insprill:spigot-utils:0.5.1")
+    compileOnly("io.papermc.paper:paper-api:26.1.2.build.+")
+    implementation("net.insprill:spigot-utils:0.6.0")
 }
 
 tasks {
     kotlin {
-        // Compile against Java 21, compile to Java 8
-        jvmToolchain(21)
+        // Compile against Java 25, compile to Java 8
+        jvmToolchain(25)
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_1_8)
         }
