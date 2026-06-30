@@ -18,6 +18,7 @@ import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.extension.sendInfo
 import net.insprill.cjm.message.MessageAction
 import net.insprill.cjm.message.MessageVisibility
+import net.insprill.cjm.message.types.MessageType
 import org.bukkit.OfflinePlayer
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
@@ -56,7 +57,7 @@ class CjmCommand(private val manager: BukkitCommandManager, private val plugin: 
     fun onPreview(
         sender: CommandSender,
         target: OnlinePlayer,
-        messageType: net.insprill.cjm.message.types.MessageType,
+        messageType: MessageType,
         visibility: MessageVisibility,
         action: MessageAction,
         id: Int
@@ -79,6 +80,12 @@ class CjmCommand(private val manager: BukkitCommandManager, private val plugin: 
         if (sender !is Player && providedTarget == null) {
             throw InvalidCommandArgument("{@@cjm.command.toggle.no-target}")
         }
+
+        // Don't allow players to toggle messages for other players!
+        if (sender is Player && providedTarget != null && !sender.hasPermission("cjm.command.toggle.target")) {
+            throw InvalidCommandArgument("{@@acf-core.permission_denied}")
+        }
+
         val target = providedTarget ?: sender as Player
         val toggledTo = if (toggle != null && toggle != "toggle") {
             toggle == "on"

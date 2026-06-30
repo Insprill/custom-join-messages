@@ -288,11 +288,41 @@ class CjmCommandTest {
     }
 
     @Test
-    fun execute_Toggle_OtherPlayer() {
+    fun execute_Toggle_FromConsole() {
+        val player2 = server.addPlayer()
+        server.consoleSender.nextMessage()
+
+        server.dispatchCommand(server.consoleSender, "cjm toggle join off ${player2.name}")
+
+        assertTrue(server.consoleSender.nextMessage()!!.contains("Toggled join messages off!", true))
+        assertNull(server.consoleSender.nextMessage())
+        assertTrue(plugin.toggleHandler.isToggled(player, MessageAction.JOIN))
+        assertFalse(plugin.toggleHandler.isToggled(player2, MessageAction.JOIN))
+    }
+
+    @Test
+    fun execute_Toggle_OtherPlayer_NoPermission() {
         val player2 = server.addPlayer()
         player.nextMessage()
 
         player.addAttachment(plugin, "cjm.command.toggle", true)
+
+        player.performCommand("cjm toggle join off ${player2.name}")
+
+        assertTrue(player.nextMessage()!!.contains("I'm sorry, but you do not have permission to perform this command.", true))
+        assertTrue(player.nextMessage()!!.contains("Usage", true))
+        assertNull(player.nextMessage())
+        assertTrue(plugin.toggleHandler.isToggled(player, MessageAction.JOIN))
+        assertTrue(plugin.toggleHandler.isToggled(player2, MessageAction.JOIN))
+    }
+
+    @Test
+    fun execute_Toggle_OtherPlayer_WithPermission() {
+        val player2 = server.addPlayer()
+        player.nextMessage()
+
+        player.addAttachment(plugin, "cjm.command.toggle", true)
+        player.addAttachment(plugin, "cjm.command.toggle.target", true)
 
         player.performCommand("cjm toggle join off ${player2.name}")
 
