@@ -94,7 +94,7 @@ class MessageSender(private val plugin: CustomJoinMessages) {
     }
 
     private fun getReceivingPlayers(sourcePlayer: Player, visibility: MessageVisibility, action: MessageAction, radius: Double): List<Player> {
-        if (visibility != MessageVisibility.PUBLIC) {
+        if (visibility != MessageVisibility.PUBLIC || radius == 0.0) {
             return listOf(sourcePlayer)
         }
         val sameWorldOnly = plugin.config.getBoolean("World-Based-Messages.Enabled")

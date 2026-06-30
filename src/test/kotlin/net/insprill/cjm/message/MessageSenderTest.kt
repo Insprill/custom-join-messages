@@ -217,6 +217,19 @@ class MessageSenderTest {
     }
 
     @Test
+    fun trySendMessages_Radius_PlayerInsideRadius_Zero_DoesntReceivesMessage() {
+        val player2 = server.addPlayer()
+        player2.location = player.location
+        messageTypeMock.config.set("Public.Join.1.Radius", 0.0)
+        messageTypeMock.clearResults()
+
+        messageSender.trySendMessages(player, MessageAction.JOIN, true)
+
+        messageTypeMock.assertHasResult()
+        assertFalse(messageTypeMock.result.recipients.contains(player2))
+    }
+
+    @Test
     fun trySendMessages_Delay_LessThanOne_SendsImmediately() {
         messageTypeMock.config.set("Public.Join.1.Delay", 0)
 
