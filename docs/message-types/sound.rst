@@ -31,4 +31,4 @@ The pitch of the sound.
 
 Global
 ^^^^^^
-Whether the sound should be played only to the player or in the world.
+Whether the sound should be played to all message recipients, or locally in the world at the position of the triggering player.
