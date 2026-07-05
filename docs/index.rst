@@ -32,3 +32,9 @@ Here you can find all the information you'll ever need to use the plugin.
 
    writing-messages/formatting.rst
    writing-messages/placeholders.rst
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Toggling Messages
+
+   toggle.rst
