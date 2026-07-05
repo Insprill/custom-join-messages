@@ -26,7 +26,7 @@ class ChatMessageTest {
         server = MockBukkit.mock()
         player = server.addPlayer() // Add before we load the plugin
         plugin = MockBukkit.load(CustomJoinMessages::class.java)
-        chat = ChatMessage(plugin)
+        chat = plugin.messageSender.typeMap["chat"]!! as ChatMessage
     }
 
     @AfterEach
