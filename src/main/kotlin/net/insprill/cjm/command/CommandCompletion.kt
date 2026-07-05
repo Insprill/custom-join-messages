@@ -10,7 +10,7 @@ class CommandCompletion(private val plugin: CustomJoinMessages) {
 
     fun register(manager: BukkitCommandManager): Unit = manager.commandCompletions.run {
         registerAsyncCompletion("onOffToggle") {
-            listOf("on", "off", "toggle")
+            listOf("on", "off", "toggle", "status")
         }
         registerAsyncCompletion("messageType") {
             plugin.messageSender.typeMap.keys

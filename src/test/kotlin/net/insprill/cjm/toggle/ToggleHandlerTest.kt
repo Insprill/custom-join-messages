@@ -1,6 +1,8 @@
 package net.insprill.cjm.toggle
 
+import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.MessageAction
+import net.insprill.cjm.message.types.ChatMessage
 import org.bukkit.plugin.Plugin
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -16,13 +18,13 @@ import org.mockbukkit.mockbukkit.ServerMock
 class ToggleHandlerTest {
 
     private lateinit var toggleHandler: ToggleHandler
-    private lateinit var plugin: Plugin
+    private lateinit var plugin: CustomJoinMessages
     private lateinit var server: ServerMock
 
     @BeforeEach
     fun setUp() {
         server = MockBukkit.mock()
-        plugin = MockBukkit.createMockPlugin()
+        plugin = MockBukkit.load(CustomJoinMessages::class.java)
         toggleHandler = ToggleHandler(plugin)
     }
 
@@ -46,13 +48,26 @@ class ToggleHandlerTest {
 
     @ParameterizedTest
     @EnumSource(MessageAction::class)
-    fun setToggled_SetsToggled(action: MessageAction) {
+    fun setToggled_Action_SetsToggled(action: MessageAction) {
         val player = server.addPlayer()
 
-        toggleHandler.setToggle(player, action, false)
+        toggleHandler.setToggle(player, action, null, false)
 
         for (value in MessageAction.entries) {
             assertEquals(value != action, toggleHandler.isToggled(player, value))
+        }
+    }
+
+    @ParameterizedTest
+    @EnumSource(MessageAction::class)
+    fun setToggled_Action_Type_SetsToggled(action: MessageAction) {
+        val player = server.addPlayer()
+        val type = ChatMessage(plugin)
+
+        toggleHandler.setToggle(player, action, type, false)
+
+        for (value in MessageAction.entries) {
+            assertEquals(value != action, toggleHandler.isToggled(player, value, type))
         }
     }
 
