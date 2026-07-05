@@ -4,7 +4,6 @@ package net.insprill.cjm.message
 
 import de.leonhard.storage.SimplixBuilder
 import net.insprill.cjm.CustomJoinMessages
-import net.insprill.cjm.message.types.ChatMessage
 import net.insprill.cjm.test.MessageTypeMock
 import org.bukkit.metadata.FixedMetadataValue
 import org.bukkit.permissions.Permission
@@ -115,11 +114,21 @@ class MessageSenderTest {
 
     @Test
     fun trySendMessages_Type_ToggledOff_NoMessageSent() {
-        plugin.toggleHandler.setToggle(player, MessageAction.JOIN, ChatMessage(plugin), false)
+        plugin.toggleHandler.setToggle(player, MessageAction.JOIN, messageTypeMock, false)
 
         messageSender.trySendMessages(player, MessageAction.JOIN, false)
 
         messageTypeMock.assertDoesntHaveResult()
+    }
+
+    @Test
+    fun trySendMessages_Type_ToggledOff_NoMessageSent_OtherTypes_Sent() {
+        plugin.toggleHandler.setToggle(player, MessageAction.JOIN, plugin.messageSender.typeMap["chat"], false)
+
+        messageSender.trySendMessages(player, MessageAction.JOIN, false)
+
+        assertNull(player.nextMessage())
+        messageTypeMock.assertHasResult()
     }
 
     @Test

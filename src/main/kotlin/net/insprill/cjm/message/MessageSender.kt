@@ -60,7 +60,7 @@ class MessageSender(private val plugin: CustomJoinMessages) {
                 continue // Don't send private quit messages when actually quitting
             for (msg in typeMap.values.filter { it.isEnabled }) {
                 if (!plugin.toggleHandler.isToggled(player, action, msg))
-                    return
+                    continue
 
                 val path = visibility.configSection + "." + action.configSection
 
