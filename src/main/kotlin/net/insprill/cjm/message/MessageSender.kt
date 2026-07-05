@@ -48,8 +48,7 @@ class MessageSender(private val plugin: CustomJoinMessages) {
     fun trySendMessages(player: Player, action: MessageAction, vanishCheck: Boolean) {
         if (!action.canRun(plugin, player))
             return
-        if (!plugin.toggleHandler.isToggled(player, action))
-            return
+
         if (vanishCheck && plugin.hookManager.isVanished(player))
             return
         if (!plugin.config.getBoolean("Addons.Jail.Ignore-Jailed-Players") && plugin.hookManager.isJailed(player))
@@ -60,6 +59,9 @@ class MessageSender(private val plugin: CustomJoinMessages) {
             if (vanishCheck && visibility == MessageVisibility.PRIVATE && action == MessageAction.QUIT)
                 continue // Don't send private quit messages when actually quitting
             for (msg in typeMap.values.filter { it.isEnabled }) {
+                if (!plugin.toggleHandler.isToggled(player, action, msg))
+                    return
+
                 val path = visibility.configSection + "." + action.configSection
 
                 // Get the highest priority message the player has access to.

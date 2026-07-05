@@ -27,19 +27,26 @@ class ToggleHandler(plugin: Plugin) {
         }
     }
 
-    fun isToggled(player: OfflinePlayer, action: MessageAction, type: MessageType? = null): Boolean {
-        return toggleConfig.getOrDefault(getKey(player, action, null), true) && toggleConfig.getOrDefault(getKey(player, action, type), true)
+    fun isToggled(player: OfflinePlayer, action: MessageAction?, type: MessageType? = null): Boolean {
+        val actionToggled = action?.let { toggleConfig.getOrDefault(getKey(player, action, null), true) } ?: true
+        val typeToggled = type?.let { toggleConfig.getOrDefault(getKey(player, null, type), true) } ?: true
+        val actionTypeToggled = toggleConfig.getOrDefault(getKey(player, action, type), true)
+        return actionToggled && typeToggled && actionTypeToggled
     }
 
-    fun setToggle(player: OfflinePlayer, action: MessageAction, type: MessageType? = null, toggle: Boolean) {
+    fun setToggle(player: OfflinePlayer, action: MessageAction?, type: MessageType? = null, toggle: Boolean) {
         return toggleConfig.set(getKey(player, action, type), toggle)
     }
 
-    private fun getKey(player: OfflinePlayer, action: MessageAction, type: MessageType?): String {
-        return if (type != null)
+    private fun getKey(player: OfflinePlayer, action: MessageAction?, type: MessageType?): String {
+        return if (action != null && type != null)
             "${player.uniqueId}.${action.name}.${type.name}"
-        else
+        else if (action != null)
             "${player.uniqueId}.${action.name}.enabled"
+        else if (type != null)
+            "${player.uniqueId}.${type.name}.enabled"
+        else
+            throw IllegalArgumentException("action and type cannot both be null!")
     }
 
 }

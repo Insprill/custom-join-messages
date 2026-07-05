@@ -87,13 +87,27 @@ class CjmCommand(private val manager: BukkitCommandManager, private val plugin: 
 
     @Subcommand("toggleType|tt")
     @Syntax("{@@cjm.command.toggletype.syntax}")
-    @CommandCompletion("@messageAction @messageType @onOffToggle @players")
+    @CommandCompletion("@messageType @onOffToggle @players")
     @CommandPermission("cjm.command.toggle")
     @Description("{@@cjm.command.toggle.description}")
     fun onToggleType(
         sender: CommandSender,
+        messageType: MessageType,
+        @Optional toggle: String?,
+        @Optional providedTarget: OfflinePlayer?
+    ) {
+        onToggle(sender, null, messageType, toggle, providedTarget)
+    }
+
+    @Subcommand("toggleActionType|tat")
+    @Syntax("{@@cjm.command.toggleactiontype.syntax}")
+    @CommandCompletion("@messageAction @messageType @onOffToggle @players")
+    @CommandPermission("cjm.command.toggle")
+    @Description("{@@cjm.command.toggle.description}")
+    fun onToggleActionType(
+        sender: CommandSender,
         action: MessageAction,
-        @Optional messageType: MessageType,
+        messageType: MessageType,
         @Optional toggle: String?,
         @Optional providedTarget: OfflinePlayer?
     ) {
@@ -102,10 +116,10 @@ class CjmCommand(private val manager: BukkitCommandManager, private val plugin: 
 
     fun onToggle(
         sender: CommandSender,
-        action: MessageAction,
-        @Optional messageType: MessageType?,
-        @Optional toggle: String?,
-        @Optional providedTarget: OfflinePlayer?
+        action: MessageAction?,
+        messageType: MessageType?,
+        toggle: String?,
+        providedTarget: OfflinePlayer?
     ) {
 
         if (sender !is Player && providedTarget == null) {
@@ -126,7 +140,7 @@ class CjmCommand(private val manager: BukkitCommandManager, private val plugin: 
                 sender,
                 "cjm.command.toggle.status.${if (status) "on" else "off"}",
                 "%action%",
-                action.name.lowercase(),
+                action?.name?.lowercase() ?: "",
                 "%type%",
                 messageType?.let { " ${it.name}" } ?: "",// prepend space since there's none in lang to avoid double space when omitted
             )
@@ -145,7 +159,7 @@ class CjmCommand(private val manager: BukkitCommandManager, private val plugin: 
             sender,
             "cjm.command.toggle.${if (toggledTo) "on" else "off"}",
             "%action%",
-            action.name.lowercase(),
+            action?.name?.lowercase() ?: "",
             "%type%",
             messageType?.let { " ${it.name}" } ?: "") // prepend space since there's none in lang to avoid double space when omitted
     }
