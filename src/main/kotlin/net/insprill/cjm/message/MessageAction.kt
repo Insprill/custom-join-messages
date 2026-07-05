@@ -9,6 +9,8 @@ enum class MessageAction(val configSection: String, private val function: (Custo
     QUIT("Quit", { plugin, player -> plugin.hookManager.isLoggedIn(player) }),
     ;
 
+    val displayName = name.lowercase()
+
     fun canRun(plugin: CustomJoinMessages, player: Player): Boolean {
         return function.invoke(plugin, player)
     }

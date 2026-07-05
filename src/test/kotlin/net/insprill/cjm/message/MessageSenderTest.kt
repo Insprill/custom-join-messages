@@ -37,8 +37,6 @@ class MessageSenderTest {
         messageSender = plugin.messageSender
         messageTypeMock = MessageTypeMock(plugin)
         messageSender.registerType(messageTypeMock)
-        // Wacky MockBukkit permissions go brr
-        server.pluginManager.addPermission(Permission("cjm.default", PermissionDefault.TRUE))
     }
 
     @AfterEach
@@ -47,7 +45,17 @@ class MessageSenderTest {
     }
 
     @Test
-    fun reloadPermissions_RegistersAllPermissions() {
+    fun typeMap_AllNames_Lowercase() {
+        for (typeName in plugin.messageSender.typeMap.keys) {
+            assertEquals(typeName, typeName.lowercase())
+        }
+        for (type in plugin.messageSender.typeMap.values) {
+            assertEquals(type.name, type.name.lowercase())
+        }
+    }
+
+    @Test
+    fun reloadPermissions_RegistersAllCustomPermissions() {
         val file = Files.createTempFile("config", ".yml").toFile()
         val config = SimplixBuilder.fromFile(file).createYaml()
         for (action in MessageAction.entries) {
@@ -59,7 +67,7 @@ class MessageSenderTest {
             }
         }
 
-        messageSender.reloadPermissions(config)
+        messageSender.reloadCustomPermissions(config)
 
         for (action in MessageAction.entries) {
             for (visibility in MessageVisibility.entries) {
@@ -71,7 +79,7 @@ class MessageSenderTest {
     }
 
     @Test
-    fun reloadPermissions_UnregistersPermissions() {
+    fun reloadPermissions_UnregistersCustomPermissions() {
         val file = Files.createTempFile("config", ".yml").toFile()
         val config = SimplixBuilder.fromFile(file).createYaml()
         for (action in MessageAction.entries) {
@@ -83,9 +91,9 @@ class MessageSenderTest {
             }
         }
 
-        messageSender.reloadPermissions(config)
+        messageSender.reloadCustomPermissions(config)
         config.clear()
-        messageSender.reloadPermissions(config)
+        messageSender.reloadCustomPermissions(config)
 
         for (action in MessageAction.entries) {
             for (visibility in MessageVisibility.entries) {

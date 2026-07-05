@@ -29,8 +29,6 @@ class QuitEventTest {
         player = server.addPlayer()
         messageTypeMock = MessageTypeMock(plugin)
         plugin.messageSender.registerType(messageTypeMock)
-        // Wacky MockBukkit permissions go brr
-        server.pluginManager.addPermission(Permission("cjm.default", PermissionDefault.TRUE))
     }
 
     @AfterEach

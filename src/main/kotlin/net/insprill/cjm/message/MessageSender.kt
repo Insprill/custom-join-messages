@@ -5,34 +5,43 @@ import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.extension.getMessage
 import net.insprill.cjm.message.types.MessageType
 import net.insprill.cjm.util.CrossPlatformScheduler
+import net.insprill.cjm.util.PermissionUtil
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
-import org.bukkit.permissions.Permission
 import org.bukkit.permissions.PermissionDefault
 
 class MessageSender(private val plugin: CustomJoinMessages) {
 
     val typeMap = HashMap<String, MessageType>()
 
-    private val registeredPermissions = ArrayList<String>()
+    private val registeredPermissions = HashMap<String, ArrayList<String>>()
 
     fun registerType(messageType: MessageType) {
-        typeMap[messageType.name.lowercase()] = messageType
+        typeMap[messageType.name] = messageType
+        plugin.toggleHandler.registerPermissions() // Update toggle permissions with our new message type
     }
 
-    fun reloadPermissions(config: FlatFile) {
+    fun reloadCustomPermissions(config: FlatFile) {
         val pm = Bukkit.getPluginManager()
-        registeredPermissions.forEach { pm.removePermission(it) }
-        registeredPermissions.clear()
+        var registeredPerms = registeredPermissions[config.name]
+
+        if (registeredPerms == null) {
+            registeredPerms = ArrayList()
+            registeredPermissions[config.name] = registeredPerms
+        } else {
+            registeredPerms.forEach { pm.removePermission(it) }
+            registeredPerms.clear()
+        }
+
         for (action in MessageAction.entries) {
             for (visibility in MessageVisibility.entries) {
                 val path = visibility.configSection + "." + action.configSection
                 for (key in config.singleLayerKeySet(path)) {
-                    val permission = config.getString("$path.$key.Permission") ?: continue
-                    if (pm.getPermission(permission) == null && permission != "cjm.default") {
-                        pm.addPermission(Permission(permission, PermissionDefault.FALSE))
+                    val perm = config.getString("$path.$key.Permission") ?: continue
+                    if (perm != "cjm.default") {
+                        PermissionUtil.registerIfMissing(perm, PermissionDefault.FALSE)
                     }
-                    registeredPermissions.add(permission)
+                    registeredPerms.add(perm)
                 }
             }
         }

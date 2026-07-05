@@ -37,8 +37,6 @@ class WorldChangeEventTest {
         world = server.addSimpleWorld("world")
         world1 = server.addSimpleWorld("world1")
         world2 = server.addSimpleWorld("world2")
-        // Wacky MockBukkit permissions go brr
-        server.pluginManager.addPermission(Permission("cjm.default", PermissionDefault.TRUE))
     }
 
     @AfterEach
