@@ -10,10 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v6
         with:
           # https://github.com/gradle/actions/blob/main/docs/setup-gradle.md#using-the-cache-read-only
           cache-read-only: ${{ github.ref != 'refs/heads/master' && github.ref_type != 'tag' }}

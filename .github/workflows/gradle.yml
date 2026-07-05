@@ -7,13 +7,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v6
         with:
           # https://github.com/gradle/actions/blob/main/docs/setup-gradle.md#using-the-cache-read-only
-          cache-read-only: ${{ github.ref != 'refs/heads/master' && github.ref != 'refs/heads/develop' && github.ref_type != 'tag' }}
+          cache-read-only: ${{ github.ref != 'refs/heads/master' && github.ref_type != 'tag' }}
 
       - name: Build
         run: ./gradlew build -x test
@@ -22,7 +22,7 @@ jobs:
         run: ./gradlew test
 
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: Custom Join Messages
           path: build/libs
