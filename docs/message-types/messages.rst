@@ -52,7 +52,7 @@ The players that will receive a message will be referred to as "recipients" thro
 
 * **Permission**: The permission needed for this message to be displayed.
 * **Delay**: The delay, in ticks, before the message is displayed.
-* **Radius**: The radius around the player to display the message. Set to ``-1`` to disable. Set to ``0`` to only send it to the player triggering the message.
+* **Radius**: The radius around the player to display the message. Set to ``-1`` to disable.
 * **Max-Players**: The maximum number of players online in which the message will be sent. Set to ``-1`` to disable.
 * **Min-Players**: The minimum number of players online in which the message will be sent. Set to ``-1`` to disable.
 
