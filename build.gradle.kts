@@ -3,19 +3,20 @@ import java.net.URI
 import java.util.concurrent.Executors
 
 plugins {
-    kotlin("jvm") version "2.3.21"
+    kotlin("jvm") version "2.4.0"
     id("org.ajoberstar.grgit") version "5.3.3"
     id("net.kyori.blossom") version "2.2.0"
     id("com.gradleup.shadow") version "9.4.1"
     id("com.modrinth.minotaur") version "2.9.0"
     id("io.papermc.hangar-publish-plugin") version "0.1.4"
-    id("com.rikonardo.papermake") version "1.0.6"
+    id("com.rikonardo.papermake") version "1.0.7"
 }
 
 group = "net.insprill"
 version = "${project.version}${versionMetadata()}"
 
 repositories {
+    mavenCentral()
     maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/") // Spigot-API
     maven("https://jitpack.io") // AdvancedVanish, SimplixStorage, SuperVanish, VanishNoPacket, Vault
     maven("https://repo.aikar.co/content/groups/aikar/") // ACF
@@ -42,13 +43,13 @@ dependencies {
     compileOnly("org.sayandev:sayanvanish-bukkit:1.6.3") { isTransitive = false }
 
     // Internal
-    compileOnly("org.spigotmc:spigot-api:26.1.2-R0.1-SNAPSHOT")
-    compileOnly("net.kyori:adventure-text-minimessage:5.0.1")
-    compileOnly("net.kyori:adventure-text-serializer-gson:5.0.1")
+    compileOnly("org.spigotmc:spigot-api:26.2-R0.1-SNAPSHOT")
+    compileOnly("net.kyori:adventure-text-minimessage:5.2.0")
+    compileOnly("net.kyori:adventure-text-serializer-gson:5.2.0")
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
     implementation("com.github.simplix-softworks:simplixstorage:3.2.7")
     implementation("de.themoep:minedown:1.7.1-SNAPSHOT")
-    implementation("net.insprill:spigot-utils:0.6.0")
+    implementation("net.insprill:spigot-utils:0.6.1")
     implementation("net.swiftzer.semver:semver:2.1.0")
     implementation("org.bstats:bstats-bukkit:3.2.1")
 
@@ -57,8 +58,8 @@ dependencies {
 
     // Tests
     testImplementation("io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT")
-    testImplementation("org.mockbukkit.mockbukkit:mockbukkit-v1.21:4.108.0")
-    testImplementation(platform("org.junit:junit-bom:6.0.3"))
+    testImplementation("org.mockbukkit.mockbukkit:mockbukkit-v1.21:4.110.0")
+    testImplementation(platform("org.junit:junit-bom:6.1.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
