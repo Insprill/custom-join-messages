@@ -98,6 +98,7 @@ tasks {
     }
 
     val extraDeps = register("downloadExtraDependencies") {
+        description = "Downloads dependencies which aren't in any Maven repos."
         val libsDir = File("libs")
         libsDir.mkdirs()
         val ex = Executors.newCachedThreadPool()
