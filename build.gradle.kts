@@ -3,10 +3,10 @@ import java.net.URI
 import java.util.concurrent.Executors
 
 plugins {
-    kotlin("jvm") version "2.4.0"
+    kotlin("jvm") version "2.4.20"
     id("org.ajoberstar.grgit") version "5.3.3"
     id("net.kyori.blossom") version "2.2.0"
-    id("com.gradleup.shadow") version "9.4.1"
+    id("com.gradleup.shadow") version "9.6.1"
     id("com.modrinth.minotaur") version "2.9.0"
     id("io.papermc.hangar-publish-plugin") version "0.1.4"
     id("com.rikonardo.papermake") version "1.0.7"
@@ -43,7 +43,7 @@ dependencies {
     compileOnly("org.sayandev:sayanvanish-bukkit:1.6.3") { isTransitive = false }
 
     // Internal
-    compileOnly("org.spigotmc:spigot-api:26.2-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc:spigot-api:26.3-R0.1-SNAPSHOT")
     compileOnly("net.kyori:adventure-text-minimessage:5.2.0")
     compileOnly("net.kyori:adventure-text-serializer-gson:5.2.0")
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
@@ -58,8 +58,8 @@ dependencies {
 
     // Tests
     testImplementation("io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT")
-    testImplementation("org.mockbukkit.mockbukkit:mockbukkit-v1.21:4.110.0")
-    testImplementation(platform("org.junit:junit-bom:6.1.1"))
+    testImplementation("org.mockbukkit.mockbukkit:mockbukkit-v1.21:4.116.3")
+    testImplementation(platform("org.junit:junit-bom:6.1.3"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
@@ -102,14 +102,14 @@ tasks {
         val libsDir = File("libs")
         libsDir.mkdirs()
         val ex = Executors.newCachedThreadPool()
-        for (entry in extraDependencies) {
-            val file = File(libsDir, entry.key)
+        for ((fileName, url) in extraDependencies) {
+            val file = File(libsDir, fileName)
             if (file.exists())
                 continue
             ex.submit {
-                println("Downloading ${entry.key} from ${entry.value}")
-                URI.create(entry.value).toURL().openStream().use { s -> file.outputStream().use { it.write(s.readBytes()) } }
-                println("Successfully downloaded ${entry.key} to ${file.path}")
+                println("Downloading $fileName from $url")
+                URI.create(url).toURL().openStream().use { s -> file.outputStream().use { it.write(s.readBytes()) } }
+                println("Successfully downloaded $fileName to ${file.path}")
             }
         }
         ex.shutdown()
@@ -212,7 +212,8 @@ val minecraftVersions = arrayOf(
     "26.1",
     "26.1.1",
     "26.1.2",
-    "26.2"
+    "26.2",
+    "26.3",
 )
 
 modrinth {
