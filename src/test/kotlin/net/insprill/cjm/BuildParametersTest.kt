@@ -35,6 +35,7 @@ class BuildParametersTest {
             BuildParameters.TARGET_PLATFORM == "hangar"
                     || BuildParameters.TARGET_PLATFORM == "modrinth"
                     || BuildParameters.TARGET_PLATFORM == "spigot"
+                    || BuildParameters.TARGET_PLATFORM == "curseforge"
         )
     }
 

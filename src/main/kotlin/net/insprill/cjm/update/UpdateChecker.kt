@@ -53,6 +53,7 @@ abstract class UpdateChecker(private val plugin: CustomJoinMessages) {
     }
 
     enum class Platform(val factory: (CustomJoinMessages) -> UpdateChecker) {
+        CURSEFORGE({ CurseForgeUpdateChecker(it) }),
         HANGAR({ HangarUpdateChecker(it) }),
         MODRINTH({ ModrinthUpdateChecker(it) }),
         SPIGOT({ SpigotUpdateChecker(it) }),

@@ -6,7 +6,7 @@ import net.insprill.cjm.CustomJoinMessages
 import java.time.Instant
 import java.time.ZoneOffset
 
-class ModrinthUpdateChecker(plugin: CustomJoinMessages) : UpdateChecker(plugin) {
+open class ModrinthUpdateChecker(plugin: CustomJoinMessages) : UpdateChecker(plugin) {
 
     override val platform = Platform.MODRINTH
     override val resourceUrl = "https://modrinth.com/plugin/%s".format(BuildParameters.MODRINTH_PROJECT_ID)

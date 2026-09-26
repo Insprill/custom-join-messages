@@ -143,7 +143,7 @@ If you're new to contributing to open-source projects, you can follow [this](htt
 <!-- Statistics -->
 ## Statistics
 
-[![Statistics](https://bstats.org/signatures/bukkit/Custom%20Join%20Messages.svg)][bstats-url]
+[![Statistics][bstats-servers-svg]][bstats-url]
 
 Statistics are collected through [bStats][bstats-url],
 an open-source service that collects anonymous data for Minecraft software. You can opt out in `plugins/bStats/config.yml`.

@@ -1,3 +1,4 @@
+import net.darkhax.curseforgegradle.TaskPublishCurseForge
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.net.URI
 import java.util.concurrent.Executors
@@ -5,6 +6,7 @@ import java.util.concurrent.Executors
 plugins {
     kotlin("jvm") version "2.4.20"
     id("org.ajoberstar.grgit") version "5.3.3"
+    id("net.darkhax.curseforgegradle") version "1.3.33"
     id("net.kyori.blossom") version "2.2.0"
     id("com.gradleup.shadow") version "9.6.1"
     id("com.modrinth.minotaur") version "2.9.0"
@@ -138,6 +140,7 @@ sourceSets {
         blossom {
             javaSources {
                 property("bstatsId", project.property("bstats.id") as String)
+                property("curseforgeProjectId", project.property("curseforge.project.id") as String)
                 property("hangarProjectId", project.property("hangar.project.id") as String)
                 property("modrinthProjectId", project.property("modrinth.project.id") as String)
                 property("spigotResourceId", project.property("spigot.resource.id") as String)
@@ -244,6 +247,17 @@ hangarPublish {
             }
         }
     }
+}
+
+tasks.register<TaskPublishCurseForge>("publishCurseForge") {
+    description = "Publish release on CurseForge"
+    apiToken = System.getenv("CURSEFORGE_API_TOKEN") ?: findProperty("curseforgeToken") as String?
+    val projectId = findProperty("curseforge.project.id") as String
+    val mainFile = upload(projectId, tasks.shadowJar.flatMap { it.archiveFile })
+    mainFile.changelog = readChangelog(project.version as String)
+    mainFile.changelogType = "markdown"
+    mainFile.releaseType = "release"
+    mainFile.addGameVersion(*minecraftVersions)
 }
 
 fun versionMetadata(): String {
