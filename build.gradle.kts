@@ -219,7 +219,7 @@ val minecraftVersions = arrayOf(
 modrinth {
     changelog.set(readChangelog(project.version as String))
     token.set(System.getenv("MODRINTH_API_TOKEN") ?: findProperty("modrinthToken") as String?)
-    projectId.set(property("modrinth.project.id") as String)
+    projectId.set(findProperty("modrinth.project.id") as String)
     versionType.set(if ((findProperty("build.is-release") as String? ?: "true").toBoolean()) "release" else "alpha")
     uploadFile.set(tasks.shadowJar.get())
     loaders.addAll("spigot", "paper", "folia", "purpur")
@@ -247,7 +247,7 @@ hangarPublish {
 }
 
 fun versionMetadata(): String {
-    if (!property("version.metadata").toString().toBoolean()) {
+    if (!findProperty("version.metadata").toString().toBoolean()) {
         return ""
     }
 
