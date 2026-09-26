@@ -99,6 +99,9 @@ open class CustomJoinMessages : JavaPlugin() {
             metrics.addCustomChart(SimplePie("config_formatting_formatter") {
                 config.getEnum("formatting.formatter", FormatterType::class.java).prettyName
             })
+            metrics.addCustomChart(SimplePie("download_platform") {
+                BuildParameters.TARGET_PLATFORM
+            })
         }
 
         val pluginHooks = getPluginHooks()
