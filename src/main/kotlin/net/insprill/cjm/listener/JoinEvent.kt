@@ -41,6 +41,7 @@ class JoinEvent(private val plugin: CustomJoinMessages) : Listener {
                     plugin.commandManager.locales.getMessage(null, MessageKey.of("cjm.update-checker.in-game.hover.hangar"))
                         .format(data.version)
 
+                UpdateChecker.Platform.GITHUB,
                 UpdateChecker.Platform.MODRINTH ->
                     plugin.commandManager.locales.getMessage(null, MessageKey.of("cjm.update-checker.in-game.hover.modrinth"))
                         .format(data.version, date, data.downloads)

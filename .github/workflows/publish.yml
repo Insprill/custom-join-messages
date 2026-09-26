@@ -33,7 +33,7 @@ jobs:
         if: ${{ env.IS_RELEASE_BUILD == 'true' }}
         env:
           MODRINTH_API_TOKEN: ${{ secrets.MODRINTH_API_TOKEN }}
-        run: ./gradlew build modrinth -x test -Pversion.metadata=${{ env.IS_DEV_BUILD }} -Pbuild.is-release=${{ env.IS_RELEASE_BUILD }} -Pbuild.target-platform=modrinth
+        run: ./gradlew build -x test modrinth -Pversion.metadata=${{ env.IS_DEV_BUILD }} -Pbuild.is-release=${{ env.IS_RELEASE_BUILD }} -Pbuild.target-platform=modrinth
 
       - name: Publish to Hangar
         env:

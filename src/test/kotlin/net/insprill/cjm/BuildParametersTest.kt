@@ -32,10 +32,11 @@ class BuildParametersTest {
     @Test
     fun targetPlatform_ValidPlatform() {
         assertTrue(
-            BuildParameters.TARGET_PLATFORM == "hangar"
+            BuildParameters.TARGET_PLATFORM == "curseforge"
+                    || BuildParameters.TARGET_PLATFORM == "github"
+                    || BuildParameters.TARGET_PLATFORM == "hangar"
                     || BuildParameters.TARGET_PLATFORM == "modrinth"
                     || BuildParameters.TARGET_PLATFORM == "spigot"
-                    || BuildParameters.TARGET_PLATFORM == "curseforge"
         )
     }
 

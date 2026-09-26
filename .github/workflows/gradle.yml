@@ -16,7 +16,7 @@ jobs:
           cache-read-only: ${{ github.ref != 'refs/heads/master' && github.ref_type != 'tag' }}
 
       - name: Build
-        run: ./gradlew build -x test
+        run: ./gradlew build -x test -Pbuild.target-platform=github
 
       - name: Run Tests
         run: ./gradlew test
