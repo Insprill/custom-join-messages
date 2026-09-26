@@ -8,6 +8,7 @@ import org.bukkit.permissions.Permission
 import org.bukkit.permissions.PermissionDefault
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockbukkit.mockbukkit.MockBukkit
@@ -46,6 +47,7 @@ class QuitEventTest {
     }
 
     @Test
+    @Suppress("DEPRECATION") // Need to use FixedMetadatValue since that's what some vanish plugin use, at least on legacy versions
     fun onPlayerQuit_Vanished_NoMessageSent() {
         player.setMetadata("vanished", FixedMetadataValue(plugin, true))
         player.disconnect()
@@ -57,7 +59,8 @@ class QuitEventTest {
     fun onPlayerQuit_ClearsDefaultMessage() {
         player.disconnect()
 
-        server.pluginManager.assertEventFired(PlayerQuitEvent::class.java) { it.quitMessage() == null }
+        val event = server.pluginManager.firedEvents.toArray().find { e -> e.javaClass == PlayerQuitEvent::class.java }
+        assertNull((event as PlayerQuitEvent).quitMessage())
     }
 
 }

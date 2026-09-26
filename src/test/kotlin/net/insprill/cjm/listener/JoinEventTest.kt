@@ -9,6 +9,7 @@ import org.bukkit.permissions.PermissionDefault
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockbukkit.mockbukkit.MockBukkit
@@ -56,6 +57,7 @@ class JoinEventTest {
     }
 
     @Test
+    @Suppress("DEPRECATION") // Need to use FixedMetadatValue since that's what some vanish plugin use, at least on legacy versions
     fun onPlayerJoin_Vanished_NoMessageSent() {
         val player = PlayerMock(server, "player")
         player.setMetadata("vanished", FixedMetadataValue(plugin, true))
@@ -84,7 +86,8 @@ class JoinEventTest {
     fun onPlayerJoin_ClearsDefaultMessage() {
         server.addPlayer()
 
-        server.pluginManager.assertEventFired(PlayerJoinEvent::class.java) { it.joinMessage() == null }
+        val event = server.pluginManager.firedEvents.toArray().find { e -> e.javaClass == PlayerJoinEvent::class.java }
+        assertNull((event as PlayerJoinEvent).joinMessage())
     }
 
 }
