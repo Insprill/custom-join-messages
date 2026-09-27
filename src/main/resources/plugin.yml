@@ -5,6 +5,7 @@ api-version: 1.13
 folia-supported: true
 author: Insprill
 description: The most advanced custom join messages plugin on the market.
+website: https://github.com/Insprill/custom-join-messages
 
 softdepend:
   - AdvancedVanish
