@@ -18,7 +18,7 @@ class MineDownFormatterTest {
     @BeforeEach
     fun setUp() {
         server = MockBukkit.mock()
-        formatter = MinedownFormatter()
+        formatter = MineDownFormatter()
     }
 
     @AfterEach

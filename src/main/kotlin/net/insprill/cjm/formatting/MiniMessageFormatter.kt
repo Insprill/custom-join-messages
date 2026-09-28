@@ -2,6 +2,7 @@ package net.insprill.cjm.formatting
 
 import net.insprill.spigotutils.MinecraftVersion
 import net.insprill.spigotutils.ServerEnvironment
+import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer
 import net.md_5.bungee.api.chat.BaseComponent
@@ -17,7 +18,11 @@ class MiniMessageFormatter : Formatter {
 
     override fun format(str: String): Array<BaseComponent> {
         if (!isCompatible()) throw IllegalStateException("MiniMessageFormatter isn't compatible with this server!")
-        val json = gsonSerializer?.serialize(MiniMessage.miniMessage().deserialize(convertLegacyCodes(str)))
+        return convertToLegacy(MiniMessage.miniMessage().deserialize(convertLegacyCodes(str)))
+    }
+
+    fun convertToLegacy(component: Component): Array<BaseComponent> {
+        val json = gsonSerializer?.serialize(component)
         return ComponentSerializer.parse(json)
     }
 

@@ -1,8 +1,6 @@
 package net.insprill.cjm.formatting
 
 import net.insprill.cjm.CustomJoinMessages
-import net.insprill.cjm.util.TestUtils.setFinalField
-import net.insprill.spigotutils.ServerEnvironment
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertInstanceOf
@@ -38,7 +36,7 @@ class FormatterTypeTest {
 
     @Test
     fun formatter_MineDown_CorrectType() {
-        assertInstanceOf(MinedownFormatter::class.java, FormatterType.MINEDOWN.formatter)
+        assertInstanceOf(MineDownFormatter::class.java, FormatterType.MINEDOWN.formatter)
     }
 
     @Test
