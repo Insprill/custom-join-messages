@@ -72,6 +72,10 @@ Update-Checker:
   Enabled: true
   # The date format used when displaying the release date of a new version.
   Date-Format: "MM-dd-yyyy HH:mm"
+  # Whether to notify when a new beta version is available.
+  # These versions may be less stable, and are not recommended for a production environment.
+  # Testing these versions is greatly appreciated, so if able, please try them out and report any issues.
+  Beta-Versions: false
   # Settings for notifications when an update is found.
   Notifications:
     # Whether operators should get notified in-game when an update is available.
