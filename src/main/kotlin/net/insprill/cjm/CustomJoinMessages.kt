@@ -242,7 +242,7 @@ open class CustomJoinMessages : JavaPlugin() {
             logger.severe("Please manually setup the new configuration and restart your server to re-enable the plugin.")
             onEnable() // Generate new configs
         } else {
-            logger.severe("Failed to rename old configuration folder. Place rename/remove it manually.")
+            logger.severe("Failed to rename old configuration folder. Please rename/remove it manually.")
         }
         Bukkit.getPluginManager().disablePlugin(this)
         return false
