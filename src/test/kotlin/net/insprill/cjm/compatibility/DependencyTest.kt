@@ -1,6 +1,7 @@
 package net.insprill.cjm.compatibility
 
 import net.insprill.cjm.CustomJoinMessages
+import org.bukkit.Bukkit
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -26,48 +27,48 @@ class DependencyTest {
     }
 
     @Test
-    fun isEnabled_NotOnServer_False() {
-        assertFalse(Dependency.VAULT.isEnabled)
+    fun isIntegrationActive_NotOnServer_False() {
+        assertFalse(Dependency.VAULT.isIntegrationActive)
     }
 
     @Test
-    fun isEnabled_OnServer_Disabled_False() {
+    fun isIntegrationActive_OnServer_Disabled_False() {
         server.pluginManager.disablePlugin(MockBukkit.createMockPlugin("Vault"))
+        Dependency.initDependencies(cjm)
 
-        assertFalse(Dependency.VAULT.isEnabled)
+        assertFalse(Dependency.VAULT.isIntegrationActive)
     }
 
     @Test
-    fun isEnabled_OnServer_Enabled_True() {
+    fun isIntegrationActive_OnServer_Enabled_True() {
         MockBukkit.createMockPlugin("Vault")
+        Dependency.initDependencies(cjm)
 
-        assertTrue(Dependency.VAULT.isEnabled)
-    }
-
-    @Test
-    fun noMinVersion_IsCompatible() {
-        assertTrue(Dependency.PAPI.isVersionCompatible(cjm))
+        assertTrue(Dependency.VAULT.isIntegrationActive)
     }
 
     @Test
     fun minVersion_InvalidVersion_IsCompatible() {
         MockBukkit.createMockPlugin("PlaceholderAPI", "1.2.3")
+        Dependency.initDependencies(cjm)
 
-        assertTrue(Dependency.PAPI.isVersionCompatible(cjm))
+        assertTrue(Dependency.PAPI.isIntegrationActive)
     }
 
     @Test
     fun cmiVersion_Minimum_IsCompatible() {
         MockBukkit.createMockPlugin("CMI", "9.7.14.3")
+        Dependency.initDependencies(cjm)
 
-        assertTrue(Dependency.CMI.isVersionCompatible(cjm))
+        assertTrue(Dependency.CMI.isIntegrationActive)
     }
 
     @Test
     fun cmiVersion_LessThanMinimum_IsNotCompatible() {
         MockBukkit.createMockPlugin("CMI", "9.7.13")
+        Dependency.initDependencies(cjm)
 
-        assertFalse(Dependency.CMI.isVersionCompatible(cjm))
+        assertFalse(Dependency.CMI.isIntegrationActive)
     }
 
 }

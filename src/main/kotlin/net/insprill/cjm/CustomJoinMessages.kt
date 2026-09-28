@@ -43,7 +43,6 @@ import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
 import java.nio.file.Path
 import java.nio.file.Paths
-import java.util.Collections
 import kotlin.collections.forEach
 import kotlin.io.path.exists
 
@@ -142,15 +141,10 @@ open class CustomJoinMessages : JavaPlugin() {
     }
 
     private fun getPluginHooks(): List<PluginHook> {
-        val hooks = ArrayList<PluginHook>()
-        for (dependency in Dependency.entries) {
-            if (!dependency.checkIntegrationActive(this))
-                continue
-
-            val hook = dependency.pluginHookClass?.getConstructor(javaClass)?.newInstance(this) ?: continue
-            hooks.add(hook)
-        }
-        return Collections.unmodifiableList(hooks)
+        Dependency.initDependencies(this)
+        return Dependency.entries
+            .filter { it.isIntegrationActive }
+            .mapNotNull { it.pluginHookClass?.getConstructor(javaClass)?.newInstance(this) }
     }
 
     private fun registerListeners() {
@@ -226,7 +220,7 @@ open class CustomJoinMessages : JavaPlugin() {
         )) {
             metrics.addCustomChart(AdvancedPie(chartId) {
                 Dependency.entries
-                    .filter { dep -> dep.isIntegrationActive.get() }
+                    .filter { dep -> dep.isIntegrationActive }
                     .filter { dep -> dep.pluginHookClass?.let(hookClass::isAssignableFrom) == true }
                     .associate { it.pluginName to 1 }
                     .ifEmpty { mapOf("None" to 1) }

@@ -12,8 +12,6 @@ import net.insprill.cjm.util.ServiceProviderUtils.getRegisteredServiceProvider
 import net.swiftzer.semver.SemVer
 import org.bukkit.Bukkit
 import org.bukkit.plugin.Plugin
-import org.jetbrains.annotations.TestOnly
-import java.util.Optional
 
 enum class Dependency(
     val pluginName: String,
@@ -36,18 +34,11 @@ enum class Dependency(
     VELOCITY_VANISH("VelocityVanish", VelocityVanishHook::class.java),
     ;
 
-    var isIntegrationActive = Optional.empty<Boolean>()
+    var isIntegrationActive = false
 
-    fun checkIntegrationActive(cjm: Plugin): Boolean {
-        isIntegrationActive = Optional.of<Boolean>(isEnabled && isVersionCompatible(cjm))
-        return isIntegrationActive.get()
-    }
+    private val isEnabled get() = Bukkit.getPluginManager().isPluginEnabled(pluginName)
 
-    @get:TestOnly
-    val isEnabled get() = Bukkit.getPluginManager().isPluginEnabled(pluginName)
-
-    @TestOnly
-    fun isVersionCompatible(cjm: Plugin): Boolean {
+    private fun isVersionCompatible(cjm: Plugin): Boolean {
         if (minVersion != null) {
             val version = Bukkit.getPluginManager()
                 .getPlugin(pluginName)
@@ -67,6 +58,14 @@ enum class Dependency(
             }
         }
         return true
+    }
+
+    companion object {
+        fun initDependencies(cjm: Plugin) {
+            Dependency.entries.forEach {
+                it.isIntegrationActive = it.isEnabled && it.isVersionCompatible(cjm)
+            }
+        }
     }
 
 }

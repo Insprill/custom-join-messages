@@ -10,7 +10,7 @@ fun String.replacePlaceholders(player: Player): String {
     for (placeholder in Placeholder.entries) {
         newMessage = newMessage.replace("%${placeholder.stringName}%", placeholder.result.invoke(player))
     }
-    if (Dependency.PAPI.isIntegrationActive.get()) {
+    if (Dependency.PAPI.isIntegrationActive) {
         newMessage = PlaceholderAPI.setPlaceholders(player, newMessage)
     }
     return newMessage
