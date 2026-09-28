@@ -26,6 +26,7 @@ import net.insprill.cjm.message.MessageSender
 import net.insprill.cjm.message.types.ActionbarMessage
 import net.insprill.cjm.message.types.BossbarMessage
 import net.insprill.cjm.message.types.ChatMessage
+import net.insprill.cjm.message.types.MessageType
 import net.insprill.cjm.message.types.SoundMessage
 import net.insprill.cjm.message.types.TitleMessage
 import net.insprill.cjm.toggle.ToggleHandler
@@ -43,6 +44,7 @@ import java.io.File
 import java.nio.file.Path
 import java.nio.file.Paths
 import java.util.Collections
+import kotlin.collections.forEach
 import kotlin.io.path.exists
 
 open class CustomJoinMessages : JavaPlugin() {
@@ -95,32 +97,6 @@ open class CustomJoinMessages : JavaPlugin() {
         cnfgLoaded = true
         config.forceReload()
 
-        if (!ServerEnvironment.isMockBukkit()) {
-            metrics = Metrics(this, BuildParameters.BSTATS_ID.toInt())
-            metrics.addCustomChart(SimplePie("worldBasedMessages") {
-                config.getBoolean("World-Based-Messages.Enabled").toString()
-            })
-            metrics.addCustomChart(SimplePie("config_formatting_formatter") {
-                config.getEnum("formatting.formatter", FormatterType::class.java).prettyName
-            })
-            metrics.addCustomChart(SimplePie("download_platform") {
-                BuildParameters.TARGET_PLATFORM
-            })
-            for ((chartId, hookClass) in mapOf(
-                "auth_integrations" to AuthHook::class.java,
-                "jail_integrations" to JailHook::class.java,
-                "vanish_integrations" to VanishHook::class.java,
-            )) {
-                metrics.addCustomChart(AdvancedPie(chartId) {
-                    Dependency.entries
-                        .filter { dep -> dep.isActive(this) }
-                        .filter { dep -> dep.pluginHookClass?.let(hookClass::isAssignableFrom) == true }
-                        .associate { it.pluginName to 1 }
-                        .ifEmpty { mapOf("None" to 1) }
-                })
-            }
-        }
-
         val pluginHooks = getPluginHooks()
         hookManager = HookManager(pluginHooks)
 
@@ -137,15 +113,13 @@ open class CustomJoinMessages : JavaPlugin() {
             SoundMessage(this),
             TitleMessage(this),
         )
-
         messageTypes.forEach {
-            if (!ServerEnvironment.isMockBukkit()) {
-                metrics.addCustomChart(SimplePie("message_type_" + it.name) { it.isEnabled.toString() })
-            }
             messageSender.registerType(it)
         }
 
         registerCommands()
+
+        initMetrics(messageTypes)
 
         val platform = UpdateChecker.Platform.valueOf(BuildParameters.TARGET_PLATFORM.uppercase())
         updateChecker = platform.factory.invoke(this)
@@ -170,7 +144,7 @@ open class CustomJoinMessages : JavaPlugin() {
     private fun getPluginHooks(): List<PluginHook> {
         val hooks = ArrayList<PluginHook>()
         for (dependency in Dependency.entries) {
-            if (!dependency.isActive(this))
+            if (!dependency.checkIntegrationActive(this))
                 continue
 
             val hook = dependency.pluginHookClass?.getConstructor(javaClass)?.newInstance(this) ?: continue
@@ -221,6 +195,43 @@ open class CustomJoinMessages : JavaPlugin() {
         val cjmCommand = CjmCommand(commandManager, this)
         cjmCommand.updateLocale()
         commandManager.registerCommand(cjmCommand)
+    }
+
+    private fun initMetrics(messageTypes: List<MessageType>) {
+        if (ServerEnvironment.isMockBukkit())
+            return
+
+        metrics = Metrics(this, BuildParameters.BSTATS_ID.toInt())
+
+        messageTypes.forEach {
+            metrics.addCustomChart(SimplePie("message_type_" + it.name) { it.isEnabled.toString() })
+        }
+
+        metrics.addCustomChart(SimplePie("worldBasedMessages") {
+            config.getBoolean("World-Based-Messages.Enabled").toString()
+        })
+
+        metrics.addCustomChart(SimplePie("config_formatting_formatter") {
+            config.getEnum("formatting.formatter", FormatterType::class.java).prettyName
+        })
+
+        metrics.addCustomChart(SimplePie("download_platform") {
+            BuildParameters.TARGET_PLATFORM
+        })
+
+        for ((chartId, hookClass) in mapOf(
+            "auth_integrations" to AuthHook::class.java,
+            "jail_integrations" to JailHook::class.java,
+            "vanish_integrations" to VanishHook::class.java,
+        )) {
+            metrics.addCustomChart(AdvancedPie(chartId) {
+                Dependency.entries
+                    .filter { dep -> dep.isIntegrationActive.get() }
+                    .filter { dep -> dep.pluginHookClass?.let(hookClass::isAssignableFrom) == true }
+                    .associate { it.pluginName to 1 }
+                    .ifEmpty { mapOf("None" to 1) }
+            })
+        }
     }
 
     private fun handleLegacyConfig(path: Path): Boolean {
