@@ -27,7 +27,7 @@ class MineDownFormatter : Formatter {
 
     companion object {
         fun isCompatible(): Boolean {
-            return MinecraftVersion.isAtLeast(MinecraftVersion.v1_12_2)
+            return MinecraftVersion.isAtLeast(MinecraftVersion.v1_15_2)
         }
     }
 
