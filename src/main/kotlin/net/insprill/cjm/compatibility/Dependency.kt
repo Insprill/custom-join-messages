@@ -14,7 +14,7 @@ import org.bukkit.Bukkit
 import org.bukkit.plugin.Plugin
 
 enum class Dependency(
-    private val pluginName: String,
+    val pluginName: String,
     val pluginHookClass: Class<out PluginHook?>? = null,
     val clazz: Any? = null,
     private val minVersion: SemVer? = null
@@ -56,6 +56,10 @@ enum class Dependency(
             }
         }
         return true
+    }
+
+    fun isActive(cjm: Plugin): Boolean {
+        return isEnabled && isVersionCompatible(cjm)
     }
 
 }

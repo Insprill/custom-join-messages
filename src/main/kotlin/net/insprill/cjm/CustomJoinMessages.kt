@@ -7,17 +7,15 @@ import de.leonhard.storage.Yaml
 import de.leonhard.storage.internal.settings.ConfigSettings
 import de.leonhard.storage.internal.settings.DataType
 import de.leonhard.storage.internal.settings.ReloadSettings
-import java.io.File
-import java.nio.file.Path
-import java.nio.file.Paths
-import java.util.Collections
-import kotlin.io.path.exists
 import net.insprill.cjm.command.CjmCommand
 import net.insprill.cjm.command.CommandCompletion
 import net.insprill.cjm.command.CommandContext
 import net.insprill.cjm.compatibility.Dependency
+import net.insprill.cjm.compatibility.hook.AuthHook
 import net.insprill.cjm.compatibility.hook.HookManager
+import net.insprill.cjm.compatibility.hook.JailHook
 import net.insprill.cjm.compatibility.hook.PluginHook
+import net.insprill.cjm.compatibility.hook.VanishHook
 import net.insprill.cjm.extension.getMessage
 import net.insprill.cjm.formatting.Formatter
 import net.insprill.cjm.formatting.FormatterType
@@ -37,9 +35,15 @@ import net.insprill.spigotutils.MinecraftVersion
 import net.insprill.spigotutils.ServerEnvironment
 import net.swiftzer.semver.SemVer
 import org.bstats.bukkit.Metrics
+import org.bstats.charts.AdvancedPie
 import org.bstats.charts.SimplePie
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
+import java.io.File
+import java.nio.file.Path
+import java.nio.file.Paths
+import java.util.Collections
+import kotlin.io.path.exists
 
 open class CustomJoinMessages : JavaPlugin() {
 
@@ -102,6 +106,19 @@ open class CustomJoinMessages : JavaPlugin() {
             metrics.addCustomChart(SimplePie("download_platform") {
                 BuildParameters.TARGET_PLATFORM
             })
+            for ((chartId, hookClass) in mapOf(
+                "auth_integrations" to AuthHook::class.java,
+                "jail_integrations" to JailHook::class.java,
+                "vanish_integrations" to VanishHook::class.java,
+            )) {
+                metrics.addCustomChart(AdvancedPie(chartId) {
+                    Dependency.entries
+                        .filter { dep -> dep.isActive(this) }
+                        .filter { dep -> dep.pluginHookClass?.let(hookClass::isAssignableFrom) == true }
+                        .associate { it.pluginName to 1 }
+                        .ifEmpty { mapOf("None" to 1) }
+                })
+            }
         }
 
         val pluginHooks = getPluginHooks()
@@ -153,9 +170,7 @@ open class CustomJoinMessages : JavaPlugin() {
     private fun getPluginHooks(): List<PluginHook> {
         val hooks = ArrayList<PluginHook>()
         for (dependency in Dependency.entries) {
-            if (!dependency.isEnabled)
-                continue
-            if (!dependency.isVersionCompatible(this))
+            if (!dependency.isActive(this))
                 continue
 
             val hook = dependency.pluginHookClass?.getConstructor(javaClass)?.newInstance(this) ?: continue
