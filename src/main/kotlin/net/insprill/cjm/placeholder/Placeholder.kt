@@ -8,8 +8,8 @@ import org.bukkit.entity.Player
 enum class Placeholder(internal val stringName: String, internal val result: (Player) -> String) {
     DISPLAY_NAME("displayname", { it.customName ?: it.displayName }),
     NAME("name", { it.name }),
-    PREFIX("prefix", { if (Dependency.VAULT.isIntegrationActive) (Dependency.VAULT.clazz as Chat).getPlayerPrefix(it) ?: "" else "" }),
-    SUFFIX("suffix", { if (Dependency.VAULT.isIntegrationActive) (Dependency.VAULT.clazz as Chat).getPlayerSuffix(it) ?: "" else "" }),
+    PREFIX("prefix", { if (Dependency.VAULT.isIntegrationActive) (Dependency.VAULT.registeredServiceProvider as Chat).getPlayerPrefix(it) ?: "" else "" }),
+    SUFFIX("suffix", { if (Dependency.VAULT.isIntegrationActive) (Dependency.VAULT.registeredServiceProvider as Chat).getPlayerSuffix(it) ?: "" else "" }),
     UNIQUE_JOINS("uniquejoins", { FastOfflinePlayers.count.toString() }),
     UUID("uuid", { it.uniqueId.toString() }),
 }

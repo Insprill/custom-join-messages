@@ -1,5 +1,6 @@
 package net.insprill.cjm.compatibility
 
+import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.compatibility.advancedvanish.AdvancedVanishHook
 import net.insprill.cjm.compatibility.authme.AuthMeHook
 import net.insprill.cjm.compatibility.cmi.CmiHook
@@ -12,29 +13,45 @@ import net.insprill.cjm.util.ServiceProviderUtils.getRegisteredServiceProvider
 import net.swiftzer.semver.SemVer
 import org.bukkit.Bukkit
 import org.bukkit.plugin.Plugin
+import kotlin.reflect.KClass
 
 enum class Dependency(
     val pluginName: String,
-    val pluginHookClass: Class<out PluginHook?>? = null,
-    val clazz: Any? = null,
+    val pluginHookClass: KClass<out PluginHook>? = null,
+    val registeredServiceProviderName: String? = null,
     private val minVersion: SemVer? = null
 ) {
     // Make sure all dependencies are added to the
     // `softdepend` list in the plugin.yml!
-    ADVANCED_VANISH("AdvancedVanish", AdvancedVanishHook::class.java),
-    AUTH_ME("AuthMe", AuthMeHook::class.java),
-    CMI("CMI", CmiHook::class.java, minVersion = SemVer(9, 7, 14)), // 9.7.14.3 added a new method to get vanished status
-    ESSENTIALS("Essentials", EssentialsHook::class.java),
+    ADVANCED_VANISH("AdvancedVanish", AdvancedVanishHook::class),
+    AUTH_ME("AuthMe", AuthMeHook::class),
+    CMI("CMI", CmiHook::class, minVersion = SemVer(9, 7, 14)), // 9.7.14.3 added a new method to get vanished status
+    ESSENTIALS("Essentials", EssentialsHook::class),
     PAPI("PlaceholderAPI"),
-    PREMIUM_VANISH("PremiumVanish", SuperVanishHook::class.java),
+    PREMIUM_VANISH("PremiumVanish", SuperVanishHook::class),
     SAYAN_VANISH("SayanVanish"),
-    SUPER_VANISH("SuperVanish", SuperVanishHook::class.java),
-    VANISH_NO_PACKET("VanishNoPacket", VanishNoPacketHook::class.java),
-    VAULT("Vault", null, getRegisteredServiceProvider("net.milkbowl.vault.chat.Chat")?.provider),
-    VELOCITY_VANISH("VelocityVanish", VelocityVanishHook::class.java),
+    SUPER_VANISH("SuperVanish", SuperVanishHook::class),
+    VANISH_NO_PACKET("VanishNoPacket", VanishNoPacketHook::class),
+    VAULT("Vault", null, "net.milkbowl.vault.chat.Chat"),
+    VELOCITY_VANISH("VelocityVanish", VelocityVanishHook::class),
     ;
 
     var isIntegrationActive = false
+        private set
+    var pluginHook: PluginHook? = null
+        private set
+
+    // Lazy init this to give whatever plugin implements it time to register
+    val registeredServiceProvider: Any?
+        get() = registeredServiceProviderName
+            ?.takeIf { isIntegrationActive }
+            ?.let { getRegisteredServiceProvider(it)?.provider }
+
+    private fun init(cjm: Plugin) {
+        isIntegrationActive = isEnabled && isVersionCompatible(cjm)
+        if (!isIntegrationActive) return
+        pluginHook = pluginHookClass?.java?.getConstructor(CustomJoinMessages::class.java)?.newInstance(cjm)
+    }
 
     private val isEnabled get() = Bukkit.getPluginManager().isPluginEnabled(pluginName)
 
@@ -61,10 +78,8 @@ enum class Dependency(
     }
 
     companion object {
-        fun initDependencies(cjm: Plugin) {
-            Dependency.entries.forEach {
-                it.isIntegrationActive = it.isEnabled && it.isVersionCompatible(cjm)
-            }
+        fun initAll(cjm: Plugin) {
+            Dependency.entries.forEach { it.init(cjm) }
         }
     }
 

@@ -6,4 +6,6 @@ interface JailHook {
 
     fun isJailed(player: Player): Boolean
 
+    fun isInUse(): Boolean
+
 }

@@ -14,7 +14,6 @@ import net.insprill.cjm.compatibility.Dependency
 import net.insprill.cjm.compatibility.hook.AuthHook
 import net.insprill.cjm.compatibility.hook.HookManager
 import net.insprill.cjm.compatibility.hook.JailHook
-import net.insprill.cjm.compatibility.hook.PluginHook
 import net.insprill.cjm.compatibility.hook.VanishHook
 import net.insprill.cjm.extension.getMessage
 import net.insprill.cjm.formatting.Formatter
@@ -96,8 +95,8 @@ open class CustomJoinMessages : JavaPlugin() {
         cnfgLoaded = true
         config.forceReload()
 
-        val pluginHooks = getPluginHooks()
-        hookManager = HookManager(pluginHooks)
+        Dependency.initAll(this)
+        hookManager = HookManager(Dependency.entries.mapNotNull { it.pluginHook })
 
         registerListeners()
 
@@ -138,13 +137,6 @@ open class CustomJoinMessages : JavaPlugin() {
             return false
         }
         return true
-    }
-
-    private fun getPluginHooks(): List<PluginHook> {
-        Dependency.initDependencies(this)
-        return Dependency.entries
-            .filter { it.isIntegrationActive }
-            .mapNotNull { it.pluginHookClass?.getConstructor(javaClass)?.newInstance(this) }
     }
 
     private fun registerListeners() {
@@ -213,19 +205,28 @@ open class CustomJoinMessages : JavaPlugin() {
             BuildParameters.TARGET_PLATFORM
         })
 
-        for ((chartId, hookClass) in mapOf(
-            "auth_integrations" to AuthHook::class.java,
-            "jail_integrations" to JailHook::class.java,
-            "vanish_integrations" to VanishHook::class.java,
-        )) {
-            metrics.addCustomChart(AdvancedPie(chartId) {
-                Dependency.entries
-                    .filter { dep -> dep.isIntegrationActive }
-                    .filter { dep -> dep.pluginHookClass?.let(hookClass::isAssignableFrom) == true }
-                    .associate { it.pluginName to 1 }
-                    .ifEmpty { mapOf("None" to 1) }
-            })
+        addIntegrationChart<AuthHook>(metrics, "auth_integrations")
+        addIntegrationChart<VanishHook>(metrics, "vanish_integrations")
+        addIntegrationChart<JailHook>(metrics, "jail_integrations") {
+            it.pluginHook?.jailHook?.isInUse() == true
         }
+    }
+
+    private inline fun <reified T : Any> addIntegrationChart(
+        metrics: Metrics,
+        chartId: String,
+        crossinline isInUse: (Dependency) -> Boolean = { true },
+    ) {
+        metrics.addCustomChart(AdvancedPie(chartId) {
+            Dependency.entries
+                .filter {
+                    it.isIntegrationActive
+                            && it.pluginHookClass?.let { hookClass -> T::class.java.isAssignableFrom(hookClass.java) } == true
+                            && isInUse(it)
+                }
+                .associate { it.pluginName to 1 }
+                .ifEmpty { mapOf("None" to 1) }
+        })
     }
 
     private fun handleLegacyConfig(path: Path): Boolean {
