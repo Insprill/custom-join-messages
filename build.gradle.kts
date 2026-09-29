@@ -38,11 +38,11 @@ dependencies {
     compileOnly("com.github.MyzelYam:SuperVanish:6.2.19") { isTransitive = false }
     compileOnly("com.github.Syrent:VelocityVanish:3.27.2") { isTransitive = false }
     compileOnly("com.github.quantiom:AdvancedVanish:1.2.6") { isTransitive = false }
-    compileOnly("fr.xephi:authme:5.6.0") { isTransitive = false }
-    compileOnly("me.clip:placeholderapi:2.11.7") { isTransitive = false }
+    compileOnly("fr.xephi:authme:5.7.0") { isTransitive = false }
+    compileOnly("me.clip:placeholderapi:2.12.3") { isTransitive = false }
     compileOnly("net.essentialsx:EssentialsX:2.21.2") { isTransitive = false }
-    compileOnly("org.sayandev:sayanvanish-api:1.6.3") { isTransitive = false }
-    compileOnly("org.sayandev:sayanvanish-bukkit:1.6.3") { isTransitive = false }
+    compileOnly("org.sayandev:sayanvanish-api:1.7.3-SNAPSHOT") { isTransitive = false }
+    compileOnly("org.sayandev:sayanvanish-bukkit:1.7.3-SNAPSHOT") { isTransitive = false }
 
     // Internal
     compileOnly("org.spigotmc:spigot-api:26.3-R0.1-SNAPSHOT")
@@ -60,8 +60,8 @@ dependencies {
     implementation(project(":paper"))
 
     // Tests
-    testImplementation("io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT")
-    testImplementation("org.mockbukkit.mockbukkit:mockbukkit-v1.21:4.116.3")
+    testImplementation("io.papermc.paper:paper-api:26.2.build.+")
+    testImplementation("org.mockbukkit.mockbukkit:mockbukkit-v26.2:4.116.1")
     testImplementation(platform("org.junit:junit-bom:6.1.3"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
