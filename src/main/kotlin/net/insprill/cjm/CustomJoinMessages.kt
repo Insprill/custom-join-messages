@@ -58,6 +58,9 @@ open class CustomJoinMessages : JavaPlugin() {
     private lateinit var metrics: Metrics
 
     override fun onEnable() {
+        if (BuildParameters.VERSION.contains("beta"))
+            logger.warning("You're running a beta version of CJM! Please report any issues on the issue tracker.")
+
         if (!checkCompatible())
             return
 
