@@ -6,6 +6,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [17.12.0] - xxxx-xx-xx
+
+### Added
+
+- A config option to opt in to update notifications for beta versions on supported download platforms.
+
+### Fixed
+
+- MineDown being allowed to be enabled on unsupported servers, resulting in errors.
+- A potential issue with Vault placeholders not working if the providing plugin loads after CJM.
+
+### Changed
+
+- Revamped the toggle system to be far more flexible.
+Check out [the docs](https://cjm.insprill.net/en/toggle-refactor/toggle.html) for more info. 
+The new system is backwards compatible and auto-migrates existing toggles.
+
+
 ## [17.11.0] - 2026-07-08
 
 ### Added
