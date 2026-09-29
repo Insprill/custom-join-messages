@@ -49,8 +49,11 @@ enum class Dependency(
 
     private fun init(cjm: Plugin) {
         isIntegrationActive = isEnabled && isVersionCompatible(cjm)
-        if (!isIntegrationActive) return
-        pluginHook = pluginHookClass?.java?.getConstructor(CustomJoinMessages::class.java)?.newInstance(cjm)
+        pluginHook = if (isIntegrationActive) {
+            pluginHookClass?.java?.getConstructor(CustomJoinMessages::class.java)?.newInstance(cjm)
+        } else {
+            null // Must explicitly set this back to null to not cross-contaminate tests
+        }
     }
 
     private val isEnabled get() = Bukkit.getPluginManager().isPluginEnabled(pluginName)
