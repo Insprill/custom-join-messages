@@ -1,7 +1,7 @@
 package net.insprill.cjm.toggle
 
+import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.message.MessageAction
-import org.bukkit.plugin.Plugin
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -16,13 +16,13 @@ import org.mockbukkit.mockbukkit.ServerMock
 class ToggleHandlerTest {
 
     private lateinit var toggleHandler: ToggleHandler
-    private lateinit var plugin: Plugin
+    private lateinit var plugin: CustomJoinMessages
     private lateinit var server: ServerMock
 
     @BeforeEach
     fun setUp() {
         server = MockBukkit.mock()
-        plugin = MockBukkit.createMockPlugin()
+        plugin = MockBukkit.load(CustomJoinMessages::class.java)
         toggleHandler = ToggleHandler(plugin)
     }
 
@@ -38,21 +38,62 @@ class ToggleHandlerTest {
 
     @ParameterizedTest
     @EnumSource(MessageAction::class)
-    fun isToggled_NotSet_True(action: MessageAction) {
+    fun isToggled_NotSet_True(targetAction: MessageAction) {
         val player = server.addPlayer()
 
-        assertTrue(toggleHandler.isToggled(player, action))
+        assertTrue(toggleHandler.isToggled(player, targetAction))
+        for (type in plugin.messageSender.typeMap.values) {
+            assertTrue(toggleHandler.isToggled(player, null, type))
+            assertTrue(toggleHandler.isToggled(player, targetAction, type))
+        }
     }
 
     @ParameterizedTest
     @EnumSource(MessageAction::class)
-    fun setToggled_SetsToggled(action: MessageAction) {
+    fun setToggled_Action_SetsToggled(targetAction: MessageAction) {
         val player = server.addPlayer()
 
-        toggleHandler.setToggle(player, action, false)
+        toggleHandler.setToggle(player, targetAction, null, false)
 
-        for (value in MessageAction.entries) {
-            assertEquals(value != action, toggleHandler.isToggled(player, value))
+        for (action in MessageAction.entries) {
+            assertEquals(action != targetAction, toggleHandler.isToggled(player, action))
+            for (type in plugin.messageSender.typeMap.values) {
+                assertEquals(action != targetAction, toggleHandler.isToggled(player, action, type))
+            }
+        }
+    }
+
+    @Test
+    fun setToggled_Type_SetsToggled() {
+        val player = server.addPlayer()
+        val targetType = plugin.messageSender.typeMap["chat"]
+
+        toggleHandler.setToggle(player, null, targetType, false)
+
+        for (type in plugin.messageSender.typeMap.values) {
+            assertEquals(type != targetType, toggleHandler.isToggled(player, null, type))
+        }
+
+        for (action in MessageAction.entries) {
+            for (type in plugin.messageSender.typeMap.values) {
+                assertEquals(type != targetType, toggleHandler.isToggled(player, action, type))
+            }
+        }
+    }
+
+    @ParameterizedTest
+    @EnumSource(MessageAction::class)
+    fun setToggled_Action_Type_SetsToggled(targetAction: MessageAction) {
+        val player = server.addPlayer()
+        val targetType = plugin.messageSender.typeMap["chat"]
+
+        toggleHandler.setToggle(player, targetAction, targetType, false)
+
+        for (action in MessageAction.entries) {
+            assertEquals(action != targetAction, toggleHandler.isToggled(player, action, targetType))
+            for (type in plugin.messageSender.typeMap.values) {
+                assertEquals(action != targetAction || type != targetType, toggleHandler.isToggled(player, action, type))
+            }
         }
     }
 

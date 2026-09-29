@@ -5,34 +5,43 @@ import net.insprill.cjm.CustomJoinMessages
 import net.insprill.cjm.extension.getMessage
 import net.insprill.cjm.message.types.MessageType
 import net.insprill.cjm.util.CrossPlatformScheduler
+import net.insprill.cjm.util.PermissionUtil
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
-import org.bukkit.permissions.Permission
 import org.bukkit.permissions.PermissionDefault
 
 class MessageSender(private val plugin: CustomJoinMessages) {
 
     val typeMap = HashMap<String, MessageType>()
 
-    private val registeredPermissions = ArrayList<String>()
+    private val registeredPermissions = HashMap<String, ArrayList<String>>()
 
     fun registerType(messageType: MessageType) {
-        typeMap[messageType.name.lowercase()] = messageType
+        typeMap[messageType.name] = messageType
+        plugin.toggleHandler.registerPermissions() // Update toggle permissions with our new message type
     }
 
-    fun reloadPermissions(config: FlatFile) {
+    fun reloadCustomPermissions(config: FlatFile) {
         val pm = Bukkit.getPluginManager()
-        registeredPermissions.forEach { pm.removePermission(it) }
-        registeredPermissions.clear()
+        var registeredPerms = registeredPermissions[config.name]
+
+        if (registeredPerms == null) {
+            registeredPerms = ArrayList()
+            registeredPermissions[config.name] = registeredPerms
+        } else {
+            registeredPerms.forEach { pm.removePermission(it) }
+            registeredPerms.clear()
+        }
+
         for (action in MessageAction.entries) {
             for (visibility in MessageVisibility.entries) {
                 val path = visibility.configSection + "." + action.configSection
                 for (key in config.singleLayerKeySet(path)) {
-                    val permission = config.getString("$path.$key.Permission") ?: continue
-                    if (pm.getPermission(permission) == null && permission != "cjm.default") {
-                        pm.addPermission(Permission(permission, PermissionDefault.FALSE))
+                    val perm = config.getString("$path.$key.Permission") ?: continue
+                    if (perm != "cjm.default") {
+                        PermissionUtil.registerIfMissing(perm, PermissionDefault.FALSE)
                     }
-                    registeredPermissions.add(permission)
+                    registeredPerms.add(perm)
                 }
             }
         }
@@ -48,8 +57,7 @@ class MessageSender(private val plugin: CustomJoinMessages) {
     fun trySendMessages(player: Player, action: MessageAction, vanishCheck: Boolean) {
         if (!action.canRun(plugin, player))
             return
-        if (!plugin.toggleHandler.isToggled(player, action))
-            return
+
         if (vanishCheck && plugin.hookManager.isVanished(player))
             return
         if (!plugin.config.getBoolean("Addons.Jail.Ignore-Jailed-Players") && plugin.hookManager.isJailed(player))
@@ -60,6 +68,9 @@ class MessageSender(private val plugin: CustomJoinMessages) {
             if (vanishCheck && visibility == MessageVisibility.PRIVATE && action == MessageAction.QUIT)
                 continue // Don't send private quit messages when actually quitting
             for (msg in typeMap.values.filter { it.isEnabled }) {
+                if (!plugin.toggleHandler.isToggled(player, action, msg))
+                    continue
+
                 val path = visibility.configSection + "." + action.configSection
 
                 // Get the highest priority message the player has access to.

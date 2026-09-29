@@ -35,7 +35,7 @@ abstract class MessageType(
             val prevReloadSettings = it.reloadSettings
             it.reloadSettings = ReloadSettings.MANUALLY
             try {
-                plugin.messageSender.reloadPermissions(it)
+                plugin.messageSender.reloadCustomPermissions(it)
             } finally {
                 it.reloadSettings = prevReloadSettings
             }

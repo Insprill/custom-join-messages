@@ -65,7 +65,7 @@
         * [MiniMessage][minimessage-url] ([Paper][papermc-url] only)
         * [MineDown][minedown-url]
     * All messages support HEX colors
-    * All messages support gradients when using MineDown or MiniMessage
+    * All messages support automatic gradients when using MineDown or MiniMessage
     * Chat messages support hover/click actions when using MineDown or MiniMessage
 
 * 🌎 World-Based Messages
@@ -89,6 +89,9 @@
 * 🥷 Vanish Integration
     * Send messages when vanishing/unvanishing
     * Supports most vanish plugins
+  
+* 🎚️ Fine-grained Message Toggling Per-Player
+    * Allow your players to personalize which messages they receive
 
 * 📜 Supports All Platforms
     * [Spigot][spigotmc-url]

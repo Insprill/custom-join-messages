@@ -71,12 +71,57 @@ class CjmCommand(private val manager: BukkitCommandManager, private val plugin: 
         messageType.handle(target.player, listOf(target.player), randomKey, MessageVisibility.PRIVATE)
     }
 
-    @Subcommand("toggle|t")
-    @Syntax("{@@cjm.command.toggle.syntax}")
+    @Subcommand("toggleAction|ta|toggle|t") // toggle and t are legacy, still here for backwards compat
+    @Syntax("{@@cjm.command.toggleaction.syntax}")
     @CommandCompletion("@messageAction @onOffToggle @players")
     @CommandPermission("cjm.command.toggle")
     @Description("{@@cjm.command.toggle.description}")
-    fun onToggle(sender: CommandSender, action: MessageAction, @Optional toggle: String?, @Optional providedTarget: OfflinePlayer?) {
+    fun onToggleAction(
+        sender: CommandSender,
+        action: MessageAction,
+        @Optional toggle: String?,
+        @Optional providedTarget: OfflinePlayer?
+    ) {
+        onToggle(sender, action, null, toggle, providedTarget)
+    }
+
+    @Subcommand("toggleType|tt")
+    @Syntax("{@@cjm.command.toggletype.syntax}")
+    @CommandCompletion("@messageType @onOffToggle @players")
+    @CommandPermission("cjm.command.toggle")
+    @Description("{@@cjm.command.toggle.description}")
+    fun onToggleType(
+        sender: CommandSender,
+        messageType: MessageType,
+        @Optional toggle: String?,
+        @Optional providedTarget: OfflinePlayer?
+    ) {
+        onToggle(sender, null, messageType, toggle, providedTarget)
+    }
+
+    @Subcommand("toggleActionType|tat")
+    @Syntax("{@@cjm.command.toggleactiontype.syntax}")
+    @CommandCompletion("@messageAction @messageType @onOffToggle @players")
+    @CommandPermission("cjm.command.toggle")
+    @Description("{@@cjm.command.toggle.description}")
+    fun onToggleActionType(
+        sender: CommandSender,
+        action: MessageAction,
+        messageType: MessageType,
+        @Optional toggle: String?,
+        @Optional providedTarget: OfflinePlayer?
+    ) {
+        onToggle(sender, action, messageType, toggle, providedTarget)
+    }
+
+    fun onToggle(
+        sender: CommandSender,
+        action: MessageAction?,
+        messageType: MessageType?,
+        toggle: String?,
+        providedTarget: OfflinePlayer?
+    ) {
+
         if (sender !is Player && providedTarget == null) {
             throw InvalidCommandArgument("{@@cjm.command.toggle.no-target}")
         }
@@ -87,13 +132,36 @@ class CjmCommand(private val manager: BukkitCommandManager, private val plugin: 
         }
 
         val target = providedTarget ?: sender as Player
-        val toggledTo = if (toggle != null && toggle != "toggle") {
-            toggle == "on"
-        } else {
-            !plugin.toggleHandler.isToggled(target, action)
+
+        val toggle = toggle ?: "toggle"
+        if (toggle == "status") {
+            val status = plugin.toggleHandler.isToggled(target, action, messageType)
+            manager.sendInfo(
+                sender,
+                "cjm.command.toggle.status.${if (status) "on" else "off"}",
+                "%action%",
+                action?.name?.lowercase() ?: "",
+                "%type%",
+                messageType?.let { " ${it.name}" } ?: "",// prepend space since there's none in lang to avoid double space when omitted
+            )
+            return
         }
-        plugin.toggleHandler.setToggle(target, action, toggledTo)
-        manager.sendInfo(sender, "cjm.command.toggle.${if (toggledTo) "on" else "off"}", "%action%", action.name.lowercase())
+
+        val toggledTo = if (toggle == "toggle") {
+            !plugin.toggleHandler.isToggled(target, action, messageType)
+        } else {
+            toggle == "on"
+        }
+
+        plugin.toggleHandler.setToggle(target, action, messageType, toggledTo)
+
+        manager.sendInfo(
+            sender,
+            "cjm.command.toggle.${if (toggledTo) "on" else "off"}",
+            "%action%",
+            action?.name?.lowercase() ?: "",
+            "%type%",
+            messageType?.let { " ${it.name}" } ?: "") // prepend space since there's none in lang to avoid double space when omitted
     }
 
     @Subcommand("reload")
