@@ -8,7 +8,7 @@ enum class FormatterType(
     MINEDOWN(MineDownFormatter(), "MineDown", {
         CompatibilityResult(
             MineDownFormatter.isCompatible(),
-            "You must be running 1.12.2+ to use the Minedown formatter!"
+            "You must be running 1.15.2+ to use the MineDown formatter!"
         )
     }),
     MINIMESSAGE(
