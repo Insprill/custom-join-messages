@@ -102,6 +102,7 @@ tasks {
 
     val extraDeps = register("downloadExtraDependencies") {
         description = "Downloads dependencies which aren't in any Maven repos."
+        println("")
         val libsDir = File("libs")
         libsDir.mkdirs()
         val ex = Executors.newCachedThreadPool()
@@ -255,6 +256,7 @@ tasks.register<TaskPublishCurseForge>("publishCurseForge") {
     apiToken = System.getenv("CURSEFORGE_API_TOKEN") ?: findProperty("curseforgeToken") as String?
     val projectId = findProperty("curseforge.project.id") as String
     val mainFile = upload(projectId, tasks.shadowJar.flatMap { it.archiveFile })
+    mainFile.displayName = "Custom Join Messages $version"
     mainFile.changelog = readChangelog(project.version as String)
     mainFile.changelogType = "markdown"
     mainFile.releaseType = "release"
