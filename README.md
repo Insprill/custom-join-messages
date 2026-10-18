@@ -106,7 +106,7 @@
 <!-- DOWNLOAD -->
 ## Download
 ### Releases
-Releases of CJM can be downloaded from [Modrinth][modrinth-url] (recommended), [Hangar][hangar-url], or [SpigotMC][spigot-url].
+Releases of CJM can be downloaded from [Modrinth][modrinth-url] (recommended), [CurseForge][curseforge-url], [Hangar][hangar-url], or [SpigotMC][spigot-url].
 
 ### Snapshots
 Like living on the edge?
@@ -178,6 +178,7 @@ Still need personalized support? Subscribe to my [Patreon][patreon-url] and join
 [bstats-url]: https://bstats.org/plugin/bukkit/Custom%20Join%20Messages/6346
 [spigot-rating-shield]: https://img.shields.io/spiget/rating/71608.svg?style=for-the-badge
 [github-actions-url]: https://nightly.link/Insprill/custom-join-messages/workflows/gradle/develop
+[curseforge-url]: https://www.curseforge.com/minecraft/bukkit-plugins/custom-join-messages
 [hangar-url]: https://hangar.papermc.io/Insprill/Custom-Join-Messages
 [hangar-versions-url]: https://hangar.papermc.io/Insprill/Custom-Join-Messages/versions
 [modrinth-url]: https://modrinth.com/plugin/custom-join-messages
