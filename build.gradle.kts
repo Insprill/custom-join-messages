@@ -4,7 +4,7 @@ import java.net.URI
 import java.util.concurrent.Executors
 
 plugins {
-    kotlin("jvm") version "2.4.20"
+    kotlin("jvm") version "2.4.21"
     id("org.ajoberstar.grgit") version "5.3.3"
     id("net.darkhax.curseforgegradle") version "1.3.33"
     id("net.kyori.blossom") version "2.2.0"
