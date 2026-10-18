@@ -35,6 +35,15 @@ jobs:
           MODRINTH_API_TOKEN: ${{ secrets.MODRINTH_API_TOKEN }}
         run: ./gradlew modrinthSyncBody syncAllPagesToHangar
 
+      - name: Build for GitHub
+        run: ./gradlew build -x test -Pversion.metadata=${{ env.IS_DEV_BUILD }} -Pbuild.is-release=${{ env.IS_RELEASE_BUILD }} -Pbuild.target-platform=github
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: Custom Join Messages
+          path: build/libs
+
       - name: Publish to Modrinth
         if: ${{ env.IS_RELEASE_BUILD == 'true' }}
         env:
