@@ -30,7 +30,9 @@ MiniMessage
 MiniMessage is a simple formatter designed to be easy for end users to learn.
 If you use Paper_ (which you should) you'll recognize it from their configuration files on modern Minecraft versions.
 Like MineDown, it supports the creation of complex-styled messages with gradients, clickable/hoverable messages, and more.
-Our version of MiniMessage also support basic legacy color codes to help ease the transition.
+Our version of MiniMessage also converts basic legacy color and formatting codes
+written with ``&`` or ``§`` into MiniMessage tags, including codes returned by
+placeholders.
 
 `MiniMessage Syntax`_.
 

@@ -46,6 +46,11 @@ class MiniMessageFormatterTest {
         assertEquals("§f§aHello,§f §b§lworld!", format("&aHello,&r &b&lworld!"))
     }
 
+    @Test
+    fun format_SectionSignLegacyColors() {
+        assertEquals("§f§aHello,§f §b§lworld!", format("§aHello,§r §b§lworld!"))
+    }
+
     private fun format(string: String): String {
         return TextComponent.toLegacyText(*formatter.format(string))
     }

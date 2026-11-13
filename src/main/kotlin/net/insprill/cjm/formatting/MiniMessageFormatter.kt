@@ -27,17 +27,15 @@ class MiniMessageFormatter : Formatter {
     }
 
     private fun convertLegacyCodes(str: String): String {
-        var newStr = str
-
-        LEGACY_REPLACEMENTS.forEach {
-            newStr = newStr.replace("&${it.key}", it.value)
+        return LEGACY_CODE_PATTERN.replace(str) { match ->
+            val code = match.groupValues[1].lowercase()
+            LEGACY_REPLACEMENTS[code] ?: match.value
         }
-
-        return newStr
     }
 
     companion object {
         val LEGACY_REPLACEMENTS = HashMap<String, String>()
+        private val LEGACY_CODE_PATTERN = Regex("[&§]([0-9a-fk-or])", RegexOption.IGNORE_CASE)
 
         init {
             LEGACY_REPLACEMENTS["0"] = "<black>"

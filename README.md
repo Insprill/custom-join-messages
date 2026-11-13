@@ -59,7 +59,7 @@
     * Sounds
 
 * 💬 Advanced Formatting
-    * All messages support [PlaceholderAPI][placeholderapi-url] placeholders
+    * All messages support [PlaceholderAPI][placeholderapi-url] placeholders, including nested placeholders (up to 10 levels)
     * All messages support different formatters to fit your needs
         * [Legacy Color Codes][legacy-color-codes-url]
         * [MiniMessage][minimessage-url] ([Paper][papermc-url] only)

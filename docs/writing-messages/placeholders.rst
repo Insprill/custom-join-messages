@@ -2,6 +2,8 @@ Placeholders
 ============
 
 CJM supports PlaceholderAPI_ placeholders in all messages.
+Placeholders can be nested up to 10 levels deep. If that limit is reached, CJM logs
+an error and uses the partially expanded message.
 Along with this, it also has some of its own placeholders built-in. Those are as follows:
 
 * **%displayname%**: The display name of the player.
